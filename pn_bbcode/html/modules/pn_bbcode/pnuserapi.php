@@ -235,6 +235,17 @@ function pn_bbcode_encode_code($message, $is_html_disabled)
     $codeheader_end   = pnModGetVar('pn_bbcode', 'codeheader_end');
     $codebody_start   = pnModGetVar('pn_bbcode', 'codebody_start');
     $codebody_end     = pnModGetVar('pn_bbcode', 'codebody_end');
+/*
+    // opening tag
+    $search[] = "/\[code\]/si";
+    $replace[] = $codeheader_start . pnVarPrepForDisplay(_PNBBCODE_CODE). $codeheader_end . $codebody_start;
+    // closing tag
+    $search[] = "/\[\/code\]/si";
+    $replace[] = $codebody_end;
+    $message = preg_replace($search, $replace, $message);
+*/
+    $search = array();
+    $replace = array();
 
     // opening tag
     $search[] = "/\[code\]/si";
@@ -242,6 +253,16 @@ function pn_bbcode_encode_code($message, $is_html_disabled)
     // closing tag
     $search[] = "/\[\/code\]/si";
     $replace[] = $codebody_end;
+
+    $count = preg_match_all("#(\[code\])(.*?)(\[\/code\])#si", $message, $bbcode);
+    for($i=0; $i < $count; $i++) {
+        // the code in between
+        $search[] = "/" . preg_quote($bbcode[2][0], "/") . "/";
+        $code_after  = pn_bbcode_br2nl($bbcode[2][0]);
+        $code_after  = preg_replace("/</", "&lt;", $code_after);
+        $code_after  = preg_replace("/>/", "&gt;", $code_after);
+        $replace[] = $code_after;
+    }
     $message = preg_replace($search, $replace, $message);
 
 	
