@@ -1,0 +1,34 @@
+<!--[*  $Id$  *]-->
+
+<!--[ include file=pn_bbcode_admin_menu.html ]-->
+<br />
+<fieldset>
+    <legend>
+        <!--[ pnml name='_PNBBCODE_ADMINQUOTECONFIG' ]-->
+    </legend>
+    <br />
+    
+    <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=quoteconfig ]-->" method="post">
+    <div style="clear:both; float:left; width:45%;">
+        <!--[ pnml name='_PNBBCODE_QUOTEHEADERSTART' ]--><br />
+        <textarea name="quoteheader_start" row="5" cols="40"><!--[ $quoteheader_start|pnvarprephtmldisplay ]--></textarea><br />
+        <!--[ pnml name='_PNBBCODE_QUOTEHEADEREND' ]--><br />
+        <textarea name="quoteheader_end" row="5" cols="40"><!--[ $quoteheader_end|pnvarprephtmldisplay ]--></textarea><br />
+        <!--[ pnml name='_PNBBCODE_QUOTEBODYSTART' ]--><br />
+        <textarea name="quotebody_start" row="5" cols="40"><!--[ $quotebody_start|pnvarprephtmldisplay ]--></textarea><br />
+        <!--[ pnml name='_PNBBCODE_QUOTEBODYEND' ]--><br />
+        <textarea name="quotebody_end" row="5" cols="40"><!--[ $quotebody_end|pnvarprephtmldisplay ]--></textarea><br />
+    </div>
+
+    <div style="float:left; margin-left: 20px; width: 45%;">
+       <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:<br /><br />
+       <!--[ $quoteheader_start ]-->Username<!--[ $quoteheader_end ]-->
+       <!--[ $quotebody_start ]-->text text <br />text<!--[ $quotebody_end ]-->
+    </div>
+    
+    <div style="clear:both;">
+        <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->">
+    </div>
+    </form>
+    <br />
+</fieldset>

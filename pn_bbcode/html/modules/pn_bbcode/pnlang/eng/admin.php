@@ -26,6 +26,9 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
+define('_PNBBCODE_CONFIGCHANGED', 'Configuration has been changed');
+define('_PNBBCODE_ADMINCODECONFIG', 'Configuration [code][/code]');
+define('_PNBBCODE_ADMINQUOTECONFIG', 'Configuration [quote][/quote]');
 define('_PNBBCODE_ADMINISTRATION', 'pn_bbcode Administration');
 define('_PNBBCODE_QUOTEHEADERSTART', 'Start of quote header');
 define('_PNBBCODE_QUOTEHEADEREND', 'End of quote header');
