@@ -121,6 +121,12 @@ function pn_bbcode_encode($message, $is_html_disabled)
 	$patterns = array();
 	$replacements = array();
 
+    // move all links out of the text and replace them with placeholders
+    $tagscount = preg_match_all('/<a(.*)>(.*)<\/a>/i', $message, $tags);
+    for ($i = 0; $i <$tagscount; $i++) {
+        $message = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " PNBBCODELINKREPLACEMENT{$i} ", $message, 1);
+    }
+
 	// [url]xxxx://www.phpbb.com[/url] code..
 	$patterns[0] = "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si";
 	$replacements[0] = '<a href="\1\2" >\1\2</a>';
@@ -142,6 +148,11 @@ function pn_bbcode_encode($message, $is_html_disabled)
 	$replacements[4] = '<a href="mailto:\1">\1</a>';
 
 	$message = preg_replace($patterns, $replacements, $message);
+
+    // replace the links that we removed before
+    for ($i = 0; $i <$tagscount; $i++) {
+        $message = preg_replace("/ PNBBCODELINKREPLACEMENT{$i} /", $tags[0][$i], $message, 1);
+    }
 
 	// Remove our padding from the string..
 	$message = substr($message, 1);
