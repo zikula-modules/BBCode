@@ -81,18 +81,31 @@ function pn_bbcode_admin_quoteconfig()
     $submit = pnVarCleanFromInput('submit');
     
     if(!$submit) {
+        global $additional_header;
+        $stylesheet = "modules/pn_bbcode/pnstyle/style.css";
+        $stylesheetlink = "<link rel=\"stylesheet\" href=\"$stylesheet\" type=\"text/css\" />";
+        global $additional_header;
+        if(is_array($additional_header)) {
+            $values = array_flip($additional_header);
+            if(!array_key_exists($stylesheetlink, $values) && file_exists($stylesheet) && is_readable($stylesheet)) {
+                $additional_header[] = $stylesheetlink;
+            }
+        } else {
+            if(file_exists($stylesheet) && is_readable($stylesheet)) {
+                $additional_header[] = $stylesheetlink;
+            }
+        }
+        
         $pnr =&new pnRender('pn_bbcode');
         $pnr->caching = false;
-        $pnr->assign('quoteheader_start', pnModGetVar('pn_bbcode', 'quoteheader_start'));
-        $pnr->assign('quoteheader_end',   pnModGetVar('pn_bbcode', 'quoteheader_end'));
-        $pnr->assign('quotebody_start',   pnModGetVar('pn_bbcode', 'quotebody_start'));
-        $pnr->assign('quotebody_end',     pnModGetVar('pn_bbcode', 'quotebody_end'));
+        $quote = pnModGetVar('pn_bbcode', 'quote');
+        $pnr->assign('quote', $quote);
+        $quote_preview = str_replace('%u', 'username', $quote);
+        $quote_preview = str_replace('%t', 'text text<br />text', $quote_preview);
+        $pnr->assign('quote_preview', $quote_preview);
         return $pnr->fetch('pn_bbcode_admin_quoteconfig.html');
     } else {
-        pnModSetVar('pn_bbcode', 'quoteheader_start', stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quoteheader_start'))));
-        pnModSetVar('pn_bbcode', 'quoteheader_end',   stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quoteheader_end'))));
-        pnModSetVar('pn_bbcode', 'quotebody_start',   stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quotebody_start'))));
-        pnModSetVar('pn_bbcode', 'quotebody_end',     stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quotebody_end'))));
+        pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quote'))));
         pnSessionSetVar('statusmsg', pnVarPrepForDisplay(_PNBBCODE_CONFIGCHANGED));
         pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
     }

@@ -1,4 +1,7 @@
 Version 1.15: 
+    - changed quote configuration to use one txtarea now, you can use %u for placing
+      theusername and %t now for the quoted text.
+    - using external stylesheet now if existing.
     - fixed a bug that only treated the first code tag block correctly
     - fix in code settings template
     - added user function to show some help about bbcode

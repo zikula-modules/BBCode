@@ -10,17 +10,11 @@
     
     <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=quoteconfig ]-->" method="post">
     <div style="clear:both; float:left; width:60%;">
-        <!--[ pnml name='_PNBBCODE_QUOTEHEADERSTART' ]--><br />
-        <textarea name="quoteheader_start" row="5" cols="40"><!--[ $quoteheader_start|pnvarprephtmldisplay ]--></textarea><br />
-        <!--[ pnml name='_PNBBCODE_QUOTEHEADEREND' ]--><br />
-        <textarea name="quoteheader_end" row="5" cols="40"><!--[ $quoteheader_end|pnvarprephtmldisplay ]--></textarea><br />
-        <!--[ pnml name='_PNBBCODE_QUOTEBODYSTART' ]--><br />
-        <textarea name="quotebody_start" row="5" cols="40"><!--[ $quotebody_start|pnvarprephtmldisplay ]--></textarea><br />
-        <!--[ pnml name='_PNBBCODE_QUOTEBODYEND' ]--><br />
-        <textarea name="quotebody_end" row="5" cols="40"><!--[ $quotebody_end|pnvarprephtmldisplay ]--></textarea><br />
+        <!--[ pnml name='_PNBBCODE_QUOTE' ]--><br />
+        <textarea name="quote" rows="10" cols="60"><!--[ $quote|pnvarprephtmldisplay ]--></textarea><br />
+        <div><!--[ pnml name='_PNBBCODE_QUOTEHINT' ]--><div><br />
         <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:<br /><br />
-        <!--[ $quoteheader_start|pnvarprephtmldisplay ]-->Username<!--[ $quoteheader_end|pnvarprephtmldisplay ]-->
-        <!--[ $quotebody_start|pnvarprephtmldisplay ]-->text text <br />text<!--[ $quotebody_end|pnvarprephtmldisplay ]-->
+        <!--[ $quote_preview|pnvarprephtmldisplay ]-->
         <br />
         <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->">
     </div>

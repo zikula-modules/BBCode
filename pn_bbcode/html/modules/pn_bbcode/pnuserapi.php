@@ -102,7 +102,7 @@ function pn_bbcode_encode($message, $is_html_disabled)
     // Step 1 - remove all html tags, we do not want to change them!!
     $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $message, $html);
     for ($i=0; $i < $htmlcount; $i++) {
-        $text = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $text, 1);
+        $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $message, 1);
     }
 
 	// [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.	
@@ -221,43 +221,115 @@ function pn_bbcode_encode($message, $is_html_disabled)
  */
 function pn_bbcode_encode_quote($message)
 {
-    // move all tags out of the text and replace them with placeholders
-    preg_match_all('/(<a\s+.*?\/a>|<[^>]+>)/i', $message, $matches);
-    $matchnum = count($matches[1]);
-    for ($i = 0; $i <$matchnum; $i++) {
-        $message = preg_replace('/(' . preg_quote($matches[1][$i], '/') . ')/', " PNBBCODETAGREPLACEMENT{$i} ", $message, 1);
-    }
+	// First things first: If there aren't any "[quote=" or "[quote] strings in the message, we don't
+	// need to process it at all.
+	if (!strpos(strtolower($message), "[quote=") && !strpos(strtolower($message), "[quote]"))
+	{
+		return $message;	
+	}
 
-    $quoteheader_start = pnModGetVar('pn_bbcode', 'quoteheader_start');
-    $quoteheader_end   = pnModGetVar('pn_bbcode', 'quoteheader_end');
-    $quotebody_start   = pnModGetVar('pn_bbcode', 'quotebody_start');
-    $quotebody_end     = pnModGetVar('pn_bbcode', 'quotebody_end');
-
-    $count = preg_match_all("/\[quote=(.*?)\]/si", $message, $quote);
-    $search = array();
-    $replace = array();
-    if($count>0 && is_array($quote)) {
-        for($i=0; $i<count($quote[0]);$i++) {
-            $search[] = "/" . preg_quote($quote[0][$i]) . "/si";
-            $replace[] = $quoteheader_start . $quote[1][$i] . $quoteheader_end . $quotebody_start;
+    // add the style sheet file to the additional_header array
+    $stylesheet = "modules/pn_bbcode/pnstyle/style.css";
+    $stylesheetlink = "<link rel=\"stylesheet\" href=\"$stylesheet\" type=\"text/css\" />";
+    global $additional_header;
+    if(is_array($additional_header)) {
+        $values = array_flip($additional_header);
+        if(!array_key_exists($stylesheetlink, $values) && file_exists($stylesheet) && is_readable($stylesheet)) {
+            $additional_header[] = $stylesheetlink;
+        }
+    } else {
+        if(file_exists($stylesheet) && is_readable($stylesheet)) {
+            $additional_header[] = $stylesheetlink;
         }
     }
-    // replace old style opening tags
-    $search[] = "/\[quote\]/si";
-    $replace[] = $quoteheader_start . _PNBBCODE_QUOTE . $quoteheader_end . $quotebody_start;
-    // replace closing tags
-    $search[] = "/\[\/quote\]/si";
-    $replace[] = $quotebody_end;
-    $message = preg_replace($search, $replace, $message);
-
-    // replace the HTML tags that we removed before
-    for ($i = 0; $i <$matchnum; $i++) {
-        $message = preg_replace("/ PNBBCODETAGREPLACEMENT{$i} /", $matches[1][$i], $message, 1);
-    }
-    return $message;
     
-} // pn_bbcode_encode_quote()
+    $quotebody = pnModGetVar('pn_bbcode', 'quote');
+	
+	$stack = Array();
+	$curr_pos = 1;
+	while ($curr_pos && ($curr_pos < strlen($message)))
+	{	
+		$curr_pos = strpos($message, "[", $curr_pos);
+	
+		// If not found, $curr_pos will be 0, and the loop will end.
+		if ($curr_pos)
+		{
+			// We found a [. It starts at $curr_pos.
+			// check if it's a starting or ending quote tag.
+			$possible_start = substr($message, $curr_pos, 6);
+			$possible_end_pos = strpos($message, "]", $curr_pos);
+			$possible_end = substr($message, $curr_pos, $possible_end_pos - $curr_pos + 1);
+			if (strcasecmp("[quote", $possible_start) == 0)
+			{
+				// We have a starting quote tag.
+				// Push its position on to the stack, and then keep going to the right.
+				array_push($stack, $curr_pos);
+				++$curr_pos;
+			}
+			else if (strcasecmp("[/quote]", $possible_end) == 0)
+			{
+				// We have an ending quote tag.
+				// Check if we've already found a matching starting tag.
+				if (sizeof($stack) > 0)
+				{
+					// There exists a starting tag. 
+					// We need to do 2 replacements now.
+					$start_index = array_pop($stack);
 
+					// everything before the [quote=xxx] tag.
+					$before_start_tag = substr($message, 0, $start_index);
+
+                    // find the end of the start tag
+                    $start_tag_end = strpos($message, "]", $start_index);
+                    $start_tag_len = $start_tag_end - $start_index + 1;
+                    if($start_tag_len > 7) {
+                        $username = substr($message, $start_index + 7, $start_tag_len - 8);
+                    } else {
+                        $username = 'Zitat';
+                    }
+
+					// everything after the [quote=xxx] tag, but before the [/quote] tag.
+				    $between_tags = substr($message, $start_index + $start_tag_len, $curr_pos - ($start_index + $start_tag_len));
+
+					// everything after the [/quote] tag.
+					$after_end_tag = substr($message, $curr_pos + 8);
+
+                    $quotetext = str_replace('%u', $username, $quotebody);
+                    $quotetext = str_replace('%t', $between_tags, $quotetext);
+					$message = $before_start_tag . $quotetext . $after_end_tag;
+					
+				
+					// Now.. we've screwed up the indices by changing the length of the string. 
+					// So, if there's anything in the stack, we want to resume searching just after it.
+					// otherwise, we go back to the start.
+					if (sizeof($stack) > 0)
+					{
+						$curr_pos = array_pop($stack);
+						array_push($stack, $curr_pos);
+						++$curr_pos;
+					}
+					else
+					{
+						$curr_pos = 1;
+					}
+				}
+				else
+				{
+					// No matching start tag found. Increment pos, keep going.
+					++$curr_pos;	
+				}
+			}
+			else
+			{
+				// No starting tag or ending tag.. Increment pos, keep looping.,
+				++$curr_pos;	
+			}
+		}
+	} // while
+	
+	return $message;
+	
+} // pn_bbcode_encode_quote()
 
 /**
  * Nathan Codding - Jan. 12, 2001.

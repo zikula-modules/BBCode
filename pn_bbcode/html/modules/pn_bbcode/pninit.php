@@ -52,10 +52,7 @@ function pn_bbcode_init() {
         return false;
     }
 
-    pnModSetVar('pn_bbcode', 'quoteheader_start', stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">')));
-    pnModSetVar('pn_bbcode', 'quoteheader_end',   stripslashes(pnVarPrepForStore('</legend>')));
-    pnModSetVar('pn_bbcode', 'quotebody_start',   stripslashes(pnVarPrepForStore('')));
-    pnModSetVar('pn_bbcode', 'quotebody_end',     stripslashes(pnVarPrepForStore('</fieldset>')));
+    pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">%u</legend>%t</fieldset>')));
     pnModSetVar('pn_bbcode', 'codeheader_start',  stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">')));
     pnModSetVar('pn_bbcode', 'codeheader_end',    stripslashes(pnVarPrepForStore('</legend>')));
     pnModSetVar('pn_bbcode', 'codebody_start',    stripslashes(pnVarPrepForStore('<pre>')));
@@ -99,7 +96,19 @@ function pn_bbcode_upgrade($oldversion)
             pnModSetVar('pn_bbcode', 'allow_usercolor', 'no');
             pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
             pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
-        default: break;			
+        case '1.14':
+            $quote = pnModGetVar('pn_bbcode', 'quoteheader_start') . '%u' .
+                     pnModGetVar('pn_bbcode', 'quoteheader_end') . 
+                     pnModGetVar('pn_bbcode', 'quotebody_start') . '%t' .
+                     pnModGetVar('pn_bbcode', 'quotebody_end');
+            pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore($quote)));
+            pnModDelVar('pn_bbcode', 'quoteheader_start');
+            pnModDelVar('pn_bbcode', 'quoteheader_end');
+            pnModDelVar('pn_bbcode', 'quotebody_start');
+            pnModDelVar('pn_bbcode', 'quotebody_end');
+            
+        default:
+             break;			
     }
     return true;
 }
@@ -120,10 +129,7 @@ function pn_bbcode_delete() {
         return false;
     }
 
-    pnModDelVar('pn_bbcode', 'quoteheader_start');
-    pnModDelVar('pn_bbcode', 'quoteheader_end');
-    pnModDelVar('pn_bbcode', 'quotebody_start');
-    pnModDelVar('pn_bbcode', 'quotebody_end');
+    pnModDelVar('pn_bbcode', 'quote');
     pnModDelVar('pn_bbcode', 'codeheader_start');
     pnModDelVar('pn_bbcode', 'codeheader_end');
     pnModDelVar('pn_bbcode', 'codebody_start');
