@@ -98,13 +98,13 @@ function pn_bbcode_encode($message, $is_html_disabled) {
 	$message = pn_bbcode_encode_list($message);
 	
 	// [b] and [/b] for bolding text.
-	$message = preg_replace("/\[b\](.*?)\[\/b\]/si", "<B>\\1</B>", $message);
+	$message = preg_replace("/\[b\](.*?)\[\/b\]/si", "<strong>\\1</strong>", $message);
 	
 	// [i] and [/i] for italicizing text.
-	$message = preg_replace("/\[i\](.*?)\[\/i\]/si", "<I>\\1</I>", $message);
+	$message = preg_replace("/\[i\](.*?)\[\/i\]/si", "<i>\\1</i>", $message);
 	
 	// [img]image_url_here[/img] code..
-	$message = preg_replace("#\[img\](http://)?(.*?)\[/img\]#si", "<IMG SRC=\"http://\\2\">", $message);
+	$message = preg_replace("#\[img\](http://)?(.*?)\[/img\]#si", "<img src=\"http://\\2\" alt=\"\\2\">", $message);
 	//$message = preg_replace("/\[img\](.*?)\[\/img\]/si", "<IMG SRC=\"\\1\" BORDER=\"0\">", $message);
 	
 	// Patterns and replacements for URL and email tags..
@@ -113,23 +113,23 @@ function pn_bbcode_encode($message, $is_html_disabled) {
 	
 	// [url]xxxx://www.phpbb.com[/url] code..
 	$patterns[0] = "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si";
-	$replacements[0] = '<A HREF="\1\2" TARGET="_blank">\1\2</A>';
+	$replacements[0] = '<a href="\1\2">\1\2</a>';
 	
 	// [url]www.phpbb.com[/url] code.. (no xxxx:// prefix).
 	$patterns[1] = "#\[url\](.*?)\[/url\]#si";
-	$replacements[1] = '<A HREF="http://\1" TARGET="_blank">\1</A>';
+	$replacements[1] = '<a href="http://\1">\1</a>';
 	
 	// [url=xxxx://www.phpbb.com]phpBB[/url] code.. 
 	$patterns[2] = "#\[url=([a-z]+?://){1}(.*?)\](.*?)\[/url\]#si";
-	$replacements[2] = '<A HREF="\1\2" TARGET="_blank">\3</A>';
+	$replacements[2] = '<a href="\1\2">\3</a>';
 	
 	// [url=www.phpbb.com]phpBB[/url] code.. (no xxxx:// prefix).
 	$patterns[3] = "#\[url=(.*?)\](.*?)\[/url\]#si";
-	$replacements[3] = '<A HREF="http://\1" TARGET="_blank">\2</A>';
+	$replacements[3] = '<a href="http://\1">\2</a>';
 	
 	// [email]user@domain.tld[/email] code..
 	$patterns[4] = "#\[email\](.*?)\[/email\]#si";
-	$replacements[4] = '<A HREF="mailto:\1">\1</A>';
+	$replacements[4] = '<a href="mailto:\1">\1</a>';
 						
 	$message = preg_replace($patterns, $replacements, $message);
 	
