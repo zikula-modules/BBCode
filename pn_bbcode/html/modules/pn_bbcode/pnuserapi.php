@@ -96,6 +96,12 @@ function pn_bbcode_encode($message, $is_html_disabled)
 		return $message;	
 	}
 
+    // Step 1 - remove all html tags, we do not want to change them!!
+    $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $message, $html);
+    for ($i=0; $i < $htmlcount; $i++) {
+        $text = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $text, 1);
+    }
+
 	// [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
 	$message = pn_bbcode_encode_code($message, $is_html_disabled);
 
@@ -117,16 +123,6 @@ function pn_bbcode_encode($message, $is_html_disabled)
 	// [img]image_url_here[/img] code..
 	$message = preg_replace("#\[img\](http://)?(.*?)\[/img\]#si", "<img src=\"http://\\2\" />", $message);
 	//$message = preg_replace("/\[img\](.*?)\[\/img\]/si", "<IMG SRC=\"\\1\" BORDER=\"0\">", $message);
-
-	// Patterns and replacements for URL and email tags..
-	$patterns = array();
-	$replacements = array();
-
-    // move all links out of the text and replace them with placeholders
-    $tagscount = preg_match_all('/<a(.*)>(.*)<\/a>/i', $message, $tags);
-    for ($i = 0; $i <$tagscount; $i++) {
-        $message = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " PNBBCODELINKREPLACEMENT{$i} ", $message, 1);
-    }
 
     // three new bbcodes, thanks to Chris Miller (r3ap3r)
     // [u] and [/u] for underlining text.
@@ -176,6 +172,10 @@ function pn_bbcode_encode($message, $is_html_disabled)
         $message = preg_replace("/\[size=(.*?)\](.*?)\[\/size\]/si", "\\2", $message);
     }
     
+	// Patterns and replacements for URL and email tags..
+	$patterns = array();
+	$replacements = array();
+
 	// [url]xxxx://www.phpbb.com[/url] code..
 	$patterns[0] = "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si";
 	$replacements[0] = '<a href="\1\2" >\1\2</a>';
@@ -199,8 +199,8 @@ function pn_bbcode_encode($message, $is_html_disabled)
 	$message = preg_replace($patterns, $replacements, $message);
 
     // replace the links that we removed before
-    for ($i = 0; $i <$tagscount; $i++) {
-        $message = preg_replace("/ PNBBCODELINKREPLACEMENT{$i} /", $tags[0][$i], $message, 1);
+    for ($i = 0; $i < $htmlcount; $i++) {
+        $message = preg_replace("/ PNBBCODEHTMLREPLACEMENT{$i} /", $html[0][$i], $message, 1);
     }
 
 	// Remove our padding from the string..
