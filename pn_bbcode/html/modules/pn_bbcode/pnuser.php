@@ -38,7 +38,7 @@
  * The main function is not used in the pn_bbcode module, we just rediret to index.php
  *
  */
-function pn_bbode_user_main()
+function pn_bbcode_user_main()
 {
     pnRedirect('index.php');
     return true;
