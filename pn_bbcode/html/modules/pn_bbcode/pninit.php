@@ -44,7 +44,7 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'quoteheader_start', '<div style="width: 95%; font-weight: bold; text-align: left;">' );
     pnModSetVar('pn_bbcode', 'quoteheader_end', '</div>' );
     pnModSetVar('pn_bbcode', 'quotebody_start', '<div style="width: 95%; background-color: '.$GLOBALS['bgcolor2'].'; text-align: left;">' );
-    pnModSetVar('pn_bbcode', 'quotebody_end', '</blockquote></div>' );
+    pnModSetVar('pn_bbcode', 'quotebody_end', '</div>' );
 
     // Initialisation successful
     return true;
@@ -57,7 +57,7 @@ function pn_bbcode_upgrade($oldversion)
 	        pnModSetVar('pn_bbcode', 'quoteheader_start', '<div style="width: 95%; font-weight: bold; text-align: left;">' );
 	        pnModSetVar('pn_bbcode', 'quoteheader_end', '</div>' );
 	        pnModSetVar('pn_bbcode', 'quotebody_start', '<div style="width: 95%; background-color: '.$GLOBALS['bgcolor2'].'; text-align: left;">' );
-	        pnModSetVar('pn_bbcode', 'quotebody_end', '</blockquote></div>' );
+	        pnModSetVar('pn_bbcode', 'quotebody_end', '</div>' );
         default: break;			
     }
 
