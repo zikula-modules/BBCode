@@ -250,10 +250,10 @@ function pn_bbcode_encode_code($message, $is_html_disabled)
 
     // opening tag
     $search[] = "/\[code\]/si";
-    $replace[] = $codeheader_start . pnVarPrepForDisplay(_PNBBCODE_CODE). $codeheader_end . $codebody_start;
+    $replace[] = "<!--CODE-->" . $codeheader_start . pnVarPrepForDisplay(_PNBBCODE_CODE). $codeheader_end . $codebody_start;
     // closing tag
     $search[] = "/\[\/code\]/si";
-    $replace[] = $codebody_end;
+    $replace[] = $codebody_end . "<!--/CODE-->";
 
     $count = preg_match_all("#(\[code\])(.*?)(\[\/code\])#si", $message, $bbcode);
     for($i=0; $i < $count; $i++) {
