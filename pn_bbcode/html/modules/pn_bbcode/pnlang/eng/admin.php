@@ -27,6 +27,7 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
+define('_PNBBCODE_CODE_SYNTAXHIGHLIGHTING', 'Highlight code');
 define('_PNBBCODE_CODEHINT', '%h = Header (_PNBBCODE_CODE), %c=lines of code, %j=lines of code, escaped for javasript');
 define('_PNBBCODE_CODE_ADDLINENUMBERS', 'Add line numbers');
 define('_PNBBCODE_ADMINCOLORCONFIG', 'Configuration [color][/color]');

@@ -64,6 +64,7 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'linenumbers', 'yes');
+    pnModSetVar('pn_bbcode', 'syntaxhilite', 'yes');    
 
     // Initialisation successful
     return true;
@@ -114,7 +115,8 @@ function pn_bbcode_upgrade($oldversion)
             pnModDelVar('pn_bbcode', 'codeheader_end');
             pnModDelVar('pn_bbcode', 'codebody_start');
             pnModDelVar('pn_bbcode', 'codebody_end');
-            
+        case '1.15':
+            pnModSetVar('pn_bbcode', 'syntaxhilite', 'yes');    
         default:
              break;			
     }

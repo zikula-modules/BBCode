@@ -27,6 +27,8 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
+include_once('modules/pn_bbcode/pnincludes/geshi.php');
+
 /**
  * @package PostNuke_Utility_Modules
  * @subpackage pn_bbcode
@@ -61,15 +63,6 @@ function pn_bbcode_userapi_transform($args)
 
 /**
  * the wrapper for a string var (simple up to now)
-*/
-function pn_bbcode_transform($text) 
-{
-    $message = pn_bbcode_encode($text, $is_html_disabled=false);
-    return $message;
-}
-
-
-/**
  * bbdecode/bbencode functions:
  * Rewritten - Nathan Codding - Aug 24, 2000
  * quote, code, and list rewritten again in Jan. 2001.
@@ -82,8 +75,8 @@ function pn_bbcode_transform($text)
  *
  * some changes for PostNuke: larsneo - Jan, 12, 2003
  * different [img] tag conversion against XSS
- */
-function pn_bbcode_encode($message, $is_html_disabled) 
+*/
+function pn_bbcode_transform($message) 
 {
 	// pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
 	// This is important; bbencode_quote(), bbencode_list(), and bbencode_code() all depend on it.
@@ -97,7 +90,7 @@ function pn_bbcode_encode($message, $is_html_disabled)
 	}
 
 	// [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
-	$message = pn_bbcode_encode_code($message, $is_html_disabled);
+	$message = pn_bbcode_encode_code($message);
 
     // Step 1 - remove all html tags, we do not want to change them!!
     $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $message, $html);
@@ -107,9 +100,6 @@ function pn_bbcode_encode($message, $is_html_disabled)
 
 	// [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.	
 	$message = pn_bbcode_encode_quote($message);
-
-	// [PHPS] and [/PHPS] for marking php source code
-	$message = pn_bbcode_encode_phps($message, $is_html_disabled);
 
 	// [list] and [list=x] for (un)ordered lists.
 	$message = pn_bbcode_encode_list($message);
@@ -133,7 +123,7 @@ function pn_bbcode_encode($message, $is_html_disabled)
         $message = preg_replace("#\[color=black\](.*?)\[/color\]#si", "<span style=\"color:black;\">\\1</span>", $message);
         $message = preg_replace("#\[color=darkred\](.*?)\[/color\]#si", "<span style=\"color:darkred;\">\\1</span>", $message);
         $message = preg_replace("#\[color=red\](.*?)\[/color\]#si", "<span style=\"color:red;\">\\1</span>", $message);
-        $message = preg_replace("#\[color=orange\](.*?)\[/color\]#si", "<span style=\"color:orange\\1;\">\\1</span>", $message);
+        $message = preg_replace("#\[color=orange\](.*?)\[/color\]#si", "<span style=\"color:orange;\">\\1</span>", $message);
         $message = preg_replace("#\[color=brown\](.*?)\[/color\]#si", "<span style=\"color:brown;\">\\1</span>", $message);
         $message = preg_replace("#\[color=yellow\](.*?)\[/color\]#si", "<span style=\"color:yellow;\">\\1</span>", $message);
         $message = preg_replace("#\[color=green\](.*?)\[/color\]#si", "<span style=\"color:green;\">\\1</span>", $message);
@@ -327,152 +317,111 @@ function pn_bbcode_encode_quote($message)
  * Note: This function assumes the first character of $message is a space, which is added by 
  * bbencode().
  */
-
-function pn_bbcode_encode_code($message, $is_html_disabled)
+function pn_bbcode_encode_code($message)
 {
-	// First things first: If there aren't any "[code]" strings in the message, we don't
-	// need to process it at all.
-	if (!strpos(strtolower($message), "[code]"))
-	{
-		return $message;	
-	}
-	
-    add_stylesheet_header();
-    $codebody = pnModGetVar('pn_bbcode', 'code');
-    
-	// Second things second: we have to watch out for stuff like [1code] or [/code1] in the 
-	// input.. So escape them to [#1code] or [/code#1] for now:
-	$message = preg_replace("/\[([0-9]+?)code\]/si", "[#\\1code]", $message);
-	$message = preg_replace("/\[\/code([0-9]+?)\]/si", "[/code#\\1]", $message);
-	
-	$stack = Array();
-	$curr_pos = 1;
-	$max_nesting_depth = 0;
-	while ($curr_pos && ($curr_pos < strlen($message)))
-	{	
-		$curr_pos = strpos($message, "[", $curr_pos);
-	
-		// If not found, $curr_pos will be 0, and the loop will end.
-		if ($curr_pos)
-		{
-			// We found a [. It starts at $curr_pos.
-			// check if it's a starting or ending code tag.
-			$possible_start = substr($message, $curr_pos, 6);
-			$possible_end = substr($message, $curr_pos, 7);
-			if (strcasecmp("[code]", $possible_start) == 0)
-			{
-				// We have a starting code tag.
-				// Push its position on to the stack, and then keep going to the right.
-				array_push($stack, $curr_pos);
-				++$curr_pos;
-			}
-			else if (strcasecmp("[/code]", $possible_end) == 0)
-			{
-				// We have an ending code tag.
-				// Check if we've already found a matching starting tag.
-				if (sizeof($stack) > 0)
-				{
-					// There exists a starting tag. 
-					$curr_nesting_depth = sizeof($stack);
-					$max_nesting_depth = ($curr_nesting_depth > $max_nesting_depth) ? $curr_nesting_depth : $max_nesting_depth;
-					
-					// We need to do 2 replacements now.
-					$start_index = array_pop($stack);
-
-					// everything before the [code] tag.
-					$before_start_tag = substr($message, 0, $start_index);
-
-					// everything after the [code] tag, but before the [/code] tag.
-					$between_tags = substr($message, $start_index + 6, $curr_pos - $start_index - 6);
-
-					// everything after the [/code] tag.
-					$after_end_tag = substr($message, $curr_pos + 7);
-
-					$message = $before_start_tag . "[" . $curr_nesting_depth . "code]";
-					$message .= $between_tags . "[/code" . $curr_nesting_depth . "]";
-					$message .= $after_end_tag;
-					
-					// Now.. we've screwed up the indices by changing the length of the string. 
-					// So, if there's anything in the stack, we want to resume searching just after it.
-					// otherwise, we go back to the start.
-					if (sizeof($stack) > 0)
-					{
-						$curr_pos = array_pop($stack);
-						array_push($stack, $curr_pos);
-						++$curr_pos;
-					}
-					else
-					{
-						$curr_pos = 1;
-					}
-				}
-				else
-				{
-					// No matching start tag found. Increment pos, keep going.
-					++$curr_pos;	
-				}
-			}
-			else
-			{
-				// No starting tag or ending tag.. Increment pos, keep looping.,
-				++$curr_pos;	
-			}
-		}
-	} // while
-	
-	if ($max_nesting_depth > 0)
-	{
-		for ($i = 1; $i <= $max_nesting_depth; ++$i)
-		{
-			$start_tag = pn_escape_slashes(preg_quote("[" . $i . "code]"));
-			$end_tag = pn_escape_slashes(preg_quote("[/code" . $i . "]"));
-			
-			$match_count = preg_match_all("/$start_tag(.*?)$end_tag/si", $message, $matches);
-	
-			for ($j = 0; $j < $match_count; $j++)
-			{
-				$before_replace = pn_escape_slashes(preg_quote($matches[1][$j]));
-				//$after_replace = $matches[1][$j];
-                // add line numbers if requested
-                if(pnModGetVar('pn_bbcode', 'linenumbers') == 'yes') {
-                    $lines = explode("\n", $matches[1][$j]);
-                    $after_replace = "";
-                    if(is_array($lines) && count($lines)>0) {
-                        for($lcnt=0;$lcnt<count($lines); $lcnt++) {
-                            $after_replace .= sprintf("%03d", $lcnt+1) . ": " . $lines[$lcnt] . "\n";
+    $count = preg_match_all("#(\[code=*(.*?)\])(.*?)(\[\/code\])#si", $message, $bbcode);
+    // the array $bbode now contains e.g.
+    // [0] [code=php,start=25]php code();[/code]
+    // [1] [code=php,start=25]
+    // [2] php,start=25
+    // [3] php code();
+    // [4] [/code]
+    if($count>0 && is_array($bbcode)) {
+        add_stylesheet_header();
+        // this is only needed once and will not change
+        $hilite  = (pnModGetVar('pn_bbcode', 'syntaxhilite')=='yes') ? true : false;
+        $codebody = "<!--code-->" . pnModGetVar('pn_bbcode', 'code') . "<!--/code-->";
+        for($i=0; $i < $count; $i++) {
+            // the code in between incl. code tags
+            $str_to_match = "/" . preg_quote($bbcode[0][$i], "/") . "/";
+            
+            // no parameters, set some defaults
+            $numbers = (pnModGetVar('pn_bbcode', 'linenumbers')=='yes') ? true : false;
+            $language = 'php';
+            $startline = 1;
+            // analyze parameters in [2]
+            if(strlen($bbcode[2][$i])>0) {
+                $parameters = explode(',', $bbcode[2][$i]);
+                if(is_array($parameters) && count($parameters)>0) {
+                    // $parameters[0] is the language
+                    // everything else must be parsed
+                    $language = $parameters[0];
+                    // remove it, its no longer used
+                    array_shift($parameters); 
+                    foreach($parameters as $parameter) {
+                        $singleparam = explode('=', $parameter);
+                        switch(strtolower($singleparam[0])) {
+                            case 'start':
+                                $startline = $singleparam[1];
+                                break;
+                            case 'nolines':
+                                $numbers = false;
+                                break;
+                            default:
                         }
                     }
-                } else {
-                    $after_replace = $matches[1][$j];
+                }         
+            } // parameters analyzed
+            $lines = explode("\n", $bbcode[3][$i]);
+            $after_replace = "";
+            if(is_array($lines) && count($lines)>0) {
+                // remove empty lines on top of the code
+                while($lines[0] == '' || $lines[0] == ' ' || $lines[0] == "\r") {
+                    array_shift($lines);
                 }
-                $after_replace =str_replace("<", "&lt;", $after_replace);
-                $after_replace =str_replace(">", "&gt;", $after_replace);
-                
-                // replace space with entity
-                $after_replace =str_replace(" ", "&nbsp;", $after_replace);
-                // and tab with for entities
-                $after_replace =str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", $after_replace);
+                // remove empty lines at the end of the code
+                while($lines[count($lines)-1] == '' || $lines[count($lines)-1] == ' ' || $lines[count($lines)-1] == "\r") {
+                    array_pop($lines);
+                }
+                for($lcnt=0;$lcnt<count($lines); $lcnt++) {
+                    if($numbers==true && $hilite==false) {
+                        $after_replace .= sprintf("%03d", $startline+$lcnt) . ": " . $lines[$lcnt] . "\n";
+                    } else {
+                        $after_replace .= $lines[$lcnt] . "\n";
+                    }
+                }
+            }
+            $after_replace = chop($after_replace);
 
-		        // we have to find this string and replace it	        
-				$str_to_match = $start_tag . $before_replace . $end_tag;
+            // finally decide which language to use
+            $language = ($hilite==true) ? $language : '';
 
-                // replace %h with _PNBBCODE_CODE                
-				$codetext = str_replace("%h", pnVarPrepForDisplay(_PNBBCODE_CODE), $codebody);
-                // replace %c with code                
-  	            $codetext = str_replace("%c",  $after_replace, $codetext);
-                // replace %e with urlencoded code (prepared for javascript)               
-				$codetext = str_replace("%e", urlencode(nl2br($after_replace)), $codetext);
-				$message = preg_replace("/$str_to_match/si", "<!--code-->" . $codetext . "<!--/code-->", $message);
-			}
-		}
-	}
-	
-	// Undo our escaping from "second things second" above..
-	$message = preg_replace("/\[#([0-9]+?)code\]/si", "[\\1code]", $message);
-	$message = preg_replace("/\[\/code#([0-9]+?)\]/si", "[/code\\1]", $message);
+            $geshi =& new GeSHi($after_replace, $language, 'modules/pn_bbcode/pnincludes/geshi/');
+            $geshi->set_tab_width(4);
+            $geshi->set_case_keywords(GESHI_CAPS_LOWER);
+            $geshi->set_header_type(GESHI_HEADER_DIV);
+            $geshi->set_link_styles(GESHI_LINK,    'padding-left: 0px; background-image: none;');
+            $geshi->set_link_styles(GESHI_HOVER,   'padding-left: 0px; background-image: none;');
+            $geshi->set_link_styles(GESHI_ACTIVE,  'padding-left: 0px; background-image: none;');
+            $geshi->set_link_styles(GESHI_VISITED, 'padding-left: 0px; background-image: none;');
+            if($numbers == true) {
+                $geshi->set_line_style('color: blue; font-weight: bold;', 'color: green;');
+                $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+                $geshi->start_line_numbers_at($startline);
+            } else {
+                $geshi->enable_line_numbers(GESHI_NO_LINE_NUMBERS);
+            }
+            $after_replace = $geshi->parse_code();
+            if($hilite==true) {
+                // remove \n for single linespacing
+                $after_replace = str_replace("\n", '', $after_replace);
+            }
+
+            // replace %h with _PNBBCODE_CODE                
+            $codetext = str_replace("%h", pnVarPrepForDisplay(_PNBBCODE_CODE), $codebody);
+            // replace %c with code                
+            $codetext = str_replace("%c",  $after_replace, $codetext);
+            // replace %e with urlencoded code (prepared for javascript)               
+            $codetext = str_replace("%e", urlencode(nl2br($after_replace)), $codetext);
+            $message = preg_replace($str_to_match, $codetext, $message);
+
+        }
+        $message = str_replace("\n\n","\n",$message);
+    }
 	return $message;
 	
 } // pn_bbcode_encode_code()
+
 
 /**
  * Nathan Codding - Jan. 12, 2001.
@@ -581,6 +530,26 @@ function pn_bbcode_encode_list($message)
 } // pn_bbcode_encode_list()
 
 /**
+ * get_geshi_languages
+ * read the languages supported by GeSHi for display in a dropdown list
+ *
+ */
+function pn_bbcode_userapi_get_geshi_languages()
+{
+    $langs = array();
+    if(pnModGetVar('pn_bbcode', 'syntaxhilite')=='yes') {
+        $dir = opendir('modules/pn_bbcode/pnincludes/geshi');
+        while($lang = readdir($dir)) {
+            if(preg_match("/\.php$/si", $lang)) {
+                // remove trailing .php
+                $langs[] = preg_replace("/\.php$/si", "", $lang);
+            }
+        }
+    }
+    return $langs;
+}
+
+/**
  * Nathan Codding - Oct. 30, 2000
  *
  * Escapes the "/" character with "\/". This is useful when you need
@@ -603,64 +572,6 @@ function pn_bbcode_br2nl($str)
     return preg_replace("=<br(>|([\s/][^>]*)>)\r?\n?=i", "\n", $str);
 }
 
-/**
- * encode php source code
- *
- * Credits for this function go to BraveCobra (webmaster@bravecobra.com)
- *
- */
-function pn_bbcode_encode_phps($message, $is_html_disabled)
-{
-	// First things first: If there aren't any "[phps]" strings in the message, we don't
-	// need to process it at all.
-	if (!strpos(strtolower($message), "[phps]"))
-	{
-		return $message;
-	}
-
-    add_stylesheet_header();
-
-	// Second things second: we have to watch out for stuff like [1code] or [/code1] in the
-	// input.. So escape them to [#1code] or [/code#1] for now:
-	$message = preg_replace("/\[([0-9]+?)phps\]/si", "[#\\1phps]", $message);
-	$message = preg_replace("/\[\/phps([0-9]+?)\]/si", "[/phps#\\1]", $message);
-
-    $codeheader_start = pnModGetVar('pn_bbcode', 'codeheader_start');
-    $codeheader_end   = pnModGetVar('pn_bbcode', 'codeheader_end');
-    $codebody_start   = pnModGetVar('pn_bbcode', 'codebody_start');
-    $codebody_end     = pnModGetVar('pn_bbcode', 'codebody_end');
-
-    $search = array();
-    $replace = array();
-
-    $match_count = preg_match_all("/(\[phps\])(.*?)(\[\/phps\])/si", $message, $matches);
-    for($cnt=0; $cnt<$match_count; $cnt++) {
-        $replacestr = htmlentities($matches[2][0]);  
-//        $replacestr = ereg_replace("&lt;","<", $replacestr);
-//        $replacestr = ereg_replace("&gt;",">", $replacestr);
-//        $replacestr = ereg_replace("&amp;","&",$replacestr);
-        $replacestr = preg_replace("=<br(>|([\s/][^>]*)>)\r?\n?=i", "\n", $replacestr);
-        $search[] = "/" . preg_quote($matches[2][0]) . "/";
-        $replace[] = highlight_string($replacestr, true);
-    }
-
-    // opening tag
-    $search[] = "/\[phps\]/si";
-    $replace[] = $codeheader_start . _PNBBCODE_CODE . $codeheader_end . $codebody_start;
-    // closing tag
-    $search[] = "/\[\/phps\]/si";
-    $replace[] = $codebody_end;
-    $message = preg_replace($search, $replace, $message);
-    $message = str_replace("<code>","", $message);
-    $message = str_replace("</code>","",$message);
-    $message = str_replace("\n\n","\n",$message);
-
-	// Undo our escaping from "second things second" above..
-	$message = preg_replace("/\[#([0-9]+?)phps\]/si", "[\\1phps]", $message);
-	$message = preg_replace("/\[\/phps#([0-9]+?)\]/si", "[/phps\\1]", $message);
-	return $message;
-
-} // bcPhpHighlight_encode_phps()
 
 /**
  * add_stylesheet_header

@@ -97,6 +97,10 @@ function pn_bbcode_user_bbcodes($args)
         $pnr->assign('jsheader2', "<script type=\"text/javascript\" src=\"$default_2\"></script>");
     }    
     
+    // get the languages for highlighting
+    $langs = pnModAPIFunc('pn_bbcode', 'user', 'get_geshi_languages');
+    $pnr->assign('geshi_languages', $langs);
+    
     return $pnr->fetch('pn_bbcode_user_bbcodes.html');
 }
 

@@ -61,8 +61,17 @@ function pn_bbcode_admin_codeconfig()
         	$linenumberonchecked = " ";
         	$linenumberoffchecked = " checked=\"checked\" ";
         }
+        if (pnModGetVar('pn_bbcode', 'syntaxhilite') == "yes") {
+        	$syntaxhiliteonchecked = " checked=\"checked\" ";
+        	$syntaxhiliteoffchecked = " ";
+        } else {
+        	$syntaxhiliteonchecked = " ";
+        	$syntaxhiliteoffchecked = " checked=\"checked\" ";
+        }
         $pnr->assign('linenumberonchecked', $linenumberonchecked);
         $pnr->assign('linenumberoffchecked', $linenumberoffchecked);
+        $pnr->assign('syntaxhiliteonchecked', $syntaxhiliteonchecked);
+        $pnr->assign('syntaxhiliteoffchecked', $syntaxhiliteoffchecked);
         pnModAPILoad('pn_bbcode', 'user');
         $pnr->assign('code_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform', 
                                                         array('objectid' => 1,
@@ -71,6 +80,7 @@ function pn_bbcode_admin_codeconfig()
     } else {
         pnModSetVar('pn_bbcode', 'code',  stripslashes(pnVarPrepForStore(pnVarCleanFromInput('code'))));
         pnModSetVar('pn_bbcode', 'linenumbers',  pnVarCleanFromInput('linenumbers'));
+        pnModSetVar('pn_bbcode', 'syntaxhilite',  pnVarCleanFromInput('syntaxhilite'));
         pnSessionSetVar('statusmsg', pnVarPrepForDisplay(_PNBBCODE_CONFIGCHANGED));
         pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
     }

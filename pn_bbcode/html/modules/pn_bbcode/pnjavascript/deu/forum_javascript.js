@@ -24,6 +24,21 @@ function DoColor (fontcolor) {
     return;
 }
 
+function DoCode (code) {
+    var revisedMessage;
+    var post = document.getElementById("post");
+    var currentMessage = post.message.value;
+    var codeBBCode;
+    if(code != "") {
+        code = "="+code;
+    }
+    codeBBCode= "[code"+code+"][/code]";
+    revisedMessage = currentMessage+codeBBCode;
+    post.message.value=revisedMessage;
+    post.message.focus();
+    return;
+}
+
 function DoPrompt(action) {
     var revisedMessage;
     var post = document.getElementById("post");
@@ -87,14 +102,6 @@ function DoPrompt(action) {
     if (action == "quote") {
         var quoteBBCode = "[QUOTE]  [/QUOTE]";
         revisedMessage = currentMessage+quoteBBCode;
-        post.message.value=revisedMessage;
-        post.message.focus();
-        return;
-    }
-    
-    if (action == "code") {
-        var codeBBCode = "[CODE]  [/CODE]";
-        revisedMessage = currentMessage+codeBBCode;
         post.message.value=revisedMessage;
         post.message.focus();
         return;

@@ -27,6 +27,10 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
+// new
+define('_PNBBCODE_SELECTCODE', 'select code type');
+define('_PNBBCODE_NOSPECIALCODE', 'no special code');
+
 define('_PNBBCODE_BOLD_HINT', 'bold text');
 define('_PNBBCODE_BOLD', 'b');
 define('_PNBBCODE_CODE_HINT', 'insert code');
@@ -88,6 +92,4 @@ define('_PNBBCODE_URL_HINT', 'insert a link');
 define('_PNBBCODE_URL', 'URL');
 
 define('_PNBBCODE_ARGSERROR',                 '[pn_bbcode] Internal error! Arguments missing!');
-define('_PNBBCODE_CODE', 'Code');
-define('_PNBBCODE_QUOTE', 'Quote');
 ?>
