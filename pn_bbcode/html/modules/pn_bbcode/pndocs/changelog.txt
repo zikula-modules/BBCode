@@ -1,5 +1,6 @@
 Version 1.14: January 10th, 2005
     - futher improvement in interaction with other hooks
+    - new bbcode tags for underlined text, text size and text color (configurable)
 
 Version 1.13:
     - internal version
