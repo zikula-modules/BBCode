@@ -22,7 +22,18 @@
     <input title="<!--[ pnml name='_PNBBCODE_MAIL_HINT' ]-->" type="button" accesskey="m" name="mail" value=" <!--[ pnml name='_PNBBCODE_MAIL' ]--> " style="text-decoration: underline; width: 50px;" onclick="DoPrompt('email')" />
     <input title="<!--[ pnml name='_PNBBCODE_IMAGE_HINT' ]-->" type="button" accesskey="p" name="image" value=" <!--[ pnml name='_PNBBCODE_IMAGE' ]--> " style="width: 50px;" onclick="DoPrompt('image')" />
     <input title="<!--[ pnml name='_PNBBCODE_QUOTE_HINT' ]-->" type="button" accesskey="q" name="quote" value=" <!--[ pnml name='_PNBBCODE_QUOTE' ]--> " style="width: 50px;" onclick="DoPrompt('quote')" />
-    <input title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" type="button" accesskey="c" name="code" value=" <!--[ pnml name='_PNBBCODE_CODE' ]--> " style="width: 50px;" onclick="DoPrompt('code')" />
+    <!--[ if count($geshi_languages) neq 0 ]-->
+        <!--[ pnml name='_PNBBCODE_CODE' ]-->:
+        <select title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" name="code" onchange="DoCode(this.form.code.options[this.form.code.selectedIndex].value)">
+            <option style="color:black; background-color: #FFFFFF "  value="" selected="selected"><!--[ pnml name='_PNBBCODE_SELECTCODE' ]--></option>
+            <option style="color:black; background-color: #FFFFFF "  value=""><!--[ pnml name='_PNBBCODE_NOSPECIALCODE' ]--></option>
+            <!--[ foreach item=code from=$geshi_languages ]-->
+            <option style="color:black; background-color: #FFFFFF "  value="<!--[ $code ]-->"><!--[$code ]--></option>
+            <!--[ /foreach ]-->
+        </select>
+    <!--[ else ]-->
+        <input title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" type="button" accesskey="c" name="code" value=" <!--[ pnml name='_PNBBCODE_CODE' ]--> " style="width: 50px;" onclick="DoCode('')" />
+    <!--[ /if ]-->
     <br />
     <input title="<!--[ pnml name='_PNBBCODE_LISTOPEN_HINT' ]-->" type="button" accesskey="l" name="listopen" value=" <!--[ pnml name='_PNBBCODE_LISTOPEN' ]--> " style="width: 40px;" onclick="DoPrompt('listopen')" />
     <input title="<!--[ pnml name='_PNBBCODE_LISTITEM_HINT' ]-->" type="button" accesskey="o" name="listitem" value=" <!--[ pnml name='_PNBBCODE_LISTITEM' ]--> " style="width: 40px;" onclick="DoPrompt('listitem')" />
