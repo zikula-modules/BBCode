@@ -518,7 +518,6 @@ echo "after_replace:".pnVarPrepHTMLDisplay($after_replace).":<br>";
     $replace = array();
 
     $match_count = preg_match_all("/(\[phps\])(.*?)(\[\/phps\])/si", $message, $matches);
-echo "mc: $match_count:<br>";
     for($cnt=0; $cnt<$match_count; $cnt++) {
         $replacestr = $matches[2][0];  
         $replacestr = ereg_replace("&lt;","<", $replacestr);
