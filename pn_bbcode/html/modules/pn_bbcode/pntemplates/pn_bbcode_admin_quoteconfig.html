@@ -11,12 +11,12 @@
     <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=quoteconfig ]-->" method="post">
     <div style="clear:both; float:left; width:60%;">
         <!--[ pnml name='_PNBBCODE_QUOTE' ]--><br />
-        <textarea name="quote" rows="10" cols="60"><!--[ $quote|pnvarprephtmldisplay ]--></textarea><br />
-        <div><!--[ pnml name='_PNBBCODE_QUOTEHINT' ]--><div><br />
+        <textarea name="quote" rows="10" cols="60"><!--[ $quote|pnvarprepfordisplay ]--></textarea><br />
+        <!--[ pnml name='_PNBBCODE_QUOTEHINT' ]--><br />
         <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:<br /><br />
         <!--[ $quote_preview|pnvarprephtmldisplay ]-->
         <br />
-        <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->">
+        <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
     </div>
     </form>
     <br />

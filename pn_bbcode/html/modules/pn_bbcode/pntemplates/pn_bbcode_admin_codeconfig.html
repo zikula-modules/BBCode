@@ -12,7 +12,7 @@
 
     <div style="width:80%;">
         <!--[ pnml name='_PNBBCODE_CODE' ]--><br />
-        <textarea name="code" rows="10" cols="60"><!--[ $code|pnvarprephtmldisplay ]--></textarea><br />
+        <textarea name="code" rows="10" cols="60"><!--[ $code|pnvarprepfordisplay ]--></textarea><br />
     </div>
     <div>
     <!--[ pnml name='_PNBBCODE_CODEHINT' ]-->
@@ -22,8 +22,8 @@
             <!--[ pnml name='_PNBBCODE_CODE_SYNTAXHIGHLIGHTING' ]-->&nbsp;:&nbsp;
         </div>
         <div style="float: left; width: 50%;">
-            <input type="radio" name="syntaxhilite" value="yes" <!--[ $syntaxhiliteonchecked ]-->>&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
-            <input type="radio" name="syntaxhilite" value="no" <!--[ $syntaxhiliteoffchecked ]-->>&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
+            <input type="radio" name="syntaxhilite" value="yes" <!--[ $syntaxhiliteonchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
+            <input type="radio" name="syntaxhilite" value="no" <!--[ $syntaxhiliteoffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
         </div>
     </div>
     <div style="height: 2em; width:80%;">
@@ -31,15 +31,15 @@
             <!--[ pnml name='_PNBBCODE_CODE_ADDLINENUMBERS' ]-->&nbsp;:&nbsp;
         </div>
         <div style="float: left; width: 50%;">
-            <input type="radio" name="linenumbers" value="yes" <!--[ $linenumberonchecked ]-->>&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
-            <input type="radio" name="linenumbers" value="no" <!--[ $linenumberoffchecked ]-->>&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
+            <input type="radio" name="linenumbers" value="yes" <!--[ $linenumberonchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
+            <input type="radio" name="linenumbers" value="no" <!--[ $linenumberoffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
         </div>
     </div>
     <div style="width: 60%;">
         <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:<br /><br />
         <!--[ $code_preview ]-->
         <br />
-        <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->">
+        <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
     </div>
     </form>
     <br />
