@@ -1,4 +1,10 @@
-Version 1.12: DEcember 19th 2004
+Version 1.14: January 10th, 2005
+    - futher improvement in interaction with other hooks
+
+Version 1.13:
+    - internal version
+
+Version 1.12: December 19th 2004
     - code cleanups
     - improved interaction with other hooks
 
