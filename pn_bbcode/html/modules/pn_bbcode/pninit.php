@@ -53,10 +53,7 @@ function pn_bbcode_init() {
     }
 
     pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">%u</legend>%t</fieldset>')));
-    pnModSetVar('pn_bbcode', 'codeheader_start',  stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">')));
-    pnModSetVar('pn_bbcode', 'codeheader_end',    stripslashes(pnVarPrepForStore('</legend>')));
-    pnModSetVar('pn_bbcode', 'codebody_start',    stripslashes(pnVarPrepForStore('<pre>')));
-    pnModSetVar('pn_bbcode', 'codebody_end',      stripslashes(pnVarPrepForStore('</pre></fieldset>')));
+    pnModSetVar('pn_bbcode', 'code',  stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">%h</legend><pre>%c</pre></fieldset>')));
     pnModSetVar('pn_bbcode', 'size_tiny',   '0.75em');
     pnModSetVar('pn_bbcode', 'size_small',  '0.85em');
     pnModSetVar('pn_bbcode', 'size_normal', '1.0em');
@@ -66,6 +63,7 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'allow_usercolor', 'no');
     pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
+    pnModSetVar('pn_bbcode', 'linenumbers', 'yes');
 
     // Initialisation successful
     return true;
@@ -97,15 +95,25 @@ function pn_bbcode_upgrade($oldversion)
             pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
             pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
         case '1.14':
+            pnModSetVar('pn_bbcode', 'linenumbers', 'yes');
             $quote = pnModGetVar('pn_bbcode', 'quoteheader_start') . '%u' .
                      pnModGetVar('pn_bbcode', 'quoteheader_end') . 
                      pnModGetVar('pn_bbcode', 'quotebody_start') . '%t' .
                      pnModGetVar('pn_bbcode', 'quotebody_end');
             pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore($quote)));
+            $code = pnModGetVar('pn_bbcode', 'codeheader_start') . '%h' .
+                    pnModGetVar('pn_bbcode', 'codeheader_end') . 
+                    pnModGetVar('pn_bbcode', 'codebody_start') . '%c' .
+                    pnModGetVar('pn_bbcode', 'codebody_end');
+            pnModSetVar('pn_bbcode', 'code', stripslashes(pnVarPrepForStore($code)));
             pnModDelVar('pn_bbcode', 'quoteheader_start');
             pnModDelVar('pn_bbcode', 'quoteheader_end');
             pnModDelVar('pn_bbcode', 'quotebody_start');
             pnModDelVar('pn_bbcode', 'quotebody_end');
+            pnModDelVar('pn_bbcode', 'codeheader_start');
+            pnModDelVar('pn_bbcode', 'codeheader_end');
+            pnModDelVar('pn_bbcode', 'codebody_start');
+            pnModDelVar('pn_bbcode', 'codebody_end');
             
         default:
              break;			
@@ -130,10 +138,17 @@ function pn_bbcode_delete() {
     }
 
     pnModDelVar('pn_bbcode', 'quote');
-    pnModDelVar('pn_bbcode', 'codeheader_start');
-    pnModDelVar('pn_bbcode', 'codeheader_end');
-    pnModDelVar('pn_bbcode', 'codebody_start');
-    pnModDelVar('pn_bbcode', 'codebody_end');
+    pnModDelVar('pn_bbcode', 'code');
+    pnModDelVar('pn_bbcode', 'size_tiny');
+    pnModDelVar('pn_bbcode', 'size_small');
+    pnModDelVar('pn_bbcode', 'size_normal');
+    pnModDelVar('pn_bbcode', 'size_large');
+    pnModDelVar('pn_bbcode', 'size_huge');
+    pnModDelVar('pn_bbcode', 'allow_usersize');
+    pnModDelVar('pn_bbcode', 'allow_usercolor');
+    pnModDelVar('pn_bbcode', 'color_enabled');
+    pnModDelVar('pn_bbcode', 'size_enabled');
+    pnModDelVar('pn_bbcode', 'linenumbers');
 
     // Deletion successful
     return true;

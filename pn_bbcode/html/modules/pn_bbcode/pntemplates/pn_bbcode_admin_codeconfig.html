@@ -10,19 +10,25 @@
     
     <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=codeconfig ]-->" method="post">
 
-    <div style="width:60%;">
-        <!--[ pnml name='_PNBBCODE_CODEHEADERSTART' ]--><br />
-        <textarea name="codeheader_start" row="5" cols="40"><!--[ $codeheader_start|pnvarprephtmldisplay ]--></textarea><br />
-        <!--[ pnml name='_PNBBCODE_CODEHEADEREND' ]--><br />
-        <textarea name="codeheader_end" row="5" cols="40"><!--[ $codeheader_end|pnvarprephtmldisplay ]--></textarea><br />
-        <!--[ pnml name='_PNBBCODE_CODEBODYSTART' ]--><br />
-        <textarea name="codebody_start" row="5" cols="40"><!--[ $codebody_start|pnvarprephtmldisplay ]--></textarea><br />
-        <!--[ pnml name='_PNBBCODE_CODEBODYEND' ]--><br />
-        <textarea name="codebody_end" row="5" cols="40"><!--[ $codebody_end|pnvarprephtmldisplay ]--></textarea><br />
-        <br />
+    <div style="width:80%;">
+        <!--[ pnml name='_PNBBCODE_CODE' ]--><br />
+        <textarea name="code" rows="10" cols="60"><!--[ $code|pnvarprephtmldisplay ]--></textarea><br />
+    </div>
+    <div>
+    <!--[ pnml name='_PNBBCODE_CODEHINT' ]-->
+    </div>
+    <div style="height: 2em; width:80%;">
+        <div style="float: left; width: 40%; text-align: right;">
+            <!--[ pnml name='_PNBBCODE_CODE_ADDLINENUMBERS' ]-->&nbsp;:&nbsp;
+        </div>
+        <div style="float: left; width: 50%;">
+            <input type="radio" name="linenumbers" value="yes" <!--[ $linenumberonchecked ]-->>&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
+            <input type="radio" name="linenumbers" value="no" <!--[ $linenumberoffchecked ]-->>&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
+        </div>
+    </div>
+    <div style="width: 60%;">
         <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:<br /><br />
-        <!--[ $codeheader_start|pnvarprephtmldisplay ]-->Code<!--[ $codeheader_end|pnvarprephtmldisplay ]-->
-        <!--[ $codebody_start|pnvarprephtmldisplay ]-->&lt;?php<br />echo 'text';<br />?&gt;<!--[ $codebody_end|pnvarprephtmldisplay ]-->
+        <!--[ $code_preview ]-->
         <br />
         <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->">
     </div>

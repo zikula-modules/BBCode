@@ -53,16 +53,24 @@ function pn_bbcode_admin_codeconfig()
     if(!$submit) {
         $pnr =&new pnRender('pn_bbcode');
         $pnr->caching = false;
-        $pnr->assign('codeheader_start',  pnModGetVar('pn_bbcode', 'codeheader_start'));
-        $pnr->assign('codeheader_end',    pnModGetVar('pn_bbcode', 'codeheader_end'));
-        $pnr->assign('codebody_start',    pnModGetVar('pn_bbcode', 'codebody_start'));
-        $pnr->assign('codebody_end',      pnModGetVar('pn_bbcode', 'codebody_end'));
+        $pnr->assign('code', pnModGetVar('pn_bbcode', 'code'));
+        if (pnModGetVar('pn_bbcode', 'linenumbers') == "yes") {
+        	$linenumberonchecked = " checked=\"checked\" ";
+        	$linenumberoffchecked = " ";
+        } else {
+        	$linenumberonchecked = " ";
+        	$linenumberoffchecked = " checked=\"checked\" ";
+        }
+        $pnr->assign('linenumberonchecked', $linenumberonchecked);
+        $pnr->assign('linenumberoffchecked', $linenumberoffchecked);
+        pnModAPILoad('pn_bbcode', 'user');
+        $pnr->assign('code_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform', 
+                                                        array('objectid' => 1,
+                                                              'extrainfo' => "[code]<?php\n\necho 'test';\n\n?>[/code]"))));
         return $pnr->fetch('pn_bbcode_admin_codeconfig.html');
     } else {
-        pnModSetVar('pn_bbcode', 'codeheader_start',  stripslashes(pnVarPrepForStore(pnVarCleanFromInput('codeheader_start'))));
-        pnModSetVar('pn_bbcode', 'codeheader_end',    stripslashes(pnVarPrepForStore(pnVarCleanFromInput('codeheader_end'))));
-        pnModSetVar('pn_bbcode', 'codebody_start',    stripslashes(pnVarPrepForStore(pnVarCleanFromInput('codebody_start'))));
-        pnModSetVar('pn_bbcode', 'codebody_end',      stripslashes(pnVarPrepForStore(pnVarCleanFromInput('codebody_end'))));
+        pnModSetVar('pn_bbcode', 'code',  stripslashes(pnVarPrepForStore(pnVarCleanFromInput('code'))));
+        pnModSetVar('pn_bbcode', 'linenumbers',  pnVarCleanFromInput('linenumbers'));
         pnSessionSetVar('statusmsg', pnVarPrepForDisplay(_PNBBCODE_CONFIGCHANGED));
         pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
     }
@@ -98,11 +106,11 @@ function pn_bbcode_admin_quoteconfig()
         
         $pnr =&new pnRender('pn_bbcode');
         $pnr->caching = false;
-        $quote = pnModGetVar('pn_bbcode', 'quote');
-        $pnr->assign('quote', $quote);
-        $quote_preview = str_replace('%u', 'username', $quote);
-        $quote_preview = str_replace('%t', 'text text<br />text', $quote_preview);
-        $pnr->assign('quote_preview', $quote_preview);
+        $pnr->assign('quote', pnModGetVar('pn_bbcode', 'quote'));
+        pnModAPILoad('pn_bbcode', 'user');
+        $pnr->assign('quote_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform', 
+                                                         array('objectid' => 1,
+                                                               'extrainfo' => "[quote=username]test\ntest test\n\n[/quote]"))));
         return $pnr->fetch('pn_bbcode_admin_quoteconfig.html');
     } else {
         pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quote'))));

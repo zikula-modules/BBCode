@@ -1,6 +1,7 @@
 Version 1.15: 
-    - changed quote configuration to use one txtarea now, you can use %u for placing
-      theusername and %t now for the quoted text.
+    - changed quote and code configuration to use one textarea now, 
+      you can use %u for placing  the username and %t now for the quoted text in quote or
+      %h for the value of _PNBBCODE_CODE, %c for the code and %e for the urlencoded text in code.
     - using external stylesheet now if existing.
     - fixed a bug that only treated the first code tag block correctly
     - fix in code settings template

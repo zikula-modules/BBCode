@@ -27,6 +27,8 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
+define('_PNBBCODE_CODEHINT', '%h = Header (_PNBBCODE_CODE), %c=lines of code, %j=lines of code, escaped for javasript');
+define('_PNBBCODE_CODE_ADDLINENUMBERS', 'Add line numbers');
 define('_PNBBCODE_ADMINCOLORCONFIG', 'Configuration [color][/color]');
 define('_PNBBCODE_ADMINSIZECONFIG', 'Configuration [size][/size]');
 define('_PNBBCODE_CONFIGCHANGED', 'Configuration has been changed');
@@ -38,10 +40,6 @@ define('_PNBBCODE_QUOTEHINT', '%u = username, %t=quoted text');
 define('_PNBBCODE_PNADMINISTRATION', 'Administration');
 define('_PNBBCODE_PREVIEW','Preview');
 define('_PNBBCODE_NOAUTH', 'No permission');
-define('_PNBBCODE_CODEHEADERSTART', 'Start of code header');
-define('_PNBBCODE_CODEHEADEREND', 'End of code header');
-define('_PNBBCODE_CODEBODYSTART', 'Start of code body');
-define('_PNBBCODE_CODEBODYEND', 'End of code body');
 define('_PNBBCODE_SIZE_TINY', 'Tiny');
 define('_PNBBCODE_SIZE_SMALL', 'Small');
 define('_PNBBCODE_SIZE_NORMAL', 'Normal');
