@@ -154,7 +154,7 @@ function pn_bbcode_encode_quote($message)
 {
 	// First things first: If there aren't any "[quote]" strings in the message, we don't
 	// need to process it at all.
-	
+/*	
 	if (!strpos(strtolower($message), "[quote]"))
 	{
 		return $message;	
@@ -232,6 +232,21 @@ function pn_bbcode_encode_quote($message)
 	} // while
 	
 	return $message;
+*/
+    preg_match_all("/\[quote=(.*?)\]/si", $message, $quote);
+    $search = array();
+    $replace = array();
+    for($i=0; $i<count($quote[0]);$i++) {
+        $search[] = "/" . preg_quote($quote[0][$i]) . "/si";
+        $replace[] = "<br /><div style=\"width: 95%; text-align: left;\">".$quote[1][$i].":<hr><blockquote style=\"font-weight: bold;\">";
+    }
+    // replace closing tags
+    $search[] = "/\[quote\]/si";
+    $replace[] = "<br /><div style=\"width: 95%; text-align: left;\">"._PNBBCODE_QUOTE.":<hr><blockquote style=\"font-weight: bold;\">";
+    // replace old style opening tags
+    $search[] = "/\[\/quote\]/si";
+    $replace[] = "</blockquote><hr></div>";
+    return preg_replace($search, $replace, $message);
 	
 } // pn_bbcode_encode_quote()
 
