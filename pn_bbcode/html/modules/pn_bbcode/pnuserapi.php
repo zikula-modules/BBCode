@@ -152,11 +152,11 @@ function pn_bbcode_encode($message, $is_html_disabled)
     $message = preg_replace("#\[color=(\#[0-9A-F]{6}|[a-z\-]+)\](.*?)\[/color\]#si", "<span style=\"color:\\1;\">\\2</span>", $message);
 
     // [size] and [/size] for setting the size of text.
-    $message = preg_replace("/\[size=tiny\](.*?)\[\/size\]/si", "<span style=\"font-size:.8em;\">\\1</span>", $message);
-    $message = preg_replace("/\[size=small\](.*?)\[\/size\]/si", "<span style=\"font-size:.9em;\">\\1</span>", $message);
+    $message = preg_replace("/\[size=tiny\](.*?)\[\/size\]/si", "<span style=\"font-size:.75em;\">\\1</span>", $message);
+    $message = preg_replace("/\[size=small\](.*?)\[\/size\]/si", "<span style=\"font-size:.85em;\">\\1</span>", $message);
     $message = preg_replace("/\[size=normal\](.*?)\[\/size\]/si", "<span style=\"font-size:1em;\">\\1</span>", $message);
-    $message = preg_replace("/\[size=large\](.*?)\[\/size\]/si", "<span style=\"font-size:1.1em;\">\\1</span>", $message);
-    $message = preg_replace("/\[size=huge\](.*?)\[\/size\]/si", "<span style=\"font-size:1.2em;\">\\1</span>", $message);
+    $message = preg_replace("/\[size=large\](.*?)\[\/size\]/si", "<span style=\"font-size:1.5em;\">\\1</span>", $message);
+    $message = preg_replace("/\[size=huge\](.*?)\[\/size\]/si", "<span style=\"font-size:2em;\">\\1</span>", $message);
     // freestyle size
     $message = preg_replace("/\[size=([0-9]+)\](.*?)\[\/size\]/si", "<span style=\"font-size:\\1px;\">\\2</span>", $message);
 
