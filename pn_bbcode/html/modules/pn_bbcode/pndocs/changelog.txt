@@ -1,3 +1,8 @@
+Version 1.15: 
+    - fixed a bug that only treated the first code tag block correctly
+    - fix in code settings template
+    - added user function to show some help about bbcode
+
 Version 1.14: January 10th, 2005
     - futher improvement in interaction with other hooks
     - new bbcode tags for underlined text, text size and text color (configurable)
