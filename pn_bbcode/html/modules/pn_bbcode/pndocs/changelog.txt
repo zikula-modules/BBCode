@@ -1,4 +1,4 @@
-Version 1.16:
+Version 1.16: March 6th, 2005
     - using GeSHi (http://qbnz.com/highlighter/index.php) for optional syntax highlighting 
       in code tags
 
