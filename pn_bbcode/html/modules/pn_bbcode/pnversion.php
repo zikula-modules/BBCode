@@ -42,7 +42,7 @@ $modversion['changelog']        = 'pndocs/changelog.txt';
 $modversion['license']          = 'pndocs/license.txt';
 $modversion['coding']           = 'pndocs/coding.txt';
 $modversion['official']         = 0;
-$modversion['author']           = 'larsneo';
+$modversion['author']           = 'larsneo, landseer';
 $modversion['contact']          = 'http://www.pncommunity.de';
 $modversion['admin']            = 1;
 $modversion['securityschema']   = array('pn_bbcode::' => '::');
