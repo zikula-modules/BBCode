@@ -1,0 +1,74 @@
+<!--[*  $Id$  *]-->
+
+<!--[* the javascript file in jsheader1 uses popups, jsheader2 does not use them *]-->
+<!--[ add_additional_header header=$jsheader1 ]-->
+
+<div>
+<!--[ if $images ]-->
+    <!--[bbcodebutton name="url" titleml=1 title="_PNBBCODE_URL_HINT" key="w" image="bb_url.gif" ]-->
+    <!--[bbcodebutton name="email" titleml=1 title="_PNBBCODE_MAIL_HINT" key="m" image="bb_email.gif" ]-->
+    <!--[bbcodebutton name="image" titleml=1 title="_PNBBCODE_IMAGE_HINT" key="p" image="bb_image.gif" ]-->
+    <!--[bbcodebutton name="quote" titleml=1 title="_PNBBCODE_QUOTE_HINT" key="q" image="bb_quote.gif" ]-->
+    <!--[bbcodebutton name="code" titleml=1 title="_PNBBCODE_CODE_HINT" key="c" image="bb_code.gif" ]-->
+    <br />
+    <!--[bbcodebutton name="listopen" titleml=1 title="_PNBBCODE_LISTOPEN_HINT" key="l" image="bb_openlist.gif" ]-->
+    <!--[bbcodebutton name="listitem" titleml=1 title="_PNBBCODE_LISTITEM_HINT" key="o" image="bb_listitem.gif" ]-->
+    <!--[bbcodebutton name="listclose" titleml=1 title="_PNBBCODE_LISTCLOSE_HINT" key="x" image="bb_closelist.gif" ]-->
+    <!--[bbcodebutton name="bold" titleml=1 title="_PNBBCODE_BOLD_HINT" key="b" image="bb_bold.gif" ]-->
+    <!--[bbcodebutton name="italic" titleml=1 title="_PNBBCODE_ITALIC_HINT" key="i" image="bb_italic.gif" ]-->
+    <!--[bbcodebutton name="underline" titleml=1 title="_PNBBCODE_UNDERLINE_HINT" key="u" image="bb_underline.gif" ]-->
+<!--[ else ]-->
+    <input title="<!--[ pnml name='_PNBBCODE_URL_HINT' ]-->" type="button" accesskey="w" name="url" value=" <!--[ pnml name='_PNBBCODE_URL' ]--> " style="text-decoration: underline; width: 50px;" onclick="DoPrompt('url')" />
+    <input title="<!--[ pnml name='_PNBBCODE_MAIL_HINT' ]-->" type="button" accesskey="m" name="mail" value=" <!--[ pnml name='_PNBBCODE_MAIL' ]--> " style="text-decoration: underline; width: 50px;" onclick="DoPrompt('email')" />
+    <input title="<!--[ pnml name='_PNBBCODE_IMAGE_HINT' ]-->" type="button" accesskey="p" name="image" value=" <!--[ pnml name='_PNBBCODE_IMAGE' ]--> " style="width: 50px;" onclick="DoPrompt('image')" />
+    <input title="<!--[ pnml name='_PNBBCODE_QUOTE_HINT' ]-->" type="button" accesskey="q" name="quote" value=" <!--[ pnml name='_PNBBCODE_QUOTE' ]--> " style="width: 50px;" onclick="DoPrompt('quote')" />
+    <input title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" type="button" accesskey="c" name="code" value=" <!--[ pnml name='_PNBBCODE_CODE' ]--> " style="width: 50px;" onclick="DoPrompt('code')" />
+    <br />
+    <input title="<!--[ pnml name='_PNBBCODE_LISTOPEN_HINT' ]-->" type="button" accesskey="l" name="listopen" value=" <!--[ pnml name='_PNBBCODE_LISTOPEN' ]--> " style="width: 40px;" onclick="DoPrompt('listopen')" />
+    <input title="<!--[ pnml name='_PNBBCODE_LISTITEM_HINT' ]-->" type="button" accesskey="o" name="listitem" value=" <!--[ pnml name='_PNBBCODE_LISTITEM' ]--> " style="width: 40px;" onclick="DoPrompt('listitem')" />
+    <input title="<!--[ pnml name='_PNBBCODE_LISTCLOSE_HINT' ]-->" type="button" accesskey="x" name="listclose" value=" <!--[ pnml name='_PNBBCODE_LISTCLOSE' ]--> " style="width: 40px;" onclick="DoPrompt('listclose')" />
+    <input title="<!--[ pnml name='_PNBBCODE_BOLD_HINT' ]-->" type="button" accesskey="b" name="bold" value=" <!--[ pnml name='_PNBBCODE_BOLD' ]--> " style="font-weight:bold; width: 40px;" onclick="DoPrompt('bold')" />
+    <input title="<!--[ pnml name='_PNBBCODE_ITALIC_HINT' ]-->" type="button" accesskey="i" name="italic" value=" <!--[ pnml name='_PNBBCODE_ITALIC' ]--> " style="font-style: italic; width: 40px;" onclick="DoPrompt('italic')" />
+    <input title="<!--[ pnml name='_PNBBCODE_UNDERLINE_HINT' ]-->" type="button" accesskey="u" name="underline" value=" <!--[ pnml name='_PNBBCODE_UNDERLINE' ]--> " style="text-decoration: underline; width: 40px;" onclick="DoPrompt('underline')" />
+<!--[ /if ]-->
+</div>
+<div>
+<!--[ if $color_enabled eq "yes" ]-->
+    <!--[ pnml name='_PNBBCODE_FONTCOLOR' ]-->:
+    <select title="<!--[ pnml name='_PNBBCODE_COLOR_HINT' ]-->" name="fontcolor" onchange="DoColor(this.form.fontcolor.options[this.form.fontcolor.selectedIndex].value)">
+        <option style="color:black; background-color: #FFFFFF "  value="black"><!--[ pnml name='_PNBBCODE_COLOR_DEFAULT' ]--></option>
+        <option style="color:darkred; background-color: #DEE3E7" value="darkred"><!--[ pnml name='_PNBBCODE_COLOR_DARKRED' ]--></option>
+        <option style="color:red; background-color: #DEE3E7"     value="red"><!--[ pnml name='_PNBBCODE_COLOR_RED' ]--></option>
+        <option style="color:orange; background-color: #DEE3E7"  value="orange"><!--[ pnml name='_PNBBCODE_COLOR_ORANGE' ]--></option>
+        <option style="color:brown; background-color: #DEE3E7"   value="brown"><!--[ pnml name='_PNBBCODE_COLOR_BROWN' ]--></option>
+    
+        <option style="color:yellow; background-color: #DEE3E7"   value="yellow"><!--[ pnml name='_PNBBCODE_COLOR_YELLOW' ]--></option>
+        <option style="color:green; background-color: #DEE3E7"    value="green"><!--[ pnml name='_PNBBCODE_COLOR_GREEN' ]--></option>
+        <option style="color:olive; background-color: #DEE3E7"    value="olive"><!--[ pnml name='_PNBBCODE_COLOR_OLIVE' ]--></option>
+        <option style="color:cyan; background-color: #DEE3E7"     value="cyan"><!--[ pnml name='_PNBBCODE_COLOR_CYAN' ]--></option>
+        <option style="color:blue; background-color: #DEE3E7"     value="blue"><!--[ pnml name='_PNBBCODE_COLOR_BLUE' ]--></option>
+        <option style="color:darkblue; background-color: #DEE3E7" value="darkblue"><!--[ pnml name='_PNBBCODE_COLOR_DARKBLUE' ]--></option>
+    
+        <option style="color:indigo; background-color: #DEE3E7" value="indigo"><!--[ pnml name='_PNBBCODE_COLOR_INDIGO' ]--></option>
+        <option style="color:violet; background-color: #DEE3E7" value="violet"><!--[ pnml name='_PNBBCODE_COLOR_VIOLET' ]--></option>
+        <option style="color:white; background-color: #DEE3E7"  value="white"><!--[ pnml name='_PNBBCODE_COLOR_WHITE' ]--></option>
+        <option style="color:black; background-color: #DEE3E7"  value="black"><!--[ pnml name='_PNBBCODE_COLOR_BLACK' ]--></option>
+    <!--[ if $allow_usercolor eq "yes" ]-->
+        <option style="color:black; background-color: #DEE3E7" value="#<!--[ pnml name='_PNBBCODE_COLOR_TEXTCOLORCODE' ]-->"><!--[ pnml name='_PNBBCODE_COLOR_DEFINE' ]--></option>
+    <!--[ /if ]-->
+    </select>&nbsp;
+<!--[ /if ]-->
+<!--[ if $size_enabled eq "yes" ]-->
+    <!--[ pnml name='_PNBBCODE_FONTSIZE' ]-->:
+    <select title="<!--[ pnml name='_PNBBCODE_SIZE_HINT' ]-->" name="fontsize" onchange="DoSize(this.form.fontsize.options[this.form.fontsize.selectedIndex].value)">
+        <option value="tiny"><!--[ pnml name='_PNBBCODE_SIZE_TINY' ]--></option>
+        <option value="small"><!--[ pnml name='_PNBBCODE_SIZE_SMALL' ]--></option>
+        <option value="normal" selected="selected"><!--[ pnml name='_PNBBCODE_SIZE_NORMAL' ]--></option>
+        <option value="large"><!--[ pnml name='_PNBBCODE_SIZE_LARGE' ]--></option>
+        <option value="huge"><!--[ pnml name='_PNBBCODE_SIZE_HUGE' ]--></option>
+    <!--[ if $allow_usersize eq "yes" ]-->
+        <option value="<!--[ pnml name='_PNBBCODE_SIZE_TEXTSIZE' ]-->"><!--[ pnml name='_PNBBCODE_SIZE_DEFINE' ]--></option>
+    <!--[ /if ]-->
+    </select>
+<!--[ /if ]-->
+</div>

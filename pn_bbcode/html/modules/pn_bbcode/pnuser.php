@@ -56,4 +56,48 @@ function pn_bbcode_user_whatisbbcode()
     return $pnr->fetch('pn_bbcode_user_whatisbbcode.html');
 }
 
+/**
+ * bbcode
+ * returns a html snippet with buttons for inserting bbocdes into a text
+ *
+ * param: images
+ */
+function pn_bbcode_user_bbcodes($args)
+{
+    $images = pnVarCleanFromInput('images');
+    extract($args);
+
+    // load language file
+    if(!pnModAPILoad('pn_bbcode', 'user')) {
+        $smarty->trigger_error("loading pn_bbcode api failed", e_error);
+        return;
+    } 
+
+    $pnr =& new pnRender('pn_bbcode');
+    $pnr->assign('allow_usersize', pnModGetVar('pn_bbcode', 'allow_usersize'));
+    $pnr->assign('size_enabled', pnModGetVar('pn_bbcode', 'size_enabled'));
+    $pnr->assign('allow_usercolor', pnModGetVar('pn_bbcode', 'allow_usercolor'));
+    $pnr->assign('color_enabled', pnModGetVar('pn_bbcode', 'color_enabled'));
+    $pnr->assign('images', $images);
+    
+    // find the correct javascript file depending on the users language
+    $userlang = pnUserGetLang();
+    $file_1 = "modules/pn_bbcode/pnjavascript/$userlang/forum_javascript.js";
+    $file_2 = "modules/pn_bbcode/pnjavascript/$userlang/forum_javascript_nopopup.js";
+    $default_1 = "modules/pn_bbcode/pnjavascript/eng/forum_javascript.js";
+    $default_2 = "modules/pn_bbcode/pnjavascript/eng/forum_javascript_nopopup.js";
+    if(file_exists($file_1) && is_readable($file_1)) {
+        $pnr->assign('jsheader1', "<script type=\"text/javascript\" src=\"$file_1\"></script>");
+    } else {
+        $pnr->assign('jsheader1', "<script type=\"text/javascript\" src=\"$default_1\"></script>");
+    }    
+    if(file_exists($file_2) && is_readable($file_2)) {
+        $pnr->assign('jsheader2', "<script type=\"text/javascript\" src=\"$file_2\"></script>");
+    } else {
+        $pnr->assign('jsheader2', "<script type=\"text/javascript\" src=\"$default_2\"></script>");
+    }    
+    
+    return $pnr->fetch('pn_bbcode_user_bbcodes.html');
+}
+
 ?>
