@@ -26,19 +26,11 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
-$modversion['name']             = 'pn_bbcode';
-$modversion['version']          = '1.11';
-$modversion['id'] 				= '164';
-$modversion['description']      = 'BBCode Hook';
-$modversion['credits']          = 'pndocs/credits.txt';
-$modversion['help']             = 'pndocs/help.txt';
-$modversion['changelog']        = 'pndocs/changelog.txt';
-$modversion['license']          = 'pndocs/license.txt';
-$modversion['coding']           = 'pndocs/coding.txt';
-$modversion['official']         = 0;
-$modversion['author']           = 'larsneo';
-$modversion['contact']          = 'http://www.pncommunity.de';
-$modversion['admin']            = 1;
-$modversion['securityschema']   = array('pn_bbcode::' => '::');
-
+define('_PNBBCODE_ADMINISTRATION', 'pn_bbcode Verwaltung');
+define('_PNBBCODE_QUOTEHEADERSTART', 'Start des Zitatkopf');
+define('_PNBBCODE_QUOTEHEADEREND', 'Ende des Zitatkopf');
+define('_PNBBCODE_QUOTEBODYSTART', 'Start des Zitattext');
+define('_PNBBCODE_QUOTEBODYEND', 'Ende des Zitattext');
+define('_PNBBCODE_PNADMINISTRATION', 'Administration');
+define('_PNBBCODE_PREVIEW','Vorschau');
 ?>

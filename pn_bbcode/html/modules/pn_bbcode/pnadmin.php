@@ -1,4 +1,5 @@
 <?php
+// $Id$
 // ----------------------------------------------------------------------
 // POST-NUKE Content Management System
 // Copyright (C) 2001 by the PostNuke Development Team.
@@ -26,19 +27,25 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
-$modversion['name']             = 'pn_bbcode';
-$modversion['version']          = '1.11';
-$modversion['id'] 				= '164';
-$modversion['description']      = 'BBCode Hook';
-$modversion['credits']          = 'pndocs/credits.txt';
-$modversion['help']             = 'pndocs/help.txt';
-$modversion['changelog']        = 'pndocs/changelog.txt';
-$modversion['license']          = 'pndocs/license.txt';
-$modversion['coding']           = 'pndocs/coding.txt';
-$modversion['official']         = 0;
-$modversion['author']           = 'larsneo';
-$modversion['contact']          = 'http://www.pncommunity.de';
-$modversion['admin']            = 1;
-$modversion['securityschema']   = array('pn_bbcode::' => '::');
+function pn_bbcode_admin_main() 
+{
+    $submit = pnVarCleanFromInput('submit');
+    
+    if(!$submit) {
+        $pnr =&new pnRender('pn_bbcode');
+        $pnr->caching = false;
+        $pnr->assign('quoteheader_start', pnModGetVar('pn_bbcode', 'quoteheader_start'));
+        $pnr->assign('quoteheader_end', pnModGetVar('pn_bbcode', 'quoteheader_end'));
+        $pnr->assign('quotebody_start', pnModGetVar('pn_bbcode', 'quotebody_start'));
+        $pnr->assign('quotebody_end', pnModGetVar('pn_bbcode', 'quotebody_end'));
+        return $pnr->fetch('pn_bbcode_admin_main.html');
+    } else {
+        pnModSetVar('pn_bbcode', 'quoteheader_start', stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quoteheader_start'))));
+        pnModSetVar('pn_bbcode', 'quoteheader_end',   stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quoteheader_end'))));
+        pnModSetVar('pn_bbcode', 'quotebody_start', stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quotebody_start'))));
+        pnModSetVar('pn_bbcode', 'quotebody_end',   stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quotebody_end'))));
+        pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
+    }
+}
 
 ?>

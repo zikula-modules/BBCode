@@ -1,4 +1,5 @@
 <?php
+// $Id$ 
 // ----------------------------------------------------------------------
 // POST-NUKE Content Management System
 // Copyright (C) 2001 by the PostNuke Development Team.
@@ -233,19 +234,24 @@ function pn_bbcode_encode_quote($message)
 	
 	return $message;
 */
+    $quoteheader_start = pnModGetVar('pn_bbcode', 'quoteheader_start');
+    $quoteheader_end   = pnModGetVar('pn_bbcode', 'quoteheader_end');
+    $quotebody_start   = pnModGetVar('pn_bbcode', 'quotebody_start');
+    $quotebody_end     = pnModGetVar('pn_bbcode', 'quotebody_end');
+
     preg_match_all("/\[quote=(.*?)\]/si", $message, $quote);
     $search = array();
     $replace = array();
     for($i=0; $i<count($quote[0]);$i++) {
         $search[] = "/" . preg_quote($quote[0][$i]) . "/si";
-        $replace[] = "<br /><div style=\"width: 95%; text-align: left;\">".$quote[1][$i].":<hr><blockquote style=\"font-weight: bold;\">";
+        $replace[] = $quoteheader_start . $quote[1][$i] . $quoteheader_end . $quotebody_start;
     }
     // replace closing tags
     $search[] = "/\[quote\]/si";
-    $replace[] = "<br /><div style=\"width: 95%; text-align: left;\">"._PNBBCODE_QUOTE.":<hr><blockquote style=\"font-weight: bold;\">";
+    $replace[] = $quoteheader_start . pnVarPrepForDisplay(_PNBBCODE_QUOTE). $quoteheader_end . $quotebody_start;
     // replace old style opening tags
     $search[] = "/\[\/quote\]/si";
-    $replace[] = "</blockquote><hr></div>";
+    $replace[] = $quotebody_end;
     return preg_replace($search, $replace, $message);
 	
 } // pn_bbcode_encode_quote()

@@ -22,8 +22,7 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Hinrich Donner
-// changed to pn_bbcode: larsneo
+// Original Author of file: Frank Schummertz
 // ----------------------------------------------------------------------
 
 function pn_bbcode_init() {
@@ -46,7 +45,16 @@ function pn_bbcode_init() {
     return true;
 }
 
-function pn_bbcode_upgrade($oldversion) {
+function pn_bbcode_upgrade($oldversion) 
+{
+	switch($oldversion) {
+	    case '1.10':
+	        pnModSetVar('pn_bbcode', 'quoteheader_start', '<div style="width: 95%; font-weight: bold; text-align: left;">' );
+	        pnModSetVar('pn_bbcode', 'quoteheader_end', '</div>' );
+	        pnModSetVar('pn_bbcode', 'quotebody_start', '<div style="width: 95%; background-color: '.$GLOBALS['bgcolor2'].'; text-align: left;">' );
+	        pnModSetVar('pn_bbcode', 'quotebody_end', '</blockquote></div>' );
+        default: break;			
+    }
 
     return true;
 }
