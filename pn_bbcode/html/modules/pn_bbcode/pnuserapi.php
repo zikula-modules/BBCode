@@ -128,6 +128,39 @@ function pn_bbcode_encode($message, $is_html_disabled)
         $message = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " PNBBCODELINKREPLACEMENT{$i} ", $message, 1);
     }
 
+    // three new bbcodes, thanks to Chris Miller (r3ap3r)
+    // [u] and [/u] for underlining text.
+    $message = preg_replace("/\[u\](.*?)\[\/u\]/si", "<span style=\"text-decoration:underline;\">\\1</span>", $message);
+
+    // [color] and [/color] for coloring text.
+    $message = preg_replace("#\[color=black\](.*?)\[/color\]#si", "<span style=\"color:black;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=darkred\](.*?)\[/color\]#si", "<span style=\"color:darkred;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=red\](.*?)\[/color\]#si", "<span style=\"color:red;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=orange\](.*?)\[/color\]#si", "<span style=\"color:orange\\1;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=brown\](.*?)\[/color\]#si", "<span style=\"color:brown;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=yellow\](.*?)\[/color\]#si", "<span style=\"color:yellow;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=green\](.*?)\[/color\]#si", "<span style=\"color:green;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=olive\](.*?)\[/color\]#si", "<span style=\"color:olive;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=cyan\](.*?)\[/color\]#si", "<span style=\"color:cyan;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=blue\](.*?)\[/color\]#si", "<span style=\"color:blue;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=darkblue\](.*?)\[/color\]#si", "<span style=\"color:darkblue;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=indigo\](.*?)\[/color\]#si", "<span style=\"color:indigo;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=violet\](.*?)\[/color\]#si", "<span style=\"color:violet;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=white\](.*?)\[/color\]#si", "<span style=\"color:white;\">\\1</span>", $message);
+    $message = preg_replace("#\[color=black\](.*?)\[/color\]#si", "<span style=\"color:black;\">\\1</span>", $message);
+    // freestyle color
+    $message = preg_replace("#\[color=(\#[0-9A-F]{6}|[a-z\-]+)\](.*?)\[/color\]#si", "<span style=\"color:\\1;\">\\2</span>", $message);
+
+    // [size] and [/size] for setting the size of text.
+    $message = preg_replace("/\[size=tiny\](.*?)\[\/size\]/si", "<span style=\"font-size:.8em;\">\\1</span>", $message);
+    $message = preg_replace("/\[size=small\](.*?)\[\/size\]/si", "<span style=\"font-size:.9em;\">\\1</span>", $message);
+    $message = preg_replace("/\[size=normal\](.*?)\[\/size\]/si", "<span style=\"font-size:1em;\">\\1</span>", $message);
+    $message = preg_replace("/\[size=large\](.*?)\[\/size\]/si", "<span style=\"font-size:1.1em;\">\\1</span>", $message);
+    $message = preg_replace("/\[size=huge\](.*?)\[\/size\]/si", "<span style=\"font-size:1.2em;\">\\1</span>", $message);
+    // freestyle size
+    $message = preg_replace("/\[size=([0-9]+)\](.*?)\[\/size\]/si", "<span style=\"font-size:\\1px;\">\\2</span>", $message);
+
+
 	// [url]xxxx://www.phpbb.com[/url] code..
 	$patterns[0] = "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si";
 	$replacements[0] = '<a href="\1\2" >\1\2</a>';
