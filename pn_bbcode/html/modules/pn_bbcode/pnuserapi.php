@@ -362,22 +362,24 @@ function pn_bbcode_encode_code($message)
                     }
                 }         
             } // parameters analyzed
-            $lines = explode("\n", $bbcode[3][$i]);
             $after_replace = "";
-            if(is_array($lines) && count($lines)>0) {
-                // remove empty lines on top of the code
-                while($lines[0] == '' || $lines[0] == ' ' || $lines[0] == "\r") {
-                    array_shift($lines);
-                }
-                // remove empty lines at the end of the code
-                while($lines[count($lines)-1] == '' || $lines[count($lines)-1] == ' ' || $lines[count($lines)-1] == "\r") {
-                    array_pop($lines);
-                }
-                for($lcnt=0;$lcnt<count($lines); $lcnt++) {
-                    if($numbers==true && $hilite==false) {
-                        $after_replace .= sprintf("%03d", $startline+$lcnt) . ": " . $lines[$lcnt] . "\n";
-                    } else {
-                        $after_replace .= $lines[$lcnt] . "\n";
+            if(strlen($bbcode[3][$i])>0) {
+                $lines = explode("\n", $bbcode[3][$i]);
+                if(is_array($lines) && count($lines)>0) {
+                    // remove empty lines on top of the code
+                    while($lines[0] == '' || $lines[0] == ' ' || $lines[0] == "\r") {
+                        array_shift($lines);
+                    }
+                    // remove empty lines at the end of the code
+                    while($lines[count($lines)-1] == '' || $lines[count($lines)-1] == ' ' || $lines[count($lines)-1] == "\r") {
+                        array_pop($lines);
+                    }
+                    for($lcnt=0;$lcnt<count($lines); $lcnt++) {
+                        if($numbers==true && $hilite==false) {
+                            $after_replace .= sprintf("%03d", $startline+$lcnt) . ": " . $lines[$lcnt] . "\n";
+                        } else {
+                            $after_replace .= $lines[$lcnt] . "\n";
+                        }
                     }
                 }
             }
