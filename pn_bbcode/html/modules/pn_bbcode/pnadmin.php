@@ -29,6 +29,10 @@
 
 function pn_bbcode_admin_main() 
 {
+    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) { 
+    	return showforumerror(_PNBBCODE_NOAUTH, __FILE__, __LINE__); 
+    }
+
     $submit = pnVarCleanFromInput('submit');
     
     if(!$submit) {
