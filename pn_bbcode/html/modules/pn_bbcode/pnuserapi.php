@@ -161,6 +161,13 @@ function pn_bbcode_encode($message, $is_html_disabled)
  */
 function pn_bbcode_encode_quote($message)
 {
+    // move all tags out of the text and replace them with placeholders
+    preg_match_all('/(<a\s+.*?\/a>|<[^>]+>)/i', $message, $matches);
+    $matchnum = count($matches[1]);
+    for ($i = 0; $i <$matchnum; $i++) {
+        $message = preg_replace('/(' . preg_quote($matches[1][$i], '/') . ')/', " PNBBCODETAGREPLACEMENT{$i} ", $message, 1);
+    }
+
     $quoteheader_start = pnModGetVar('pn_bbcode', 'quoteheader_start');
     $quoteheader_end   = pnModGetVar('pn_bbcode', 'quoteheader_end');
     $quotebody_start   = pnModGetVar('pn_bbcode', 'quotebody_start');
@@ -173,14 +180,20 @@ function pn_bbcode_encode_quote($message)
         $search[] = "/" . preg_quote($quote[0][$i]) . "/si";
         $replace[] = $quoteheader_start . $quote[1][$i] . $quoteheader_end . $quotebody_start;
     }
-    // replace closing tags
+    // replace old style opening tags
     $search[] = "/\[quote\]/si";
     $replace[] = $quoteheader_start . pnVarPrepForDisplay(_PNBBCODE_QUOTE). $quoteheader_end . $quotebody_start;
-    // replace old style opening tags
+    // replace closing tags
     $search[] = "/\[\/quote\]/si";
     $replace[] = $quotebody_end;
-    return preg_replace($search, $replace, $message);
+    $message = preg_replace($search, $replace, $message);
 
+    // replace the HTML tags that we removed before
+    for ($i = 0; $i <$matchnum; $i++) {
+        $message = preg_replace("/ PNBBCODETAGREPLACEMENT{$i} /", $matches[1][$i], $message, 1);
+    }
+    return $message;
+    
 } // pn_bbcode_encode_quote()
 
 
