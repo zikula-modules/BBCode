@@ -1,3 +1,7 @@
+Version 1.12: DEcember 19th 2004
+    - code cleanups
+    - improved interaction with other hooks
+
 Version 1.11: October 12th 2004
     - added configurable quote and code tags
 
