@@ -151,6 +151,7 @@ function pn_bbcode_delete() {
     pnModDelVar('pn_bbcode', 'color_enabled');
     pnModDelVar('pn_bbcode', 'size_enabled');
     pnModDelVar('pn_bbcode', 'linenumbers');
+    pnModDelVar('pn_bbcode', 'syntaxhilite');    
 
     // Deletion successful
     return true;
