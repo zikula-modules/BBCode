@@ -27,6 +27,8 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
+define('_PNBBCODE_ADMINCOLORCONFIG', 'Configuration [color][/color]');
+define('_PNBBCODE_ADMINSIZECONFIG', 'Configuration [size][/size]');
 define('_PNBBCODE_CONFIGCHANGED', 'Configuration has been changed');
 define('_PNBBCODE_ADMINCODECONFIG', 'Configuration [code][/code]');
 define('_PNBBCODE_ADMINQUOTECONFIG', 'Configuration [quote][/quote]');
@@ -42,5 +44,16 @@ define('_PNBBCODE_CODEHEADERSTART', 'Start of code header');
 define('_PNBBCODE_CODEHEADEREND', 'End of code header');
 define('_PNBBCODE_CODEBODYSTART', 'Start of code body');
 define('_PNBBCODE_CODEBODYEND', 'End of code body');
+define('_PNBBCODE_SIZE_TINY', 'Tiny');
+define('_PNBBCODE_SIZE_SMALL', 'Small');
+define('_PNBBCODE_SIZE_NORMAL', 'Normal');
+define('_PNBBCODE_SIZE_LARGE', 'Large');
+define('_PNBBCODE_SIZE_HUGE', 'Huge');
+define('_PNBBCODE_SIZE_ALLOWUSERSIZE', 'Allow userdefined text size');
+define('_PNBBCODE_COLOR_ALLOWUSERCOLOR', 'Allow userdefined text color');
+define('_PNBBCODE_YES', 'Yes');
+define('_PNBBCODE_NO', 'No');
+define('_PNBBCODE_SIZE_ENABLE', 'Enable flexible text size');
+define('_PNBBCODE_COLOR_ENABLE', 'Enable flexible text colors');
 
 ?>

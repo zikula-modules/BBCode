@@ -60,6 +60,15 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'codeheader_end',    stripslashes(pnVarPrepForStore('</legend>')));
     pnModSetVar('pn_bbcode', 'codebody_start',    stripslashes(pnVarPrepForStore('<pre>')));
     pnModSetVar('pn_bbcode', 'codebody_end',      stripslashes(pnVarPrepForStore('</pre></fieldset>')));
+    pnModSetVar('pn_bbcode', 'size_tiny',   '0.75em');
+    pnModSetVar('pn_bbcode', 'size_small',  '0.85em');
+    pnModSetVar('pn_bbcode', 'size_normal', '1.0em');
+    pnModSetVar('pn_bbcode', 'size_large',  '1.5em');
+    pnModSetVar('pn_bbcode', 'size_huge',   '2.0em');
+    pnModSetVar('pn_bbcode', 'allow_usersize', 'no');
+    pnModSetVar('pn_bbcode', 'allow_usercolor', 'no');
+    pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
+    pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
 
     // Initialisation successful
     return true;
@@ -80,6 +89,16 @@ function pn_bbcode_upgrade($oldversion)
             pnModSetVar('pn_bbcode', 'codeheader_end',    stripslashes(pnVarPrepForStore('</legend>')));
             pnModSetVar('pn_bbcode', 'codebody_start',    stripslashes(pnVarPrepForStore('<pre>')));
             pnModSetVar('pn_bbcode', 'codebody_end',      stripslashes(pnVarPrepForStore('</pre></fieldset>')));
+        case '1.12':
+            pnModSetVar('pn_bbcode', 'size_tiny',   '0.75em');
+            pnModSetVar('pn_bbcode', 'size_small',  '0.85em');
+            pnModSetVar('pn_bbcode', 'size_normal', '1.0em');
+            pnModSetVar('pn_bbcode', 'size_large',  '1.5em');
+            pnModSetVar('pn_bbcode', 'size_huge',   '2.0em');
+            pnModSetVar('pn_bbcode', 'allow_usersize', 'no');
+            pnModSetVar('pn_bbcode', 'allow_usercolor', 'no');
+            pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
+            pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
         default: break;			
     }
     return true;

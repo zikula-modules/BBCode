@@ -1,0 +1,34 @@
+<!--[*  $Id$  *]-->
+
+<!--[ include file=pn_bbcode_admin_menu.html ]-->
+<br />
+<fieldset>
+    <legend>
+        <!--[ pnml name='_PNBBCODE_ADMINCOLORCONFIG' ]-->
+    </legend>
+    <br />
+    
+    <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=colorconfig ]-->" method="post">
+
+    <div style="height: 2em; width:100%;">
+        <div style="float: left; width: 40%; text-align: right;">
+            <!--[ pnml name='_PNBBCODE_COLOR_ENABLE' ]-->&nbsp;:&nbsp;
+        </div>
+        <div style="float: left; width: 50%;">
+            <input type="checkbox" name="color_enabled" value="yes" <!--[ $colorenabled ]-->>
+        </div>
+    </div>
+    <div style="height: 2em; width:100%;">
+        <div style="float: left; width: 40%; text-align: right;">
+            <!--[ pnml name='_PNBBCODE_COLOR_ALLOWUSERCOLOR' ]-->&nbsp;:&nbsp;
+        </div>
+        <div style="float: left; width: 50%;">
+            <input type="radio" name="allow_usercolor" value="yes" <!--[ $usercoloronchecked ]-->>&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
+            <input type="radio" name="allow_usercolor" value="no" <!--[ $usercoloroffchecked ]-->>&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
+        </div>
+    </div>
+    <br />
+    <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->">
+    </form>
+    <br />
+</fieldset>
