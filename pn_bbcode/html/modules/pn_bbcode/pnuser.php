@@ -74,6 +74,7 @@ function pn_bbcode_user_bbcodes($args)
     } 
 
     $pnr =& new pnRender('pn_bbcode');
+    $pnr->caching = false;
     $pnr->assign('allow_usersize', pnModGetVar('pn_bbcode', 'allow_usersize'));
     $pnr->assign('size_enabled', pnModGetVar('pn_bbcode', 'size_enabled'));
     $pnr->assign('allow_usercolor', pnModGetVar('pn_bbcode', 'allow_usercolor'));
