@@ -280,7 +280,7 @@ function pn_bbcode_encode_code($message, $is_html_disabled)
 	// input.. So escape them to [#1code] or [/code#1] for now:
 	$message = preg_replace("/\[([0-9]+?)code\]/si", "[#\\1code]", $message);
 	$message = preg_replace("/\[\/code([0-9]+?)\]/si", "[/code#\\1]", $message);
-	
+/*	
 	$stack = Array();
 	$curr_pos = 1;
 	$max_nesting_depth = 0;
@@ -385,6 +385,20 @@ function pn_bbcode_encode_code($message, $is_html_disabled)
 			}
 		}
 	}
+*/
+    $codeheader_start = pnModGetVar('pn_bbcode', 'codeheader_start');
+    $codeheader_end   = pnModGetVar('pn_bbcode', 'codeheader_end');
+    $codebody_start   = pnModGetVar('pn_bbcode', 'codebody_start');
+    $codebody_end     = pnModGetVar('pn_bbcode', 'codebody_end');
+
+    // openng tag
+    $search[] = "/\[code\]/si";
+    $replace[] = $codeheader_start . pnVarPrepForDisplay(_PNBBCODE_CODE). $codeheader_end . $codebody_start;
+    // closing tag
+    $search[] = "/\[\/code\]/si";
+    $replace[] = $codebody_end;
+    return preg_replace($search, $replace, $message);
+
 	
 	// Undo our escaping from "second things second" above..
 	$message = preg_replace("/\[#([0-9]+?)code\]/si", "[\\1code]", $message);

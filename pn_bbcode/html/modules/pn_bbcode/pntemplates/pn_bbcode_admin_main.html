@@ -28,6 +28,23 @@
        <!--[ $quoteheader_start ]-->Username<!--[ $quoteheader_end ]-->
        <!--[ $quotebody_start ]-->text text <br />text<!--[ $quotebody_end ]-->
     </div>
+    
+    <div style="clear:both; float:left; width:45%;">
+        <!--[ pnml name='_PNBBCODE_CODEHEADERSTART' ]--><br />
+        <textarea name="codeheader_start" row="5" cols="40"><!--[ $codeheader_start|pnvarprephtmldisplay ]--></textarea><br />
+        <!--[ pnml name='_PNBBCODE_CODEHEADEREND' ]--><br />
+        <textarea name="codeheader_end" row="5" cols="40"><!--[ $codeheader_end|pnvarprephtmldisplay ]--></textarea><br />
+        <!--[ pnml name='_PNBBCODE_CODEBODYSTART' ]--><br />
+        <textarea name="codebody_start" row="5" cols="40"><!--[ $codebody_start|pnvarprephtmldisplay ]--></textarea><br />
+        <!--[ pnml name='_PNBBCODE_CODEBODYEND' ]--><br />
+        <textarea name="codebody_end" row="5" cols="40"><!--[ $codebody_end|pnvarprephtmldisplay ]--></textarea><br />
+    </div>
+
+    <div style="float:left; margin-left: 20px; width: 45%;">
+       <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:<br /><br />
+       <!--[ $codeheader_start ]-->Code<!--[ $codeheader_end ]-->
+       <!--[ $codebody_start ]-->&lt;?php<br />echo 'text';<br />?&gt;<!--[ $codeebody_end ]-->
+    </div>
 
     <div style="clear:both;">
         <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->">

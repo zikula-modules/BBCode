@@ -39,15 +39,23 @@ function pn_bbcode_admin_main()
         $pnr =&new pnRender('pn_bbcode');
         $pnr->caching = false;
         $pnr->assign('quoteheader_start', pnModGetVar('pn_bbcode', 'quoteheader_start'));
-        $pnr->assign('quoteheader_end', pnModGetVar('pn_bbcode', 'quoteheader_end'));
-        $pnr->assign('quotebody_start', pnModGetVar('pn_bbcode', 'quotebody_start'));
-        $pnr->assign('quotebody_end', pnModGetVar('pn_bbcode', 'quotebody_end'));
+        $pnr->assign('quoteheader_end',   pnModGetVar('pn_bbcode', 'quoteheader_end'));
+        $pnr->assign('quotebody_start',   pnModGetVar('pn_bbcode', 'quotebody_start'));
+        $pnr->assign('quotebody_end',     pnModGetVar('pn_bbcode', 'quotebody_end'));
+        $pnr->assign('codeheader_start',  pnModGetVar('pn_bbcode', 'codeheader_start'));
+        $pnr->assign('codeheader_end',    pnModGetVar('pn_bbcode', 'codeheader_end'));
+        $pnr->assign('codebody_start',    pnModGetVar('pn_bbcode', 'codebody_start'));
+        $pnr->assign('codebody_end',      pnModGetVar('pn_bbcode', 'codebody_end'));
         return $pnr->fetch('pn_bbcode_admin_main.html');
     } else {
         pnModSetVar('pn_bbcode', 'quoteheader_start', stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quoteheader_start'))));
         pnModSetVar('pn_bbcode', 'quoteheader_end',   stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quoteheader_end'))));
-        pnModSetVar('pn_bbcode', 'quotebody_start', stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quotebody_start'))));
-        pnModSetVar('pn_bbcode', 'quotebody_end',   stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quotebody_end'))));
+        pnModSetVar('pn_bbcode', 'quotebody_start',   stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quotebody_start'))));
+        pnModSetVar('pn_bbcode', 'quotebody_end',     stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quotebody_end'))));
+        pnModSetVar('pn_bbcode', 'codeheader_start',  stripslashes(pnVarPrepForStore(pnVarCleanFromInput('codeheader_start'))));
+        pnModSetVar('pn_bbcode', 'codeheader_end',    stripslashes(pnVarPrepForStore(pnVarCleanFromInput('codeheader_end'))));
+        pnModSetVar('pn_bbcode', 'codebody_start',    stripslashes(pnVarPrepForStore(pnVarCleanFromInput('codebody_start'))));
+        pnModSetVar('pn_bbcode', 'codebody_end',      stripslashes(pnVarPrepForStore(pnVarCleanFromInput('codebody_end'))));
         pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
     }
 }

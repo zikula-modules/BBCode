@@ -41,10 +41,14 @@ function pn_bbcode_init() {
         return false;
     }
 
-    pnModSetVar('pn_bbcode', 'quoteheader_start', pnVarPrepForStore('<div style="width: 95%; font-weight: bold; text-align: left;">') );
-    pnModSetVar('pn_bbcode', 'quoteheader_end', pnVarPrepForStore('</div>') );
-    pnModSetVar('pn_bbcode', 'quotebody_start', pnVarPrepForStore('<div style="width: 95%; background-color: '.$GLOBALS['bgcolor2'].'; text-align: left;">') );
-    pnModSetVar('pn_bbcode', 'quotebody_end', pnVarPrepForStore('</div>') );
+    pnModSetVar('pn_bbcode', 'quoteheader_start', stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">')));
+    pnModSetVar('pn_bbcode', 'quoteheader_end',   stripslashes(pnVarPrepForStore('</legend>')));
+    pnModSetVar('pn_bbcode', 'quotebody_start',   stripslashes(pnVarPrepForStore('')));
+    pnModSetVar('pn_bbcode', 'quotebody_end',     stripslashes(pnVarPrepForStore('</fieldset>')));
+    pnModSetVar('pn_bbcode', 'codeheader_start',  stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">')));
+    pnModSetVar('pn_bbcode', 'codeheader_end',    stripslashes(pnVarPrepForStore('</legend>')));
+    pnModSetVar('pn_bbcode', 'codebody_start',    stripslashes(pnVarPrepForStore('<pre>')));
+    pnModSetVar('pn_bbcode', 'codebody_end',      stripslashes(pnVarPrepForStore('</pre></fieldset>')));
 
     // Initialisation successful
     return true;
@@ -54,10 +58,14 @@ function pn_bbcode_upgrade($oldversion)
 {
 	switch($oldversion) {
 	    case '1.10':
-            pnModSetVar('pn_bbcode', 'quoteheader_start', pnVarPrepForStore('<div style="width: 95%; font-weight: bold; text-align: left;">') );
-            pnModSetVar('pn_bbcode', 'quoteheader_end', pnVarPrepForStore('</div>') );
-            pnModSetVar('pn_bbcode', 'quotebody_start', pnVarPrepForStore('<div style="width: 95%; background-color: '.$GLOBALS['bgcolor2'].'; text-align: left;">') );
-            pnModSetVar('pn_bbcode', 'quotebody_end', pnVarPrepForStore('</div>') );
+            pnModSetVar('pn_bbcode', 'quoteheader_start', stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">')));
+            pnModSetVar('pn_bbcode', 'quoteheader_end',   stripslashes(pnVarPrepForStore('</legend>')));
+            pnModSetVar('pn_bbcode', 'quotebody_start',   stripslashes(pnVarPrepForStore('')));
+            pnModSetVar('pn_bbcode', 'quotebody_end',     stripslashes(pnVarPrepForStore('</fieldset>')));
+            pnModSetVar('pn_bbcode', 'codeheader_start',  stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">')));
+            pnModSetVar('pn_bbcode', 'codeheader_end',    stripslashes(pnVarPrepForStore('</legend>')));
+            pnModSetVar('pn_bbcode', 'codebody_start',    stripslashes(pnVarPrepForStore('<pre>')));
+            pnModSetVar('pn_bbcode', 'codebody_end',      stripslashes(pnVarPrepForStore('</pre></fieldset>')));
         default: break;			
     }
 
@@ -81,6 +89,10 @@ function pn_bbcode_delete() {
     pnModDelVar('pn_bbcode', 'quoteheader_end');
     pnModDelVar('pn_bbcode', 'quotebody_start');
     pnModDelVar('pn_bbcode', 'quotebody_end');
+    pnModDelVar('pn_bbcode', 'codeheader_start');
+    pnModDelVar('pn_bbcode', 'codeheader_end');
+    pnModDelVar('pn_bbcode', 'codebody_start');
+    pnModDelVar('pn_bbcode', 'codebody_end');
 
     // Deletion successful
     return true;

@@ -33,5 +33,10 @@ define('_PNBBCODE_QUOTEBODYSTART', 'Start of quote body');
 define('_PNBBCODE_QUOTEBODYEND', 'End of quote body');
 define('_PNBBCODE_PNADMINISTRATION', 'Administration');
 define('_PNBBCODE_PREVIEW','Preview');
+define('_PNBBCODE_NOAUTH', 'No permission');
+define('_PNBBCODE_CODEHEADERSTART', 'Start of code header');
+define('_PNBBCODE_CODEHEADEREND', 'End of code header');
+define('_PNBBCODE_CODEBODYSTART', 'Start of code body');
+define('_PNBBCODE_CODEBODYEND', 'End of code body');
 
 ?>
