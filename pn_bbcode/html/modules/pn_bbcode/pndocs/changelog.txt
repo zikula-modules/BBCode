@@ -1,9 +1,11 @@
+    - special support for mail2forum feature of pnForum
+
 Version 1.16: March 6th, 2005
-    - using GeSHi (http://qbnz.com/highlighter/index.php) for optional syntax highlighting 
+    - using GeSHi (http://qbnz.com/highlighter/index.php) for optional syntax highlighting
       in code tags
 
-Version 1.15: 
-    - changed quote and code configuration to use one textarea now, 
+Version 1.15:
+    - changed quote and code configuration to use one textarea now,
       you can use %u for placing  the username and %t now for the quoted text in quote or
       %h for the value of _PNBBCODE_CODE, %c for the code and %e for the urlencoded text in code.
     - using external stylesheet now if existing.

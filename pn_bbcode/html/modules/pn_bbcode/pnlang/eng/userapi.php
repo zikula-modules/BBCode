@@ -28,6 +28,7 @@
 // ----------------------------------------------------------------------
 
 // new
+define('_PNBBCODE_ORIGINALSENDER', 'From');
 define('_PNBBCODE_SELECTCODE', 'select code type');
 define('_PNBBCODE_NOSPECIALCODE', 'no special code');
 

@@ -39,7 +39,7 @@ include_once('modules/pn_bbcode/pnincludes/geshi.php');
 /**
  * the hook function
 */
-function pn_bbcode_userapi_transform($args) 
+function pn_bbcode_userapi_transform($args)
 {
     extract($args);
 
@@ -66,27 +66,27 @@ function pn_bbcode_userapi_transform($args)
  * bbdecode/bbencode functions:
  * Rewritten - Nathan Codding - Aug 24, 2000
  * quote, code, and list rewritten again in Jan. 2001.
- * All BBCode tags now implemented. Nesting and multiple occurances should be 
+ * All BBCode tags now implemented. Nesting and multiple occurances should be
  * handled fine for all of them. Using str_replace() instead of regexps often
- * for efficiency. quote, list, and code are not regular, so they are 
- * implemented as PDAs - probably not all that efficient, but that's the way it is. 
+ * for efficiency. quote, list, and code are not regular, so they are
+ * implemented as PDAs - probably not all that efficient, but that's the way it is.
  *
  * Note: all BBCode tags are case-insensitive.
  *
  * some changes for PostNuke: larsneo - Jan, 12, 2003
  * different [img] tag conversion against XSS
 */
-function pn_bbcode_transform($message) 
+function pn_bbcode_transform($message)
 {
 	// pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
 	// This is important; bbencode_quote(), bbencode_list(), and bbencode_code() all depend on it.
 	$message = " " . $message;
-	
+
 	// First: If there isn't a "[" and a "]" in the message, don't bother.
 	if (! (strpos($message, "[") && strpos($message, "]")) ) {
 		// Remove padding, return.
 		$message = substr($message, 1);
-		return $message;	
+		return $message;
 	}
 
 	// [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
@@ -98,7 +98,7 @@ function pn_bbcode_transform($message)
         $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $message, 1);
     }
 
-	// [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.	
+	// [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
 	$message = pn_bbcode_encode_quote($message);
 
 	// [list] and [list=x] for (un)ordered lists.
@@ -144,7 +144,7 @@ function pn_bbcode_transform($message)
     } else {
         $message = preg_replace("#\[color=(.*?)\](.*?)\[/color\]#si", "\\2", $message);
     }
-        
+
     // [size] and [/size] for setting the size of text.
     if(pnModGetVar('pn_bbcode', 'size_enabled')=="yes") {
         $message = preg_replace("/\[size=tiny\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('pn_bbcode', 'size_tiny').";\">\\1</span>", $message);
@@ -161,7 +161,7 @@ function pn_bbcode_transform($message)
     } else {
         $message = preg_replace("/\[size=(.*?)\](.*?)\[\/size\]/si", "\\2", $message);
     }
-    
+
 	// Patterns and replacements for URL and email tags..
 	$patterns = array();
 	$replacements = array();
@@ -174,7 +174,7 @@ function pn_bbcode_transform($message)
 	$patterns[1] = "#\[url\](.*?)\[/url\]#si";
 	$replacements[1] = '<a href="http://\1">\1</a>';
 
-	// [url=xxxx://www.phpbb.com]phpBB[/url] code.. 
+	// [url=xxxx://www.phpbb.com]phpBB[/url] code..
 	$patterns[2] = "#\[url=([a-z]+?://){1}(.*?)\](.*?)\[/url\]#si";
 	$replacements[2] = '<a href="\1\2">\3</a>';
 
@@ -202,11 +202,11 @@ function pn_bbcode_transform($message)
 /**
  * Nathan Codding - Jan. 12, 2001.
  * Performs [quote][/quote] bbencoding on the given string, and returns the results.
- * Any unmatched "[quote]" or "[/quote]" token will just be left alone. 
+ * Any unmatched "[quote]" or "[/quote]" token will just be left alone.
  * This works fine with both having more than one quote in a message, and with nested quotes.
  * Since that is not a regular language, this is actually a PDA and uses a stack. Great fun.
  *
- * Note: This function assumes the first character of $message is a space, which is added by 
+ * Note: This function assumes the first character of $message is a space, which is added by
  * bbencode().
  */
 function pn_bbcode_encode_quote($message)
@@ -215,19 +215,19 @@ function pn_bbcode_encode_quote($message)
 	// need to process it at all.
 	if (!strpos(strtolower($message), "[quote=") && !strpos(strtolower($message), "[quote]"))
 	{
-		return $message;	
+		return $message;
 	}
 
     add_stylesheet_header();
 
     $quotebody = pnModGetVar('pn_bbcode', 'quote');
-	
+
 	$stack = Array();
 	$curr_pos = 1;
 	while ($curr_pos && ($curr_pos < strlen($message)))
-	{	
+	{
 		$curr_pos = strpos($message, "[", $curr_pos);
-	
+
 		// If not found, $curr_pos will be 0, and the loop will end.
 		if ($curr_pos)
 		{
@@ -249,7 +249,7 @@ function pn_bbcode_encode_quote($message)
 				// Check if we've already found a matching starting tag.
 				if (sizeof($stack) > 0)
 				{
-					// There exists a starting tag. 
+					// There exists a starting tag.
 					// We need to do 2 replacements now.
 					$start_index = array_pop($stack);
 
@@ -274,8 +274,8 @@ function pn_bbcode_encode_quote($message)
                     $quotetext = str_replace('%u', $username, $quotebody);
                     $quotetext = str_replace('%t', $between_tags, $quotetext);
 					$message = $before_start_tag . $quotetext . $after_end_tag;
-				
-					// Now.. we've screwed up the indices by changing the length of the string. 
+
+					// Now.. we've screwed up the indices by changing the length of the string.
 					// So, if there's anything in the stack, we want to resume searching just after it.
 					// otherwise, we go back to the start.
 					if (sizeof($stack) > 0)
@@ -292,29 +292,29 @@ function pn_bbcode_encode_quote($message)
 				else
 				{
 					// No matching start tag found. Increment pos, keep going.
-					++$curr_pos;	
+					++$curr_pos;
 				}
 			}
 			else
 			{
 				// No starting tag or ending tag.. Increment pos, keep looping.,
-				++$curr_pos;	
+				++$curr_pos;
 			}
 		}
 	} // while
-	
+
 	return $message;
-	
+
 } // pn_bbcode_encode_quote()
 
 /**
  * Nathan Codding - Jan. 12, 2001.
  * Performs [code][/code] bbencoding on the given string, and returns the results.
- * Any unmatched "[code]" or "[/code]" token will just be left alone. 
+ * Any unmatched "[code]" or "[/code]" token will just be left alone.
  * This works fine with both having more than one code block in a message, and with nested code blocks.
  * Since that is not a regular language, this is actually a PDA and uses a stack. Great fun.
  *
- * Note: This function assumes the first character of $message is a space, which is added by 
+ * Note: This function assumes the first character of $message is a space, which is added by
  * bbencode().
  */
 function pn_bbcode_encode_code($message)
@@ -334,7 +334,7 @@ function pn_bbcode_encode_code($message)
         for($i=0; $i < $count; $i++) {
             // the code in between incl. code tags
             $str_to_match = "/" . preg_quote($bbcode[0][$i], "/") . "/";
-            
+
             // no parameters, set some defaults
             $numbers = (pnModGetVar('pn_bbcode', 'linenumbers')=='yes') ? true : false;
             $language = 'php';
@@ -347,7 +347,7 @@ function pn_bbcode_encode_code($message)
                     // everything else must be parsed
                     $language = $parameters[0];
                     // remove it, its no longer used
-                    array_shift($parameters); 
+                    array_shift($parameters);
                     foreach($parameters as $parameter) {
                         $singleparam = explode('=', $parameter);
                         switch(strtolower($singleparam[0])) {
@@ -357,10 +357,15 @@ function pn_bbcode_encode_code($message)
                             case 'nolines':
                                 $numbers = false;
                                 break;
+                            case 'user':
+                                // special for htmlmail, we show the user name instead
+                                // of _PNBBCODE_CODE
+                                $username = $singleparam[1];
+                                break;
                             default:
                         }
                     }
-                }         
+                }
             } // parameters analyzed
             $after_replace = "";
             if(strlen($bbcode[3][$i])>0) {
@@ -409,11 +414,15 @@ function pn_bbcode_encode_code($message)
                 $after_replace = str_replace("\n", '', $after_replace);
             }
 
-            // replace %h with _PNBBCODE_CODE                
-            $codetext = str_replace("%h", pnVarPrepForDisplay(_PNBBCODE_CODE), $codebody);
-            // replace %c with code                
+            // replace %h with _PNBBCODE_CODE
+            if($language=='htmlmail') {
+                $codetext = str_replace("%h", pnVarPrepForDisplay(_PNBBCODE_ORIGINALSENDER) . ': ' . pnVarPrepForDisplay($username), $codebody);
+            } else {
+                $codetext = str_replace("%h", pnVarPrepForDisplay(_PNBBCODE_CODE), $codebody);
+            }
+            // replace %c with code
             $codetext = str_replace("%c",  $after_replace, $codetext);
-            // replace %e with urlencoded code (prepared for javascript)               
+            // replace %e with urlencoded code (prepared for javascript)
             $codetext = str_replace("%e", urlencode(nl2br($after_replace)), $codetext);
             $message = preg_replace($str_to_match, $codetext, $message);
 
@@ -421,22 +430,22 @@ function pn_bbcode_encode_code($message)
         $message = str_replace("\n\n","\n",$message);
     }
 	return $message;
-	
+
 } // pn_bbcode_encode_code()
 
 
 /**
  * Nathan Codding - Jan. 12, 2001.
  * Performs [list][/list] and [list=?][/list] bbencoding on the given string, and returns the results.
- * Any unmatched "[list]" or "[/list]" token will just be left alone. 
+ * Any unmatched "[list]" or "[/list]" token will just be left alone.
  * This works fine with both having more than one list in a message, and with nested lists.
  * Since that is not a regular language, this is actually a PDA and uses a stack. Great fun.
  *
- * Note: This function assumes the first character of $message is a space, which is added by 
+ * Note: This function assumes the first character of $message is a space, which is added by
  * bbencode().
  */
 function pn_bbcode_encode_list($message)
-{		
+{
 	$start_length = array();
 	$start_length['ordered'] = 8;
 	$start_length['unordered'] = 6;
@@ -444,14 +453,14 @@ function pn_bbcode_encode_list($message)
 	// First things first: If there aren't any "[list" strings in the message, we don't
 	// need to process it at all.
 	if (!strpos(strtolower($message), "[list")) {
-		return $message;	
+		return $message;
 	}
 
     add_stylesheet_header();
 
 	$stack = array();
 	$curr_pos = 1;
-	while ($curr_pos && ($curr_pos < strlen($message)))	{	
+	while ($curr_pos && ($curr_pos < strlen($message)))	{
 		$curr_pos = strpos($message, "[", $curr_pos);
 
 		// If not found, $curr_pos will be 0, and the loop will end.
@@ -476,7 +485,7 @@ function pn_bbcode_encode_list($message)
 				// We have an ending list tag.
 				// Check if we've already found a matching starting tag.
 				if (sizeof($stack) > 0) {
-					// There exists a starting tag. 
+					// There exists a starting tag.
 					// We need to do 2 replacements now.
 					$start = array_pop($stack);
 					$start_index = $start[0];
@@ -491,7 +500,7 @@ function pn_bbcode_encode_list($message)
 					$between_tags = substr($message, $start_index + $start_tag_length, $curr_pos - $start_index - $start_tag_length);
 					// Need to replace [*] with <li> inside the list.
 					$between_tags = str_replace("[*]", "<li>", $between_tags);
-					
+
 					// everything after the [/list] tag.
 					$after_end_tag = substr($message, $curr_pos + 7);
 
@@ -504,8 +513,8 @@ function pn_bbcode_encode_list($message)
 					}
 
 					$message .= $after_end_tag;
-					
-					// Now.. we've screwed up the indices by changing the length of the string. 
+
+					// Now.. we've screwed up the indices by changing the length of the string.
 					// So, if there's anything in the stack, we want to resume searching just after it.
 					// otherwise, we go back to the start.
 					if (sizeof($stack) > 0) {
@@ -518,11 +527,11 @@ function pn_bbcode_encode_list($message)
 					}
 				} else {
 					// No matching start tag found. Increment pos, keep going.
-					++$curr_pos;	
+					++$curr_pos;
 				}
 			} else {
 				// No starting tag or ending tag.. Increment pos, keep looping.,
-				++$curr_pos;	
+				++$curr_pos;
 			}
 		}
 	} // while
@@ -555,7 +564,7 @@ function pn_bbcode_userapi_get_geshi_languages()
  * Nathan Codding - Oct. 30, 2000
  *
  * Escapes the "/" character with "\/". This is useful when you need
- * to stick a runtime string into a PREG regexp that is being delimited 
+ * to stick a runtime string into a PREG regexp that is being delimited
  * with slashes.
  */
 function pn_escape_slashes($input)
@@ -569,7 +578,7 @@ function pn_escape_slashes($input)
  *
  * removes instances of <br /> since sometimes they are stored in DB :(
  */
-function pn_bbcode_br2nl($str) 
+function pn_bbcode_br2nl($str)
 {
     return preg_replace("=<br(>|([\s/][^>]*)>)\r?\n?=i", "\n", $str);
 }
