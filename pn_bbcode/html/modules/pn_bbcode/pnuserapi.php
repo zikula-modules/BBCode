@@ -96,14 +96,14 @@ function pn_bbcode_encode($message, $is_html_disabled)
 		return $message;	
 	}
 
+	// [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
+	$message = pn_bbcode_encode_code($message, $is_html_disabled);
+
     // Step 1 - remove all html tags, we do not want to change them!!
     $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $message, $html);
     for ($i=0; $i < $htmlcount; $i++) {
         $text = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $text, 1);
     }
-
-	// [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
-	$message = pn_bbcode_encode_code($message, $is_html_disabled);
 
 	// [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.	
 	$message = pn_bbcode_encode_quote($message);
@@ -233,12 +233,14 @@ function pn_bbcode_encode_quote($message)
     $quotebody_start   = pnModGetVar('pn_bbcode', 'quotebody_start');
     $quotebody_end     = pnModGetVar('pn_bbcode', 'quotebody_end');
 
-    preg_match_all("/\[quote=(.*?)\]/si", $message, $quote);
+    $count = preg_match_all("/\[quote=(.*?)\]/si", $message, $quote);
     $search = array();
     $replace = array();
-    for($i=0; $i<count($quote[0]);$i++) {
-        $search[] = "/" . preg_quote($quote[0][$i]) . "/si";
-        $replace[] = $quoteheader_start . $quote[1][$i] . $quoteheader_end . $quotebody_start;
+    if($count>0 && is_array($quote)) {
+        for($i=0; $i<count($quote[0]);$i++) {
+            $search[] = "/" . preg_quote($quote[0][$i]) . "/si";
+            $replace[] = $quoteheader_start . $quote[1][$i] . $quoteheader_end . $quotebody_start;
+        }
     }
     // replace old style opening tags
     $search[] = "/\[quote\]/si";
@@ -296,16 +298,17 @@ function pn_bbcode_encode_code($message, $is_html_disabled)
     $replace[] = $codebody_end . "<!--/code-->";
 
     $count = preg_match_all("#(\[code\])(.*?)(\[\/code\])#si", $message, $bbcode);
-    for($i=0; $i < $count; $i++) {
-        // the code in between
-        $search[] = "/" . preg_quote($bbcode[2][0], "/") . "/";
-        $code_after  = pn_bbcode_br2nl($bbcode[2][0]);
-        $code_after  = preg_replace("/</", "&lt;", $code_after);
-        $code_after  = preg_replace("/>/", "&gt;", $code_after);
-        $replace[] = $code_after;
+    if($count>0 && is_array($bbcode)) {
+        for($i=0; $i < $count; $i++) {
+            // the code in between
+            $search[] = "/" . preg_quote($bbcode[2][$i], "/") . "/";
+            $code_after  = pn_bbcode_br2nl($bbcode[2][$i]);
+            $code_after  = preg_replace("/</", "&lt;", $code_after);
+            $code_after  = preg_replace("/>/", "&gt;", $code_after);
+            $replace[] = $code_after;
+        }
+        $message = preg_replace($search, $replace, $message);
     }
-    $message = preg_replace($search, $replace, $message);
-	
 	// Undo our escaping from "second things second" above..
 	$message = preg_replace("/\[#([0-9]+?)code\]/si", "[\\1code]", $message);
 	$message = preg_replace("/\[\/code#([0-9]+?)\]/si", "[/code\\1]", $message);
