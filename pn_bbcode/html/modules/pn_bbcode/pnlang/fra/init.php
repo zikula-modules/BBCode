@@ -27,11 +27,9 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
-//nedd to be corrected:
-define('_PNBBCODE_ENTER_WEBIMAGE_URL','Entrez l\'URL de l\'image que vous voulez afficher :');
+define('_PNBBCODE_COULDNOTREGISTER',          'pn_bbcode n\'a pas été installé !');
+define('_PNBBCODE_COULDNOTUNREGISTER',        'pn_bbcode n\'a pas été désinstallé !');
 
-//new translation
-define('_PNBBCODE_ARGSERROR', '[pn_bbcode] Erreur interne ! Argument manquant !');
-define('_PNBBCODE_CODE', 'Code');
-define('_PNBBCODE_QUOTE', 'Citation');
+
+
 ?>
