@@ -194,7 +194,7 @@ function pn_bbcode_encode_quote($message)
     }
     // replace old style opening tags
     $search[] = "/\[quote\]/si";
-    $replace[] = $quoteheader_start . pnVarPrepForDisplay(_PNBBCODE_QUOTE). $quoteheader_end . $quotebody_start;
+    $replace[] = $quoteheader_start . _PNBBCODE_QUOTE . $quoteheader_end . $quotebody_start;
     // replace closing tags
     $search[] = "/\[\/quote\]/si";
     $replace[] = $quotebody_end;
@@ -236,24 +236,16 @@ function pn_bbcode_encode_code($message, $is_html_disabled)
     $codeheader_end   = pnModGetVar('pn_bbcode', 'codeheader_end');
     $codebody_start   = pnModGetVar('pn_bbcode', 'codebody_start');
     $codebody_end     = pnModGetVar('pn_bbcode', 'codebody_end');
-/*
-    // opening tag
-    $search[] = "/\[code\]/si";
-    $replace[] = $codeheader_start . pnVarPrepForDisplay(_PNBBCODE_CODE). $codeheader_end . $codebody_start;
-    // closing tag
-    $search[] = "/\[\/code\]/si";
-    $replace[] = $codebody_end;
-    $message = preg_replace($search, $replace, $message);
-*/
+
     $search = array();
     $replace = array();
 
     // opening tag
     $search[] = "/\[code\]/si";
-    $replace[] = "<!--CODE-->" . $codeheader_start . pnVarPrepForDisplay(_PNBBCODE_CODE). $codeheader_end . $codebody_start;
+    $replace[] = "<!--code-->" . $codeheader_start . _PNBBCODE_CODE . $codeheader_end . $codebody_start;
     // closing tag
     $search[] = "/\[\/code\]/si";
-    $replace[] = $codebody_end . "<!--/CODE-->";
+    $replace[] = $codebody_end . "<!--/code-->";
 
     $count = preg_match_all("#(\[code\])(.*?)(\[\/code\])#si", $message, $bbcode);
     for($i=0; $i < $count; $i++) {
@@ -265,7 +257,6 @@ function pn_bbcode_encode_code($message, $is_html_disabled)
         $replace[] = $code_after;
     }
     $message = preg_replace($search, $replace, $message);
-
 	
 	// Undo our escaping from "second things second" above..
 	$message = preg_replace("/\[#([0-9]+?)code\]/si", "[\\1code]", $message);
@@ -421,127 +412,7 @@ function pn_bbcode_encode_phps($message, $is_html_disabled)
 	// input.. So escape them to [#1code] or [/code#1] for now:
 	$message = preg_replace("/\[([0-9]+?)phps\]/si", "[#\\1phps]", $message);
 	$message = preg_replace("/\[\/phps([0-9]+?)\]/si", "[/phps#\\1]", $message);
-/*
-    $codeheader_start = pnModGetVar('pn_bbcode', 'codeheader_start');
-    $codeheader_end   = pnModGetVar('pn_bbcode', 'codeheader_end');
-    $codebody_start   = pnModGetVar('pn_bbcode', 'codebody_start');
-    $codebody_end     = pnModGetVar('pn_bbcode', 'codebody_end');
 
-	$stack = Array();
-	$curr_pos = 1;
-	$max_nesting_depth = 0;
-	while ($curr_pos && ($curr_pos < strlen($message)))
-	{
-		$curr_pos = strpos($message, "[", $curr_pos);
-
-		// If not found, $curr_pos will be 0, and the loop will end.
-		if ($curr_pos)
-		{
-			// We found a [. It starts at $curr_pos.
-			// check if it's a starting or ending code tag.
-			$possible_start = substr($message, $curr_pos, 6);
-			$possible_end = substr($message, $curr_pos, 7);
-			if (strcasecmp("[phps]", $possible_start) == 0)
-			{
-				// We have a starting code tag.
-				// Push its position on to the stack, and then keep going to the right.
-				array_push($stack, $curr_pos);
-				++$curr_pos;
-			}
-			else if (strcasecmp("[/phps]", $possible_end) == 0)
-			{
-				// We have an ending code tag.
-				// Check if we've already found a matching starting tag.
-				if (sizeof($stack) > 0)
-				{
-					// There exists a starting tag.
-					$curr_nesting_depth = sizeof($stack);
-					$max_nesting_depth = ($curr_nesting_depth > $max_nesting_depth) ? $curr_nesting_depth : $max_nesting_depth;
-
-					// We need to do 2 replacements now.
-					$start_index = array_pop($stack);
-
-					// everything before the [code] tag.
-					$before_start_tag = substr($message, 0, $start_index);
-
-					// everything after the [code] tag, but before the [/code] tag.
-					$between_tags = substr($message, $start_index + 6, $curr_pos - $start_index - 6);
-
-					// everything after the [/code] tag.
-					$after_end_tag = substr($message, $curr_pos + 7);
-
-					$message = $before_start_tag . "[" . $curr_nesting_depth . "phps]";
-					$message .= $between_tags . "[/phps" . $curr_nesting_depth . "]";
-					$message .= $after_end_tag;
-
-					// Now.. we've screwed up the indices by changing the length of the string.
-					// So, if there's anything in the stack, we want to resume searching just after it.
-					// otherwise, we go back to the start.
-					if (sizeof($stack) > 0)
-					{
-						$curr_pos = array_pop($stack);
-						array_push($stack, $curr_pos);
-						++$curr_pos;
-					}
-					else
-					{
-						$curr_pos = 1;
-					}
-				}
-				else
-				{
-					// No matching start tag found. Increment pos, keep going.
-					++$curr_pos;
-				}
-			}
-			else
-			{
-				// No starting tag or ending tag.. Increment pos, keep looping.,
-				++$curr_pos;
-			}
-		}
-	} // while
-
-	if ($max_nesting_depth > 0)
-	{
-		for ($i = 1; $i <= $max_nesting_depth; ++$i)
-		{
-			$start_tag = pn_escape_slashes(preg_quote("[" . $i . "phps]"));
-			$end_tag = pn_escape_slashes(preg_quote("[/phps" . $i . "]"));
-
-			$match_count = preg_match_all("/$start_tag(.*?)$end_tag/si", $message, $matches);
-
-			for ($j = 0; $j < $match_count; $j++)
-			{
-echo "start:$start_tag:<br>";
-echo "end:$end_tag:<br>";
-echo "0:0:".pnVarPrepHTMLDisplay($matches[0][0]).":<br>";
-echo "1:0:".pnVarPrepHTMLDisplay($matches[1][0]).":<br>";
-				$before_replace = pn_escape_slashes(preg_quote($matches[1][$j]));
-				$after_replace = $matches[1][$j];
-
-				if (($i < 2) && !$is_html_disabled)
-				{
-					// don't escape special chars when we're nested, 'cause it was already done
-					// at the lower level..
-					// also, don't escape them if HTML is disabled in this post. it'll already be done
-					// by the posting routines.
-					//$after_replace = htmlspecialchars($after_replace);
-				}
-
-				$str_to_match = $start_tag . $before_replace . $end_tag;
-
-				//$message = preg_replace("/$str_to_match/si", "<TABLE BORDER=0 ALIGN=CENTER WIDTH=85%><TR><TD>"._BCPHPHIGHLIGHT_CODE.":<HR></TD></TR><TR><TD><PRE>".bcPhpHighlight_br2nl($after_replace)."</PRE></TD></TR><TR><TD><HR></TD></TR></TABLE>", $message);
-                $after_replace = ereg_replace("&lt;","<",$after_replace);
-                $after_replace = ereg_replace("&gt;",">",$after_replace);
-                $after_replace = ereg_replace("&amp;","&",$after_replace);
-echo "after_replace:".pnVarPrepHTMLDisplay($after_replace).":<br>";
-                $message = preg_replace("/$str_to_match/si", $codeheader_start . pnVarPrepForDisplay(_PNBBCODE_CODE) . $codeheader_end . $codebody_start . pn_bbcode_br2nl(highlight_string($after_replace,true)) . $codebody_end, $message);
-                //$message = highlight_string($message,true);
-			}
-		}
-	}
-*/
     $codeheader_start = pnModGetVar('pn_bbcode', 'codeheader_start');
     $codeheader_end   = pnModGetVar('pn_bbcode', 'codeheader_end');
     $codebody_start   = pnModGetVar('pn_bbcode', 'codebody_start');
@@ -563,7 +434,7 @@ echo "after_replace:".pnVarPrepHTMLDisplay($after_replace).":<br>";
 
     // opening tag
     $search[] = "/\[phps\]/si";
-    $replace[] = $codeheader_start . pnVarPrepForDisplay(_PNBBCODE_CODE). $codeheader_end . $codebody_start;
+    $replace[] = $codeheader_start . _PNBBCODE_CODE . $codeheader_end . $codebody_start;
     // closing tag
     $search[] = "/\[\/phps\]/si";
     $replace[] = $codebody_end;
