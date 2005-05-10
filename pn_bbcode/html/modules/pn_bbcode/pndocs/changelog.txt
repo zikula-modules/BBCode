@@ -1,4 +1,12 @@
+    - fixed problem wit empty code blocks
     - special support for mail2forum feature of pnForum
+    - admin can allow access to links (url and mail) with permissions:
+      unreg. users (group) | modname::Links | .* | ACCESS_NONE
+      unreg. users (group) | modname::Emails | .* | ACCESS_NONE
+      e.g.
+      unreg. users (group) | pnForum::Links | .* | ACCESS_NONE
+      unreg. users (group) | pagesetter::Emails | .* | ACCESS_NONE
+
 
 Version 1.16: March 6th, 2005
     - using GeSHi (http://qbnz.com/highlighter/index.php) for optional syntax highlighting
@@ -14,7 +22,7 @@ Version 1.15:
     - added user function to show some help about bbcode
 
 Version 1.14: January 10th, 2005
-    - futher improvement in interaction with other hooks
+    - further improvement in interaction with other hooks
     - new bbcode tags for underlined text, text size and text color (configurable)
 
 Version 1.13:

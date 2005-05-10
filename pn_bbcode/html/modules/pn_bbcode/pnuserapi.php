@@ -162,31 +162,35 @@ function pn_bbcode_transform($message)
         $message = preg_replace("/\[size=(.*?)\](.*?)\[\/size\]/si", "\\2", $message);
     }
 
-	// Patterns and replacements for URL and email tags..
-	$patterns = array();
-	$replacements = array();
-
 	// [url]xxxx://www.phpbb.com[/url] code..
-	$patterns[0] = "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si";
-	$replacements[0] = '<a href="\1\2" >\1\2</a>';
+    $message = preg_replace_callback(
+	            "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si",
+	            'linktest_callback_0',
+	            $message);
 
 	// [url]www.phpbb.com[/url] code.. (no xxxx:// prefix).
-	$patterns[1] = "#\[url\](.*?)\[/url\]#si";
-	$replacements[1] = '<a href="http://\1">\1</a>';
+    $message = preg_replace_callback(
+	            "#\[url\](.*?)\[/url\]#si",
+	            'linktest_callback_1',
+	            $message);
 
 	// [url=xxxx://www.phpbb.com]phpBB[/url] code..
-	$patterns[2] = "#\[url=([a-z]+?://){1}(.*?)\](.*?)\[/url\]#si";
-	$replacements[2] = '<a href="\1\2">\3</a>';
+    $message = preg_replace_callback(
+	            "#\[url=([a-z]+?://){1}(.*?)\](.*?)\[/url\]#si",
+	            'linktest_callback_2',
+	            $message);
 
 	// [url=www.phpbb.com]phpBB[/url] code.. (no xxxx:// prefix).
-	$patterns[3] = "#\[url=(.*?)\](.*?)\[/url\]#si";
-	$replacements[3] = '<a href="http://\1">\2</a>';
+    $message = preg_replace_callback(
+	            "#\[url=(.*?)\](.*?)\[/url\]#si",
+	            'linktest_callback_3',
+	            $message);
 
 	// [email]user@domain.tld[/email] code..
-	$patterns[4] = "#\[email\](.*?)\[/email\]#si";
-	$replacements[4] = '<a href="mailto:\1">\1</a>';
-
-	$message = preg_replace($patterns, $replacements, $message);
+    $message = preg_replace_callback(
+	            "#\[email\](.*?)\[/email\]#si",
+	            'linktest_callback_4',
+	            $message);
 
     // replace the links that we removed before
     for ($i = 0; $i < $htmlcount; $i++) {
@@ -262,7 +266,7 @@ function pn_bbcode_encode_quote($message)
                     if($start_tag_len > 7) {
                         $username = substr($message, $start_index + 7, $start_tag_len - 8);
                     } else {
-                        $username = 'Zitat';
+                        $username = pnVarPrepForDisplay(_PNBBCODE_QUOTE);;
                     }
 
 					// everything after the [quote=xxx] tag, but before the [/quote] tag.
@@ -326,6 +330,7 @@ function pn_bbcode_encode_code($message)
     // [2] php,start=25
     // [3] php code();
     // [4] [/code]
+
     if($count>0 && is_array($bbcode)) {
         add_stylesheet_header();
         // this is only needed once and will not change
@@ -368,22 +373,26 @@ function pn_bbcode_encode_code($message)
                 }
             } // parameters analyzed
             $after_replace = "";
-            if(strlen($bbcode[3][$i])>0) {
-                $lines = explode("\n", $bbcode[3][$i]);
+            if(!empty($bbcode[3][$i])) {
+                $lines = explode("\n", trim($bbcode[3][$i]));
                 if(is_array($lines) && count($lines)>0) {
                     // remove empty lines on top of the code
-                    while($lines[0] == '' || $lines[0] == ' ' || $lines[0] == "\r") {
+                    while(count($lines)>0 && ($lines[0] == '' || $lines[0] == ' ' || $lines[0] == "\r") ) {
                         array_shift($lines);
                     }
-                    // remove empty lines at the end of the code
-                    while($lines[count($lines)-1] == '' || $lines[count($lines)-1] == ' ' || $lines[count($lines)-1] == "\r") {
-                        array_pop($lines);
-                    }
-                    for($lcnt=0;$lcnt<count($lines); $lcnt++) {
-                        if($numbers==true && $hilite==false) {
-                            $after_replace .= sprintf("%03d", $startline+$lcnt) . ": " . $lines[$lcnt] . "\n";
-                        } else {
-                            $after_replace .= $lines[$lcnt] . "\n";
+                    if(count($lines)>0){
+                        // remove empty lines at the end of the code
+                        while(count($lines)>0 && ($lines[count($lines)-1] == '' || $lines[count($lines)-1] == ' ' || $lines[count($lines)-1] == "\r") ) {
+                            array_pop($lines);
+                        }
+                        if(count($lines)>0){
+                            for($lcnt=0;$lcnt<count($lines); $lcnt++) {
+                                if($numbers==true && $hilite==false) {
+                                    $after_replace .= sprintf("%03d", $startline+$lcnt) . ": " . $lines[$lcnt] . "\n";
+                                } else {
+                                    $after_replace .= $lines[$lcnt] . "\n";
+                                }
+                            }
                         }
                     }
                 }
@@ -606,4 +615,138 @@ function add_stylesheet_header()
     }
     return;
 }
+
+/**
+ * linktest_callback_0
+ *
+ */
+function linktest_callback_0($matches)
+{
+    static $is_allowed;
+    static $modname;
+    static $our_url;
+
+    if(!isset($is_allowed)) {
+        $modname = pnModGetName();
+        $our_url = pnGetBaseURL();
+        $is_allowed = pnSecAuthAction(0, $modname . '::Links', '::', ACCESS_READ);
+    }
+    if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
+        // now allowed to see links and link is not on our site
+        if(pnUserLoggedIn()) {
+            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        } else {
+            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+        }
+    } else {
+        return '<a href="' . $matches[1] . $matches[2] . '">' . $matches[1] . $matches[2] . '</a>';
+    }
+}
+
+/**
+ * linktest_callback_1
+ *
+ */
+function linktest_callback_1($matches)
+{
+    static $is_allowed;
+    static $modname;
+    static $our_url;
+
+    if(!isset($is_allowed)) {
+        $modname = pnModGetName();
+        $our_url = pnGetBaseURL();
+        $is_allowed = pnSecAuthAction(0, $modname . '::Links', '::', ACCESS_READ);
+    }
+    if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
+        // now allowed to see links and link is not on our site
+        if(pnUserLoggedIn()) {
+            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        } else {
+            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+        }
+    } else {
+        return '<a href="http://' . $matches[1] . '">' . $matches[1] . '</a>';
+    }
+}
+
+/**
+ * linktest_callback_2
+ *
+ */
+function linktest_callback_2($matches)
+{
+    static $is_allowed;
+    static $modname;
+    static $our_url;
+
+    if(!isset($is_allowed)) {
+        $modname = pnModGetName();
+        $our_url = pnGetBaseURL();
+        $is_allowed = pnSecAuthAction(0, $modname . '::Links', '::', ACCESS_READ);
+    }
+    if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
+        // now allowed to see links and link is not on our site
+        if(pnUserLoggedIn()) {
+            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        } else {
+            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+        }
+    } else {
+	    return '<a href="' . $matches[1] . $matches[2] . '" title="' . $matches[3] . '">' . $matches[3] . '</a>';
+    }
+}
+
+/**
+ * linktest_callback_3
+ *
+ */
+function linktest_callback_3($matches)
+{
+    static $is_allowed;
+    static $modname;
+    static $our_url;
+
+    if(!isset($is_allowed)) {
+        $modname = pnModGetName();
+        $our_url = pnGetBaseURL();
+        $is_allowed = pnSecAuthAction(0, $modname . '::Links', '::', ACCESS_READ);
+    }
+    if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
+        // now allowed to see links and link is not on our site
+        if(pnUserLoggedIn()) {
+            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        } else {
+            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+        }
+    } else {
+        return '<a href="http://' . $matches[1] . '">' . $matches[2] . '</a>';
+    }
+}
+
+/**
+ * linktest_callback_4
+ *
+ */
+function linktest_callback_4($matches)
+{
+    static $is_allowed;
+    static $modname;
+
+    if(!isset($is_allowed)) {
+        $modname = pnModGetName();
+        $is_allowed = pnSecAuthAction(0, $modname . '::Emails', '::', ACCESS_READ);
+    }
+    if($is_allowed==false) {
+        // now allowed to see emails
+        if(pnUserLoggedIn()) {
+            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS);
+        } else {
+            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '</a>';
+        }
+    } else {
+        return '<a href="mailto:' . $matches[1] . '">' . $matches[1] . '</a>';
+    }
+}
+
 ?>
