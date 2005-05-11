@@ -93,6 +93,5 @@ define('_PNBBCODE_URL_HINT', 'Einen Link einfügen');
 define('_PNBBCODE_URL', 'URL');
 
 define('_PNBBCODE_ARGSERROR',                 '[pn_bbcode] Interner Fehler! Argumente nicht verfügbar!');
-define('_PNBBCODE_CODE', 'Code');
-define('_PNBBCODE_QUOTE', 'Zitat');
+
 ?>
