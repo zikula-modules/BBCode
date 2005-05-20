@@ -92,6 +92,12 @@ function pn_bbcode_transform($message)
 	// [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
 	$message = pn_bbcode_encode_code($message);
 
+    // move all links out of the text and replace them with placeholders
+    $linkscount = preg_match_all('/<a(.*)>(.*)<\/a>/si', $message, $links);
+    for ($i = 0; $i < $linkscount; $i++) {
+        $message = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " PNBBCODELINKREPLACEMENT{$i} ", $message, 1);
+    }
+
     // Step 1 - remove all html tags, we do not want to change them!!
     $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $message, $html);
     for ($i=0; $i < $htmlcount; $i++) {
@@ -192,9 +198,12 @@ function pn_bbcode_transform($message)
 	            'linktest_callback_4',
 	            $message);
 
-    // replace the links that we removed before
+    // replace the tags and links that we removed before
     for ($i = 0; $i < $htmlcount; $i++) {
         $message = preg_replace("/ PNBBCODEHTMLREPLACEMENT{$i} /", $html[0][$i], $message, 1);
+    }
+    for ($i = 0; $i < $linkscount; $i++) {
+        $message = preg_replace("/ PNBBCODELINKREPLACEMENT{$i} /", $links[0][$i], $message, 1);
     }
 
 	// Remove our padding from the string..
@@ -629,10 +638,10 @@ function linktest_callback_0($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = pnSecAuthAction(0, $modname . '::Links', '::', ACCESS_READ);
+        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
-        // now allowed to see links and link is not on our site
+        // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
             return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
         } else {
@@ -656,10 +665,10 @@ function linktest_callback_1($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = pnSecAuthAction(0, $modname . '::Links', '::', ACCESS_READ);
+        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
     if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
-        // now allowed to see links and link is not on our site
+        // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
             return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
         } else {
@@ -683,17 +692,23 @@ function linktest_callback_2($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = pnSecAuthAction(0, $modname . '::Links', '::', ACCESS_READ);
+        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+    }
+
+    if( (pnVarValidate($matches[3], 'url')==true) && ($is_allowed==false) && (strpos($matches[3], $our_url)===false) ) {
+        $displayurl = pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+    } else {
+        $displayurl = $matches[3];
     }
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
-        // now allowed to see links and link is not on our site
+        // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+            return  '<span title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</span>';
         } else {
-            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
-	    return '<a href="' . $matches[1] . $matches[2] . '" title="' . $matches[3] . '">' . $matches[3] . '</a>';
+	    return '<a href="' . $matches[1] . $matches[2] . '" title="' . $displayurl . '">' . $displayurl . '</a>';
     }
 }
 
@@ -710,17 +725,23 @@ function linktest_callback_3($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = pnSecAuthAction(0, $modname . '::Links', '::', ACCESS_READ);
+        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+    }
+
+    if(pnVarValidate($matches[2], 'url')==true) {
+        $displayurl = pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+    } else {
+        $displayurl = $matches[2];
     }
     if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
-        // now allowed to see links and link is not on our site
+        // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+            return '<span title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '"><strong>' . $displayurl . '</strong></span>';
         } else {
-            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
-        return '<a href="http://' . $matches[1] . '">' . $matches[2] . '</a>';
+        return '<a href="http://' . $matches[1] . '" title="' . $displayurl . '">' . $displayurl . '</a>';
     }
 }
 
@@ -735,17 +756,17 @@ function linktest_callback_4($matches)
 
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
-        $is_allowed = pnSecAuthAction(0, $modname . '::Emails', '::', ACCESS_READ);
+        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Emails' , '::', ACCESS_READ);
     }
     if($is_allowed==false) {
-        // now allowed to see emails
+        // not allowed to see emails
         if(pnUserLoggedIn()) {
             return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS);
         } else {
             return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '</a>';
         }
     } else {
-        return '<a href="mailto:' . $matches[1] . '">' . $matches[1] . '</a>';
+        return '<a href="mailto:' . $matches[1] . '" title="' . $matches[1] . '">' . $matches[1] . '</a>';
     }
 }
 

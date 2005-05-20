@@ -28,6 +28,8 @@
 // ----------------------------------------------------------------------
 
 define('_PNBBCODE_NOTALLOWEDTOSEEEMAILS', '*Keine Berechtigung für Emails*');
+define('_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS', '*Keine Berechtigung für Links*');
+
 define('_PNBBCODE_ORIGINALSENDER', 'Absender');
 define('_PNBBCODE_SELECTCODE', 'Codetyp auswählen');
 define('_PNBBCODE_NOSPECIALCODE', 'kein spezieller Code');
