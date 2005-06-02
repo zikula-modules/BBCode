@@ -25,23 +25,23 @@ function AddBBCode(textfieldname, action, optdata)
             bbcode = "[color" + check_optdata(optdata, "=") + "][/color]";
             break;
         case "url":
-            bbcode = "[url" + check_optdata(prompt("Enter the URL for the link you want to add", "http://"), "=") + "]"
-                            + check_optdata(prompt("Enter the web site title", "Page title")) + "[/url]";
+            bbcode = "[url" + check_optdata(prompt("Escriba la URL del enlace que quiere añadir", "http://"), "=") + "]"
+                            + check_optdata(prompt("Escriba el nombre del sitio web", "Nombre del sitio")) + "[/url]";
             break;
         case "email":
-            bbcode = "[email]" + check_optdata(prompt("Enter the email address you want to add", "")) + "[/email]";
+            bbcode = "[email]" + check_optdata(prompt("Escriba la dirección de email que quiere añadir", "")) + "[/email]";
             break;
         case "italic":
-            bbcode = "[i]" + check_optdata(prompt("Enter the text that you want to make italic", "")) + "[/i]";
+            bbcode = "[i]" + check_optdata(prompt("Escriba el texto que quiere poner en cursiva", "")) + "[/i]";
             break;
         case "bold":
-            bbcode = "[b]" + check_optdata(prompt("Enter the text that you want to make bold", "")) + "[/b]";
+            bbcode = "[b]" + check_optdata(prompt("Escriba el texto que quiere poner en negrita", "")) + "[/b]";
             break;
         case "underline":
-            bbcode = "[u]" + check_optdata(prompt("Enter the text that you want to make underlined", "")) + "[/u]";
+            bbcode = "[u]" + check_optdata(prompt("Escriba el texto que quiere poner subrayado", "")) + "[/u]";
             break;
         case "image":
-            bbcode = "[img]" + check_optdata(prompt("Enter the URL for the image you want to display", "http://")) + "[/img]";
+            bbcode = "[img]" + check_optdata(prompt("Escriba la URL de la imagen que quiere mostrar", "http://")) + "[/img]";
             break;
         case "quote":
             bbcode = "[quote][/quote]";
@@ -53,7 +53,7 @@ function AddBBCode(textfieldname, action, optdata)
             bbcode = "[/list]";
             break;
         case "listitem":
-            bbcode = "[*]" + check_optdata(prompt("Enter the new list item. Note that each list group must be preceeded by a List Open and must be ended with List Close", ""));
+            bbcode = "[*]" + check_optdata(prompt("Introduzca el nuevo elemento de la lista. Cada grupo de elementos debe comenzar con un Inicio de Lista y finalizar con Fin de Lista", ""));
             break;
         default:
             bbcode = "";

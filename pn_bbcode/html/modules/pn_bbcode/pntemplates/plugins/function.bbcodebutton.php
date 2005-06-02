@@ -34,36 +34,39 @@
  *$params['titleml'] int if set then treat name as a define
  *$params['key'] char accesskey
  *$params['image'] string image
+ *$params['textfieldid'] string id of the textfield, default = post
  *
  */
-function smarty_function_bbcodebutton($params, &$smarty) 
+function smarty_function_bbcodebutton($params, &$smarty)
 {
-    extract($params); 
+    extract($params);
 	unset($params);
 
     // load language file
     if(!pnModAPILoad('pn_bbcode', 'user')) {
         $smarty->trigger_error("loading pn_bbcode api failed", e_error);
         return;
-    } 
-    
+    }
+
+    $textfieldid = (empty($textfieldid)) ? 'post' : $textfieldid;
+
     $lang = pnUserGetLang();
 
     if(file_exists("modules/pn_bbcode/pnimages/$lang/$image")) {
-        $imgfile = "modules/pn_bbcode/pnimages/$lang/$image";   
+        $imgfile = "modules/pn_bbcode/pnimages/$lang/$image";
     } else if(file_exists("modules/pn_bbcode/pnimages/$image")) {
         $imgfile = "modules/pn_bbcode/pnimages/$image";
     }
     $attr = getimagesize($imgfile);
-    
+
     $name  = (isset($nameml)) ? constant($name) : $name;
     $title = (isset($titleml)) ? constant($title) : $title;
-            
+
     $out = "<button name=\"".pnVarPrepForDisplay($name)."\" type=\"button\" value=\"".pnVarPrepForDisplay($name)."\"
             style=\"border:none; background: transparent;\"
             title=\"$title\"
-            accesskey=\"$key\" onclick=\"DoPrompt('".pnVarPrepForDisplay($name)."')\">
-            <img src=\"$imgfile\" ".$attr[3]." alt=\"".pnVarPrepForDisplay($title)."\" />
+            accesskey=\"$key\" onclick=\"AddBBCode('" . pnVarPrepForDisplay($textfieldid) . "', '".pnVarPrepForDisplay($name)."')\">
+            <img src=\"" . pnVarPrepForOS($imgfile) . "\" ".$attr[3]." alt=\"".pnVarPrepForDisplay($title)."\" />
             </button>";
     return $out;
 

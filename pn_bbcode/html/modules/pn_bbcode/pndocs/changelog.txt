@@ -1,11 +1,12 @@
-    - fixed problem wit empty code blocks
+Version 1.17: May 20, 2005
+    - fixed problem with empty code blocks
     - special support for mail2forum feature of pnForum
     - admin can allow access to links (url and mail) with permissions:
-      unreg. users (group) | modname::Links | .* | ACCESS_NONE
-      unreg. users (group) | modname::Emails | .* | ACCESS_NONE
+      unreg. users (group) | pn_bbcode:modname:Links | .* | ACCESS_NONE
+      unreg. users (group) | pn_bbcode:modname:Emails | .* | ACCESS_NONE
       e.g.
-      unreg. users (group) | pnForum::Links | .* | ACCESS_NONE
-      unreg. users (group) | pagesetter::Emails | .* | ACCESS_NONE
+      unreg. users (group) | pn_bbcode:pnForum:Links | .* | ACCESS_NONE
+      unreg. users (group) | pn_bbcode:pagesetter:Emails | .* | ACCESS_NONE
 
 
 Version 1.16: March 6th, 2005

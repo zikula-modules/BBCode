@@ -442,6 +442,8 @@ function pn_bbcode_encode_code($message)
             $codetext = str_replace("%c",  $after_replace, $codetext);
             // replace %e with urlencoded code (prepared for javascript)
             $codetext = str_replace("%e", urlencode(nl2br($after_replace)), $codetext);
+            // my fault, admin panel says %j, so we do both :-)
+            $codetext = str_replace("%j", urlencode(nl2br($after_replace)), $codetext);
             $message = preg_replace($str_to_match, $codetext, $message);
 
         }
