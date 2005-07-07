@@ -83,6 +83,7 @@ function pn_bbcode_user_bbcodes($args)
     $pnr->assign('images', $images);
 
     // find the correct javascript file depending on the users language
+
     $userlang = pnUserGetLang();
     $file_1 = "modules/pn_bbcode/pnjavascript/$userlang/bbcode.js";
 //    $file_2 = "modules/pn_bbcode/pnjavascript/$userlang/bbcode_nopopup.js";
@@ -93,6 +94,8 @@ function pn_bbcode_user_bbcodes($args)
     } else {
         $pnr->assign('jsheader1', "<script type=\"text/javascript\" src=\"$default_1\"></script>");
     }
+
+    $pnr->assign('jsheadercommon', "<script type=\"text/javascript\" src=\"modules/pn_bbcode/pnjavascript/bbcode_common.js\"></script>");
 /*
     if(file_exists($file_2) && is_readable($file_2)) {
         $pnr->assign('jsheader2', "<script type=\"text/javascript\" src=\"$file_2\"></script>");

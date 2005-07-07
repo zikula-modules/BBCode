@@ -78,6 +78,21 @@ function pn_bbcode_userapi_transform($args)
 */
 function pn_bbcode_transform($message)
 {
+    // check the user agent - if it is a bot, return immediately
+    $robotslist = array ( "ia_archiver",
+                          "googlebot",
+                          "mediapartners-google",
+                          "yahoo!",
+                          "msnbot",
+                          "jeeves",
+                          "lycos");
+    $useragent = pnServerGetVar('HTTP_USER_AGENT');
+    for($cnt=0; $cnt < count($robotslist); $cnt++) {
+        if(strpos(strtolower($useragent), $robotslist[$cnt]) !== false) {
+            return $message;
+        }
+    }
+
 	// pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
 	// This is important; bbencode_quote(), bbencode_list(), and bbencode_code() all depend on it.
 	$message = " " . $message;
