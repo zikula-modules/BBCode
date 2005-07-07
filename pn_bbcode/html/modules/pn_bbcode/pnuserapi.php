@@ -543,7 +543,7 @@ function pn_bbcode_encode_list($message)
 
 
 					if ($is_ordered) {
-						$message = $before_start_tag . '<ol type=' . $start_char . '>';
+						$message = $before_start_tag . '<ol type="' . $start_char . '">';
 						$message .= $between_tags . '</ol>';
 					} else {
 						$message = $before_start_tag . '<ul>';
