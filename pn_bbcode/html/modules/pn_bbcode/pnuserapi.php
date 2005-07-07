@@ -537,7 +537,10 @@ function pn_bbcode_encode_list($message)
 					$between_tags = str_replace("[*]", "<li>", $between_tags);
 
 					// everything after the [/list] tag.
-					$after_end_tag = substr($message, $curr_pos + 7);
+                    $after_end_tag = substr($message, $curr_pos + 7);
+                    $between_tags = str_replace("\n", '</li>', $between_tags);
+                    $between_tags = substr($between_tags, 6, strlen($between_tags) - 6);
+
 
 					if ($is_ordered) {
 						$message = $before_start_tag . '<ol type=' . $start_char . '>';
