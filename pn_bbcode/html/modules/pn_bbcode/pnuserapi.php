@@ -397,6 +397,10 @@ function pn_bbcode_encode_code($message)
                 }
             } // parameters analyzed
             $after_replace = "";
+            // pagesetter workaround:
+            if(pnModGetName()=='pagesetter') {
+                $bbcode[3][$i] = html_entity_decode($bbcode[3][$i]);
+            }
             if(!empty($bbcode[3][$i])) {
                 $lines = explode("\n", trim($bbcode[3][$i]));
                 if(is_array($lines) && count($lines)>0) {
