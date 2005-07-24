@@ -93,22 +93,22 @@ function pn_bbcode_transform($message)
         }
     }
 
-	// pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
-	// This is important; bbencode_quote(), bbencode_list(), and bbencode_code() all depend on it.
-	$message = " " . $message;
+    // pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
+    // This is important; bbencode_quote(), bbencode_list(), and bbencode_code() all depend on it.
+    $message = " " . $message;
 
-	// First: If there isn't a "[" and a "]" in the message, don't bother.
-	if (! (strpos($message, "[") && strpos($message, "]")) ) {
-		// Remove padding, return.
-		$message = substr($message, 1);
-		return $message;
-	}
+    // First: If there isn't a "[" and a "]" in the message, don't bother.
+    if (! (strpos($message, "[") && strpos($message, "]")) ) {
+        // Remove padding, return.
+        $message = substr($message, 1);
+        return $message;
+    }
 
-	// [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
-	$message = pn_bbcode_encode_code($message);
+    // [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
+    $message = pn_bbcode_encode_code($message);
 
     // move all links out of the text and replace them with placeholders
-    $linkscount = preg_match_all('/<a(.*)>(.*)<\/a>/si', $message, $links);
+    $linkscount = preg_match_all('/<a(.*)>(.*)<\/a>/siU', $message, $links);
     for ($i = 0; $i < $linkscount; $i++) {
         $message = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " PNBBCODELINKREPLACEMENT{$i} ", $message, 1);
     }
@@ -118,22 +118,21 @@ function pn_bbcode_transform($message)
     for ($i=0; $i < $htmlcount; $i++) {
         $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $message, 1);
     }
+    // [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
+    $message = pn_bbcode_encode_quote($message);
 
-	// [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
-	$message = pn_bbcode_encode_quote($message);
+    // [list] and [list=x] for (un)ordered lists.
+    $message = pn_bbcode_encode_list($message);
 
-	// [list] and [list=x] for (un)ordered lists.
-	$message = pn_bbcode_encode_list($message);
+    // [b] and [/b] for bolding text.
+    $message = preg_replace("/\[b\](.*?)\[\/b\]/si", "<strong>\\1</strong>", $message);
 
-	// [b] and [/b] for bolding text.
-	$message = preg_replace("/\[b\](.*?)\[\/b\]/si", "<strong>\\1</strong>", $message);
+    // [i] and [/i] for italicizing text.
+    $message = preg_replace("/\[i\](.*?)\[\/i\]/si", "<em>\\1</em>", $message);
 
-	// [i] and [/i] for italicizing text.
-	$message = preg_replace("/\[i\](.*?)\[\/i\]/si", "<em>\\1</em>", $message);
-
-	// [img]image_url_here[/img] code..
-	$message = preg_replace("#\[img\](http://)?(.*?)\[/img\]#si", "<img src=\"http://\\2\" />", $message);
-	//$message = preg_replace("/\[img\](.*?)\[\/img\]/si", "<IMG SRC=\"\\1\" BORDER=\"0\">", $message);
+    // [img]image_url_here[/img] code..
+    $message = preg_replace("#\[img\](http://)?(.*?)\[/img\]#si", "<img src=\"http://\\2\" />", $message);
+    //$message = preg_replace("/\[img\](.*?)\[\/img\]/si", "<IMG SRC=\"\\1\" BORDER=\"0\">", $message);
 
     // three new bbcodes, thanks to Chris Miller (r3ap3r)
     // [u] and [/u] for underlining text.
@@ -183,35 +182,35 @@ function pn_bbcode_transform($message)
         $message = preg_replace("/\[size=(.*?)\](.*?)\[\/size\]/si", "\\2", $message);
     }
 
-	// [url]xxxx://www.phpbb.com[/url] code..
+    // [url]xxxx://www.phpbb.com[/url] code..
     $message = preg_replace_callback(
-	            "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si",
-	            'linktest_callback_0',
-	            $message);
+                "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si",
+                'linktest_callback_0',
+                $message);
 
-	// [url]www.phpbb.com[/url] code.. (no xxxx:// prefix).
+    // [url]www.phpbb.com[/url] code.. (no xxxx:// prefix).
     $message = preg_replace_callback(
-	            "#\[url\](.*?)\[/url\]#si",
-	            'linktest_callback_1',
-	            $message);
+                "#\[url\](.*?)\[/url\]#si",
+                'linktest_callback_1',
+                $message);
 
-	// [url=xxxx://www.phpbb.com]phpBB[/url] code..
+    // [url=xxxx://www.phpbb.com]phpBB[/url] code..
     $message = preg_replace_callback(
-	            "#\[url=([a-z]+?://){1}(.*?)\](.*?)\[/url\]#si",
-	            'linktest_callback_2',
-	            $message);
+                "#\[url=([a-z]+?://){1}(.*?)\](.*?)\[/url\]#si",
+                'linktest_callback_2',
+                $message);
 
-	// [url=www.phpbb.com]phpBB[/url] code.. (no xxxx:// prefix).
+    // [url=www.phpbb.com]phpBB[/url] code.. (no xxxx:// prefix).
     $message = preg_replace_callback(
-	            "#\[url=(.*?)\](.*?)\[/url\]#si",
-	            'linktest_callback_3',
-	            $message);
+                "#\[url=(.*?)\](.*?)\[/url\]#si",
+                'linktest_callback_3',
+                $message);
 
-	// [email]user@domain.tld[/email] code..
+    // [email]user@domain.tld[/email] code..
     $message = preg_replace_callback(
-	            "#\[email\](.*?)\[/email\]#si",
-	            'linktest_callback_4',
-	            $message);
+                "#\[email\](.*?)\[/email\]#si",
+                'linktest_callback_4',
+                $message);
 
     // replace the tags and links that we removed before
     for ($i = 0; $i < $htmlcount; $i++) {
@@ -221,9 +220,9 @@ function pn_bbcode_transform($message)
         $message = preg_replace("/ PNBBCODELINKREPLACEMENT{$i} /", $links[0][$i], $message, 1);
     }
 
-	// Remove our padding from the string..
-	$message = substr($message, 1);
-	return $message;
+    // Remove our padding from the string..
+    $message = substr($message, 1);
+    return $message;
 
 } // pn_bbcode_encode()
 
@@ -239,50 +238,44 @@ function pn_bbcode_transform($message)
  */
 function pn_bbcode_encode_quote($message)
 {
-	// First things first: If there aren't any "[quote=" or "[quote] strings in the message, we don't
-	// need to process it at all.
-	if (!strpos(strtolower($message), "[quote=") && !strpos(strtolower($message), "[quote]"))
-	{
-		return $message;
-	}
+    // First things first: If there aren't any "[quote=" or "[quote] strings in the message, we don't
+    // need to process it at all.
+    if (!strpos(strtolower($message), "[quote=") && !strpos(strtolower($message), "[quote]")) {
+        return $message;
+    }
 
     add_stylesheet_header();
 
     $quotebody = pnModGetVar('pn_bbcode', 'quote');
 
-	$stack = Array();
-	$curr_pos = 1;
-	while ($curr_pos && ($curr_pos < strlen($message)))
-	{
-		$curr_pos = strpos($message, "[", $curr_pos);
+    $stack = Array();
+    $curr_pos = 1;
+    while ($curr_pos && ($curr_pos < strlen($message))) {
+        $curr_pos = strpos($message, "[", $curr_pos);
 
-		// If not found, $curr_pos will be 0, and the loop will end.
-		if ($curr_pos)
-		{
-			// We found a [. It starts at $curr_pos.
-			// check if it's a starting or ending quote tag.
-			$possible_start = substr($message, $curr_pos, 6);
-			$possible_end_pos = strpos($message, "]", $curr_pos);
-			$possible_end = substr($message, $curr_pos, $possible_end_pos - $curr_pos + 1);
-			if (strcasecmp("[quote", $possible_start) == 0)
-			{
-				// We have a starting quote tag.
-				// Push its position on to the stack, and then keep going to the right.
-				array_push($stack, $curr_pos);
-				++$curr_pos;
-			}
-			else if (strcasecmp("[/quote]", $possible_end) == 0)
-			{
-				// We have an ending quote tag.
-				// Check if we've already found a matching starting tag.
-				if (sizeof($stack) > 0)
-				{
-					// There exists a starting tag.
-					// We need to do 2 replacements now.
-					$start_index = array_pop($stack);
+        // If not found, $curr_pos will be 0, and the loop will end.
+        if ($curr_pos) {
+            // We found a [. It starts at $curr_pos.
+            // check if it's a starting or ending quote tag.
+            $possible_start = substr($message, $curr_pos, 6);
+            $possible_end_pos = strpos($message, "]", $curr_pos);
+            $possible_end = substr($message, $curr_pos, $possible_end_pos - $curr_pos + 1);
+            if (strcasecmp("[quote", $possible_start) == 0)
+            {
+                // We have a starting quote tag.
+                // Push its position on to the stack, and then keep going to the right.
+                array_push($stack, $curr_pos);
+                ++$curr_pos;
+            } else if (strcasecmp("[/quote]", $possible_end) == 0) {
+                // We have an ending quote tag.
+                // Check if we've already found a matching starting tag.
+                if (sizeof($stack) > 0) {
+                    // There exists a starting tag.
+                    // We need to do 2 replacements now.
+                    $start_index = array_pop($stack);
 
-					// everything before the [quote=xxx] tag.
-					$before_start_tag = substr($message, 0, $start_index);
+                    // everything before the [quote=xxx] tag.
+                    $before_start_tag = substr($message, 0, $start_index);
 
                     // find the end of the start tag
                     $start_tag_end = strpos($message, "]", $start_index);
@@ -293,45 +286,37 @@ function pn_bbcode_encode_quote($message)
                         $username = pnVarPrepForDisplay(_PNBBCODE_QUOTE);;
                     }
 
-					// everything after the [quote=xxx] tag, but before the [/quote] tag.
-				    $between_tags = substr($message, $start_index + $start_tag_len, $curr_pos - ($start_index + $start_tag_len));
-
-					// everything after the [/quote] tag.
-					$after_end_tag = substr($message, $curr_pos + 8);
+                    // everything after the [quote=xxx] tag, but before the [/quote] tag.
+                    $between_tags = substr($message, $start_index + $start_tag_len, $curr_pos - ($start_index + $start_tag_len));
+                    // everything after the [/quote] tag.
+                    $after_end_tag = substr($message, $curr_pos + 8);
 
                     $quotetext = str_replace('%u', $username, $quotebody);
                     $quotetext = str_replace('%t', $between_tags, $quotetext);
-					$message = $before_start_tag . $quotetext . $after_end_tag;
+                    $message = $before_start_tag . $quotetext . $after_end_tag;
 
-					// Now.. we've screwed up the indices by changing the length of the string.
-					// So, if there's anything in the stack, we want to resume searching just after it.
-					// otherwise, we go back to the start.
-					if (sizeof($stack) > 0)
-					{
-						$curr_pos = array_pop($stack);
-						array_push($stack, $curr_pos);
-						++$curr_pos;
-					}
-					else
-					{
-						$curr_pos = 1;
-					}
-				}
-				else
-				{
-					// No matching start tag found. Increment pos, keep going.
-					++$curr_pos;
-				}
-			}
-			else
-			{
-				// No starting tag or ending tag.. Increment pos, keep looping.,
-				++$curr_pos;
-			}
-		}
-	} // while
+                    // Now.. we've screwed up the indices by changing the length of the string.
+                    // So, if there's anything in the stack, we want to resume searching just after it.
+                    // otherwise, we go back to the start.
+                    if (sizeof($stack) > 0) {
+                        $curr_pos = array_pop($stack);
+                        array_push($stack, $curr_pos);
+                        ++$curr_pos;
+                    } else {
+                        $curr_pos = 1;
+                    }
+                } else {
+                    // No matching start tag found. Increment pos, keep going.
+                    ++$curr_pos;
+                }
+            } else {
+                // No starting tag or ending tag.. Increment pos, keep looping.,
+                ++$curr_pos;
+            }
+        }
+    } // while
 
-	return $message;
+    return $message;
 
 } // pn_bbcode_encode_quote()
 
@@ -468,7 +453,7 @@ function pn_bbcode_encode_code($message)
         }
         $message = str_replace("\n\n","\n",$message);
     }
-	return $message;
+    return $message;
 
 } // pn_bbcode_encode_code()
 
@@ -485,100 +470,100 @@ function pn_bbcode_encode_code($message)
  */
 function pn_bbcode_encode_list($message)
 {
-	$start_length = array();
-	$start_length['ordered'] = 8;
-	$start_length['unordered'] = 6;
+    $start_length = array();
+    $start_length['ordered'] = 8;
+    $start_length['unordered'] = 6;
 
-	// First things first: If there aren't any "[list" strings in the message, we don't
-	// need to process it at all.
-	if (!strpos(strtolower($message), "[list")) {
-		return $message;
-	}
+    // First things first: If there aren't any "[list" strings in the message, we don't
+    // need to process it at all.
+    if (!strpos(strtolower($message), "[list")) {
+        return $message;
+    }
 
     add_stylesheet_header();
 
-	$stack = array();
-	$curr_pos = 1;
-	while ($curr_pos && ($curr_pos < strlen($message)))	{
-		$curr_pos = strpos($message, "[", $curr_pos);
+    $stack = array();
+    $curr_pos = 1;
+    while ($curr_pos && ($curr_pos < strlen($message))) {
+        $curr_pos = strpos($message, "[", $curr_pos);
 
-		// If not found, $curr_pos will be 0, and the loop will end.
-		if ($curr_pos) {
-			// We found a [. It starts at $curr_pos.
-			// check if it's a starting or ending list tag.
-			$possible_ordered_start = substr($message, $curr_pos, $start_length['ordered']);
-			$possible_unordered_start = substr($message, $curr_pos, $start_length['unordered']);
-			$possible_end = substr($message, $curr_pos, 7);
-			if (strcasecmp("[list]", $possible_unordered_start) == 0) {
-				// We have a starting unordered list tag.
-				// Push its position on to the stack, and then keep going to the right.
-				array_push($stack, array($curr_pos, ""));
-				++$curr_pos;
-			} else if (preg_match("/\[list=([a1])\]/si", $possible_ordered_start, $matches)) {
-				// We have a starting ordered list tag.
-				// Push its position on to the stack, and the starting char onto the start
-				// char stack, the keep going to the right.
-				array_push($stack, array($curr_pos, $matches[1]));
-				++$curr_pos;
-			} else if (strcasecmp("[/list]", $possible_end) == 0) {
-				// We have an ending list tag.
-				// Check if we've already found a matching starting tag.
-				if (sizeof($stack) > 0) {
-					// There exists a starting tag.
-					// We need to do 2 replacements now.
-					$start = array_pop($stack);
-					$start_index = $start[0];
-					$start_char = $start[1];
-					$is_ordered = ($start_char != "");
-					$start_tag_length = ($is_ordered) ? $start_length['ordered'] : $start_length['unordered'];
+        // If not found, $curr_pos will be 0, and the loop will end.
+        if ($curr_pos) {
+            // We found a [. It starts at $curr_pos.
+            // check if it's a starting or ending list tag.
+            $possible_ordered_start = substr($message, $curr_pos, $start_length['ordered']);
+            $possible_unordered_start = substr($message, $curr_pos, $start_length['unordered']);
+            $possible_end = substr($message, $curr_pos, 7);
+            if (strcasecmp("[list]", $possible_unordered_start) == 0) {
+                // We have a starting unordered list tag.
+                // Push its position on to the stack, and then keep going to the right.
+                array_push($stack, array($curr_pos, ""));
+                ++$curr_pos;
+            } else if (preg_match("/\[list=([a1])\]/si", $possible_ordered_start, $matches)) {
+                // We have a starting ordered list tag.
+                // Push its position on to the stack, and the starting char onto the start
+                // char stack, the keep going to the right.
+                array_push($stack, array($curr_pos, $matches[1]));
+                ++$curr_pos;
+            } else if (strcasecmp("[/list]", $possible_end) == 0) {
+                // We have an ending list tag.
+                // Check if we've already found a matching starting tag.
+                if (sizeof($stack) > 0) {
+                    // There exists a starting tag.
+                    // We need to do 2 replacements now.
+                    $start = array_pop($stack);
+                    $start_index = $start[0];
+                    $start_char = $start[1];
+                    $is_ordered = ($start_char != "");
+                    $start_tag_length = ($is_ordered) ? $start_length['ordered'] : $start_length['unordered'];
 
-					// everything before the [list] tag.
-					$before_start_tag = substr($message, 0, $start_index);
+                    // everything before the [list] tag.
+                    $before_start_tag = substr($message, 0, $start_index);
 
-					// everything after the [list] tag, but before the [/list] tag.
-					$between_tags = substr($message, $start_index + $start_tag_length, $curr_pos - $start_index - $start_tag_length);
-					// Need to replace [*] with <li> inside the list.
-					$between_tags = str_replace("[*]", "<li>", $between_tags);
+                    // everything after the [list] tag, but before the [/list] tag.
+                    $between_tags = substr($message, $start_index + $start_tag_length, $curr_pos - $start_index - $start_tag_length);
+                    // Need to replace [*] with <li> inside the list.
+                    $between_tags = str_replace("[*]", "<li>", $between_tags);
 
-					// everything after the [/list] tag.
+                    // everything after the [/list] tag.
                     $after_end_tag = substr($message, $curr_pos + 7);
                     $between_tags = str_replace("\n", '</li>', $between_tags);
                     $between_tags = substr($between_tags, 6, strlen($between_tags) - 6);
 
 
-					if ($is_ordered) {
-						$message = $before_start_tag . '<ol type="' . $start_char . '">';
-						$message .= $between_tags . '</ol>';
-					} else {
-						$message = $before_start_tag . '<ul>';
-						$message .= $between_tags . "</ul>";
-					}
+                    if ($is_ordered) {
+                        $message = $before_start_tag . '<ol type="' . $start_char . '">';
+                        $message .= $between_tags . '</ol>';
+                    } else {
+                        $message = $before_start_tag . '<ul>';
+                        $message .= $between_tags . "</ul>";
+                    }
 
-					$message .= $after_end_tag;
+                    $message .= $after_end_tag;
 
-					// Now.. we've screwed up the indices by changing the length of the string.
-					// So, if there's anything in the stack, we want to resume searching just after it.
-					// otherwise, we go back to the start.
-					if (sizeof($stack) > 0) {
-						$a = array_pop($stack);
-						$curr_pos = $a[0];
-						array_push($stack, $a);
-						++$curr_pos;
-					} else {
-						$curr_pos = 1;
-					}
-				} else {
-					// No matching start tag found. Increment pos, keep going.
-					++$curr_pos;
-				}
-			} else {
-				// No starting tag or ending tag.. Increment pos, keep looping.,
-				++$curr_pos;
-			}
-		}
-	} // while
+                    // Now.. we've screwed up the indices by changing the length of the string.
+                    // So, if there's anything in the stack, we want to resume searching just after it.
+                    // otherwise, we go back to the start.
+                    if (sizeof($stack) > 0) {
+                        $a = array_pop($stack);
+                        $curr_pos = $a[0];
+                        array_push($stack, $a);
+                        ++$curr_pos;
+                    } else {
+                        $curr_pos = 1;
+                    }
+                } else {
+                    // No matching start tag found. Increment pos, keep going.
+                    ++$curr_pos;
+                }
+            } else {
+                // No starting tag or ending tag.. Increment pos, keep looping.,
+                ++$curr_pos;
+            }
+        }
+    } // while
 
-	return $message;
+    return $message;
 
 } // pn_bbcode_encode_list()
 
@@ -611,8 +596,8 @@ function pn_bbcode_userapi_get_geshi_languages()
  */
 function pn_escape_slashes($input)
 {
-	$output = str_replace('/', '\/', $input);
-	return $output;
+    $output = str_replace('/', '\/', $input);
+    return $output;
 }
 
 /**
@@ -732,7 +717,7 @@ function linktest_callback_2($matches)
             return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
-	    return '<a href="' . $matches[1] . $matches[2] . '" title="' . $displayurl . '">' . $displayurl . '</a>';
+        return '<a href="' . $matches[1] . $matches[2] . '" title="' . $displayurl . '">' . $displayurl . '</a>';
     }
 }
 
