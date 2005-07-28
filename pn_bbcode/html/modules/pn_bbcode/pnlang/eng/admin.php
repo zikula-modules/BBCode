@@ -27,30 +27,6 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
-define('_PNBBCODE_CODE_SYNTAXHIGHLIGHTING', 'Highlight code');
-define('_PNBBCODE_CODEHINT', '%h = Header (_PNBBCODE_CODE), %c=lines of code, %j=lines of code, escaped for javasript');
-define('_PNBBCODE_CODE_ADDLINENUMBERS', 'Add line numbers');
-define('_PNBBCODE_ADMINCOLORCONFIG', 'Configuration [color][/color]');
-define('_PNBBCODE_ADMINSIZECONFIG', 'Configuration [size][/size]');
-define('_PNBBCODE_CONFIGCHANGED', 'Configuration has been changed');
-define('_PNBBCODE_ADMINCODECONFIG', 'Configuration [code][/code]');
-define('_PNBBCODE_ADMINQUOTECONFIG', 'Configuration [quote][/quote]');
-define('_PNBBCODE_ADMINISTRATION', 'pn_bbcode Administration');
-define('_PNBBCODE_QUOTE', 'Quote');
-define('_PNBBCODE_QUOTEHINT', '%u = username, %t=quoted text');
-define('_PNBBCODE_PNADMINISTRATION', 'Administration');
-define('_PNBBCODE_PREVIEW','Preview');
-define('_PNBBCODE_NOAUTH', 'No permission');
-define('_PNBBCODE_SIZE_TINY', 'Tiny');
-define('_PNBBCODE_SIZE_SMALL', 'Small');
-define('_PNBBCODE_SIZE_NORMAL', 'Normal');
-define('_PNBBCODE_SIZE_LARGE', 'Large');
-define('_PNBBCODE_SIZE_HUGE', 'Huge');
-define('_PNBBCODE_SIZE_ALLOWUSERSIZE', 'Allow userdefined text size');
-define('_PNBBCODE_COLOR_ALLOWUSERCOLOR', 'Allow userdefined text color');
-define('_PNBBCODE_YES', 'Yes');
-define('_PNBBCODE_NO', 'No');
-define('_PNBBCODE_SIZE_ENABLE', 'Enable flexible text size');
-define('_PNBBCODE_COLOR_ENABLE', 'Enable flexible text colors');
+include_once 'modules/pn_bbcode/pnlang/eng/global.php';
 
 ?>
