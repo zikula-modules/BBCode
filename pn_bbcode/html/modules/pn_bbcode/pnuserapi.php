@@ -293,6 +293,21 @@ function pn_bbcode_encode_quote($message)
 
                     $quotetext = str_replace('%u', $username, $quotebody);
                     $quotetext = str_replace('%t', $between_tags, $quotetext);
+
+                    // rfe [ 1243208 ] credits to msandersen
+                    // color handling
+                    $colors['bgcolor1']   = pnThemeGetVar('bgcolor1');
+                    $colors['bgcolor2']   = pnThemeGetVar('bgcolor2');
+                    $colors['bgcolor3']   = pnThemeGetVar('bgcolor3');
+                    $colors['bgcolor4']   = pnThemeGetVar('bgcolor4');
+                    $colors['bgcolor5']   = pnThemeGetVar('bgcolor5');
+                    $colors['sepcolor']   = pnThemeGetVar('sepcolor');
+                    $colors['textcolor1'] = pnThemeGetVar('textcolor1');
+                    $colors['textcolor2'] = pnThemeGetVar('textcolor2');
+                    foreach($colors as $colorname => $colorvalue) {
+                        $quotetext = str_replace('%' . $colorname, $colorvalue, $quotetext);
+                    }
+
                     $message = $before_start_tag . $quotetext . $after_end_tag;
 
                     // Now.. we've screwed up the indices by changing the length of the string.
@@ -388,6 +403,7 @@ function pn_bbcode_encode_code($message)
             }
             if(!empty($bbcode[3][$i])) {
                 $lines = explode("\n", trim($bbcode[3][$i]));
+                $linecount = count($lines);
                 if(is_array($lines) && count($lines)>0) {
                     // remove empty lines on top of the code
                     while(count($lines)>0 && ($lines[0] == '' || $lines[0] == ' ' || $lines[0] == "\r") ) {
@@ -448,8 +464,22 @@ function pn_bbcode_encode_code($message)
             $codetext = str_replace("%e", urlencode(nl2br($after_replace)), $codetext);
             // my fault, admin panel says %j, so we do both :-)
             $codetext = str_replace("%j", urlencode(nl2br($after_replace)), $codetext);
-            $message = preg_replace($str_to_match, $codetext, $message);
 
+            // rfe [ 1243208 ] credits to msandersen
+            // color handling
+            $colors['bgcolor1']   = pnThemeGetVar('bgcolor1');
+            $colors['bgcolor2']   = pnThemeGetVar('bgcolor2');
+            $colors['bgcolor3']   = pnThemeGetVar('bgcolor3');
+            $colors['bgcolor4']   = pnThemeGetVar('bgcolor4');
+            $colors['bgcolor5']   = pnThemeGetVar('bgcolor5');
+            $colors['sepcolor']   = pnThemeGetVar('sepcolor');
+            $colors['textcolor1'] = pnThemeGetVar('textcolor1');
+            $colors['textcolor2'] = pnThemeGetVar('textcolor2');
+            foreach($colors as $colorname => $colorvalue) {
+                $codetext = str_replace("%{$colorname}", $colorvalue, $codetext);
+            }
+
+            $message = preg_replace($str_to_match, $codetext, $message);
         }
         $message = str_replace("\n\n","\n",$message);
     }

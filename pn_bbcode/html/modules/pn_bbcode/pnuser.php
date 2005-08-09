@@ -60,12 +60,14 @@ function pn_bbcode_user_whatisbbcode()
  * bbcode
  * returns a html snippet with buttons for inserting bbocdes into a text
  *
- * param: images
+ *@params $args['images'] use image buttons if set
  *@params $args['textfieldid'] id of the textfield for inserting smilies
  */
 function pn_bbcode_user_bbcodes($args)
 {
-    $images = pnVarCleanFromInput('images');
+    list($images,
+         $textfieldid) = pnVarCleanFromInput('images',
+                                             'textfieldid');
     extract($args);
 
     // load language file
