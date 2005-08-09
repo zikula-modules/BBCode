@@ -1,29 +1,21 @@
 <?php
 /*************************************************************************************
- * bash.php
- * --------
- * Author: Andreas Gohr (andi@splitbrain.org)
- * Copyright: (c) 2004 Andreas Gohr, Nigel McNie (http://qbnz.com/highlighter)
+ * matlab.php
+ * -----------
+ * Author: Florian Knorn (floz@gmx.de)
+ * Copyright: (c) 2004 Florian Knorn (http://www.florian-knorn.com)
  * Release Version: 1.0.7.1
  * CVS Revision Version: $Revision$
- * Date Started: 2004/08/20
+ * Date Started: 2005/02/09
  * Last Modified: $Date$
  *
- * BASH language file for GeSHi.
+ * Matlab M-file language file for GeSHi. 
  *
  * CHANGES
  * -------
- * 2004/11/27 (1.0.2)
- *  -  Added support for multiple object splitters
- * 2004/10/27 (1.0.1)
- *   -  Added support for URLs
- * 2004/08/20 (1.0.0)
+ * 2005/05/07 (1.0.0)
  *   -  First Release
  *
- * TODO (updated 2004/11/27)
- * -------------------------
- * * Get symbols working
- * * Highlight builtin vars
  *
  *************************************************************************************
  *
@@ -46,79 +38,66 @@
  ************************************************************************************/
 
 $language_data = array (
-	'LANG_NAME' => 'Bash',
-	'COMMENT_SINGLE' => array(1 => '#'),
+	'LANG_NAME' => 'M',
+	'COMMENT_SINGLE' => array(1 => '%'),
 	'COMMENT_MULTI' => array(),
 	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-	'QUOTEMARKS' => array("'", '"'),
-	'ESCAPE_CHAR' => '\\',
+	'QUOTEMARKS' => array("'"),
+	'ESCAPE_CHAR' => '',
 	'KEYWORDS' => array(
 		1 => array(
-			'case', 'do', 'done', 'elif', 'else', 'esac', 'fi', 'for', 'function',
-			'if', 'in', 'select', 'then', 'until', 'while', 'time'
+			'break', 'case', 'catch', 'continue', 'elseif', 'else', 'end', 'for', 
+			'function', 'global', 'if', 'otherwise', 'persistent', 'return', 
+			'switch', 'try', 'while','...'
 			),
-		3 => array(
-			'source', 'alias', 'bg', 'bind', 'break', 'builtin', 'cd', 'command',
-			'compgen', 'complete', 'continue', 'declare', 'typeset', 'dirs',
-			'disown', 'echo', 'enable', 'eval', 'exec', 'exit', 'export', 'fc',
-			'fg', 'getopts', 'hash', 'help', 'history', 'jobs', 'kill', 'let',
-			'local', 'logout', 'popd', 'printf', 'pushd', 'pwd', 'read', 'readonly',
-			'return', 'set', 'shift', 'shopt', 'suspend', 'test', 'times', 'trap',
-			'type', 'ulimit', 'umask', 'unalias', 'unset', 'wait'
-			)
 		),
-	'SYMBOLS' => array(
-		'(', ')', '[', ']', '!', '@', '%', '&', '*', '|', '/', '<', '>'
+	'SYMBOLS' => array( 
+		'...' 
 		),
 	'CASE_SENSITIVE' => array(
-		GESHI_COMMENTS => false,
-		1 => true,
-		3 => true,
+		GESHI_COMMENTS => true,
+		1 => false,
+		2 => false,
+		3 => false,
+		4 => false,
 		),
 	'STYLES' => array(
 		'KEYWORDS' => array(
-			1 => 'color: #b1b100;',
-			3 => 'color: #000066;'
+			1 => 'color: #0000FF;',
 			),
 		'COMMENTS' => array(
-			1 => 'color: #808080; font-style: italic;',
+			1 => 'color: #228B22;',
 			),
 		'ESCAPE_CHAR' => array(
-			0 => 'color: #000099; font-weight: bold;'
 			),
 		'BRACKETS' => array(
-			0 => 'color: #66cc66;'
 			),
 		'STRINGS' => array(
-			0 => 'color: #ff0000;'
+			0 => 'color: #A020F0;'
 			),
 		'NUMBERS' => array(
-			0 => 'color: #cc66cc;'
 			),
 		'METHODS' => array(
 			),
 		'SYMBOLS' => array(
-			0 => 'color: #66cc66;'
 			),
 		'REGEXPS' => array(
-			0 => 'color: #0000ff;',
-			1 => 'color: #0000ff;',
-			2 => 'color: #0000ff;'
 			),
 		'SCRIPT' => array(
 			)
 		),
 	'URLS' => array(
 		1 => '',
-		3 => ''
+		2 => '',
+		3 => '',
+		4 => ''
 		),
-	'OOLANG' => false,
+	'OOLANG' => true,
 	'OBJECT_SPLITTERS' => array(
+		1 => '.',
+		2 => '::'
 		),
 	'REGEXPS' => array(
-		0 => "\\$\\{[a-zA-Z_][a-zA-Z0-9_]*?\\}",
-		1 => "\\$[a-zA-Z_][a-zA-Z0-9_]*",
-		2 => "([a-zA-Z_][a-zA-Z0-9_]*)="
 		),
 	'STRICT_MODE_APPLIES' => GESHI_NEVER,
 	'SCRIPT_DELIMITERS' => array(

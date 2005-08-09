@@ -9,9 +9,45 @@ changes - thanks to all who suggested these ideas and gave me the code to show m
 Language files listed under each version were made by the author beside them, and then
 modified by me for consistency/bug fixing.
 
-Please send any bug reports to oracle.shinoda@gmail.com, or use the bug report tracker
+Please send any bug reports to nigel@geshi.org, or use the bug report tracker
 at sourceforge (http://sourceforge.net/tracker/?group_id=114997&atid=670231)
 
+Version 1.0.7.1
+  -  Added language files:
+     * Div (Gabriel Lorenzo)
+     * GML (José Jorge Enríquez Rodríguez)
+     * Eiffel (Zoran Simic)
+  -  Minor change to rules regarding when keywords can appear - now dots (.) are
+     allowed before keywords. (NikO)
+  -  Bugfix: the line style for non-fancy lines when fancy highlighting is enabled
+     is now applied (Amit Gupta)
+Version 1.0.7
+  -  Added language files:
+     * Diff (Conny Brunnkvist)
+     * VHDL (Alexander Krause)
+     * D (Thomas Kuehne)
+     * Matlab (Florian Knorn)
+  -  Python highlighting improved (thither, Federico Quagliata)
+  -  Changed file comments to use phpdoc syntax, and changed code style to be more
+  	 like PEAR
+  -  Fixed bug in set_code_style: Second parameter is now optional
+  -  The $_GESHI_ERRORS array is gone, error messages are internal to the GeSHi class
+  -  Changed name of XML language to XML from HTML
+  -  Removed min and max tab width checks
+  -  Backported GeSHi 1.1.X's automatic language file path detection so you no longer
+     need to use the third parameter of the constructor or set_language_path except for
+     special circumstances.
+  -  Source is checked to make sure it is not empty else an error occurs
+  -  Removed excess characters after ?> in ada.php, apache.php and cpp.php that caused
+     http headers to be sent (psichron)
+  -  Removed second "foreach" keyword for smarty language file that was causing
+     duplication (Iss)
+  -  Added underscore to allowed characters in match for XML tags (anonymous)
+  -  Added some missing java keywords like "abstract" and "transient"
+  -  Added "list" and "continue" PHP keywords
+  -  set_language resets error status and strict mode (Andrew Black)
+  -  Removed margin:0 declaration from cssgen.php (Andrzej Kubaszek)
+  -  Fixed multiline comment selector in cssgen.php (Andrzej Kubaszek)
 Version 1.0.6
   -  Added support for smart tabs - tabs that behave just like normal tabs when in
      GESHI_HEADER_DIV mode.

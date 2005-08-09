@@ -4,7 +4,7 @@
  * -------
  * Author: Nigel McNie (oracle.shinoda@gmail.com)
  * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.6
+ * Release Version: 1.0.7.1
  * CVS Revision Version: $Revision$
  * Date Started: 2004/06/04
  * Last Modified: $Date$
@@ -52,7 +52,7 @@
 $language_data = array (
 	'LANG_NAME' => 'SQL',
 	'COMMENT_SINGLE' => array(1 =>'--', 2 => '#'),
-	'COMMENT_MULTI' => array(),
+	'COMMENT_MULTI' => array('/*' => '*/'),
 	'CASE_KEYWORDS' => 1,
 	'QUOTEMARKS' => array("'", '"', '`'),
 	'ESCAPE_CHAR' => '\\',

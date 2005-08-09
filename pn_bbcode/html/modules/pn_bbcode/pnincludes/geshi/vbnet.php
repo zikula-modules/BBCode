@@ -4,7 +4,7 @@
  * ---------
  * Author: Alan Juden (alan@judenware.org)
  * Copyright: (c) 2004 Alan Juden, Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.6
+ * Release Version: 1.0.7.1
  * CVS Revision Version: $Revision$
  * Date Started: 2004/06/04
  * Last Modified: $Date$
@@ -152,7 +152,6 @@
 			),
 		'COMMENTS' => array(
 			1 => 'color: #008080; font-style: italic;',
-			2 => 'color: #008080;',
 			'MULTI' => 'color: #008080; font-style: italic;'
 			),
 		'ESCAPE_CHAR' => array(
