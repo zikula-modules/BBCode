@@ -25,7 +25,7 @@ function AddBBCode(textfieldname, action, optdata)
     textfield = document.getElementById(textfieldname);
     if(textfield==null) {
         // error...
-        alert("internal error: unknown textfieldname '" + textfield + "' supplied");
+        alert("internal error: unknown textfieldname '" + textfieldname + "' supplied");
         return;
     }
     switch(action) {
@@ -93,6 +93,7 @@ function AddBBCode(textfieldname, action, optdata)
     // for Internet Explorer
     //
     if(typeof document.selection != 'undefined') {
+        textfield.focus();
         var range = document.selection.createRange();
         var insText = range.text;
 
@@ -100,9 +101,8 @@ function AddBBCode(textfieldname, action, optdata)
         // opening tag too
         if( (textasparam == true) && (insText.length != 0) ) {
             // expand [tag] to [tag=insText]
-            aTag = aTag.substr(0, aTag.length - 1) + "=" + insText + "]"
+            aTag = aTag.substr(0, aTag.length - 1) + "=" + insText + "]";
         }
-
         range.text = aTag + insText + eTag;
 
         // adjust cursorposition
@@ -122,7 +122,6 @@ function AddBBCode(textfieldname, action, optdata)
     //
     else if(typeof textfield.selectionStart != 'undefined')
     {
-
         var start = textfield.selectionStart;
         var end = textfield.selectionEnd;
         var insText = textfield.value.substring(start, end);
@@ -157,6 +156,7 @@ function AddBBCode(textfieldname, action, optdata)
         // insert at end
         textfield.value = textfield.value + aTag + eTag;
     }
+    textfield.focus();
 }
 
 /*
