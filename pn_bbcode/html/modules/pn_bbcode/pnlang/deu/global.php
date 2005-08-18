@@ -86,6 +86,7 @@ define('_PNBBCODE_MAIL', 'Email');
 define('_PNBBCODE_MAIL_HINT', 'Eine Mailadresse einfügen');
 define('_PNBBCODE_NO', 'Nein');
 define('_PNBBCODE_NOAUTH', 'Keine Berechtigung für diese Aktion');
+define('_PNBBCODE_NOSCRIPTWARNING', 'Ihr Browser unterstützt kein Javascript oder Javascript ist deaktiviert. Einige Features dieser Seite werden daher nicht funktionieren.');
 define('_PNBBCODE_NOSPECIALCODE', 'kein spezieller Code');
 define('_PNBBCODE_NOTALLOWEDTOSEEEMAILS', '*Keine Berechtigung für Emails*');
 define('_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS', '*Keine Berechtigung für Links*');
