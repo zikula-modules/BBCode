@@ -7,6 +7,11 @@ Version 1.17: May 20, 2005
       e.g.
       unreg. users (group) | pn_bbcode:pnForum:Links | .* | ACCESS_NONE
       unreg. users (group) | pn_bbcode:pagesetter:Emails | .* | ACCESS_NONE
+	  code tags will be added at the cursor position now, marked textportions will be empbraced
+	  with tags
+	  IMPORTANT: the textarea needs an id now which has to be passed to the pn_bbcode module:
+	  <!--[ pnmodfunc modname=pn_bbcode type=user func=bbcodes textfieldid='mytextfieldid' ]-->
+	  shows the bbcode selection
 
 
 Version 1.16: March 6th, 2005
