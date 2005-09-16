@@ -1,3 +1,8 @@
+Version 1.18:
+    - showing bbcodes user interface now as display hook:
+      <!--[ pnmodcallhooks hookobject=item hookaction=display hookid=$topic.topic_id implode=false textfieldid=message ]-->
+      <!--[ $hooks.pn_bbcode ]-->
+
 Version 1.17: May 20, 2005
     - fixed problem with empty code blocks
     - special support for mail2forum feature of pnForum
