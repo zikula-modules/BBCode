@@ -1,3 +1,12 @@
 <!--[*  $Id$  *]-->
 
 <!--[ include file=pn_bbcode_admin_menu.html ]-->
+
+<form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=update ]-->" method="post">
+<div style="margin: 15px;">
+    <label for="displayhook"><!--[ pnml name='_PNBBCODE_ENABLEDISPLAYHOOK' ]--></label>
+    <input type="checkbox" name="displayhook" id="displayhook" value="yes" <!--[ if $pncore.pn_bbcode.displayhook eq 'yes' ]-->checked="checked"<!--[ /if ]--> />
+    <br /><br /><br />
+    <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
+</div>
+</form>

@@ -57,6 +57,29 @@ function pn_bbcode_user_whatisbbcode()
 }
 
 /**
+ * codes
+ * returns a html snippet with buttons for inserting bbocdes into a text
+ *
+ *@params $args['extrainfo'] extrainfo
+ */
+function pn_bbcode_user_codes($args)
+{
+    extract($args);
+    unset($args);
+
+    // we do not need the objectid - we just want to display the smilies now
+
+    $displayhook = pnModGetVar('pn_bbcode', 'displayhook');
+    if($displayhook == 'yes') {
+        if(!isset($extrainfo) || !is_array($extrainfo) || empty($extrainfo) ) {
+            return _MODARGSERROR . ' (extrainfo)';
+        }
+        return pn_bbcode_user_bbcodes($extrainfo);
+    }
+    return '';
+}
+
+/**
  * bbcode
  * returns a html snippet with buttons for inserting bbocdes into a text
  *
@@ -65,10 +88,12 @@ function pn_bbcode_user_whatisbbcode()
  */
 function pn_bbcode_user_bbcodes($args)
 {
-    list($images,
-         $textfieldid) = pnVarCleanFromInput('images',
-                                             'textfieldid');
     extract($args);
+    unset($args);
+
+    if(!isset($textfieldid) || empty($textfieldid)) {
+        return _MODARGSERROR . ' (textfieldid)';
+    }
 
     // load language file
     if(!pnModAPILoad('pn_bbcode', 'user')) {

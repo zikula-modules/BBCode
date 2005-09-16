@@ -42,13 +42,25 @@ function pn_bbcode_init() {
     //
 
     // Set up module hooks
+    // transform hook
     if (!pnModRegisterHook('item',
                            'transform',
                            'API',
                            'pn_bbcode',
                            'user',
                            'transform')) {
-        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTREGISTER);
+        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTREGISTER . ' (transform hook)');
+        return false;
+    }
+
+    // display hook
+    if (!pnModRegisterHook('item',
+                           'display',
+                           'GUI',
+                           'pn_bbcode',
+                           'user',
+                           'codes')) {
+        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTREGISTER . ' (display hook)');
         return false;
     }
 
@@ -64,7 +76,9 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'linenumbers', 'yes');
-    pnModSetVar('pn_bbcode', 'syntaxhilite', 'yes');    
+    pnModSetVar('pn_bbcode', 'syntaxhilite', 'yes');
+
+    pnModSetVar('pn_bbcode', 'displayhook', 'no');
 
     // Initialisation successful
     return true;
@@ -73,7 +87,7 @@ function pn_bbcode_init() {
 /**
  * upgrade module
 */
-function pn_bbcode_upgrade($oldversion) 
+function pn_bbcode_upgrade($oldversion)
 {
 	switch($oldversion) {
 	    case '1.10':
@@ -98,12 +112,12 @@ function pn_bbcode_upgrade($oldversion)
         case '1.14':
             pnModSetVar('pn_bbcode', 'linenumbers', 'yes');
             $quote = pnModGetVar('pn_bbcode', 'quoteheader_start') . '%u' .
-                     pnModGetVar('pn_bbcode', 'quoteheader_end') . 
+                     pnModGetVar('pn_bbcode', 'quoteheader_end') .
                      pnModGetVar('pn_bbcode', 'quotebody_start') . '%t' .
                      pnModGetVar('pn_bbcode', 'quotebody_end');
             pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore($quote)));
             $code = pnModGetVar('pn_bbcode', 'codeheader_start') . '%h' .
-                    pnModGetVar('pn_bbcode', 'codeheader_end') . 
+                    pnModGetVar('pn_bbcode', 'codeheader_end') .
                     pnModGetVar('pn_bbcode', 'codebody_start') . '%c' .
                     pnModGetVar('pn_bbcode', 'codebody_end');
             pnModSetVar('pn_bbcode', 'code', stripslashes(pnVarPrepForStore($code)));
@@ -116,9 +130,21 @@ function pn_bbcode_upgrade($oldversion)
             pnModDelVar('pn_bbcode', 'codebody_start');
             pnModDelVar('pn_bbcode', 'codebody_end');
         case '1.15':
-            pnModSetVar('pn_bbcode', 'syntaxhilite', 'yes');    
+            pnModSetVar('pn_bbcode', 'syntaxhilite', 'yes');
+        case '1.17':
+            // display hook
+            if (!pnModRegisterHook('item',
+                                   'display',
+                                   'GUI',
+                                   'pn_bbcode',
+                                   'user',
+                                   'codes')) {
+                pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTREGISTER . ' (display hook)');
+                return false;
+            }
+            pnModSetVar('pn_bbcode', 'displayhook', 'no');
         default:
-             break;			
+             break;
     }
     return true;
 }
@@ -135,7 +161,17 @@ function pn_bbcode_delete() {
                              'pn_bbcode',
                              'user',
                              'transform')) {
-        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTUNREGISTER);
+        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTUNREGISTER . ' (transform hook)');
+        return false;
+    }
+
+    if (!pnModUnregisterHook('item',
+                             'display',
+                             'GUI',
+                             'pn_bbcode',
+                             'user',
+                             'codes')) {
+        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTUNREGISTER . ' (display hook)');
         return false;
     }
 
@@ -151,8 +187,9 @@ function pn_bbcode_delete() {
     pnModDelVar('pn_bbcode', 'color_enabled');
     pnModDelVar('pn_bbcode', 'size_enabled');
     pnModDelVar('pn_bbcode', 'linenumbers');
-    pnModDelVar('pn_bbcode', 'syntaxhilite');    
+    pnModDelVar('pn_bbcode', 'syntaxhilite');
 
+    pnModDelVar('pn_bbcode', 'displayhook');
     // Deletion successful
     return true;
 }

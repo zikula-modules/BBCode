@@ -27,15 +27,38 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
-function pn_bbcode_admin_main() 
+function pn_bbcode_admin_main()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) { 
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH); 
+    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
+    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
     }
 
     $pnr =&new pnRender('pn_bbcode');
     $pnr->caching = false;
+    $pnr->add_core_data();
     return $pnr->fetch('pn_bbcode_admin_main.html');
+}
+
+/**
+ * update
+ *
+ */
+function pn_bbcode_admin_update()
+{
+    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
+    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
+    }
+
+    list($submit, $displayhook) = pnVarCleanFromInput('submit', 'displayhook');
+    if($submit) {
+        if($displayhook == 'yes') {
+            pnModSetVar('pn_bbcode', 'displayhook', 'yes');
+        } else {
+            pnModSetVar('pn_bbcode', 'displayhook', 'no');
+        }
+    }
+
+    return pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
 }
 
 /**
@@ -44,12 +67,12 @@ function pn_bbcode_admin_main()
  */
 function pn_bbcode_admin_codeconfig()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) { 
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH); 
+    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
+    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
     }
 
     $submit = pnVarCleanFromInput('submit');
-    
+
     if(!$submit) {
         $pnr =&new pnRender('pn_bbcode');
         $pnr->caching = false;
@@ -73,7 +96,7 @@ function pn_bbcode_admin_codeconfig()
         $pnr->assign('syntaxhiliteonchecked', $syntaxhiliteonchecked);
         $pnr->assign('syntaxhiliteoffchecked', $syntaxhiliteoffchecked);
         pnModAPILoad('pn_bbcode', 'user');
-        $pnr->assign('code_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform', 
+        $pnr->assign('code_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform',
                                                         array('objectid' => 1,
                                                               'extrainfo' => "[code]<?php\n\necho 'test';\n\n?>[/code]"))));
         return $pnr->fetch('pn_bbcode_admin_codeconfig.html');
@@ -92,12 +115,12 @@ function pn_bbcode_admin_codeconfig()
  */
 function pn_bbcode_admin_quoteconfig()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) { 
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH); 
+    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
+    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
     }
 
     $submit = pnVarCleanFromInput('submit');
-    
+
     if(!$submit) {
         global $additional_header;
         $stylesheet = "modules/pn_bbcode/pnstyle/style.css";
@@ -113,12 +136,12 @@ function pn_bbcode_admin_quoteconfig()
                 $additional_header[] = $stylesheetlink;
             }
         }
-        
+
         $pnr =&new pnRender('pn_bbcode');
         $pnr->caching = false;
         $pnr->assign('quote', pnModGetVar('pn_bbcode', 'quote'));
         pnModAPILoad('pn_bbcode', 'user');
-        $pnr->assign('quote_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform', 
+        $pnr->assign('quote_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform',
                                                          array('objectid' => 1,
                                                                'extrainfo' => "[quote=username]test\ntest test\n\n[/quote]"))));
         return $pnr->fetch('pn_bbcode_admin_quoteconfig.html');
@@ -135,12 +158,12 @@ function pn_bbcode_admin_quoteconfig()
  */
 function pn_bbcode_admin_sizeconfig()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) { 
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH); 
+    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
+    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
     }
 
     $submit = pnVarCleanFromInput('submit');
-    
+
     if(!$submit) {
         $pnr =&new pnRender('pn_bbcode');
         $pnr->caching = false;
@@ -184,12 +207,12 @@ function pn_bbcode_admin_sizeconfig()
  */
 function pn_bbcode_admin_colorconfig()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) { 
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH); 
+    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
+    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
     }
 
     $submit = pnVarCleanFromInput('submit');
-    
+
     if(!$submit) {
         $pnr =&new pnRender('pn_bbcode');
         $pnr->caching = false;
