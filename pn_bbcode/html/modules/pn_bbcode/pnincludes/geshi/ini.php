@@ -1,26 +1,23 @@
 <?php
 /*************************************************************************************
- * xml.php
- * -------
- * Author: Nigel McNie (oracle.shinoda@gmail.com)
- * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter/)
+ * ini.php
+ * --------
+ * Author: deguix (cevo_deguix@yahoo.com.br)
+ * Copyright: (c) 2005 deguix
  * Release Version: 1.0.7.3
  * CVS Revision Version: $Revision$
- * Date Started: 2004/09/01
+ * Date Started: 2005/03/27
  * Last Modified: $Date$
  *
- * XML language file for GeSHi. Based on the idea/file by Christian Weiske
+ * INI language file for GeSHi.
  *
  * CHANGES
  * -------
- * 2004/11/27 (1.0.1)
- *   -  Added support for multiple object splitters
- * 2004/10/27 (1.0.0)
+ * 2005/04/05 (1.0.0)
  *   -  First Release
  *
- * TODO (updated 2004/11/27)
+ * TODO (updated 2005/03/27)
  * -------------------------
- * * Check regexps work and correctly highlight XML stuff and nothing else
  *
  *************************************************************************************
  *
@@ -43,52 +40,52 @@
  ************************************************************************************/
 
 $language_data = array (
-	'LANG_NAME' => 'XML',
-	'COMMENT_SINGLE' => array(),
-	'COMMENT_MULTI' => array('<!--' => '-->'),
+	'LANG_NAME' => 'ini',
+	'COMMENT_SINGLE' => array(0 => ';'),
+	'COMMENT_MULTI' => array(),
 	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-	'QUOTEMARKS' => array("'", '"'),
-	'ESCAPE_CHAR' => '\\',
+	'QUOTEMARKS' => array(),
+	'ESCAPE_CHAR' => '',
 	'KEYWORDS' => array(
 		),
 	'SYMBOLS' => array(
+		'[', ']', '='
 		),
 	'CASE_SENSITIVE' => array(
-		GESHI_COMMENTS => false,
+		GESHI_COMMENTS => false
 		),
 	'STYLES' => array(
 		'KEYWORDS' => array(
+		    0 => ''
 			),
 		'COMMENTS' => array(
-			'MULTI' => 'color: #808080; font-style: italic;'
+			0 => 'color: #666666; font-style: italic;'
 			),
 		'ESCAPE_CHAR' => array(
-			0 => 'color: #000099; font-weight: bold;'
+		    0 => ''
 			),
 		'BRACKETS' => array(
-			0 => 'color: #66cc66;'
+		    0 => ''
 			),
 		'STRINGS' => array(
-			0 => 'color: #ff0000;'
+		    0 => ''
 			),
 		'NUMBERS' => array(
-			0 => 'color: #cc66cc;'
+		    0 => ''
 			),
 		'METHODS' => array(
+		    0 => ''
 			),
 		'SYMBOLS' => array(
-			0 => 'color: #66cc66;'
-			),
-		'SCRIPT' => array(
-			0 => 'color: #00bbdd;',
-			1 => 'color: #ddbb00;',
-			2 => 'color: #339933;',
-			3 => 'color: #009900;'
+			0 => 'color: #000066; font-weight:bold;'
 			),
 		'REGEXPS' => array(
-			0 => 'color: #000066;',
-			1 => 'font-weight: bold; color: black;',
-			2 => 'font-weight: bold; color: black;',
+			0 => 'color: #000066; font-weight:bold;',
+			1 => 'color: #000099;',
+			2 => 'color: #660066;'
+			),
+		'SCRIPT' => array(
+		    0 => ''
 			)
 		),
 	'URLS' => array(
@@ -97,48 +94,29 @@ $language_data = array (
 	'OBJECT_SPLITTERS' => array(
 		),
 	'REGEXPS' => array(
-		0 => array(
-			GESHI_SEARCH => '(((xml:)?[a-z\-]+))(=)',
-			GESHI_REPLACE => '\\1',
-			GESHI_MODIFIERS => 'i',
-			GESHI_BEFORE => '',
-			GESHI_AFTER => '\\4'
-			),
+		0 => '\[.+\]',
 		1 => array(
-			GESHI_SEARCH => '(&lt;/?[a-z0-9_]*(&gt;)?)',
+			GESHI_SEARCH => '([a-zA-Z0-9_]+\s*)=(.+)',
 			GESHI_REPLACE => '\\1',
-			GESHI_MODIFIERS => 'i',
+			GESHI_MODIFIERS => '',
 			GESHI_BEFORE => '',
-			GESHI_AFTER => ''
+			GESHI_AFTER => '=\\2'
 			),
 		2 => array(
-			GESHI_SEARCH => '((/)?&gt;)',
-			GESHI_REPLACE => '\\1',
-			GESHI_MODIFIERS => 'i',
-			GESHI_BEFORE => '',
+            // Evil hackery to get around GeSHi bug: <>" and ; are added so <span>s can be matched
+            // Explicit match on variable names because if a comment is before the first < of the span
+            // gets chewed up...
+			GESHI_SEARCH => '([<>";a-zA-Z0-9_]+\s*)=(.+)',
+			GESHI_REPLACE => '\\2',
+			GESHI_MODIFIERS => '',
+			GESHI_BEFORE => '\\1=',
 			GESHI_AFTER => ''
 			)
 		),
-	'STRICT_MODE_APPLIES' => GESHI_ALWAYS,
+	'STRICT_MODE_APPLIES' => GESHI_NEVER,
 	'SCRIPT_DELIMITERS' => array(
-		0 => array(
-			'<!DOCTYPE' => '>'
-			),
-		1 => array(
-			'&' => ';'
-			),
-		2 => array(
-			'<![CDATA[' => ']]>'
-			),
-		3 => array(
-			'<' => '>'
-			)
-	),
+		),
 	'HIGHLIGHT_STRICT_BLOCK' => array(
-		0 => false,
-		1 => false,
-		2 => false,
-		3 => true
 		)
 );
 
