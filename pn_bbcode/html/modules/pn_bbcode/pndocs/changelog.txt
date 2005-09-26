@@ -2,6 +2,14 @@ Version 1.18:
     - showing bbcodes user interface now as display hook:
       <!--[ pnmodcallhooks hookobject=item hookaction=display hookid=$topic.topic_id implode=false textfieldid=message ]-->
       <!--[ $hooks.pn_bbcode ]-->
+      **********************************************
+      **                IMPORTANT!!!              **
+      **   You need to go the hooks settings      **
+      **   for all modules where this transform   **
+      **   hook is activated and submit this      **
+      **   page in order to activte the           **
+      **   display hooks too!!!                   **
+      **********************************************
     - GeSHi updated to 1.0.7.3, fixed security bug
 
 Version 1.17: May 20, 2005

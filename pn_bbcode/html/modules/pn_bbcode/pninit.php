@@ -78,7 +78,7 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'linenumbers', 'yes');
     pnModSetVar('pn_bbcode', 'syntaxhilite', 'yes');
 
-    pnModSetVar('pn_bbcode', 'displayhook', 'no');
+    pnModSetVar('pn_bbcode', 'displayhook', 'yes');
 
     // Initialisation successful
     return true;
@@ -142,7 +142,7 @@ function pn_bbcode_upgrade($oldversion)
                 pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTREGISTER . ' (display hook)');
                 return false;
             }
-            pnModSetVar('pn_bbcode', 'displayhook', 'no');
+            pnModSetVar('pn_bbcode', 'displayhook', 'yes');
         default:
              break;
     }
