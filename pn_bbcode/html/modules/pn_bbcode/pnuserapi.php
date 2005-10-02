@@ -545,31 +545,49 @@ function pn_bbcode_encode_list($message)
                     $start_index = $start[0];
                     $start_char = $start[1];
                     $is_ordered = ($start_char != "");
-                    $start_tag_length = ($is_ordered) ? $start_length['ordered'] : $start_length['unordered'];
+
+                    // configure list style
+                    // to-do: think about definition lists...
+                    if($is_ordered) {
+                        // ordered list
+                        $listitemclass    = 'bbcode_orderedlist_item';
+                        $start_tag_length = $start_length['ordered'];
+                        $start_tag        = '<ol type="' . $start_char . '" class="bbcode_orderedlist">';
+                        $end_tag          = '</ol>';
+                    } else {
+                        // list
+                        $listitemclass    = 'bbcode_list_item';
+                        $start_tag_length = $start_length['unordered'];
+                        $start_tag        = '<ul class="bbcode_list">';
+                        $end_tag          = '</ul>';
+                    }
 
                     // everything before the [list] tag.
                     $before_start_tag = substr($message, 0, $start_index);
 
-                    // everything after the [list] tag, but before the [/list] tag.
+                    // everything between [list] and [/list] tags.
                     $between_tags = substr($message, $start_index + $start_tag_length, $curr_pos - $start_index - $start_tag_length);
-                    // Need to replace [*] with <li> inside the list.
-                    $between_tags = str_replace("[*]", "<li>", $between_tags);
 
                     // everything after the [/list] tag.
                     $after_end_tag = substr($message, $curr_pos + 7);
-                    $between_tags = str_replace("\n", '</li>', $between_tags);
-                    $between_tags = substr($between_tags, 6, strlen($between_tags) - 6);
 
-
-                    if ($is_ordered) {
-                        $message = $before_start_tag . '<ol type="' . $start_char . '">';
-                        $message .= $between_tags . '</ol>';
-                    } else {
-                        $message = $before_start_tag . '<ul>';
-                        $message .= $between_tags . "</ul>";
+                    // replace [*]... with <li>...</li>
+                    // new: adding css classes for better styling of bbcode lists
+                    $listitems = explode('[*]', $between_tags);
+                    // listitems may be false, empty or containing [*] if between_tags was empty
+                    if(is_array($listitems) && count($listitems)>0 && $listitems[0]<>'[*]') {
+                        foreach($listitems as $listitem) {
+                            if(!empty($listitem)) {
+                                $new_between_tags .= '<li class="' . $listitemclass . '">' . $listitem . '</li>';
+                            }
+                        }
                     }
 
-                    $message .= $after_end_tag;
+                    $message = $before_start_tag
+                             . $start_tag
+                             . $new_between_tags
+                             . $end_tag
+                             . $after_end_tag;
 
                     // Now.. we've screwed up the indices by changing the length of the string.
                     // So, if there's anything in the stack, we want to resume searching just after it.
