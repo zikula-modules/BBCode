@@ -337,6 +337,7 @@ function pn_bbcode_encode_quote($message)
 
 /**
  * Nathan Codding - Jan. 12, 2001.
+ * Frank Schummertz - Sept. 2004ff
  * Performs [code][/code] bbencoding on the given string, and returns the results.
  * Any unmatched "[code]" or "[/code]" token will just be left alone.
  * This works fine with both having more than one code block in a message, and with nested code blocks.
@@ -490,6 +491,7 @@ function pn_bbcode_encode_code($message)
 
 /**
  * Nathan Codding - Jan. 12, 2001.
+ * Frank Schummertz - Sept. 2004ff
  * Performs [list][/list] and [list=?][/list] bbencoding on the given string, and returns the results.
  * Any unmatched "[list]" or "[/list]" token will just be left alone.
  * This works fine with both having more than one list in a message, and with nested lists.
@@ -500,9 +502,8 @@ function pn_bbcode_encode_code($message)
  */
 function pn_bbcode_encode_list($message)
 {
-    $start_length = array();
-    $start_length['ordered'] = 8;
-    $start_length['unordered'] = 6;
+    $start_length = array('ordered' => 8,
+                          'unordered' => 6);
 
     // First things first: If there aren't any "[list" strings in the message, we don't
     // need to process it at all.
