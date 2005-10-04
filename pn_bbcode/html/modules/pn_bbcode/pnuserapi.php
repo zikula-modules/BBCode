@@ -757,6 +757,7 @@ function linktest_callback_2($matches)
         $displayurl = pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
     } else {
         $displayurl = $matches[3];
+        $title = strip_tags($displayurl);
     }
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
@@ -766,7 +767,7 @@ function linktest_callback_2($matches)
             return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
-        return '<a href="' . $matches[1] . $matches[2] . '" title="' . $displayurl . '">' . $displayurl . '</a>';
+        return '<a href="' . $matches[1] . $matches[2] . '" title="' . $title . '">' . $displayurl . '</a>';
     }
 }
 
@@ -790,6 +791,7 @@ function linktest_callback_3($matches)
         $displayurl = pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
     } else {
         $displayurl = $matches[2];
+        $title = strip_tags($displayurl);
     }
     if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
@@ -799,7 +801,7 @@ function linktest_callback_3($matches)
             return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
-        return '<a href="http://' . $matches[1] . '" title="' . $displayurl . '">' . $displayurl . '</a>';
+        return '<a href="http://' . $matches[1] . '" title="' . $title . '">' . $displayurl . '</a>';
     }
 }
 
