@@ -53,17 +53,6 @@ function pn_bbcode_init() {
         return false;
     }
 
-    // display hook
-    if (!pnModRegisterHook('item',
-                           'display',
-                           'GUI',
-                           'pn_bbcode',
-                           'user',
-                           'codes')) {
-        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTREGISTER . ' (display hook)');
-        return false;
-    }
-
     pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">%u</legend>%t</fieldset>')));
     pnModSetVar('pn_bbcode', 'code',  stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">%h</legend><pre>%c</pre></fieldset>')));
     pnModSetVar('pn_bbcode', 'size_tiny',   '0.75em');
@@ -77,8 +66,6 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'linenumbers', 'yes');
     pnModSetVar('pn_bbcode', 'syntaxhilite', 'yes');
-
-    pnModSetVar('pn_bbcode', 'displayhook', 'yes');
 
     // Initialisation successful
     return true;
@@ -143,6 +130,18 @@ function pn_bbcode_upgrade($oldversion)
                 return false;
             }
             pnModSetVar('pn_bbcode', 'displayhook', 'yes');
+        case '1.18':
+            // replace displayhook
+            if (!pnModUnregisterHook('item',
+                                     'display',
+                                     'GUI',
+                                     'pn_bbcode',
+                                     'user',
+                                     'codes')) {
+                pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTUNREGISTER . ' (display hook)');
+                return false;
+            }
+            pnModDelVar('pn_bbcode', 'displayhook');
         default:
              break;
     }
@@ -165,16 +164,6 @@ function pn_bbcode_delete() {
         return false;
     }
 
-    if (!pnModUnregisterHook('item',
-                             'display',
-                             'GUI',
-                             'pn_bbcode',
-                             'user',
-                             'codes')) {
-        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTUNREGISTER . ' (display hook)');
-        return false;
-    }
-
     pnModDelVar('pn_bbcode', 'quote');
     pnModDelVar('pn_bbcode', 'code');
     pnModDelVar('pn_bbcode', 'size_tiny');
@@ -189,7 +178,6 @@ function pn_bbcode_delete() {
     pnModDelVar('pn_bbcode', 'linenumbers');
     pnModDelVar('pn_bbcode', 'syntaxhilite');
 
-    pnModDelVar('pn_bbcode', 'displayhook');
     // Deletion successful
     return true;
 }

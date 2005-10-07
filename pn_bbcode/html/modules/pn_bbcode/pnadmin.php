@@ -40,28 +40,6 @@ function pn_bbcode_admin_main()
 }
 
 /**
- * update
- *
- */
-function pn_bbcode_admin_update()
-{
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
-    }
-
-    list($submit, $displayhook) = pnVarCleanFromInput('submit', 'displayhook');
-    if($submit) {
-        if($displayhook == 'yes') {
-            pnModSetVar('pn_bbcode', 'displayhook', 'yes');
-        } else {
-            pnModSetVar('pn_bbcode', 'displayhook', 'no');
-        }
-    }
-
-    return pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
-}
-
-/**
  * codeconfig
  *
  */
@@ -95,7 +73,6 @@ function pn_bbcode_admin_codeconfig()
         $pnr->assign('linenumberoffchecked', $linenumberoffchecked);
         $pnr->assign('syntaxhiliteonchecked', $syntaxhiliteonchecked);
         $pnr->assign('syntaxhiliteoffchecked', $syntaxhiliteoffchecked);
-        pnModAPILoad('pn_bbcode', 'user');
         $pnr->assign('code_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform',
                                                         array('objectid' => 1,
                                                               'extrainfo' => "[code]<?php\n\necho 'test';\n\n?>[/code]"))));
@@ -140,7 +117,6 @@ function pn_bbcode_admin_quoteconfig()
         $pnr =&new pnRender('pn_bbcode');
         $pnr->caching = false;
         $pnr->assign('quote', pnModGetVar('pn_bbcode', 'quote'));
-        pnModAPILoad('pn_bbcode', 'user');
         $pnr->assign('quote_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform',
                                                          array('objectid' => 1,
                                                                'extrainfo' => "[quote=username]test\ntest test\n\n[/quote]"))));

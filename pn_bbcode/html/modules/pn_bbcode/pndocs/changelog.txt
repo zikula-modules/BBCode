@@ -1,7 +1,6 @@
-Version 1.18:
-    - showing bbcodes user interface now as display hook:
-      <!--[ pnmodcallhooks hookobject=item hookaction=display hookid=$topic.topic_id implode=false textfieldid=message ]-->
-      <!--[ $hooks.pn_bbcode ]-->
+Version 1.19: Oct 07, 2005
+    - minimum requirement now PN .760+
+    - removed displayhook due to compatibility problems
       **********************************************
       **                IMPORTANT!!!              **
       **   You need to go the hooks settings      **
@@ -10,6 +9,12 @@ Version 1.18:
       **   page in order to activte the           **
       **   display hooks too!!!                   **
       **********************************************
+    - fixed bug with IMG-tag embedded in URL-tag
+    - fixed scrambling of bbcode tags in lists (credits to Norm Winkel for
+      finding this one)
+
+Version 1.18:
+    - showing bbcodes user interface now as display hook
     - GeSHi updated to 1.0.7.3, fixed security bug
 
 Version 1.17: May 20, 2005

@@ -27,8 +27,6 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
-define('_PNBBCODE_ENABLEDISPLAYHOOK', 'Displayhook einschalten');
-
 define('_PNBBCODE_ADMINCODECONFIG', 'Konfiguration [code][/code]');
 define('_PNBBCODE_ADMINCOLORCONFIG', 'Konfiguration [color][/color]');
 define('_PNBBCODE_ADMINISTRATION', 'pn_bbcode Verwaltung');

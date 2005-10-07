@@ -34,7 +34,7 @@
 */
 
 $modversion['name']             = 'pn_bbcode';
-$modversion['version']          = '1.18';
+$modversion['version']          = '1.19';
 $modversion['id'] 				= '164';
 $modversion['description']      = 'BBCode Hook';
 $modversion['credits']          = 'pndocs/credits.txt';
