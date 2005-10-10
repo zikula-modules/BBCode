@@ -72,8 +72,19 @@ function pn_bbcode_user_bbcodes($args)
         return _MODARGSERROR . ' (textfieldid)';
     }
 
+    // if we have more than one textarea we need to distinguish them, so we simply use
+    // a counter stored in a session var until we find a better solution
+    $counter = pnSessionGetVar('bbcode_counter');
+    if($counter==false) {
+        $counter = 1;
+    } else {
+        $counter++;
+    }
+    pnSessionSetVar('bbcode_counter', $counter);
+
     $pnr =& new pnRender('pn_bbcode');
     $pnr->caching = false;
+    $pnr->assign('counter', $counter);
     $pnr->assign('allow_usersize', pnModGetVar('pn_bbcode', 'allow_usersize'));
     $pnr->assign('size_enabled', pnModGetVar('pn_bbcode', 'size_enabled'));
     $pnr->assign('allow_usercolor', pnModGetVar('pn_bbcode', 'allow_usercolor'));
