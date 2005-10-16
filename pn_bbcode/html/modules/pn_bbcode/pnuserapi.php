@@ -539,6 +539,7 @@ function pn_bbcode_encode_list($message)
             } else if (strcasecmp("[/list]", $possible_end) == 0) {
                 // We have an ending list tag.
                 // Check if we've already found a matching starting tag.
+                $new_between_tags = '';
                 if (sizeof($stack) > 0) {
                     // There exists a starting tag.
                     // We need to do 2 replacements now.
@@ -568,7 +569,7 @@ function pn_bbcode_encode_list($message)
 
                     // everything between [list] and [/list] tags.
                     $between_tags = substr($message, $start_index + $start_tag_length, $curr_pos - $start_index - $start_tag_length);
-
+pnfdebug('bt', $between_tags);
                     // everything after the [/list] tag.
                     $after_end_tag = substr($message, $curr_pos + 7);
 
