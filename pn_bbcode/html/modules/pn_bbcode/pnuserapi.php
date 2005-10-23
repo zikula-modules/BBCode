@@ -131,7 +131,7 @@ function pn_bbcode_transform($message)
     $message = preg_replace("/\[i\](.*?)\[\/i\]/si", "<em>\\1</em>", $message);
 
     // [img]image_url_here[/img] code..
-    $message = preg_replace("#\[img\](http://)?(.*?)\[/img\]#si", "<img src=\"http://\\2\" />", $message);
+    $message = preg_replace("#\[img\](.*?)\[/img\]#si", "<img src=\"\\1\" alt=\"\\1\" />", $message);
     //$message = preg_replace("/\[img\](.*?)\[\/img\]/si", "<IMG SRC=\"\\1\" BORDER=\"0\">", $message);
 
     // three new bbcodes, thanks to Chris Miller (r3ap3r)
@@ -569,7 +569,7 @@ function pn_bbcode_encode_list($message)
 
                     // everything between [list] and [/list] tags.
                     $between_tags = substr($message, $start_index + $start_tag_length, $curr_pos - $start_index - $start_tag_length);
-pnfdebug('bt', $between_tags);
+
                     // everything after the [/list] tag.
                     $after_end_tag = substr($message, $curr_pos + 7);
 
@@ -578,9 +578,9 @@ pnfdebug('bt', $between_tags);
                     $listitems = explode('[*]', $between_tags);
                     // listitems may be false, empty or containing [*] if between_tags was empty
                     if(is_array($listitems) && count($listitems)>0 && $listitems[0]<>'[*]') {
-                        foreach($listitems as $listitem) {
-                            if(!empty($listitem)) {
-                                $new_between_tags .= '<li class="' . $listitemclass . '">' . $listitem . '</li>';
+                        for($cnt=1; $cnt<count($listitems); $cnt++) {
+                            if(!empty($listitems[$cnt])) {
+                                $new_between_tags .= '<li class="' . $listitemclass . '">' . $listitems[$cnt] . '</li>';
                             }
                         }
                     }
