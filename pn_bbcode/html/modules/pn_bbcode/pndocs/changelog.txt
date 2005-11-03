@@ -1,3 +1,7 @@
+    - fixed bug in list tag
+    - added alt parameter to img tag (credits to Franky Chestnut)
+    - img tag now allows local paths
+
 Version 1.19: Oct 07, 2005
     - minimum requirement now PN .760+
     - removed displayhook due to compatibility problems
