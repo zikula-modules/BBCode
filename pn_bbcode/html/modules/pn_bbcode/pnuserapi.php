@@ -707,7 +707,8 @@ function linktest_callback_0($matches)
             return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
         }
     } else {
-        return '<a href="' . $matches[1] . $matches[2] . '">' . $matches[1] . $matches[2] . '</a>';
+        $displayurl = pn_bbcode_minimize_displayurl($matches[1] . $matches[2]);
+        return '<a href="' . $matches[1] . $matches[2] . '">' . $displayurl . '</a>';
     }
 }
 
@@ -734,7 +735,8 @@ function linktest_callback_1($matches)
             return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
         }
     } else {
-        return '<a href="http://' . $matches[1] . '">' . $matches[1] . '</a>';
+        $displayurl = pn_bbcode_minimize_displayurl($matches[1]);
+        return '<a href="http://' . $matches[1] . '">' . $displayurl . '</a>';
     }
 }
 
@@ -829,6 +831,25 @@ function linktest_callback_4($matches)
     } else {
         return '<a href="mailto:' . $matches[1] . '" title="' . $matches[1] . '">' . $matches[1] . '</a>';
     }
+}
+
+/** pn_bbcode_minimize_displayurl
+ *  helper function to cut down the displayed url to a maximum length
+ *
+ *
+ */
+function pn_bbcode_minimize_displayurl($displayurl)
+{
+    // get the maximum size of the urls to show
+    // todo: make this configurable
+    $maxsize = 30;
+    $before = round($maxsize / 2);
+    $after  = $maxsize - 3 - $before;
+
+    if(strlen($displayurl) > 30) {
+        $displayurl = substr($displayurl, 0, $before) . "..." . substr($displayurl, strlen($displayurl) - $after, $after);
+    }
+    return $displayurl;
 }
 
 ?>
