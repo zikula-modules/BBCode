@@ -5,8 +5,8 @@
     <p><strong><!--[ pnml name='_PNBBCODE_NOSCRIPTWARNING' ]--></strong></p>
 </noscript>
 
-<!--[ if $images ]-->
 <div>
+<!--[ if $images ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="url" titleml=1 title="_PNBBCODE_URL_HINT" key="w" image="bb_url.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="email" titleml=1 title="_PNBBCODE_MAIL_HINT" key="m" image="bb_email.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="image" titleml=1 title="_PNBBCODE_IMAGE_HINT" key="p" image="bb_image.gif" ]-->
@@ -47,10 +47,10 @@
     <input title="<!--[ pnml name='_PNBBCODE_BOLD_HINT' ]-->" type="button" accesskey="b" name="bold" value=" <!--[ pnml name='_PNBBCODE_BOLD' ]--> " style="font-weight:bold; width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'bold')" />
     <input title="<!--[ pnml name='_PNBBCODE_ITALIC_HINT' ]-->" type="button" accesskey="i" name="italic" value=" <!--[ pnml name='_PNBBCODE_ITALIC' ]--> " style="font-style: italic; width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'italic')" />
     <input title="<!--[ pnml name='_PNBBCODE_UNDERLINE_HINT' ]-->" type="button" accesskey="u" name="underline" value=" <!--[ pnml name='_PNBBCODE_UNDERLINE' ]--> " style="text-decoration: underline; width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'underline')" />
-</div>
 <!--[ /if ]-->
-<!--[ if $color_enabled eq "yes" ]-->
+</div>
 <div>
+<!--[ if $color_enabled eq "yes" ]-->
     <!--[ pnml name='_PNBBCODE_FONTCOLOR' ]-->:
     <select title="<!--[ pnml name='_PNBBCODE_COLOR_HINT' ]-->" name="fontcolor_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'color', this.form.fontcolor_<!--[ $counter ]-->.options[this.form.fontcolor_<!--[ $counter ]-->.selectedIndex].value)">
         <option style="color:black; background-color: #FFFFFF "  value="black"><!--[ pnml name='_PNBBCODE_COLOR_DEFAULT' ]--></option>
@@ -78,6 +78,8 @@
     <!--[ /if ]-->
     </select>&nbsp;
 <!--[ /if ]-->
+</div>
+<div>
 <!--[ if $size_enabled eq "yes" ]-->
     <!--[ pnml name='_PNBBCODE_FONTSIZE' ]-->:
     <select title="<!--[ pnml name='_PNBBCODE_SIZE_HINT' ]-->" name="fontsize_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'size',this.form.fontsize_<!--[ $counter ]-->.options[this.form.fontsize_<!--[ $counter ]-->.selectedIndex].value)">
@@ -91,5 +93,5 @@
         <option value="<!--[ pnml name='_PNBBCODE_SIZE_TEXTSIZE' ]-->"><!--[ pnml name='_PNBBCODE_SIZE_DEFINE' ]--></option>
     <!--[ /if ]-->
     </select>
-</div>
 <!--[ /if ]-->
+</div>
