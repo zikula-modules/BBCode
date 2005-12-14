@@ -4,7 +4,7 @@
  * -------
  * Author: Tux (tux@inmail.cz)
  * Copyright: (c) 2004 Tux (http://tux.a4.cz/), Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.7.3
+ * Release Version: 1.0.7.5
  * CVS Revision Version: $Revision$
  * Date Started: 2004/07/27
  * Last Modified: $Date$
@@ -91,7 +91,7 @@ $language_data = array (
 		3 => array(
 			'ah','al','ax','bh','bl','bp','bx','ch','cl','cr0','cr2','cr3','cs','cx','dh','di','dl',
 			'dr0','dr1','dr2','dr3','dr6','dr7','ds','dx','eax','ebp','ebx','ecx','edi','edx',
-			 'es','esi','esp','fs','gs','si','sp','ss','st','tr3','tr4','tr5','tr6','tr7'
+			 'es','esi','esp','fs','gs','si','sp','ss','st','tr3','tr4','tr5','tr6','tr7', 'ah', 'bh', 'ch', 'dh'
 			),
 		/*Directive*/
 		4 => array(

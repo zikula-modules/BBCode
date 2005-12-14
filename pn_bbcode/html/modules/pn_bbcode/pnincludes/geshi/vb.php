@@ -4,7 +4,7 @@
  * ------
  * Author: Roberto Rossi (rsoftware@altervista.org)
  * Copyright: (c) 2004 Roberto Rossi (http://rsoftware.altervista.org), Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.7.3
+ * Release Version: 1.0.7.5
  * CVS Revision Version: $Revision$
  * Date Started: 2004/08/30
  * Last Modified: $Date$
@@ -121,7 +121,7 @@
 			0 => 'color: #cc66cc;'
 			),
 		'METHODS' => array(
-			0 => 'color: #66cc66;'
+			1 => 'color: #66cc66;'
 			),
 		'SYMBOLS' => array(
 			0 => 'color: #66cc66;'

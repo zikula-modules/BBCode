@@ -40,7 +40,7 @@
 //
 
 /** The version of this GeSHi file */
-define('GESHI_VERSION', '1.0.7.3');
+define('GESHI_VERSION', '1.0.7.5');
 
 /** For the future (though this may never be realised) */
 define('GESHI_OUTPUT_HTML', 0);
@@ -286,6 +286,7 @@ class GeSHi
     /**
      * Whether important blocks should be recognised or not
      * @var boolean
+     * @deprecated
      * @todo REMOVE THIS FUNCTIONALITY!
      */
 	var $enable_important_blocks = false;
@@ -293,6 +294,7 @@ class GeSHi
     /**
      * Styles for important parts of the code
      * @var string
+     * @deprecated
      * @todo As above - rethink the whole idea of important blocks as it is buggy and
      * will be hard to implement in 1.2
      */
@@ -1305,6 +1307,7 @@ class GeSHi
 	 * Sets whether context-important blocks are highlighted
      * 
      * @todo REMOVE THIS SHIZ FROM GESHI!
+     * @deprecated
 	 */
 	function enable_important_blocks ( $flag )
 	{
@@ -1590,6 +1593,12 @@ class GeSHi
 										$attributes = ' class="es0"';
 									}
 									$char = "<span$attributes>" . $char;
+                                    if (substr($code, $i + 1, 1) == "\n") {
+                                        // escaping a newline, what's the point in putting the span around
+                                        // the newline? It only causes hassles when inserting line numbers
+                                        $char .= '</span>';
+                                        $ESCAPE_CHAR_OPEN = false;
+                                    }
 								}
 							} else {
 								$ESCAPE_CHAR_OPEN = false;
@@ -1687,14 +1696,19 @@ class GeSHi
 											$test_str = @htmlspecialchars($test_str, ENT_COMPAT, $this->encoding);
 										}
 										$close_pos = strpos($part, "\n", $i);
+                                        $oops = false;
 										if ($close_pos === false) {
 											$close_pos = strlen($part);
+                                            $oops = true;
 										}
 										$test_str .= @htmlspecialchars(substr($part, $i + $com_len, $close_pos - $i - $com_len), ENT_COMPAT, $this->encoding);
 										if ($this->lexic_permissions['COMMENTS'][$comment_key]) {
 											$test_str .= "</span>";
 										}
-										$test_str .= "\n";
+                                        // Take into account that the comment might be the last in the source
+                                        if (!$oops) { 
+										  $test_str .= "\n";
+                                        }
 										$i = $close_pos;
 										// parse the rest
 										$result .= $this->parse_non_string_part($stuff_to_parse);
@@ -1735,10 +1749,10 @@ class GeSHi
 					$result .= @htmlspecialchars($part, ENT_COMPAT, $this->encoding);
 				}
 				// Close the <span> that surrounds the block
-                // Removed since the only time this is used is for php and it doesn't need a </span>
-				/*if ($this->strict_mode && $this->lexic_permissions['SCRIPT']) {
+				if ($this->strict_mode && $this->language_data['STYLES']['SCRIPT'][$script_key] != '' &&
+                    $this->lexic_permissions['SCRIPT']) {
 					$result .= '</span>';
-				}*/
+				}
 			} else {
                 // Else not a block to highlight
 				$result .= @htmlspecialchars($part, ENT_COMPAT, $this->encoding);
@@ -1892,7 +1906,7 @@ class GeSHi
 	 */
 	function add_url_to_keyword ($keyword, $group, $start_or_end)
 	{
-		if (isset($this->language_data['URLS'][$group]) &&
+        if (isset($this->language_data['URLS'][$group]) &&
             $this->language_data['URLS'][$group] != '' &&
             substr($keyword, 0, 5) != '&lt;/') {
 			// There is a base group for this keyword
@@ -1910,7 +1924,8 @@ class GeSHi
                         ) . '">';
 				}
 				return '';
-			} else {
+            // HTML fix. Again, dirty hackage...
+			} elseif (!($this->language == 'html4strict' && '&gt;' == $keyword)) {
 				return '</a>';
 			}
 		}
@@ -2305,7 +2320,10 @@ class GeSHi
 		$header = $this->format_header_content();
 
         if (GESHI_HEADER_NONE == $this->header_type) {
-            return "$header<ol$ol_attributes>";
+            if ($this->line_numbers != GESHI_NO_LINE_NUMBERS) {
+                return "$header<ol$ol_attributes>";
+            }
+            return $header;
         }
         
 		// Work out what to return and do it
@@ -2397,7 +2415,7 @@ class GeSHi
 			if ($this->use_classes) {
 				$attr = ' class="foot"';
 			} else {
-				$attr = " style=\"{$this->footer_content_style}\">";
+				$attr = " style=\"{$this->footer_content_style}\"";
 			}
 			return "<div$attr>$footer</div>";
 		}
@@ -2615,11 +2633,11 @@ if (!function_exists('geshi_highlight')) {
 	function geshi_highlight ($string, $language, $path, $return = false)
 	{
 		$geshi = new GeSHi($string, $language, $path);
-		$geshi->set_header_type(GESHI_HEADER_DIV);
+		$geshi->set_header_type(GESHI_HEADER_NONE);
 		if ($return) {
-			return str_replace('<div>', '<code>', str_replace('</div>', '</code>', $geshi->parse_code()));
+			return '<code>' . $geshi->parse_code() . '</code>';
 		}
-		echo str_replace('<div>', '<code>', str_replace('</div>', '</code>', $geshi->parse_code()));
+		echo '<code>' . $geshi->parse_code() . '</code>';
 		if ($geshi->error()) {
 			return false;
 		}
