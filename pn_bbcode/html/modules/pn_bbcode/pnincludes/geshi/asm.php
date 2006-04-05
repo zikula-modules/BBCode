@@ -4,7 +4,7 @@
  * -------
  * Author: Tux (tux@inmail.cz)
  * Copyright: (c) 2004 Tux (http://tux.a4.cz/), Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.7.5
+ * Release Version: 1.0.7.8
  * CVS Revision Version: $Revision$
  * Date Started: 2004/07/27
  * Last Modified: $Date$
@@ -187,7 +187,7 @@ $language_data = array (
 	'OBJECT_SPLITTERS' => array(
 		),
 	'REGEXPS' => array(
-		0 => '[0-9a-fA-F][0-9a-fA-F]*[hH]',
+		0 => '0[0-9a-fA-F][0-9a-fA-F]*[hH]',
 		1 => '[01][01]*[bB]'
 		),
 	'STRICT_MODE_APPLIES' => GESHI_NEVER,

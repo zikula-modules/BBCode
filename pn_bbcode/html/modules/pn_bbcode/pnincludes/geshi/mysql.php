@@ -1,10 +1,10 @@
- <?php 
+<?php 
  /************************************************************************************* 
  * mysql.php 
  * --------- 
  * Author: Carl Fürstenberg (azatoth@gmail.com) 
  * Copyright: (c) 2005 Carl Fürstenberg, Nigel McNie (http://qbnz.com/highlighter) 
- * Release Version: 1.0.7.5
+ * Release Version: 1.0.7.8
  * CVS Revision Version: $Revision$ 
  * Date Started: 2004/06/04 
  * Last Modified: $Date$ 
