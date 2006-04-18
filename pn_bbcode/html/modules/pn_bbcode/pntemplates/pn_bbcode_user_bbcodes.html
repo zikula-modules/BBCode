@@ -1,10 +1,9 @@
 <!--[*  $Id$  *]-->
 
 <!--[ add_additional_header header=$jsheadercommon ]-->
-<noscript>
-    <p><strong><!--[ pnml name='_PNBBCODE_NOSCRIPTWARNING' ]--></strong></p>
-</noscript>
 
+<div id="bbcode_<!--[ $textfieldid ]-->" class="hidden">
+    
 <div>
 <!--[ if $images ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="url" titleml=1 title="_PNBBCODE_URL_HINT" key="w" image="bb_url.gif" ]-->
@@ -49,8 +48,8 @@
     <input title="<!--[ pnml name='_PNBBCODE_UNDERLINE_HINT' ]-->" type="button" accesskey="u" name="underline" value=" <!--[ pnml name='_PNBBCODE_UNDERLINE' ]--> " style="text-decoration: underline; width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'underline')" />
 <!--[ /if ]-->
 </div>
-<div>
 <!--[ if $color_enabled eq "yes" ]-->
+<div>
     <!--[ pnml name='_PNBBCODE_FONTCOLOR' ]-->:
     <select title="<!--[ pnml name='_PNBBCODE_COLOR_HINT' ]-->" name="fontcolor_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'color', this.form.fontcolor_<!--[ $counter ]-->.options[this.form.fontcolor_<!--[ $counter ]-->.selectedIndex].value)">
         <option style="color:black; background-color: #FFFFFF "  value="black"><!--[ pnml name='_PNBBCODE_COLOR_DEFAULT' ]--></option>
@@ -77,10 +76,10 @@
 
     <!--[ /if ]-->
     </select>&nbsp;
-<!--[ /if ]-->
 </div>
-<div>
+<!--[ /if ]-->
 <!--[ if $size_enabled eq "yes" ]-->
+<div>
     <!--[ pnml name='_PNBBCODE_FONTSIZE' ]-->:
     <select title="<!--[ pnml name='_PNBBCODE_SIZE_HINT' ]-->" name="fontsize_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'size',this.form.fontsize_<!--[ $counter ]-->.options[this.form.fontsize_<!--[ $counter ]-->.selectedIndex].value)">
         <option value="tiny"><!--[ pnml name='_PNBBCODE_SIZE_TINY' ]--></option>
@@ -93,5 +92,18 @@
         <option value="<!--[ pnml name='_PNBBCODE_SIZE_TEXTSIZE' ]-->"><!--[ pnml name='_PNBBCODE_SIZE_DEFINE' ]--></option>
     <!--[ /if ]-->
     </select>
-<!--[ /if ]-->
 </div>
+<!--[ /if ]-->
+
+</div>
+
+<script type="text/javascript">
+    var maindiv = document.getElementById('bbcode_<!--[ $textfieldid ]-->');
+    if(maindiv) {
+        maindiv.style.display = 'inline';
+    }
+</script>
+
+<noscript>
+    <p><strong><!--[ pnml name='_PNBBCODE_NOSCRIPTWARNING' ]--></strong></p>
+</noscript>

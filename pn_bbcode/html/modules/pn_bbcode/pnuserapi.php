@@ -482,7 +482,7 @@ function pn_bbcode_encode_code($message)
 
             $message = preg_replace($str_to_match, $codetext, $message);
         }
-        $message = str_replace("\n\n","\n",$message);
+        //$message = str_replace("\n\n","\n",$message);
     }
     return $message;
 
@@ -634,6 +634,7 @@ function pn_bbcode_userapi_get_geshi_languages()
             }
         }
     }
+    asort($langs);
     return $langs;
 }
 

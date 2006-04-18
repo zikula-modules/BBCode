@@ -86,7 +86,7 @@ define('_PNBBCODE_MAIL', 'Email');
 define('_PNBBCODE_MAIL_HINT', 'insert an email address');
 define('_PNBBCODE_NO', 'No');
 define('_PNBBCODE_NOAUTH', 'No permission');
-define('_PNBBCODE_NOSCRIPTWARNING', 'Your browser does not support javascript or you turned it off. This means that several features on this page will not work as intended');
+define('_PNBBCODE_NOSCRIPTWARNING', 'Your browser does not support javascript or you turned it off. The pn_bbcode interface has been disabled.');
 define('_PNBBCODE_NOSPECIALCODE', 'no special code');
 define('_PNBBCODE_NOTALLOWEDTOSEEEMAILS', '*Not allowed to see emails*');
 define('_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS', '*Not allowed to see the external links*');

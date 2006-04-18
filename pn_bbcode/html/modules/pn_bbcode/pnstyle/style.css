@@ -70,3 +70,11 @@ blockquote.bbcodetext {
     font-size: 25px;
     background-image: none;
 }
+
+.hidden {
+    display: none;
+}
+
+.shown {
+    display: inline;
+}

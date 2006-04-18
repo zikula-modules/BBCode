@@ -2,6 +2,7 @@ Version 1.20: Nov 22, 2005
     - fixed bug in list tag
     - added alt parameter to img tag (credits to Franky Chestnut)
     - img tag now allows local paths
+    - added sorting of GeSHi languages
 
 Version 1.19: Oct 07, 2005
     - minimum requirement now PN .760+
