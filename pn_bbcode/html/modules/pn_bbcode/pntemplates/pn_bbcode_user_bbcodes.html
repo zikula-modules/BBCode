@@ -27,7 +27,7 @@
     <input title="<!--[ pnml name='_PNBBCODE_QUOTE_HINT' ]-->" type="button" accesskey="q" name="quote" value=" <!--[ pnml name='_PNBBCODE_QUOTE' ]--> " style="width: 50px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'quote')" />
     <!--[ if count($geshi_languages) neq 0 ]-->
         <!--[ pnml name='_PNBBCODE_CODE' ]-->:
-        <select title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" name="code_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'code', this.form.code_<!--[ $counter ]-->.options[this.form.code_<!--[ $counter ]-->.selectedIndex].value)">
+        <select title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" id="code_<!--[ $counter ]-->" name="code_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'code', document.getElementById('code_<!--[ $counter ]-->').options[document.getElementById('code_<!--[ $counter ]-->').selectedIndex].value)">
             <option style="color:black; background-color: #FFFFFF "  value="" selected="selected"><!--[ pnml name='_PNBBCODE_SELECTCODE' ]--></option>
             <option style="color:black; background-color: #FFFFFF "  value=""><!--[ pnml name='_PNBBCODE_NOSPECIALCODE' ]--></option>
             <!--[ foreach item=code from=$geshi_languages ]-->
@@ -51,7 +51,7 @@
 <!--[ if $color_enabled eq "yes" ]-->
 <div>
     <!--[ pnml name='_PNBBCODE_FONTCOLOR' ]-->:
-    <select title="<!--[ pnml name='_PNBBCODE_COLOR_HINT' ]-->" name="fontcolor_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'color', this.form.fontcolor_<!--[ $counter ]-->.options[this.form.fontcolor_<!--[ $counter ]-->.selectedIndex].value)">
+    <select title="<!--[ pnml name='_PNBBCODE_COLOR_HINT' ]-->" id="fontcolor_<!--[ $counter ]-->" name="fontcolor_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'color', document.getElementById('fontcolor_<!--[ $counter ]-->').options[document.getElementById('fontcolor_<!--[ $counter ]-->').selectedIndex].value)">
         <option style="color:black; background-color: #FFFFFF "  value="black"><!--[ pnml name='_PNBBCODE_COLOR_DEFAULT' ]--></option>
 
         <option style="color:darkred; background-color: #DEE3E7" value="darkred"><!--[ pnml name='_PNBBCODE_COLOR_DARKRED' ]--></option>
@@ -81,7 +81,7 @@
 <!--[ if $size_enabled eq "yes" ]-->
 <div>
     <!--[ pnml name='_PNBBCODE_FONTSIZE' ]-->:
-    <select title="<!--[ pnml name='_PNBBCODE_SIZE_HINT' ]-->" name="fontsize_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'size',this.form.fontsize_<!--[ $counter ]-->.options[this.form.fontsize_<!--[ $counter ]-->.selectedIndex].value)">
+    <select title="<!--[ pnml name='_PNBBCODE_SIZE_HINT' ]-->" id="fontsize_<!--[ $counter ]-->" name="fontsize_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'size', document.getElementById('fontsize_<!--[ $counter ]-->').options[document.getElementById('fontsize_<!--[ $counter ]-->').selectedIndex].value)">
         <option value="tiny"><!--[ pnml name='_PNBBCODE_SIZE_TINY' ]--></option>
         <option value="small"><!--[ pnml name='_PNBBCODE_SIZE_SMALL' ]--></option>
         <option value="normal" selected="selected"><!--[ pnml name='_PNBBCODE_SIZE_NORMAL' ]--></option>
