@@ -4,7 +4,7 @@
  * --------
  * Author: Nigel McNie (oracle.shinoda@gmail.com)
  * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter/)
- * Release Version: 1.0.7.8
+ * Release Version: 1.0.7.13
  * CVS Revision Version: $Revision$
  * Date Started: 2004/07/10
  * Last Modified: $Date$
@@ -1371,7 +1371,7 @@ $language_data = array (
 	'URLS' => array(
 		1 => '',
 		2 => '',
-		3 => 'http://www.google.com/search?q=allinurl%3A{FNAME}+java.sun.com&amp;bntl=1',
+		3 => 'http://www.google.com/search?hl=en&amp;q=allinurl%3A{FNAME}+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky',
 		4 => ''
 		),
 	'OOLANG' => true,
