@@ -1,28 +1,22 @@
 <?php
 /*************************************************************************************
- * ada.php
- * -------
- * Author: Tux (tux@inmail.cz)
- * Copyright: (c) 2004 Tux (http://tux.a4.cz/), Nigel McNie (http://qbnz.com/highlighter)
+ * cfdg.php
+ * --------
+ * Author: John Horigan <john@glyphic.com>
+ * Copyright: (c) 2006 John Horigan http://www.ozonehouse.com/john/
  * Release Version: 1.0.7.13
- * CVS Revision Version: $Revision$
- * Date Started: 2004/07/29
- * Last Modified: $Date$
+ * CVS Revision Version: $Revision: 1.5.2.2 $
+ * Date Started: 2006/03/11
+ * Last Modified: $Date: 2006/07/22 11:30:26 $
  *
- * Ada language file for GeSHi.
- * Words are from SciTe configuration file
+ * CFDG language file for GeSHi.
  *
  * CHANGES
  * -------
- * 2004/11/27 (1.0.2)
- *  -  Added support for multiple object splitters
- * 2004/10/27 (1.0.1)
- *   -  Removed apostrophe as string delimiter
- *   -  Added URL support
- * 2004/08/05 (1.0.0)
- *   -  First Release
+ * 2006/03/11 (1.0.0)
+ *  -  First Release
  *
- * TODO (updated 2004/11/27)
+ * TODO (updated 2006/03/11)
  * -------------------------
  *
  *************************************************************************************
@@ -46,49 +40,43 @@
  ************************************************************************************/
 
 $language_data = array (
-	'LANG_NAME' => 'Ada',
-	'COMMENT_SINGLE' => array(1 => '--'),
+	'LANG_NAME' => 'CFDG',
+	'COMMENT_SINGLE' => array(1 => '//', 2 => '#'),
 	'COMMENT_MULTI' => array('/*' => '*/'),
 	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-	'QUOTEMARKS' => array('"'),
-	'ESCAPE_CHAR' => '\\',
+	'QUOTEMARKS' => array("'", '"'),
+	'ESCAPE_CHAR' => '',
 	'KEYWORDS' => array(
 		1 => array(
-			'begin', 'declare', 'do', 'else', 'elsif', 'exception', 'for', 'if',
-			'is', 'loop', 'while', 'then', 'is', 'end', 'select', 'case', 'while',  'until',
-			'goto', 'return'
+			'include', 'startshape', 'rule', 'background'
 			),
 		2 => array(
-			'abs', 'and', 'mod', 'not', 'or', 'rem', 'xor'
-		  	),
+			'SQUARE', 'CIRCLE', 'TRIANGLE',
+			),
 		3 => array(
-			'abort', 'abstract', 'accept', 'access', 'aliased', 'all', 'array', 'at', 'body',
-			'constant', 'delay', 'delta', 'digits', 'entry', 'exit',
-			'function', 'generic', 'in', 'limited', 'new', 'null', 'of', 'others', 'out', 'package', 'pragma',
-			'private', 'procedure', 'protected', 'raise', 'range', 'record', 'renames', 'requeue', 'reverse',
-			'separate', 'subtype', 'tagged', 'task', 'terminate', 'type', 'use', 'when', 'with'
+			'b','brightness','h','hue','sat','saturation',
+			'a','alpha','x','y','z','s','size',
+			'r','rotate','f','flip','skew','xml_set_object'
 			)
 		),
 	'SYMBOLS' => array(
-		'(', ')'
+		'[', ']', '{', '}', '*', '|'
 		),
 	'CASE_SENSITIVE' => array(
-		GESHI_COMMENTS => true,
+		GESHI_COMMENTS => false,
 		1 => false,
 		2 => false,
 		3 => false,
 		),
 	'STYLES' => array(
 		'KEYWORDS' => array(
-			1 => 'color: #00007f;',
-			2 => 'color: #0000ff;',
-			3 => 'color: #46aa03; font-weight:bold;',
-			),
-		'BRACKETS' => array(
-			0 => 'color: #66cc66;'
+			1 => 'color: #717100;',
+			2 => 'color: #000000; font-weight: bold;',
+			3 => 'color: #006666;'
 			),
 		'COMMENTS' => array(
-			1 => 'color: #adadad; font-style: italic;',
+			1 => 'color: #808080; font-style: italic;',
+			2 => 'color: #808080; font-style: italic;',
 			'MULTI' => 'color: #808080; font-style: italic;'
 			),
 		'ESCAPE_CHAR' => array(
@@ -98,13 +86,14 @@ $language_data = array (
 			0 => 'color: #66cc66;'
 			),
 		'STRINGS' => array(
-			0 => 'color: #7f007f;'
-			),
-		'NUMBERS' => array(
 			0 => 'color: #ff0000;'
 			),
+		'NUMBERS' => array(
+			0 => 'color: #cc66cc;'
+			),
 		'METHODS' => array(
-			1 => 'color: #202020;'
+			1 => 'color: #006600;',
+			2 => 'color: #006600;'
 			),
 		'SYMBOLS' => array(
 			0 => 'color: #66cc66;'
@@ -112,17 +101,20 @@ $language_data = array (
 		'REGEXPS' => array(
 			),
 		'SCRIPT' => array(
+			0 => '',
+			1 => '',
+			2 => '',
+			3 => ''
 			)
 		),
 	'URLS' => array(
 		1 => '',
 		2 => '',
-		3 => ''
+		3 => '',
+		4 => ''
 		),
-	'OOLANG' => true,
-	'OBJECT_SPLITTERS' => array(
-		1 => '.'
-		),
+	'OOLANG' => false,
+	'OBJECT_SPLITTERS' => '',
 	'REGEXPS' => array(
 		),
 	'STRICT_MODE_APPLIES' => GESHI_NEVER,
@@ -133,3 +125,4 @@ $language_data = array (
 );
 
 ?>
+

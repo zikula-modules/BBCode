@@ -4,7 +4,7 @@
  * -------
  * Author: Tux (tux@inmail.cz)
  * Copyright: (c) 2004 Tux (http://tux.a4.cz/), Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.7.8
+ * Release Version: 1.0.7.13
  * CVS Revision Version: $Revision$
  * Date Started: 2004/07/27
  * Last Modified: $Date$
@@ -46,7 +46,7 @@
  ************************************************************************************/
 
 $language_data = array (
-	'LANG_NAME' => 'assembler',
+	'LANG_NAME' => 'ASM',
 	'COMMENT_SINGLE' => array(1 => ';'),
 	'COMMENT_MULTI' => array(),
 	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
