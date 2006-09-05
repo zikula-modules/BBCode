@@ -4,7 +4,7 @@
  * ------------
  * Author: Roberto Rossi 
  * Copyright: (c) 2005 Roberto Rossi (http://rsoftware.altervista.org)
- * Release Version: 1.0.7.8
+ * Release Version: 1.0.7.13
  * CVS Revision Version: $Revision$
  * Date Started: 2005/08/19
  * Date Modified: $Date$
@@ -36,7 +36,7 @@
  *
  ************************************************************************************/
  $language_data = array (
-	'LANG_NAME' => 'Visual Basic',
+	'LANG_NAME' => 'sdlBasic',
 	'COMMENT_SINGLE' => array(1 => "'", 2 => "rem", 3 => "!", 4 => "#"),
 	'COMMENT_MULTI' => array(),
 	'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
