@@ -4,7 +4,7 @@
  * -----------
  * Author: Guy Wicks (Guy.Wicks@rbs.co.uk)
  * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.7.8
+ * Release Version: 1.0.7.13
  * CVS Revision Version: $Revision$
  * Date Started: 2004/06/04
  * Last Modified: $Date$
@@ -40,7 +40,7 @@
  ************************************************************************************/
 
 $language_data = array (
-	'LANG_NAME' => 'Oracle 8',
+	'LANG_NAME' => 'Oracle 8 SQL',
 	'COMMENT_SINGLE' => array(1 => '--'),
 	'COMMENT_MULTI' => array('/*' => '*/'),
 	'CASE_KEYWORDS' => GESHI_CAPS_UPPER,
