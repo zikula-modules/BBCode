@@ -1,7 +1,5 @@
 <!--[*  $Id$  *]-->
 
-<!--[ add_additional_header header=$jsheadercommon ]-->
-
 <div id="bbcode_<!--[ $textfieldid ]-->" class="hidden">
     
 <div>
@@ -26,7 +24,7 @@
     <input title="<!--[ pnml name='_PNBBCODE_IMAGE_HINT' ]-->" type="button" accesskey="p" name="image" value=" <!--[ pnml name='_PNBBCODE_IMAGE' ]--> " style="width: 50px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'image')" />
     <input title="<!--[ pnml name='_PNBBCODE_QUOTE_HINT' ]-->" type="button" accesskey="q" name="quote" value=" <!--[ pnml name='_PNBBCODE_QUOTE' ]--> " style="width: 50px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'quote')" />
     <!--[ if count($geshi_languages) neq 0 ]-->
-        <!--[ pnml name='_PNBBCODE_CODE' ]-->:
+        <br /><!--[ pnml name='_PNBBCODE_CODE' ]-->:
         <select title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" id="code_<!--[ $counter ]-->" name="code_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'code', document.getElementById('code_<!--[ $counter ]-->').options[document.getElementById('code_<!--[ $counter ]-->').selectedIndex].value)">
             <option style="color:black; background-color: #FFFFFF "  value="" selected="selected"><!--[ pnml name='_PNBBCODE_SELECTCODE' ]--></option>
             <option style="color:black; background-color: #FFFFFF "  value=""><!--[ pnml name='_PNBBCODE_NOSPECIALCODE' ]--></option>
@@ -48,7 +46,7 @@
     <input title="<!--[ pnml name='_PNBBCODE_UNDERLINE_HINT' ]-->" type="button" accesskey="u" name="underline" value=" <!--[ pnml name='_PNBBCODE_UNDERLINE' ]--> " style="text-decoration: underline; width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'underline')" />
 <!--[ /if ]-->
 </div>
-<!--[ if $color_enabled eq "yes" ]-->
+<!--[ if $pncore.pn_bbcode.color_enabled eq "yes" ]-->
 <div>
     <!--[ pnml name='_PNBBCODE_FONTCOLOR' ]-->:
     <select title="<!--[ pnml name='_PNBBCODE_COLOR_HINT' ]-->" id="fontcolor_<!--[ $counter ]-->" name="fontcolor_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'color', document.getElementById('fontcolor_<!--[ $counter ]-->').options[document.getElementById('fontcolor_<!--[ $counter ]-->').selectedIndex].value)">
@@ -71,14 +69,14 @@
         <option style="color:violet; background-color: #DEE3E7" value="violet"><!--[ pnml name='_PNBBCODE_COLOR_VIOLET' ]--></option>
         <option style="color:white; background-color: #DEE3E7"  value="white"><!--[ pnml name='_PNBBCODE_COLOR_WHITE' ]--></option>
         <option style="color:black; background-color: #DEE3E7"  value="black"><!--[ pnml name='_PNBBCODE_COLOR_BLACK' ]--></option>
-    <!--[ if $allow_usercolor eq "yes" ]-->
+    <!--[ if $pncore.pn_bbcode.allow_usercolor eq "yes" ]-->
         <option style="color:black; background-color: #DEE3E7" value="#<!--[ pnml name='_PNBBCODE_COLOR_TEXTCOLORCODE' ]-->"><!--[ pnml name='_PNBBCODE_COLOR_DEFINE' ]--></option>
 
     <!--[ /if ]-->
     </select>&nbsp;
 </div>
 <!--[ /if ]-->
-<!--[ if $size_enabled eq "yes" ]-->
+<!--[ if $pncore.pn_bbcode.size_enabled eq "yes" ]-->
 <div>
     <!--[ pnml name='_PNBBCODE_FONTSIZE' ]-->:
     <select title="<!--[ pnml name='_PNBBCODE_SIZE_HINT' ]-->" id="fontsize_<!--[ $counter ]-->" name="fontsize_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'size', document.getElementById('fontsize_<!--[ $counter ]-->').options[document.getElementById('fontsize_<!--[ $counter ]-->').selectedIndex].value)">
@@ -88,7 +86,7 @@
         <option value="large"><!--[ pnml name='_PNBBCODE_SIZE_LARGE' ]--></option>
 
         <option value="huge"><!--[ pnml name='_PNBBCODE_SIZE_HUGE' ]--></option>
-    <!--[ if $allow_usersize eq "yes" ]-->
+    <!--[ if $pncore.pn_bbcode.allow_usersize eq "yes" ]-->
         <option value="<!--[ pnml name='_PNBBCODE_SIZE_TEXTSIZE' ]-->"><!--[ pnml name='_PNBBCODE_SIZE_DEFINE' ]--></option>
     <!--[ /if ]-->
     </select>
@@ -98,7 +96,7 @@
 </div>
 
 <script type="text/javascript">
-    var maindiv = document.getElementById('bbcode_<!--[ $textfieldid ]-->');
+    var maindiv = $('bbcode_<!--[ $textfieldid ]-->');
     if(maindiv) {
         maindiv.style.display = 'inline';
     }
