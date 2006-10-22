@@ -40,8 +40,7 @@
  */
 function pn_bbcode_user_main()
 {
-    pnRedirect('index.php');
-    return true;
+    return pnRedirect('index.php');
 }
 
 /**
@@ -69,7 +68,7 @@ function pn_bbcode_user_bbcodes($args)
     unset($args);
 
     if(!isset($textfieldid) || empty($textfieldid)) {
-        return _MODARGSERROR . ' (textfieldid)';
+        return _MODARGSERROR . ' (missing mandatory parameter textfieldid)';
     }
 
     // if we have more than one textarea we need to distinguish them, so we simply use
@@ -82,36 +81,35 @@ function pn_bbcode_user_bbcodes($args)
     }
     pnSessionSetVar('bbcode_counter', $counter);
 
-    $pnr =& new pnRender('pn_bbcode');
+    $pnr = new pnRender('pn_bbcode');
     $pnr->caching = false;
+    $pnr->add_core_data();
     $pnr->assign('counter', $counter);
-    $pnr->assign('allow_usersize', pnModGetVar('pn_bbcode', 'allow_usersize'));
-    $pnr->assign('size_enabled', pnModGetVar('pn_bbcode', 'size_enabled'));
-    $pnr->assign('allow_usercolor', pnModGetVar('pn_bbcode', 'allow_usercolor'));
-    $pnr->assign('color_enabled', pnModGetVar('pn_bbcode', 'color_enabled'));
     $pnr->assign('images', $images);
 
     // find the correct javascript file depending on the users language
-
     $userlang = pnUserGetLang();
     $file_1 = "modules/pn_bbcode/pnjavascript/$userlang/bbcode.js";
-//    $file_2 = "modules/pn_bbcode/pnjavascript/$userlang/bbcode_nopopup.js";
-    $default_1 = "modules/pn_bbcode/pnjavascript/eng/bbcode.js";
-//    $default_2 = "modules/pn_bbcode/pnjavascript/eng/bbcode_nopopup.js";
+    $file_2 = "modules/pn_bbcode/pnjavascript/eng/bbcode.js";
     if(file_exists($file_1) && is_readable($file_1)) {
-        $pnr->assign('jsheader1', "<script type=\"text/javascript\" src=\"$file_1\"></script>");
-    } else {
-        $pnr->assign('jsheader1', "<script type=\"text/javascript\" src=\"$default_1\"></script>");
+        $javascripts[] = '<script type="text/javascript" src="' . $file_1 . '"></script>';
+    } elseif(file_exists($file_2) && is_readable($file_2)) {
+        $javascripts[] = '<script type="text/javascript" src="' . $file_2 . '"></script>';
     }
 
-    $pnr->assign('jsheadercommon', "<script type=\"text/javascript\" src=\"modules/pn_bbcode/pnjavascript/bbcode_common.js\"></script>");
-/*
-    if(file_exists($file_2) && is_readable($file_2)) {
-        $pnr->assign('jsheader2', "<script type=\"text/javascript\" src=\"$file_2\"></script>");
-    } else {
-        $pnr->assign('jsheader2', "<script type=\"text/javascript\" src=\"$default_2\"></script>");
+    $javascripts[] = '<script type="text/javascript" src="modules/pn_bbcode/pnjavascript/bbcode_common.js"></script>';
+
+    global $additional_header;
+    if(!is_array($additional_header)) {
+        $additional_header = array();
     }
-*/
+    $values = array_flip($additional_header);
+    foreach($javascripts as $js) {
+        if(!array_key_exists($js, $values)) {
+            $additional_header[] = $js;
+        }
+    }
+
     // get the languages for highlighting
     $langs = pnModAPIFunc('pn_bbcode', 'user', 'get_geshi_languages');
     $pnr->assign('geshi_languages', $langs);
