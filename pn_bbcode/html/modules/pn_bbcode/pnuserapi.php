@@ -27,7 +27,9 @@
 // changed to pn_bbcode: larsneo
 // ----------------------------------------------------------------------
 
-include_once('modules/pn_bbcode/pnincludes/geshi.php');
+if(!class_exists('GeSHi')) {
+    include_once('modules/pn_bbcode/pnincludes/geshi.php');
+}
 
 /**
  * @package PostNuke_Utility_Modules
@@ -847,7 +849,7 @@ function pn_bbcode_minimize_displayurl($displayurl)
     $before = round($maxsize / 2);
     $after  = $maxsize - 3 - $before;
 
-    if(strlen($displayurl) > 30) {
+    if(strlen($displayurl) > $maxsize) {
         $displayurl = substr($displayurl, 0, $before) . "..." . substr($displayurl, strlen($displayurl) - $after, $after);
     }
     return $displayurl;
