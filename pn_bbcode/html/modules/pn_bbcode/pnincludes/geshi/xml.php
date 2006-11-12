@@ -4,7 +4,7 @@
  * -------
  * Author: Nigel McNie (oracle.shinoda@gmail.com)
  * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter/)
- * Release Version: 1.0.7.13
+ * Release Version: 1.0.7.15
  * CVS Revision Version: $Revision$
  * Date Started: 2004/09/01
  * Last Modified: $Date$
@@ -100,14 +100,14 @@ $language_data = array (
 		),
 	'REGEXPS' => array(
 		0 => array(
-			GESHI_SEARCH => '(((xml:)?[a-z\-]+))(=)',
+			GESHI_SEARCH => '([a-z\-:]+)(=)',
 			GESHI_REPLACE => '\\1',
 			GESHI_MODIFIERS => 'i',
 			GESHI_BEFORE => '',
-			GESHI_AFTER => '\\4'
+			GESHI_AFTER => '\\2'
 			),
 		1 => array(
-			GESHI_SEARCH => '(&lt;[/?|(\?xml)]?[a-z0-9_\-]*(\??&gt;)?)',
+			GESHI_SEARCH => '(&lt;[/?|(\?xml)]?[a-z0-9_\-:]*(\??&gt;)?)',
 			GESHI_REPLACE => '\\1',
 			GESHI_MODIFIERS => 'i',
 			GESHI_BEFORE => '',
