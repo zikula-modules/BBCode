@@ -82,7 +82,7 @@ function pn_bbcode_admin_codeconfig()
         pnModSetVar('pn_bbcode', 'linenumbers',  pnVarCleanFromInput('linenumbers'));
         pnModSetVar('pn_bbcode', 'syntaxhilite',  pnVarCleanFromInput('syntaxhilite'));
         pnSessionSetVar('statusmsg', pnVarPrepForDisplay(_PNBBCODE_CONFIGCHANGED));
-        pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
+        return pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
     }
 }
 
@@ -124,7 +124,7 @@ function pn_bbcode_admin_quoteconfig()
     } else {
         pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore(pnVarCleanFromInput('quote'))));
         pnSessionSetVar('statusmsg', pnVarPrepForDisplay(_PNBBCODE_CONFIGCHANGED));
-        pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
+        return pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
     }
 }
 
@@ -173,7 +173,7 @@ function pn_bbcode_admin_sizeconfig()
         pnModSetVar('pn_bbcode', 'allow_usersize', pnVarPrepForStore(pnVarCleanFromInput('allow_usersize')));
         pnModSetVar('pn_bbcode', 'size_enabled',   pnVarPrepForStore(pnVarCleanFromInput('size_enabled')));
         pnSessionSetVar('statusmsg', pnVarPrepForDisplay(_PNBBCODE_CONFIGCHANGED));
-        pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
+        return pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
     }
 }
 
@@ -212,7 +212,7 @@ function pn_bbcode_admin_colorconfig()
         pnModSetVar('pn_bbcode', 'color_enabled', pnVarPrepForStore(pnVarCleanFromInput('color_enabled')));
         pnModSetVar('pn_bbcode', 'allow_usercolor', pnVarPrepForStore(pnVarCleanFromInput('allow_usercolor')));
         pnSessionSetVar('statusmsg', pnVarPrepForDisplay(_PNBBCODE_CONFIGCHANGED));
-        pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
+        return pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
     }
 }
 
