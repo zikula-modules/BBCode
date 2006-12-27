@@ -1,5 +1,6 @@
 Version 1.22: Dez 26, 2006
     - PostNuke .8 fixes
+    - updated GeSHI to 1.0.7.16
     
 Version 1.21: Nov 12, 2006
     - added patch [#2953] Re-worked what is bbcode template
