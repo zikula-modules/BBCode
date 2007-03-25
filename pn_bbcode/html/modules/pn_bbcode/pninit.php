@@ -53,8 +53,8 @@ function pn_bbcode_init() {
         return false;
     }
 
-    pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">%u</legend>%t</fieldset>')));
-    pnModSetVar('pn_bbcode', 'code',  stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">%h</legend><pre>%c</pre></fieldset>')));
+    pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore('<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>')));
+    pnModSetVar('pn_bbcode', 'code',  stripslashes(pnVarPrepForStore('<div><h3 class="bbcodeheader">%h</h3><div class="bbcodetext">%c</div></div>')));
     pnModSetVar('pn_bbcode', 'size_tiny',   '0.75em');
     pnModSetVar('pn_bbcode', 'size_small',  '0.85em');
     pnModSetVar('pn_bbcode', 'size_normal', '1.0em');

@@ -248,9 +248,9 @@ function pn_bbcode_encode_quote($message)
 
     add_stylesheet_header();
 
-    $quotebody = pnModGetVar('pn_bbcode', 'quote');
+    $quotebody = str_replace("\n",'', pnModGetVar('pn_bbcode', 'quote'));
 
-    $stack = Array();
+    $stack = array();
     $curr_pos = 1;
     while ($curr_pos && ($curr_pos < strlen($message))) {
         $curr_pos = strpos($message, "[", $curr_pos);
@@ -283,7 +283,7 @@ function pn_bbcode_encode_quote($message)
                     $start_tag_end = strpos($message, "]", $start_index);
                     $start_tag_len = $start_tag_end - $start_index + 1;
                     if($start_tag_len > 7) {
-                        $username = substr($message, $start_index + 7, $start_tag_len - 8);
+                        $username = pnVarPrepForDisplay(substr($message, $start_index + 7, $start_tag_len - 8));
                     } else {
                         $username = pnVarPrepForDisplay(_PNBBCODE_QUOTE);;
                     }
@@ -362,7 +362,8 @@ function pn_bbcode_encode_code($message)
         add_stylesheet_header();
         // this is only needed once and will not change
         $hilite  = (pnModGetVar('pn_bbcode', 'syntaxhilite')=='yes') ? true : false;
-        $codebody = "<!--code-->" . pnModGetVar('pn_bbcode', 'code') . "<!--/code-->";
+        $codebody = str_replace("\n", '', "<!--code-->" . pnModGetVar('pn_bbcode', 'code') . "<!--/code-->");
+        
         for($i=0; $i < $count; $i++) {
             // the code in between incl. code tags
             $str_to_match = "/" . preg_quote($bbcode[0][$i], "/") . "/";
@@ -429,7 +430,7 @@ function pn_bbcode_encode_code($message)
                     }
                 }
             }
-            $after_replace = chop($after_replace);
+            $after_replace = trim($after_replace);
 
             // finally decide which language to use
             $language = ($hilite==true) ? $language : '';

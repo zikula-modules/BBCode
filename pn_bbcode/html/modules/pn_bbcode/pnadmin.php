@@ -75,7 +75,7 @@ function pn_bbcode_admin_codeconfig()
         $pnr->assign('syntaxhiliteoffchecked', $syntaxhiliteoffchecked);
         $pnr->assign('code_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform',
                                                         array('objectid' => 1,
-                                                              'extrainfo' => "[code]<?php\n\necho 'test';\n\n?>[/code]"))));
+                                                              'extrainfo' => "[code]<?php\necho 'test';\n?>[/code]"))));
         return $pnr->fetch('pn_bbcode_admin_codeconfig.html');
     } else {
         pnModSetVar('pn_bbcode', 'code',  stripslashes(pnVarPrepForStore(pnVarCleanFromInput('code'))));
