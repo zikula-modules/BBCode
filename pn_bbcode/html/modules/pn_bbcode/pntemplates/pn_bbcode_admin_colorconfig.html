@@ -1,34 +1,52 @@
-<!--[*  $Id$  *]-->
+<!--[*  
+$Id$  
+// ----------------------------------------------------------------------
+// LICENSE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License (GPL)
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// To read the license please visit http://www.gnu.org/copyleft/gpl.html
+// ----------------------------------------------------------------------
+*]-->
 
 <!--[ include file=pn_bbcode_admin_menu.html ]-->
-<br />
+
 <fieldset>
     <legend>
         <!--[ pnml name='_PNBBCODE_ADMINCOLORCONFIG' ]-->
     </legend>
-    <br />
     
     <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=colorconfig ]-->" method="post">
+    <div>
+        <dl class="pn_bbcode_clearfix">
+            <dt>
+                <label for="color_enabled"><!--[ pnml name='_PNBBCODE_COLOR_ENABLE' ]-->:</label>
+            </dt>
+            <dd>
+                <input type="checkbox" name="color_enabled" id="color_enabled" value="yes" <!--[ $colorenabled ]--> />
+            </dd>
 
-    <div style="height: 2em; width:100%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_COLOR_ENABLE' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input type="checkbox" name="color_enabled" value="yes" <!--[ $colorenabled ]--> />
-        </div>
+            <dt>
+                <label for="allow_usercolor"><!--[ pnml name='_PNBBCODE_COLOR_ALLOWUSERCOLOR' ]-->:</label>
+            </dt>
+            <dd id="allow_usercolor">
+                <input type="radio" name="allow_usercolor" value="yes" <!--[ $usercoloronchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
+                <input type="radio" name="allow_usercolor" value="no" <!--[ $usercoloroffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
+            </dd>
+        </dl>
+        <p class="spacer">
+            <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
+        </p>
     </div>
-    <div style="height: 2em; width:100%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_COLOR_ALLOWUSERCOLOR' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input type="radio" name="allow_usercolor" value="yes" <!--[ $usercoloronchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
-            <input type="radio" name="allow_usercolor" value="no" <!--[ $usercoloroffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
-        </div>
-    </div>
-    <br />
-    <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
     </form>
-    <br />
 </fieldset>
+
+<!--[ include file="pn_bbcode_admin_footer.html" ]-->

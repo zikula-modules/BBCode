@@ -1,46 +1,59 @@
-<!--[*  $Id$  *]-->
+<!--[*  
+$Id$  
+// ----------------------------------------------------------------------
+// LICENSE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License (GPL)
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// To read the license please visit http://www.gnu.org/copyleft/gpl.html
+// ----------------------------------------------------------------------
+*]-->
 
 <!--[ include file=pn_bbcode_admin_menu.html ]-->
-<br />
+
 <fieldset>
     <legend>
         <!--[ pnml name='_PNBBCODE_ADMINCODECONFIG' ]-->
     </legend>
-    <br />
-    
+
     <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=codeconfig ]-->" method="post">
 
-    <div style="width:80%;">
-        <!--[ pnml name='_PNBBCODE_CODE' ]--><br />
-        <textarea name="code" rows="10" cols="60"><!--[ $code|pnvarprepfordisplay ]--></textarea><br />
-    </div>
     <div>
-    <!--[ pnml name='_PNBBCODE_CODEHINT' ]-->
-    </div>
-    <div style="height: 2em; width:80%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_CODE_SYNTAXHIGHLIGHTING' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input type="radio" name="syntaxhilite" value="yes" <!--[ $syntaxhiliteonchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
-            <input type="radio" name="syntaxhilite" value="no" <!--[ $syntaxhiliteoffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
-        </div>
-    </div>
-    <div style="height: 2em; width:80%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_CODE_ADDLINENUMBERS' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input type="radio" name="linenumbers" value="yes" <!--[ $linenumberonchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
-            <input type="radio" name="linenumbers" value="no" <!--[ $linenumberoffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
-        </div>
-    </div>
-    <div style="width: 60%;">
-        <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:<br /><br />
-        <!--[ $code_preview ]-->
-        <br />
-        <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
+        <label for="code"><!--[ pnml name='_PNBBCODE_CODE' ]--></label><br />
+        <textarea id="code" name="code" rows="10" cols="60"><!--[ $pncore.pn_bbcode.code|pnvarprepfordisplay ]--></textarea>
+        <p class="spacer">
+            <!--[ pnml name='_PNBBCODE_CODEHINT' ]-->
+        </p>
+        <dl class="pn_bbcode_clearfix">
+            <dt>
+                <label for="syntaxhilite"><!--[ pnml name='_PNBBCODE_CODE_SYNTAXHIGHLIGHTING' ]-->:</label>
+            </dt>
+            <dd id="syntaxhilite">
+                <input type="radio" name="syntaxhilite" value="0" <!--[ if $pncore.pn_bbcode.syntaxhilite eq 0 ]-->checked="checked"<!--[ /if ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_CODE_NOSYNTAXHIGHLIGHTING' ]--><br />
+                <input type="radio" name="syntaxhilite" value="1" <!--[ if $pncore.pn_bbcode.syntaxhilite eq 1 ]-->checked="checked"<!--[ /if ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_CODE_GESHIWITHLINENUMBERS' ]--><br />
+                <input type="radio" name="syntaxhilite" value="2" <!--[ if $pncore.pn_bbcode.syntaxhilite eq 2 ]-->checked="checked"<!--[ /if ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_CODE_GESHIWITHOUTLINENUMBERS' ]--><br />
+                <input type="radio" name="syntaxhilite" value="3" <!--[ if $pncore.pn_bbcode.syntaxhilite eq 3 ]-->checked="checked"<!--[ /if ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_CODE_GOOGLEPRETTIFIER' ]--><br />
+            </dd>
+        </dl>
+        <p class="spacer">
+            <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:
+        </p>
+        <p class="spacer">
+            <!--[ $code_preview|pnvarprephtmldisplay ]-->
+        </p>
+        <p class="spacer">
+            <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" /> 
+        </p>
     </div>
     </form>
-    <br />
 </fieldset>
+
+<!--[ include file="pn_bbcode_admin_footer.html" ]-->

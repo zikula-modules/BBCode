@@ -1,107 +1,120 @@
-<!--[*  $Id$  *]-->
+<!--[*  
+$Id$  
+// ----------------------------------------------------------------------
+// LICENSE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License (GPL)
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// To read the license please visit http://www.gnu.org/copyleft/gpl.html
+// ----------------------------------------------------------------------
+*]-->
 
-<div id="bbcode_<!--[ $textfieldid ]-->" class="hidden">
+<div id="bbcode_<!--[ $textfieldid ]-->" class="bbcode hidden">
     
-<div>
 <!--[ if $images ]-->
+    <p>
     <!--[bbcodebutton textfieldid=$textfieldid name="url" titleml=1 title="_PNBBCODE_URL_HINT" key="w" image="bb_url.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="email" titleml=1 title="_PNBBCODE_MAIL_HINT" key="m" image="bb_email.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="image" titleml=1 title="_PNBBCODE_IMAGE_HINT" key="p" image="bb_image.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="quote" titleml=1 title="_PNBBCODE_QUOTE_HINT" key="q" image="bb_quote.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="code" titleml=1 title="_PNBBCODE_CODE_HINT" key="c" image="bb_code.gif" ]-->
-
-    <br />
+    </p>
+    <p>
     <!--[bbcodebutton textfieldid=$textfieldid name="listopen" titleml=1 title="_PNBBCODE_LISTOPEN_HINT" key="l" image="bb_openlist.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="listitem" titleml=1 title="_PNBBCODE_LISTITEM_HINT" key="o" image="bb_listitem.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="listclose" titleml=1 title="_PNBBCODE_LISTCLOSE_HINT" key="x" image="bb_closelist.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="bold" titleml=1 title="_PNBBCODE_BOLD_HINT" key="b" image="bb_bold.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="italic" titleml=1 title="_PNBBCODE_ITALIC_HINT" key="i" image="bb_italic.gif" ]-->
     <!--[bbcodebutton textfieldid=$textfieldid name="underline" titleml=1 title="_PNBBCODE_UNDERLINE_HINT" key="u" image="bb_underline.gif" ]-->
+    </p>
 <!--[ else ]-->
-    <input title="<!--[ pnml name='_PNBBCODE_URL_HINT' ]-->" type="button" accesskey="w" name="url" value=" <!--[ pnml name='_PNBBCODE_URL' ]--> " style="text-decoration: underline; width: 50px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'url')" />
-
-    <input title="<!--[ pnml name='_PNBBCODE_MAIL_HINT' ]-->" type="button" accesskey="m" name="mail" value=" <!--[ pnml name='_PNBBCODE_MAIL' ]--> " style="text-decoration: underline; width: 50px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'email')" />
-    <input title="<!--[ pnml name='_PNBBCODE_IMAGE_HINT' ]-->" type="button" accesskey="p" name="image" value=" <!--[ pnml name='_PNBBCODE_IMAGE' ]--> " style="width: 50px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'image')" />
-    <input title="<!--[ pnml name='_PNBBCODE_QUOTE_HINT' ]-->" type="button" accesskey="q" name="quote" value=" <!--[ pnml name='_PNBBCODE_QUOTE' ]--> " style="width: 50px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'quote')" />
-    <!--[ if count($geshi_languages) neq 0 ]-->
-        <br /><!--[ pnml name='_PNBBCODE_CODE' ]-->:
+    <p>
+    <input title="<!--[ pnml name='_PNBBCODE_URL_HINT' ]-->" type="button" accesskey="w" name="url_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_URL' ]--> "       class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'url')" />
+    <input title="<!--[ pnml name='_PNBBCODE_MAIL_HINT' ]-->" type="button" accesskey="m" name="mail_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_MAIL' ]--> "    class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'email')" />
+    <input title="<!--[ pnml name='_PNBBCODE_IMAGE_HINT' ]-->" type="button" accesskey="p" name="image_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_IMAGE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'image')" />
+    <input title="<!--[ pnml name='_PNBBCODE_QUOTE_HINT' ]-->" type="button" accesskey="q" name="quote_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_QUOTE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'quote')" />
+    <!--[ if count($geshi_languages) eq 0 ]-->
+        <input title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" type="button" accesskey="c" name="code_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_CODE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'code')" />
+    <!--[ else ]-->
+        </p>
+        <p> 
+        <label for="code_<!--[ $counter ]-->"><!--[ pnml name='_PNBBCODE_CODE' ]-->:</label>
         <select title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" id="code_<!--[ $counter ]-->" name="code_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'code', document.getElementById('code_<!--[ $counter ]-->').options[document.getElementById('code_<!--[ $counter ]-->').selectedIndex].value)">
-            <option style="color:black; background-color: #FFFFFF "  value="" selected="selected"><!--[ pnml name='_PNBBCODE_SELECTCODE' ]--></option>
-            <option style="color:black; background-color: #FFFFFF "  value=""><!--[ pnml name='_PNBBCODE_NOSPECIALCODE' ]--></option>
+            <option value="" selected="selected"><!--[ pnml name='_PNBBCODE_SELECTCODE' ]--></option>
+            <option value=""><!--[ pnml name='_PNBBCODE_NOSPECIALCODE' ]--></option>
             <!--[ foreach item=code from=$geshi_languages ]-->
-
-            <option style="color:black; background-color: #FFFFFF "  value="<!--[ $code ]-->"><!--[$code ]--></option>
+            <option value="<!--[ $code|pnvarprepfordisplay ]-->"><!--[$code|pnvarprepfordisplay ]--></option>
             <!--[ /foreach ]-->
         </select>
-    <!--[ else ]-->
-        <input title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" type="button" accesskey="c" name="code" value=" <!--[ pnml name='_PNBBCODE_CODE' ]--> " style="width: 50px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'code')" />
     <!--[ /if ]-->
-    <br />
-    <input title="<!--[ pnml name='_PNBBCODE_LISTOPEN_HINT' ]-->" type="button" accesskey="l" name="listopen" value=" <!--[ pnml name='_PNBBCODE_LISTOPEN' ]--> " style="width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'listopen')" />
-    <input title="<!--[ pnml name='_PNBBCODE_LISTITEM_HINT' ]-->" type="button" accesskey="o" name="listitem" value=" <!--[ pnml name='_PNBBCODE_LISTITEM' ]--> " style="width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'listitem')" />
-
-    <input title="<!--[ pnml name='_PNBBCODE_LISTCLOSE_HINT' ]-->" type="button" accesskey="x" name="listclose" value=" <!--[ pnml name='_PNBBCODE_LISTCLOSE' ]--> " style="width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'listclose')" />
-    <input title="<!--[ pnml name='_PNBBCODE_BOLD_HINT' ]-->" type="button" accesskey="b" name="bold" value=" <!--[ pnml name='_PNBBCODE_BOLD' ]--> " style="font-weight:bold; width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'bold')" />
-    <input title="<!--[ pnml name='_PNBBCODE_ITALIC_HINT' ]-->" type="button" accesskey="i" name="italic" value=" <!--[ pnml name='_PNBBCODE_ITALIC' ]--> " style="font-style: italic; width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'italic')" />
-    <input title="<!--[ pnml name='_PNBBCODE_UNDERLINE_HINT' ]-->" type="button" accesskey="u" name="underline" value=" <!--[ pnml name='_PNBBCODE_UNDERLINE' ]--> " style="text-decoration: underline; width: 40px;" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'underline')" />
+    </p>
+    <p>
+    <input title="<!--[ pnml name='_PNBBCODE_LISTOPEN_HINT' ]-->" type="button" accesskey="l" name="listopen_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_LISTOPEN' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'listopen')" />
+    <input title="<!--[ pnml name='_PNBBCODE_LISTITEM_HINT' ]-->" type="button" accesskey="o" name="listitem_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_LISTITEM' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'listitem')" />
+    <input title="<!--[ pnml name='_PNBBCODE_LISTCLOSE_HINT' ]-->" type="button" accesskey="x" name="listclose_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_LISTCLOSE' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'listclose')" />
+    <input title="<!--[ pnml name='_PNBBCODE_BOLD_HINT' ]-->" type="button" accesskey="b" name="bold_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_BOLD' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'bold')" />
+    <input title="<!--[ pnml name='_PNBBCODE_ITALIC_HINT' ]-->" type="button" accesskey="i" name="italic_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_ITALIC' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'italic')" />
+    <input title="<!--[ pnml name='_PNBBCODE_UNDERLINE_HINT' ]-->" type="button" accesskey="u" name="underline_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_UNDERLINE' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'underline')" />
+    </p>
 <!--[ /if ]-->
-</div>
+
 <!--[ if $pncore.pn_bbcode.color_enabled eq "yes" ]-->
-<div>
-    <!--[ pnml name='_PNBBCODE_FONTCOLOR' ]-->:
+<p>
+    <label for="fontcolor_<!--[ $counter ]-->"><!--[ pnml name='_PNBBCODE_FONTCOLOR' ]-->:</label>
     <select title="<!--[ pnml name='_PNBBCODE_COLOR_HINT' ]-->" id="fontcolor_<!--[ $counter ]-->" name="fontcolor_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'color', document.getElementById('fontcolor_<!--[ $counter ]-->').options[document.getElementById('fontcolor_<!--[ $counter ]-->').selectedIndex].value)">
-        <option style="color:black; background-color: #FFFFFF "  value="black"><!--[ pnml name='_PNBBCODE_COLOR_DEFAULT' ]--></option>
-
-        <option style="color:darkred; background-color: #DEE3E7" value="darkred"><!--[ pnml name='_PNBBCODE_COLOR_DARKRED' ]--></option>
-        <option style="color:red; background-color: #DEE3E7"     value="red"><!--[ pnml name='_PNBBCODE_COLOR_RED' ]--></option>
-        <option style="color:orange; background-color: #DEE3E7"  value="orange"><!--[ pnml name='_PNBBCODE_COLOR_ORANGE' ]--></option>
-        <option style="color:brown; background-color: #DEE3E7"   value="brown"><!--[ pnml name='_PNBBCODE_COLOR_BROWN' ]--></option>
-
-        <option style="color:yellow; background-color: #DEE3E7"   value="yellow"><!--[ pnml name='_PNBBCODE_COLOR_YELLOW' ]--></option>
-        <option style="color:green; background-color: #DEE3E7"    value="green"><!--[ pnml name='_PNBBCODE_COLOR_GREEN' ]--></option>
-        <option style="color:olive; background-color: #DEE3E7"    value="olive"><!--[ pnml name='_PNBBCODE_COLOR_OLIVE' ]--></option>
-        <option style="color:cyan; background-color: #DEE3E7"     value="cyan"><!--[ pnml name='_PNBBCODE_COLOR_CYAN' ]--></option>
-
-        <option style="color:blue; background-color: #DEE3E7"     value="blue"><!--[ pnml name='_PNBBCODE_COLOR_BLUE' ]--></option>
-        <option style="color:darkblue; background-color: #DEE3E7" value="darkblue"><!--[ pnml name='_PNBBCODE_COLOR_DARKBLUE' ]--></option>
-
-        <option style="color:indigo; background-color: #DEE3E7" value="indigo"><!--[ pnml name='_PNBBCODE_COLOR_INDIGO' ]--></option>
-        <option style="color:violet; background-color: #DEE3E7" value="violet"><!--[ pnml name='_PNBBCODE_COLOR_VIOLET' ]--></option>
-        <option style="color:white; background-color: #DEE3E7"  value="white"><!--[ pnml name='_PNBBCODE_COLOR_WHITE' ]--></option>
-        <option style="color:black; background-color: #DEE3E7"  value="black"><!--[ pnml name='_PNBBCODE_COLOR_BLACK' ]--></option>
-    <!--[ if $pncore.pn_bbcode.allow_usercolor eq "yes" ]-->
-        <option style="color:black; background-color: #DEE3E7" value="#<!--[ pnml name='_PNBBCODE_COLOR_TEXTCOLORCODE' ]-->"><!--[ pnml name='_PNBBCODE_COLOR_DEFINE' ]--></option>
-
-    <!--[ /if ]-->
+        <option style="color:black;"   value="black"><!--[ pnml name='_PNBBCODE_COLOR_BLACK' ]--></option>
+        <option style="color:darkred;"  value="darkred"><!--[ pnml name='_PNBBCODE_COLOR_DARKRED' ]--></option>
+        <option style="color:red;"      value="red"><!--[ pnml name='_PNBBCODE_COLOR_RED' ]--></option>
+        <option style="color:orange;"   value="orange"><!--[ pnml name='_PNBBCODE_COLOR_ORANGE' ]--></option>
+        <option style="color:brown;"    value="brown"><!--[ pnml name='_PNBBCODE_COLOR_BROWN' ]--></option>
+        <option style="color:yellow;"   value="yellow"><!--[ pnml name='_PNBBCODE_COLOR_YELLOW' ]--></option>
+        <option style="color:green;"    value="green"><!--[ pnml name='_PNBBCODE_COLOR_GREEN' ]--></option>
+        <option style="color:olive;"    value="olive"><!--[ pnml name='_PNBBCODE_COLOR_OLIVE' ]--></option>
+        <option style="color:cyan;"     value="cyan"><!--[ pnml name='_PNBBCODE_COLOR_CYAN' ]--></option>
+        <option style="color:blue;"     value="blue"><!--[ pnml name='_PNBBCODE_COLOR_BLUE' ]--></option>
+        <option style="color:darkblue;" value="darkblue"><!--[ pnml name='_PNBBCODE_COLOR_DARKBLUE' ]--></option>
+        <option style="color:indigo;"   value="indigo"><!--[ pnml name='_PNBBCODE_COLOR_INDIGO' ]--></option>
+        <option style="color:violet;"   value="violet"><!--[ pnml name='_PNBBCODE_COLOR_VIOLET' ]--></option>
+        <option style="color:white;"    value="white"><!--[ pnml name='_PNBBCODE_COLOR_WHITE' ]--></option>
+        <!--[ if $pncore.pn_bbcode.allow_usercolor eq "yes" ]-->
+        <option style="color:black;" value="#<!--[ pnml name='_PNBBCODE_COLOR_TEXTCOLORCODE' ]-->"><!--[ pnml name='_PNBBCODE_COLOR_DEFINE' ]--></option>
+        <!--[ /if ]-->
     </select>&nbsp;
-</div>
+</p>
 <!--[ /if ]-->
 <!--[ if $pncore.pn_bbcode.size_enabled eq "yes" ]-->
-<div>
-    <!--[ pnml name='_PNBBCODE_FONTSIZE' ]-->:
+<p>
+    <label for="fontsize_<!--[ $counter ]-->"><!--[ pnml name='_PNBBCODE_FONTSIZE' ]-->:</label>
     <select title="<!--[ pnml name='_PNBBCODE_SIZE_HINT' ]-->" id="fontsize_<!--[ $counter ]-->" name="fontsize_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'size', document.getElementById('fontsize_<!--[ $counter ]-->').options[document.getElementById('fontsize_<!--[ $counter ]-->').selectedIndex].value)">
         <option value="tiny"><!--[ pnml name='_PNBBCODE_SIZE_TINY' ]--></option>
         <option value="small"><!--[ pnml name='_PNBBCODE_SIZE_SMALL' ]--></option>
         <option value="normal" selected="selected"><!--[ pnml name='_PNBBCODE_SIZE_NORMAL' ]--></option>
         <option value="large"><!--[ pnml name='_PNBBCODE_SIZE_LARGE' ]--></option>
-
         <option value="huge"><!--[ pnml name='_PNBBCODE_SIZE_HUGE' ]--></option>
-    <!--[ if $pncore.pn_bbcode.allow_usersize eq "yes" ]-->
+        <!--[ if $pncore.pn_bbcode.allow_usersize eq "yes" ]-->
         <option value="<!--[ pnml name='_PNBBCODE_SIZE_TEXTSIZE' ]-->"><!--[ pnml name='_PNBBCODE_SIZE_DEFINE' ]--></option>
-    <!--[ /if ]-->
+        <!--[ /if ]-->
     </select>
-</div>
+</p>
 <!--[ /if ]-->
 
 </div>
 
 <script type="text/javascript">
-    var maindiv = document.getElementById('bbcode_<!--[ $textfieldid ]-->');
-    if(maindiv) {
-        maindiv.style.display = 'inline';
+    if($('bbcode_<!--[ $textfieldid ]-->')) {
+        $('bbcode_<!--[ $textfieldid ]-->').toggleClassName('hidden');
     }
 </script>
 
 <noscript>
-    <p><strong><!--[ pnml name='_PNBBCODE_NOSCRIPTWARNING' ]--></strong></p>
+    <p class="noscript"><!--[ pnml name='_PNBBCODE_NOSCRIPTWARNING' ]--></p>
 </noscript>
+

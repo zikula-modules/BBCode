@@ -1,74 +1,88 @@
-<!--[*  $Id$  *]-->
+<!--[*  
+$Id$  
+// ----------------------------------------------------------------------
+// LICENSE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License (GPL)
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// To read the license please visit http://www.gnu.org/copyleft/gpl.html
+// ----------------------------------------------------------------------
+*]-->
 
 <!--[ include file=pn_bbcode_admin_menu.html ]-->
-<br />
+
 <fieldset>
     <legend>
         <!--[ pnml name='_PNBBCODE_ADMINSIZECONFIG' ]-->
     </legend>
-    <br />
     
     <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=sizeconfig ]-->" method="post">
-
-    <div style="height: 2em; width:100%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_SIZE_ENABLE' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input type="checkbox" name="size_enabled" value="yes" <!--[ $sizeenabled ]--> />
-        </div>
+    <div>
+        <dl class="pn_bbcode_clearfix">
+            <dt>
+                <label for="size_enabled"><!--[ pnml name='_PNBBCODE_SIZE_ENABLE' ]-->:</label>
+            </dt>
+            <dd>
+                <input type="checkbox" name="size_enabled" id="size_enabled" value="yes" <!--[ $sizeenabled ]--> />
+            </dd>
+            
+            <dt>
+                <label for="size_tiny"><!--[ pnml name='_PNBBCODE_SIZE_TINY' ]-->:</label>
+            </dt>
+            <dd>
+                <input name="size_tiny" id="size_tiny" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_tiny|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_tiny ]-->;">TestTESTtest</span>
+            </dd>
+            
+            <dt>
+                <label for="size_small"><!--[ pnml name='_PNBBCODE_SIZE_SMALL' ]-->:</label>
+            </dt>
+            <dd>
+                <input name="size_small" id="size_small" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_small|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_small ]-->;">TestTESTtest</span>
+            </dd>
+            
+            <dt>
+                <label for="size_normal"><!--[ pnml name='_PNBBCODE_SIZE_NORMAL' ]-->:</label>
+            </dt>
+            <dd>
+                <input name="size_normal" id="size_normal" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_normal|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_normal ]-->;">TestTESTtest</span>
+            </dd>
+            
+            <dt>
+                <label for="size_large"><!--[ pnml name='_PNBBCODE_SIZE_LARGE' ]-->:</label>
+            </dt>
+            <dd>
+                <input name="size_large" id="size_large" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_large|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_large ]-->;">TestTESTtest</span>
+            </dd>
+            
+            <dt>
+                <label for="size_huge"><!--[ pnml name='_PNBBCODE_SIZE_HUGE' ]-->:</label>
+            </dt>
+            <dd>
+                <input name="size_huge" id="size_huge" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_huge|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_huge ]-->;">TestTESTtest</span>
+            </dd>
+            
+            <dt>
+                <label for="allow_usersize"><!--[ pnml name='_PNBBCODE_SIZE_ALLOWUSERSIZE' ]-->:</label>
+            </dt>
+            <dd id="allow_usersize">
+                <input type="radio" name="allow_usersize" value="yes" <!--[ $usersizeonchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
+                <input type="radio" name="allow_usersize" value="no" <!--[ $usersizeoffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
+            </dd>
+        </dl>
+        <p class="spacer">
+            <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
+        </p>
+    
     </div>
-    <div style="height: 2em; width:100%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_SIZE_TINY' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input name="size_tiny" size="10" maxlength="10" value="<!--[ $size_tiny|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $size_tiny ]-->;">TestTESTtest</span><br />
-        </div>
-    </div>
-    <div style="height: 2em; width:100%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_SIZE_SMALL' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input name="size_small" size="10" maxlength="10" value="<!--[ $size_small|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $size_small ]-->;">TestTESTtest</span><br />
-        </div>
-    </div>
-    <div style="height: 2em; width:100%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_SIZE_NORMAL' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input name="size_normal" size="10" maxlength="10" value="<!--[ $size_normal|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $size_normal ]-->;">TestTESTtest</span><br />
-        </div>
-    </div>
-    <div style="height: 2em; width:100%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_SIZE_LARGE' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input name="size_large" size="10" maxlength="10" value="<!--[ $size_large|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $size_large ]-->;">TestTESTtest</span><br />
-        </div>
-    </div>
-    <div style="height: 2em; width:100%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_SIZE_HUGE' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input name="size_huge" size="10" maxlength="10" value="<!--[ $size_huge|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $size_huge ]-->;">TestTESTtest</span><br />
-        </div>
-    </div>
-    <div style="height: 2em; width:100%;">
-        <div style="float: left; width: 40%; text-align: right;">
-            <!--[ pnml name='_PNBBCODE_SIZE_ALLOWUSERSIZE' ]-->&nbsp;:&nbsp;
-        </div>
-        <div style="float: left; width: 50%;">
-            <input type="radio" name="allow_usersize" value="yes" <!--[ $usersizeonchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
-            <input type="radio" name="allow_usersize" value="no" <!--[ $usersizeoffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
-        </div>
-    </div>
-    <br />
-    <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
     </form>
-    <br />
 </fieldset>
+
+<!--[ include file="pn_bbcode_admin_footer.html" ]-->

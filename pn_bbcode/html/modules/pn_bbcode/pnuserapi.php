@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -23,18 +15,16 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Hinrich Donner
-// changed to pn_bbcode: larsneo
-// ----------------------------------------------------------------------
 
 if(!class_exists('GeSHi')) {
     include_once('modules/pn_bbcode/pnincludes/geshi.php');
 }
 
+include_once 'modules/pn_bbcode/common.php';
+
 /**
  * @package PostNuke_Utility_Modules
  * @subpackage pn_bbcode
- * @credits to Bravecobra for the phps function (webmaster@bravecobra.com)
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
@@ -51,6 +41,8 @@ function pn_bbcode_userapi_transform($args)
         pnSessionSetVar('errormsg', _PNBBCODE_ARGSERROR);
         return;
     }
+
+    pn_bbcode_add_stylesheet_header();
 
     if (is_array($extrainfo)) {
         foreach ($extrainfo as $text) {
@@ -156,7 +148,6 @@ function pn_bbcode_transform($message)
         $message = preg_replace("#\[color=indigo\](.*?)\[/color\]#si", "<span style=\"color:indigo;\">\\1</span>", $message);
         $message = preg_replace("#\[color=violet\](.*?)\[/color\]#si", "<span style=\"color:violet;\">\\1</span>", $message);
         $message = preg_replace("#\[color=white\](.*?)\[/color\]#si", "<span style=\"color:white;\">\\1</span>", $message);
-        $message = preg_replace("#\[color=black\](.*?)\[/color\]#si", "<span style=\"color:black;\">\\1</span>", $message);
         // freestyle color
         if(pnModGetVar('pn_bbcode', 'allow_usercolor')=="yes") {
             $message = preg_replace("#\[color=(\#[0-9A-F]{6}|[a-z\-]+)\](.*?)\[/color\]#si", "<span style=\"color:\\1;\">\\2</span>", $message);
@@ -246,9 +237,8 @@ function pn_bbcode_encode_quote($message)
         return $message;
     }
 
-    add_stylesheet_header();
 
-    $quotebody = str_replace("\n",'', pnModGetVar('pn_bbcode', 'quote'));
+    $quotebody = str_replace(array("\r","\n"), '', pnModGetVar('pn_bbcode', 'quote'));
 
     $stack = array();
     $curr_pos = 1;
@@ -351,7 +341,7 @@ function pn_bbcode_encode_quote($message)
 function pn_bbcode_encode_code($message)
 {
     $count = preg_match_all("#(\[code=*(.*?)\])(.*?)(\[\/code\])#si", $message, $bbcode);
-    // the array $bbode now contains e.g.
+    // with $message="[code=php,start=25]php code();[/code]" the array $bbode now contains
     // [0] [code=php,start=25]php code();[/code]
     // [1] [code=php,start=25]
     // [2] php,start=25
@@ -359,9 +349,11 @@ function pn_bbcode_encode_code($message)
     // [4] [/code]
 
     if($count>0 && is_array($bbcode)) {
-        add_stylesheet_header();
-        // this is only needed once and will not change
-        $hilite  = (pnModGetVar('pn_bbcode', 'syntaxhilite')=='yes') ? true : false;
+        // 0 = no highlighting
+        // 1 = geshi with linenumbers
+        // 2 = geshi without linenumbers
+        // 3 = google code prettifier
+        $hilite  = pnModGetVar('pn_bbcode', 'syntaxhilite');
         $codebody = str_replace("\n", '', "<!--code-->" . pnModGetVar('pn_bbcode', 'code') . "<!--/code-->");
         
         for($i=0; $i < $count; $i++) {
@@ -369,7 +361,7 @@ function pn_bbcode_encode_code($message)
             $str_to_match = "/" . preg_quote($bbcode[0][$i], "/") . "/";
 
             // no parameters, set some defaults
-            $numbers = (pnModGetVar('pn_bbcode', 'linenumbers')=='yes') ? true : false;
+            //$numbers = (pnModGetVar('pn_bbcode', 'linenumbers')=='yes') ? true : false;
             $language = 'php';
             $startline = 1;
             // analyze parameters in [2]
@@ -381,14 +373,16 @@ function pn_bbcode_encode_code($message)
                     $language = $parameters[0];
                     // remove it, its no longer used
                     array_shift($parameters);
-                    foreach($parameters as $parameter) {
-                        $singleparam = explode('=', $parameter);
-                        switch(strtolower($singleparam[0])) {
+                    foreach($parameters as $parameter) {           
+                        $singleparam = explode('=', trim($parameter));
+                        switch(trim(strtolower($singleparam[0]))) {
                             case 'start':
                                 $startline = $singleparam[1];
                                 break;
                             case 'nolines':
-                                $numbers = false;
+                                if($hilite == HILITE_GESHI_WITH_LN) {
+                                    $hilite = HILITE_GESHI_WITHOUT_LN;
+                                }
                                 break;
                             case 'user':
                                 // special for htmlmail, we show the user name instead
@@ -400,60 +394,45 @@ function pn_bbcode_encode_code($message)
                     }
                 }
             } // parameters analyzed
-            $after_replace = "";
+
             // pagesetter workaround:
             if(pnModGetName()=='pagesetter') {
                 $bbcode[3][$i] = html_entity_decode($bbcode[3][$i]);
             }
-            if(!empty($bbcode[3][$i])) {
-                $lines = explode("\n", trim($bbcode[3][$i]));
-                $linecount = count($lines);
-                if(is_array($lines) && count($lines)>0) {
-                    // remove empty lines on top of the code
-                    while(count($lines)>0 && ($lines[0] == '' || $lines[0] == ' ' || $lines[0] == "\r") ) {
-                        array_shift($lines);
-                    }
-                    if(count($lines)>0){
-                        // remove empty lines at the end of the code
-                        while(count($lines)>0 && ($lines[count($lines)-1] == '' || $lines[count($lines)-1] == ' ' || $lines[count($lines)-1] == "\r") ) {
-                            array_pop($lines);
-                        }
-                        if(count($lines)>0){
-                            for($lcnt=0;$lcnt<count($lines); $lcnt++) {
-                                if($numbers==true && $hilite==false) {
-                                    $after_replace .= sprintf("%03d", $startline+$lcnt) . ": " . $lines[$lcnt] . "\n";
-                                } else {
-                                    $after_replace .= $lines[$lcnt] . "\n";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            $after_replace = trim($after_replace);
+            $after_replace = trim($bbcode[3][$i]);
 
             // finally decide which language to use
-            $language = ($hilite==true) ? $language : '';
-
-            $geshi =& new GeSHi($after_replace, $language, 'modules/pn_bbcode/pnincludes/geshi/');
-            $geshi->set_tab_width(4);
-            $geshi->set_case_keywords(GESHI_CAPS_LOWER);
-            $geshi->set_header_type(GESHI_HEADER_DIV);
-            $geshi->set_link_styles(GESHI_LINK,    'padding-left: 0px; background-image: none;');
-            $geshi->set_link_styles(GESHI_HOVER,   'padding-left: 0px; background-image: none;');
-            $geshi->set_link_styles(GESHI_ACTIVE,  'padding-left: 0px; background-image: none;');
-            $geshi->set_link_styles(GESHI_VISITED, 'padding-left: 0px; background-image: none;');
-            if($numbers == true) {
-                $geshi->set_line_style('color: blue; font-weight: bold;', 'color: green;');
-                $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
-                $geshi->start_line_numbers_at($startline);
-            } else {
-                $geshi->enable_line_numbers(GESHI_NO_LINE_NUMBERS);
-            }
-            $after_replace = $geshi->parse_code();
-            if($hilite==true) {
-                // remove \n for single linespacing
-                $after_replace = str_replace("\n", '', $after_replace);
+            switch($hilite) {
+                case HILITE_NONE:
+                    $after_replace = '<code>' . nl2br(pnVarPrepForDisplay($after_replace)) . '</code>';
+                    break;
+                case HILITE_GESHI_WITH_LN:
+                case HILITE_GESHI_WITHOUT_LN:
+                    $geshi =& new GeSHi($after_replace, $language, 'modules/pn_bbcode/pnincludes/geshi/');
+                    $geshi->set_tab_width(4);
+                    $geshi->set_case_keywords(GESHI_CAPS_LOWER);
+                    $geshi->set_header_type(GESHI_HEADER_DIV);
+                    $geshi->set_link_styles(GESHI_LINK,    'padding-left: 0px; background-image: none;');
+                    $geshi->set_link_styles(GESHI_HOVER,   'padding-left: 0px; background-image: none;');
+                    $geshi->set_link_styles(GESHI_ACTIVE,  'padding-left: 0px; background-image: none;');
+                    $geshi->set_link_styles(GESHI_VISITED, 'padding-left: 0px; background-image: none;');
+                    if($hilite == HILITE_GESHI_WITH_LN) {
+                        $geshi->set_line_style('color: blue; font-weight: bold;', 'color: green;');
+                        $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
+                        $geshi->start_line_numbers_at($startline);
+                    } else {
+                        $geshi->enable_line_numbers(GESHI_NO_LINE_NUMBERS);
+                    }
+                    $after_replace = $geshi->parse_code();
+                    // remove \n for single linespacing
+                    $after_replace = str_replace("\n", '', $after_replace);
+                    break;
+                case HILITE_GOOGLE:
+                default:
+                    pn_bbcode_add_javascript_header('javascript/ajax/prototype.js');
+                    pn_bbcode_add_javascript_header('modules/pn_bbcode/pnjavascript/prettify.js');
+                    $after_replace = '<code class="prettyprint">' . pnVarPrepForDisplay($after_replace) . '</code>';
+                    break;
             }
 
             // replace %h with _PNBBCODE_CODE
@@ -513,8 +492,6 @@ function pn_bbcode_encode_list($message)
     if (!strpos(strtolower($message), "[list")) {
         return $message;
     }
-
-    add_stylesheet_header();
 
     $stack = array();
     $curr_pos = 1;
@@ -628,7 +605,7 @@ function pn_bbcode_encode_list($message)
 function pn_bbcode_userapi_get_geshi_languages()
 {
     $langs = array();
-    if(pnModGetVar('pn_bbcode', 'syntaxhilite')=='yes') {
+    if((pnModGetVar('pn_bbcode', 'syntaxhilite')== HILITE_GESHI_WITH_LN) || (pnModGetVar('pn_bbcode', 'syntaxhilite')== HILITE_GESHI_WITHOUT_LN)){
         $dir = opendir('modules/pn_bbcode/pnincludes/geshi');
         while($lang = readdir($dir)) {
             if(preg_match("/\.php$/si", $lang)) {
@@ -639,53 +616,6 @@ function pn_bbcode_userapi_get_geshi_languages()
     }
     asort($langs);
     return $langs;
-}
-
-/**
- * Nathan Codding - Oct. 30, 2000
- *
- * Escapes the "/" character with "\/". This is useful when you need
- * to stick a runtime string into a PREG regexp that is being delimited
- * with slashes.
- */
-function pn_escape_slashes($input)
-{
-    $output = str_replace('/', '\/', $input);
-    return $output;
-}
-
-/**
- * larsneo - Jan. 11, 2003
- *
- * removes instances of <br /> since sometimes they are stored in DB :(
- */
-function pn_bbcode_br2nl($str)
-{
-    return preg_replace("=<br(>|([\s/][^>]*)>)\r?\n?=i", "\n", $str);
-}
-
-
-/**
- * add_stylesheet_header
- *
- */
-function add_stylesheet_header()
-{
-    // add the style sheet file to the additional_header array
-    $stylesheet = "modules/pn_bbcode/pnstyle/style.css";
-    $stylesheetlink = "<link rel=\"stylesheet\" href=\"$stylesheet\" type=\"text/css\" />";
-    global $additional_header;
-    if(is_array($additional_header)) {
-        $values = array_flip($additional_header);
-        if(!array_key_exists($stylesheetlink, $values) && file_exists($stylesheet) && is_readable($stylesheet)) {
-            $additional_header[] = $stylesheetlink;
-        }
-    } else {
-        if(file_exists($stylesheet) && is_readable($stylesheet)) {
-            $additional_header[] = $stylesheetlink;
-        }
-    }
-    return;
 }
 
 /**

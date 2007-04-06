@@ -1,23 +1,39 @@
-<!--[*  $Id$  *]-->
+<!--[*  
+$Id$  
+// ----------------------------------------------------------------------
+// LICENSE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License (GPL)
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// To read the license please visit http://www.gnu.org/copyleft/gpl.html
+// ----------------------------------------------------------------------
+*]-->
 
 <!--[ include file=pn_bbcode_admin_menu.html ]-->
-<br />
+
 <fieldset>
     <legend>
         <!--[ pnml name='_PNBBCODE_ADMINQUOTECONFIG' ]-->
     </legend>
-    <br />
     
     <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=quoteconfig ]-->" method="post">
-    <div style="clear:both; float:left; width:60%;">
-        <!--[ pnml name='_PNBBCODE_QUOTE' ]--><br />
-        <textarea name="quote" rows="10" cols="60"><!--[ $quote|pnvarprepfordisplay ]--></textarea><br />
-        <!--[ pnml name='_PNBBCODE_QUOTEHINT' ]--><br />
-        <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:<br /><br />
-        <!--[ $quote_preview|pnvarprephtmldisplay ]-->
-        <br />
-        <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
+    <div>
+        <label for="quote"><!--[ pnml name='_PNBBCODE_QUOTE' ]--></label><br />
+        <textarea id="quote" name="quote" rows="10" cols="60"><!--[ $pncore.pn_bbcode.quote|pnvarprepfordisplay ]--></textarea>
+        <p class="spacer"><!--[ pnml name='_PNBBCODE_QUOTEHINT' ]--></p>
+        <p class="spacer"><!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:</p>
+        <p class="spacer"><!--[ $quote_preview|pnvarprephtmldisplay ]--></p>
+        <p class="spacer"><input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" /></p>
     </div>
     </form>
-    <br />
 </fieldset>
+
+<!--[ include file="pn_bbcode_admin_footer.html" ]-->

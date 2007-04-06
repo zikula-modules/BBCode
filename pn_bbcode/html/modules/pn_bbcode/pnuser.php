@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -23,9 +15,6 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Hinrich Donner
-// changed to pn_bbcode: larsneo
-// ----------------------------------------------------------------------
 
 /**
  * @package PostNuke_Utility_Modules
@@ -35,7 +24,7 @@
 
 /**
  * main funcion
- * The main function is not used in the pn_bbcode module, we just rediret to index.php
+ * The main function is not used in the pn_bbcode module, we just redirect to index.php
  *
  */
 function pn_bbcode_user_main()
@@ -51,7 +40,7 @@ function pn_bbcode_user_main()
  */
 function pn_bbcode_user_whatisbbcode()
 {
-    $pnr =& new pnRender('pn_bbcode');
+    $pnr = new pnRender('pn_bbcode');
     return $pnr->fetch('pn_bbcode_user_whatisbbcode.html');
 }
 
@@ -64,21 +53,17 @@ function pn_bbcode_user_whatisbbcode()
  */
 function pn_bbcode_user_bbcodes($args)
 {
-    extract($args);
-    unset($args);
+    $images      = $args['images'];
+    $textfieldid = $args['textfieldid'];
 
-    if(!isset($textfieldid) || empty($textfieldid)) {
+    if(empty($textfieldid)) {
         return _MODARGSERROR . ' (missing mandatory parameter textfieldid)';
     }
 
     // if we have more than one textarea we need to distinguish them, so we simply use
     // a counter stored in a session var until we find a better solution
-    $counter = pnSessionGetVar('bbcode_counter');
-    if($counter==false) {
-        $counter = 1;
-    } else {
-        $counter++;
-    }
+    $counter = (int)pnSessionGetVar('bbcode_counter');
+    $counter++;
     pnSessionSetVar('bbcode_counter', $counter);
 
     $pnr = new pnRender('pn_bbcode');
@@ -88,27 +73,19 @@ function pn_bbcode_user_bbcodes($args)
     $pnr->assign('images', $images);
 
     // find the correct javascript file depending on the users language
-    $userlang = pnUserGetLang();
+    $userlang = pnVarPrepForOS(pnUserGetLang());
     $file_1 = "modules/pn_bbcode/pnjavascript/$userlang/bbcode.js";
     $file_2 = "modules/pn_bbcode/pnjavascript/eng/bbcode.js";
     if(file_exists($file_1) && is_readable($file_1)) {
-        $javascripts[] = '<script type="text/javascript" src="' . $file_1 . '"></script>';
+        pn_bbcode_add_javascript_header($file_1);
     } elseif(file_exists($file_2) && is_readable($file_2)) {
-        $javascripts[] = '<script type="text/javascript" src="' . $file_2 . '"></script>';
+        pn_bbcode_add_javascript_header($file_2);
     }
 
-    $javascripts[] = '<script type="text/javascript" src="modules/pn_bbcode/pnjavascript/bbcode_common.js"></script>';
-
-    global $additional_header;
-    if(!is_array($additional_header)) {
-        $additional_header = array();
-    }
-    $values = array_flip($additional_header);
-    foreach($javascripts as $js) {
-        if(!array_key_exists($js, $values)) {
-            $additional_header[] = $js;
-        }
-    }
+    pn_bbcode_add_javascript_header('modules/pn_bbcode/pnjavascript/bbcode_common.js');
+    pn_bbcode_add_javascript_header('javascript/ajax/prototype.js');
+    pn_bbcode_add_javascript_header('modules/pn_bbcode/pnjavascript/prettify.js');
+    pn_bbcode_add_stylesheet_header();
 
     // get the languages for highlighting
     $langs = pnModAPIFunc('pn_bbcode', 'user', 'get_geshi_languages');

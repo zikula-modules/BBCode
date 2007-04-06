@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -23,9 +15,8 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Hinrich Donner
-// changed to pn_bbcode: larsneo
-// ----------------------------------------------------------------------
+
+include_once 'modules/pn_bbcode/common.php';
 
 /**
  * @package PostNuke_Utility_Modules
@@ -53,8 +44,8 @@ function pn_bbcode_init() {
         return false;
     }
 
-    pnModSetVar('pn_bbcode', 'quote', stripslashes(pnVarPrepForStore('<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>')));
-    pnModSetVar('pn_bbcode', 'code',  stripslashes(pnVarPrepForStore('<div><h3 class="bbcodeheader">%h</h3><div class="bbcodetext">%c</div></div>')));
+    pnModSetVar('pn_bbcode', 'quote', '<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>');
+    pnModSetVar('pn_bbcode', 'code',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbcodetext">%c</div></div>');
     pnModSetVar('pn_bbcode', 'size_tiny',   '0.75em');
     pnModSetVar('pn_bbcode', 'size_small',  '0.85em');
     pnModSetVar('pn_bbcode', 'size_normal', '1.0em');
@@ -64,8 +55,7 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'allow_usercolor', 'no');
     pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
-    pnModSetVar('pn_bbcode', 'linenumbers', 'yes');
-    pnModSetVar('pn_bbcode', 'syntaxhilite', 'yes');
+    pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_GOOGLE); // google code prettifier
 
     // Initialisation successful
     return true;
@@ -78,14 +68,14 @@ function pn_bbcode_upgrade($oldversion)
 {
 	switch($oldversion) {
 	    case '1.10':
-            pnModSetVar('pn_bbcode', 'quoteheader_start', stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">')));
-            pnModSetVar('pn_bbcode', 'quoteheader_end',   stripslashes(pnVarPrepForStore('</legend>')));
-            pnModSetVar('pn_bbcode', 'quotebody_start',   stripslashes(pnVarPrepForStore('')));
-            pnModSetVar('pn_bbcode', 'quotebody_end',     stripslashes(pnVarPrepForStore('</fieldset>')));
-            pnModSetVar('pn_bbcode', 'codeheader_start',  stripslashes(pnVarPrepForStore('<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">')));
-            pnModSetVar('pn_bbcode', 'codeheader_end',    stripslashes(pnVarPrepForStore('</legend>')));
-            pnModSetVar('pn_bbcode', 'codebody_start',    stripslashes(pnVarPrepForStore('<pre>')));
-            pnModSetVar('pn_bbcode', 'codebody_end',      stripslashes(pnVarPrepForStore('</pre></fieldset>')));
+            pnModSetVar('pn_bbcode', 'quoteheader_start', '<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">');
+            pnModSetVar('pn_bbcode', 'quoteheader_end',   '</legend>');
+            pnModSetVar('pn_bbcode', 'quotebody_start',   '');
+            pnModSetVar('pn_bbcode', 'quotebody_end',     '</fieldset>');
+            pnModSetVar('pn_bbcode', 'codeheader_start',  '<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">');
+            pnModSetVar('pn_bbcode', 'codeheader_end',    '</legend>');
+            pnModSetVar('pn_bbcode', 'codebody_start',    '<pre>');
+            pnModSetVar('pn_bbcode', 'codebody_end',      '</pre></fieldset>');
         case '1.12':
             pnModSetVar('pn_bbcode', 'size_tiny',   '0.75em');
             pnModSetVar('pn_bbcode', 'size_small',  '0.85em');
@@ -142,6 +132,28 @@ function pn_bbcode_upgrade($oldversion)
                 return false;
             }
             pnModDelVar('pn_bbcode', 'displayhook');
+        case '1.22':
+            // syntax highlight: yes/no and linenumber yes/no gets replaced with 
+            // 0 = no highlighting
+            // 1 = geshi with linenumbers
+            // 2 = geshi without linenumbers
+            // 3 = google code prettifier
+            $hilite      = pnModGetVar('pn_bbcode', 'syntaxhilite');
+            $linenumbers = pnModGetVar('pn_bbcode', 'linenumbers');
+            if($hilite=='no') {
+                pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_NONE);
+            } elseif ($hilite='yes') {                
+                if($linenumbers=='yes') {
+                    pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_GESHI_WITH_LN);
+                } else {
+                    pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_GESHI_WITHOUT_LN);
+                }
+            }
+            pnModDelVar('pn_bbcode', 'linenumbers');
+            // remove <pre></pre> from code setting
+            $code = pnModGetVar('pn_bbcode', 'code');
+            $code = str_replace(array('<pre>','</pre>'), '', $code);
+            pnModSetVar('pn_bbcode', 'code', $code);
         default:
              break;
     }
@@ -164,19 +176,8 @@ function pn_bbcode_delete() {
         return false;
     }
 
-    pnModDelVar('pn_bbcode', 'quote');
-    pnModDelVar('pn_bbcode', 'code');
-    pnModDelVar('pn_bbcode', 'size_tiny');
-    pnModDelVar('pn_bbcode', 'size_small');
-    pnModDelVar('pn_bbcode', 'size_normal');
-    pnModDelVar('pn_bbcode', 'size_large');
-    pnModDelVar('pn_bbcode', 'size_huge');
-    pnModDelVar('pn_bbcode', 'allow_usersize');
-    pnModDelVar('pn_bbcode', 'allow_usercolor');
-    pnModDelVar('pn_bbcode', 'color_enabled');
-    pnModDelVar('pn_bbcode', 'size_enabled');
-    pnModDelVar('pn_bbcode', 'linenumbers');
-    pnModDelVar('pn_bbcode', 'syntaxhilite');
+    // remove all module vars
+    pnModDelVar('pn_bbcode');
 
     // Deletion successful
     return true;

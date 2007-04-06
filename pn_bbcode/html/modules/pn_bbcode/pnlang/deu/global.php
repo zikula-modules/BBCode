@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -23,9 +15,6 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Hinrich Donner
-// changed to pn_bbcode: larsneo
-// ----------------------------------------------------------------------
 
 define('_PNBBCODE_ADMINCODECONFIG', 'Konfiguration [code][/code]');
 define('_PNBBCODE_ADMINCOLORCONFIG', 'Konfiguration [color][/color]');
@@ -37,9 +26,12 @@ define('_PNBBCODE_BOLD', 'b');
 define('_PNBBCODE_BOLD_HINT', 'Fettschrift');
 define('_PNBBCODE_CODE', 'Code');
 define('_PNBBCODE_CODEHINT', '%h = Überschrift (_PNBBCODE_CODE), %c=Codezeilen, %j=Codezeilen, vorbereitet für Javascript');
-define('_PNBBCODE_CODE_ADDLINENUMBERS', 'Zeilen nummerieren');
 define('_PNBBCODE_CODE_HINT', 'Codezeilen einfügen');
 define('_PNBBCODE_CODE_SYNTAXHIGHLIGHTING', 'Codehervorhebung einschalten');
+define('_PNBBCODE_CODE_NOSYNTAXHIGHLIGHTING', 'keine Codehervorhebung');
+define('_PNBBCODE_CODE_GESHIWITHLINENUMBERS', 'GeSHi mit Zeilennummern');
+define('_PNBBCODE_CODE_GESHIWITHOUTLINENUMBERS', 'GeSHi ohne Zeilennummern');
+define('_PNBBCODE_CODE_GOOGLEPRETTIFIER', 'Google Code Prettifier');
 define('_PNBBCODE_COLOR_ALLOWUSERCOLOR', 'Erlaube userdefinierte Textfarben');
 define('_PNBBCODE_COLOR_BLACK', 'Schwarz');
 define('_PNBBCODE_COLOR_BLUE', 'Blau');

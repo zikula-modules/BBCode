@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -23,9 +15,6 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Hinrich Donner
-// changed to pn_bbcode: larsneo
-// ----------------------------------------------------------------------
 
 define('_PNBBCODE_ADMINCODECONFIG', 'Configuration [code][/code]');
 define('_PNBBCODE_ADMINCOLORCONFIG', 'Configuration [color][/color]');
@@ -36,10 +25,13 @@ define('_PNBBCODE_ARGSERROR',                 '[pn_bbcode] Internal error! Argum
 define('_PNBBCODE_BOLD', 'b');
 define('_PNBBCODE_BOLD_HINT', 'bold text');
 define('_PNBBCODE_CODE', 'Code');
-define('_PNBBCODE_CODEHINT', '%h = Header (_PNBBCODE_CODE), %c=lines of code, %j=lines of code, escaped for javasript');
-define('_PNBBCODE_CODE_ADDLINENUMBERS', 'Add line numbers');
+define('_PNBBCODE_CODEHINT', '%h = Header (_PNBBCODE_CODE), %c=lines of code, %j=lines of code, escaped for javascript');
 define('_PNBBCODE_CODE_HINT', 'insert code');
 define('_PNBBCODE_CODE_SYNTAXHIGHLIGHTING', 'Highlight code');
+define('_PNBBCODE_CODE_NOSYNTAXHIGHLIGHTING', 'no highlighting');
+define('_PNBBCODE_CODE_GESHIWITHLINENUMBERS', 'GeSHi with line numbers');
+define('_PNBBCODE_CODE_GESHIWITHOUTLINENUMBERS', 'GeSHi without line numbers');
+define('_PNBBCODE_CODE_GOOGLEPRETTIFIER', 'Google Code Prettifier');
 define('_PNBBCODE_COLOR_ALLOWUSERCOLOR', 'Allow userdefined text color');
 define('_PNBBCODE_COLOR_BLACK', 'Black');
 define('_PNBBCODE_COLOR_BLUE', 'Blue');
