@@ -41,10 +41,14 @@ function pn_bbcode_add_stylesheet_header()
         PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('pn_bbcode'));
     } else {
         // load the modulestylesheet plugin to determine the stylesheet path
+/*
         $pnr = new pnRender('pn_bbcode');
         require_once $pnr->_get_plugin_filepath('function','modulestylesheet');
+
         $css = smarty_function_modulestylesheet(array('xhtml' => 1,
                                                       'modname' => 'pn_bbcode'), $pnr);
+*/
+        $css = '<link rel="stylesheet" href="modules/pn_bbcode/pnstyle/style.css" type="text/css" />';
         global $additional_header;
         if(is_array($additional_header)) {
             if(!in_array($css, $additional_header)) {

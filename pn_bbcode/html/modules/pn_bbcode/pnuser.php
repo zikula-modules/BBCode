@@ -22,6 +22,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
+include_once 'modules/pn_bbcode/common.php';
+
 /**
  * main funcion
  * The main function is not used in the pn_bbcode module, we just redirect to index.php
