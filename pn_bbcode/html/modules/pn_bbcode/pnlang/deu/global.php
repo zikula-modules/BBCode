@@ -16,6 +16,8 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+define('_PNBBCODE_HELPURL', 'http://de.wikipedia.org/wiki/BBCode');
+define('_PNBBCODE_HELPURL_HINT', 'what is BBCode?');
 define('_PNBBCODE_ADMINCODECONFIG', 'Konfiguration [code][/code]');
 define('_PNBBCODE_ADMINCOLORCONFIG', 'Konfiguration [color][/color]');
 define('_PNBBCODE_ADMINISTRATION', 'pn_bbcode Verwaltung');
@@ -68,6 +70,7 @@ define('_PNBBCODE_IMAGE', 'Grafik');
 define('_PNBBCODE_IMAGE_HINT', 'Eine Grafik einfügen');
 define('_PNBBCODE_ITALIC', 'i');
 define('_PNBBCODE_ITALIC_HINT', 'Kursivschrift');
+define('_PNBBCODE_LIST_HINT', 'Liste einfügen');
 define('_PNBBCODE_LISTCLOSE', '/ul');
 define('_PNBBCODE_LISTCLOSE_HINT', 'Liste schliessen');
 define('_PNBBCODE_LISTITEM', 'li');
