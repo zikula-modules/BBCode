@@ -178,6 +178,7 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
  
 #pn_bbcode {
     /* wrapper for admin panel */
+    margin: 1em 0;
 }
 
 #pn_bbcode fieldset {
@@ -212,6 +213,12 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
     margin: 0.5em;
     padding: 0;
     line-height: 2em;
+}
+
+#pn_bbcode p.footer {
+    margin-top: 2em; 
+    text-align:center;
+    font-size: 90%;
 }
 
 p.spacer {

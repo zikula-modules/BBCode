@@ -20,13 +20,11 @@ include_once 'modules/pn_bbcode/common.php';
 
 function pn_bbcode_admin_main()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
+    if (!SecurityUtil::checkPermission('pn_bbcode::', "::", ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError('index.php');
     }
 
-    $pnr = new pnRender('pn_bbcode');
-    $pnr->caching = false;
-    $pnr->add_core_data();
+    $pnr = pnRender::getInstance('pn_bbcode', false, null, true);
     return $pnr->fetch('pn_bbcode_admin_main.html');
 }
 
@@ -36,8 +34,8 @@ function pn_bbcode_admin_main()
  */
 function pn_bbcode_admin_codeconfig()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
+    if (!SecurityUtil::checkPermission('pn_bbcode::', "::", ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError('index.php');
     }
 
     $submit = pnVarCleanFromInput('submit');
@@ -64,8 +62,8 @@ function pn_bbcode_admin_codeconfig()
  */
 function pn_bbcode_admin_quoteconfig()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
+    if (!SecurityUtil::checkPermission('pn_bbcode::', "::", ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError('index.php');
     }
 
     $submit = pnVarCleanFromInput('submit');
@@ -91,8 +89,8 @@ function pn_bbcode_admin_quoteconfig()
  */
 function pn_bbcode_admin_sizeconfig()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
+    if (!SecurityUtil::checkPermission('pn_bbcode::', "::", ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError('index.php');
     }
 
     $submit = pnVarCleanFromInput('submit');
@@ -134,8 +132,8 @@ function pn_bbcode_admin_sizeconfig()
  */
 function pn_bbcode_admin_colorconfig()
 {
-    if (!pnSecAuthAction(0, 'pn_bbcode::', "::", ACCESS_ADMIN)) {
-    	return pnVarPrepForDisplay(_PNBBCODE_NOAUTH);
+    if (!SecurityUtil::checkPermission('pn_bbcode::', "::", ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError('index.php');
     }
 
     $submit = pnVarCleanFromInput('submit');
@@ -159,9 +157,7 @@ function pn_bbcode_admin_colorconfig()
     } else {
         pnModSetVar('pn_bbcode', 'color_enabled', pnVarCleanFromInput('color_enabled'));
         pnModSetVar('pn_bbcode', 'allow_usercolor', pnVarCleanFromInput('allow_usercolor'));
-        pnSessionSetVar('statusmsg', pnVarPrepForDisplay(_PNBBCODE_CONFIGCHANGED));
+        pnSessionSetVar('statusmsg', _PNBBCODE_CONFIGCHANGED);
         return pnRedirect(pnModURL('pn_bbcode', 'admin', 'main'));
     }
 }
-
-?>

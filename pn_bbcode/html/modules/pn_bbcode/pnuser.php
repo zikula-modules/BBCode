@@ -42,7 +42,7 @@ function pn_bbcode_user_main()
  */
 function pn_bbcode_user_whatisbbcode()
 {
-    $pnr = new pnRender('pn_bbcode');
+    $pnr = pnRender::getInstance('pn_bbcode');
     return $pnr->fetch('pn_bbcode_user_whatisbbcode.html');
 }
 
@@ -59,18 +59,16 @@ function pn_bbcode_user_bbcodes($args)
     $textfieldid = $args['textfieldid'];
 
     if(empty($textfieldid)) {
-        return _MODARGSERROR . ' (missing mandatory parameter textfieldid)';
+        return LogUtil::registerError(_MODARGSERROR . ' (missing mandatory parameter textfieldid)');
     }
 
     // if we have more than one textarea we need to distinguish them, so we simply use
     // a counter stored in a session var until we find a better solution
-    $counter = (int)pnSessionGetVar('bbcode_counter');
+    $counter = (int)SessionUtil::getVar('bbcode_counter');
     $counter++;
-    pnSessionSetVar('bbcode_counter', $counter);
+    SessionUtil::setVar('bbcode_counter', $counter);
 
-    $pnr = new pnRender('pn_bbcode');
-    $pnr->caching = false;
-    $pnr->add_core_data();
+    $pnr = pnRender::getInstance('pn_bbcode', false, null, true);
     $pnr->assign('counter', $counter);
     $pnr->assign('images', $images);
 
@@ -79,15 +77,15 @@ function pn_bbcode_user_bbcodes($args)
     $file_1 = "modules/pn_bbcode/pnjavascript/$userlang/bbcode.js";
     $file_2 = "modules/pn_bbcode/pnjavascript/eng/bbcode.js";
     if(file_exists($file_1) && is_readable($file_1)) {
-        pn_bbcode_add_javascript_header($file_1);
+        PageUtil::addVar('javascript', $file_1);
     } elseif(file_exists($file_2) && is_readable($file_2)) {
-        pn_bbcode_add_javascript_header($file_2);
+        PageUtil::addVar('javascript', $file_2);
     }
 
-    pn_bbcode_add_javascript_header('modules/pn_bbcode/pnjavascript/bbcode_common.js');
-    pn_bbcode_add_javascript_header('javascript/ajax/prototype.js');
-    pn_bbcode_add_javascript_header('modules/pn_bbcode/pnjavascript/prettify.js');
-    pn_bbcode_add_stylesheet_header();
+    PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/bbcode_common.js');
+    PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
+    PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/prettify.js');
+    PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('pn_bbcode'));
 
     // get the languages for highlighting
     $langs = pnModAPIFunc('pn_bbcode', 'user', 'get_geshi_languages');
@@ -96,5 +94,3 @@ function pn_bbcode_user_bbcodes($args)
 
     return $pnr->fetch('pn_bbcode_user_bbcodes.html');
 }
-
-?>

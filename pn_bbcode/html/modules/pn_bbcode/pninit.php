@@ -40,8 +40,7 @@ function pn_bbcode_init() {
                            'pn_bbcode',
                            'user',
                            'transform')) {
-        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTREGISTER . ' (transform hook)');
-        return false;
+        return LogUtil::registerError(_PNBBCODE_COULDNOTREGISTER . ' (transform hook)');
     }
 
     pnModSetVar('pn_bbcode', 'quote', '<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>');
@@ -154,6 +153,7 @@ function pn_bbcode_upgrade($oldversion)
             $code = pnModGetVar('pn_bbcode', 'code');
             $code = str_replace(array('<pre>','</pre>'), '', $code);
             pnModSetVar('pn_bbcode', 'code', $code);
+        case '1.30': // last version to support .764
         default:
              break;
     }
@@ -182,5 +182,3 @@ function pn_bbcode_delete() {
     // Deletion successful
     return true;
 }
-
-?>

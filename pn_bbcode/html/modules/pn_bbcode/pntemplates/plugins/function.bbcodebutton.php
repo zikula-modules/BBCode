@@ -62,14 +62,12 @@ function smarty_function_bbcodebutton($params, &$smarty)
     $name  = (isset($nameml)) ? constant($name) : $name;
     $title = (isset($titleml)) ? constant($title) : $title;
 
-    $out = "<button name=\"".pnVarPrepForDisplay($name)."\" type=\"button\" value=\"".pnVarPrepForDisplay($name)."\"
+    $out = "<button name=\"".DataUtil::formatForDisplay($name)."\" type=\"button\" value=\"".DataUtil::formatForDisplay($name)."\"
             style=\"border:none; background: transparent;\"
             title=\"$title\"
-            accesskey=\"$key\" onclick=\"AddBBCode('" . pnVarPrepForDisplay($textfieldid) . "', '".pnVarPrepForDisplay($name)."')\">
-            <img src=\"" . pnVarPrepForOS($imgfile) . "\" ".$attr[3]." alt=\"".pnVarPrepForDisplay($title)."\" />
+            accesskey=\"$key\" onclick=\"AddBBCode('" . DataUtil::formatForDisplay($textfieldid) . "', '".DataUtil::formatForDisplay($name)."')\">
+            <img src=\"" . DataUtil::formatForOS($imgfile) . "\" ".$attr[3]." alt=\"".DataUtil::formatForDisplay($title)."\" />
             </button>";
     return $out;
 
 }
-
-?>

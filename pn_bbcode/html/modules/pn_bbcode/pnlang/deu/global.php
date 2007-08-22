@@ -16,6 +16,13 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+// new in 2.0
+define('_PNBBCODE_GOTOHOMEPAGE', 'gehe zur pn_bbcode-Projektseite im NOC');
+define('_PNBBCODE_ADMIN_START', 'Start');
+define('_PNBBCODE_ISHOOKEDWITH', 'pn_bbcode wird mit folgenden Modulen verwendet');
+define('_PNBBCODE_NOTHOOKED', '** pn_bbcode wird zur Zeit von keinem Modul verwendet **');
+define('_PNBBCODE_ADDHOOK', 'pn_bbcode für weitere Module aktivieren');
+
 define('_PNBBCODE_HELPURL', 'http://de.wikipedia.org/wiki/BBCode');
 define('_PNBBCODE_HELPURL_HINT', 'what is BBCode?');
 define('_PNBBCODE_ADMINCODECONFIG', 'Konfiguration [code][/code]');
@@ -107,6 +114,3 @@ define('_PNBBCODE_UNDERLINE_HINT', 'unterstrichene Schrift');
 define('_PNBBCODE_URL', 'URL');
 define('_PNBBCODE_URL_HINT', 'Einen Link einfügen');
 define('_PNBBCODE_YES', 'Ja');
-
-
-?>

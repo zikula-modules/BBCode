@@ -16,6 +16,4 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-include_once 'modules/pn_bbcode/pnlang/eng/global.php';
-
-?>
+Loader::includeOnce('modules/pn_bbcode/pnlang/eng/global.php');

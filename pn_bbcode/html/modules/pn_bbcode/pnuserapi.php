@@ -38,11 +38,10 @@ function pn_bbcode_userapi_transform($args)
     // Argument check
     if ((!isset($objectid)) ||
         (!isset($extrainfo))) {
-        pnSessionSetVar('errormsg', _PNBBCODE_ARGSERROR);
-        return;
+        return LogUtil::registerError(_PNBBCODE_ARGSERROR);
     }
 
-    pn_bbcode_add_stylesheet_header();
+    PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('pn_bbcode'));
 
     if (is_array($extrainfo)) {
         foreach ($extrainfo as $text) {
@@ -273,9 +272,9 @@ function pn_bbcode_encode_quote($message)
                     $start_tag_end = strpos($message, "]", $start_index);
                     $start_tag_len = $start_tag_end - $start_index + 1;
                     if($start_tag_len > 7) {
-                        $username = pnVarPrepForDisplay(substr($message, $start_index + 7, $start_tag_len - 8));
+                        $username = DataUtil::formatForDisplay(substr($message, $start_index + 7, $start_tag_len - 8));
                     } else {
-                        $username = pnVarPrepForDisplay(_PNBBCODE_QUOTE);;
+                        $username = DataUtil::formatForDisplay(_PNBBCODE_QUOTE);;
                     }
 
                     // everything after the [quote=xxx] tag, but before the [/quote] tag.
@@ -404,7 +403,7 @@ function pn_bbcode_encode_code($message)
             // finally decide which language to use
             switch($hilite) {
                 case HILITE_NONE:
-                    $after_replace = '<code>' . nl2br(pnVarPrepForDisplay($after_replace)) . '</code>';
+                    $after_replace = '<code>' . nl2br(DataUtil::formatForDisplay($after_replace)) . '</code>';
                     break;
                 case HILITE_GESHI_WITH_LN:
                 case HILITE_GESHI_WITHOUT_LN:
@@ -429,17 +428,17 @@ function pn_bbcode_encode_code($message)
                     break;
                 case HILITE_GOOGLE:
                 default:
-                    pn_bbcode_add_javascript_header('javascript/ajax/prototype.js');
-                    pn_bbcode_add_javascript_header('modules/pn_bbcode/pnjavascript/prettify.js');
-                    $after_replace = '<code class="prettyprint">' . pnVarPrepForDisplay($after_replace) . '</code>';
+                    PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
+                    PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/prettify.js');
+                    $after_replace = '<code class="prettyprint">' . DataUtil::formatForDisplay($after_replace) . '</code>';
                     break;
             }
 
             // replace %h with _PNBBCODE_CODE
             if($language=='htmlmail') {
-                $codetext = str_replace("%h", pnVarPrepForDisplay(_PNBBCODE_ORIGINALSENDER) . ': ' . pnVarPrepForDisplay($username), $codebody);
+                $codetext = str_replace("%h", DataUtil::formatForDisplay(_PNBBCODE_ORIGINALSENDER) . ': ' . DataUtil::formatForDisplay($username), $codebody);
             } else {
-                $codetext = str_replace("%h", pnVarPrepForDisplay(_PNBBCODE_CODE), $codebody);
+                $codetext = str_replace("%h", DataUtil::formatForDisplay(_PNBBCODE_CODE), $codebody);
             }
             // replace %c with code
             $codetext = str_replace("%c",  $after_replace, $codetext);
@@ -631,14 +630,14 @@ function linktest_callback_0($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+            return  DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
         } else {
-            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
         }
     } else {
         $displayurl = pn_bbcode_minimize_displayurl($matches[1] . $matches[2]);
@@ -659,14 +658,14 @@ function linktest_callback_1($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
     if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+            return  DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
         } else {
-            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
         }
     } else {
         $displayurl = pn_bbcode_minimize_displayurl($matches[1]);
@@ -687,11 +686,11 @@ function linktest_callback_2($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
 
     if( (pnVarValidate($matches[3], 'url')==true) && ($is_allowed==false) && (strpos($matches[3], $our_url)===false) ) {
-        $displayurl = pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        $displayurl = DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
     } else {
         $displayurl = $matches[3];
         $title = strip_tags($displayurl);
@@ -699,9 +698,9 @@ function linktest_callback_2($matches)
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  '<span title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</span>';
+            return  '<span title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</span>';
         } else {
-            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
         return '<a href="' . $matches[1] . $matches[2] . '" title="' . $title . '">' . $displayurl . '</a>';
@@ -721,11 +720,11 @@ function linktest_callback_3($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
 
     if(pnVarValidate($matches[2], 'url')==true) {
-        $displayurl = pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        $displayurl = DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
     } else {
         $displayurl = $matches[2];
         $title = strip_tags($displayurl);
@@ -733,9 +732,9 @@ function linktest_callback_3($matches)
     if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return '<span title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '"><strong>' . $displayurl . '</strong></span>';
+            return '<span title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '"><strong>' . $displayurl . '</strong></span>';
         } else {
-            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
         return '<a href="http://' . $matches[1] . '" title="' . $title . '">' . $displayurl . '</a>';
@@ -753,14 +752,14 @@ function linktest_callback_4($matches)
 
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
-        $is_allowed = pnSecAuthAction(0, 'pn_bbcode:' . $modname . ':Emails' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Emails' , '::', ACCESS_READ);
     }
     if($is_allowed==false) {
         // not allowed to see emails
         if(pnUserLoggedIn()) {
-            return  pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS);
+            return  DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS);
         } else {
-            return '<a href="user.php" title="' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '">' . pnVarPrepForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '">' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '</a>';
         }
     } else {
         return '<a href="mailto:' . $matches[1] . '" title="' . $matches[1] . '">' . $matches[1] . '</a>';
@@ -785,5 +784,3 @@ function pn_bbcode_minimize_displayurl($displayurl)
     }
     return $displayurl;
 }
-
-?>

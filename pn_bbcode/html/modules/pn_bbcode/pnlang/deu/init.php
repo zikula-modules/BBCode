@@ -18,7 +18,3 @@
 
 define('_PNBBCODE_COULDNOTREGISTER',          'Die Registrierung des Moduls war nicht möglich!');
 define('_PNBBCODE_COULDNOTUNREGISTER',        'Die Entfernung des Moduls war nicht möglich!');
-
-
-
-?>

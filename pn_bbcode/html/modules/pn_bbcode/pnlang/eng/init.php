@@ -18,5 +18,3 @@
 
 define('_PNBBCODE_COULDNOTREGISTER',          'pn_bbcode was NOT installed!');
 define('_PNBBCODE_COULDNOTUNREGISTER',        'pn_bbcode was NOT removed!');
-
-?>
