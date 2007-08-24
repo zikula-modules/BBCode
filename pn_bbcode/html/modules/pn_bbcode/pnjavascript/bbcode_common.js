@@ -178,24 +178,3 @@ function check_optdata(optdata, prepend, append)
     }
     return optdata;
 }
-
-/* backwards compatibility */
-function DoSize (font_size) {
-    AddBBCode('post', 'size', font_size);
-    return;
-}
-
-function DoColor (font_color) {
-    AddBBCode('post', 'color', font_color);
-    return;
-}
-
-function DoCode (code) {
-    AddBBCode('post', 'code', code);
-    return;
-}
-
-function DoPrompt(action) {
-    AddBBCode('post', 'action');
-    return;
-}
