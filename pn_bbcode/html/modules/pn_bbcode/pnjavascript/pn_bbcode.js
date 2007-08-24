@@ -22,7 +22,7 @@ function AddBBCode(textfieldname, action, optdata)
     textasparam = false;
 
     // get the textfield
-    textfield = document.getElementById(textfieldname);
+    textfield = $(textfieldname);
     if(textfield==null) {
         // error...
         alert("internal error: unknown textfieldname '" + textfieldname + "' supplied");

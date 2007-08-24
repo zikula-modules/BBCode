@@ -20,8 +20,6 @@ if(!class_exists('GeSHi')) {
     include_once('modules/pn_bbcode/pnincludes/geshi.php');
 }
 
-include_once 'modules/pn_bbcode/common.php';
-
 /**
  * @package PostNuke_Utility_Modules
  * @subpackage pn_bbcode

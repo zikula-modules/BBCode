@@ -16,8 +16,6 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-include_once 'modules/pn_bbcode/common.php';
-
 function pn_bbcode_admin_main()
 {
     if (!SecurityUtil::checkPermission('pn_bbcode::', "::", ACCESS_ADMIN)) {
