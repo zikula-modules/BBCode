@@ -44,6 +44,7 @@ class pn_bbcode_admin_codeconfighandler
         if ($args['commandName'] == 'submit') {
             $data = $pnRender->pnFormGetValues();
 
+            pnModSetVar('pn_bbcode', 'code_enabled',  $data['code_enabled']);
             pnModSetVar('pn_bbcode', 'code',  $data['code']);
             pnModSetVar('pn_bbcode', 'syntaxhilite',  $data['syntaxhilite']);
             LogUtil::registerStatus(_PNBBCODE_CONFIGCHANGED);

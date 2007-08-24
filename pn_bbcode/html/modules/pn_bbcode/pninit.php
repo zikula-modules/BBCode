@@ -52,6 +52,8 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'size_huge',   '2.0em');
     pnModSetVar('pn_bbcode', 'allow_usersize', 'no');
     pnModSetVar('pn_bbcode', 'allow_usercolor', 'no');
+    pnModSetVar('pn_bbcode', 'code_enabled', 'yes');
+    pnModSetVar('pn_bbcode', 'quote_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
     pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_GOOGLE); // google code prettifier
@@ -153,6 +155,8 @@ function pn_bbcode_upgrade($oldversion)
             $code = str_replace(array('<pre>','</pre>'), '', $code);
             pnModSetVar('pn_bbcode', 'code', $code);
         case '1.30': // last version to support .764
+            pnModSetVar('pn_bbcode', 'code_enabled', 'yes');
+            pnModSetVar('pn_bbcode', 'quote_enabled', 'yes');
         default:
              break;
     }

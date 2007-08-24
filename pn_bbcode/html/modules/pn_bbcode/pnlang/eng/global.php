@@ -36,6 +36,8 @@ define('_PNBBCODE_ISHOOKEDWITH', 'Actually pn_bbcode is used with the following 
 define('_PNBBCODE_NOTHOOKED', '** pn_bbcode is not used with any module **');
 define('_PNBBCODE_ADDHOOK', 'Activate pn_bbcode for more modules');
 define('_PNBBCODE_ILLEGALVALUE', 'illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%');
+define('_PNBBCODE_CODE_ENABLE', 'Enable code tag');
+define('_PNBBCODE_QUOTE_ENABLE', 'Enable quote tag');
 
 define('_PNBBCODE_HELPURL', 'http://en.wikipedia.org/wiki/BBCode');
 define('_PNBBCODE_HELPURL_HINT', 'Was ist BBCode?');

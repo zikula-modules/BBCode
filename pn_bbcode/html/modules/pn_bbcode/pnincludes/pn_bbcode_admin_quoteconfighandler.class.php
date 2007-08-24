@@ -44,6 +44,7 @@ class pn_bbcode_admin_quoteconfighandler
         if ($args['commandName'] == 'submit') {
             $data = $pnRender->pnFormGetValues();
 
+            pnModSetVar('pn_bbcode', 'quote_enabled',  $data['quote_enabled']);
             pnModSetVar('pn_bbcode', 'quote',  $data['quote']);
             LogUtil::registerStatus(_PNBBCODE_CONFIGCHANGED);
         }
