@@ -17,7 +17,7 @@
 // ----------------------------------------------------------------------
 
 if(!class_exists('GeSHi')) {
-    include_once('modules/pn_bbcode/pnincludes/geshi.php');
+    Loader::includeOnce('modules/pn_bbcode/pnincludes/geshi.php');
 }
 
 /**
@@ -28,25 +28,30 @@ if(!class_exists('GeSHi')) {
 
 /**
  * the hook function
+ *@params $args['extrainfo'] text or array of texts to transform
 */
 function pn_bbcode_userapi_transform($args)
 {
-    extract($args);
-
-    // Argument check
-    if ((!isset($objectid)) ||
-        (!isset($extrainfo))) {
+    // Argument check. We do not care about the objectid in a transform hook,
+    // only extrainfo is important
+    if (!isset($args['extrainfo'])) {
         return LogUtil::registerError(_PNBBCODE_ARGSERROR);
     }
 
     PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('pn_bbcode'));
+    if(pnModGetVar('pn_bbcode', 'lightbox_enabled')==true) {
+        PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
+        PageUtil::addVar('javascript', 'javascript/ajax/scriptaculous.js');
+        PageUtil::addVar('javascript', 'javascript/ajax/lightbox.js');
+        PageUtil::addVar('stylesheet', 'javascript/ajax/lightbox/lightbox.css');
+    }
 
-    if (is_array($extrainfo)) {
-        foreach ($extrainfo as $text) {
+    if (is_array($args['extrainfo'])) {
+        foreach ($args['extrainfo'] as $text) {
             $result[] = pn_bbcode_transform($text);
         }
     } else {
-        $result = pn_bbcode_transform($extrainfo);
+        $result = pn_bbcode_transform($args['extrainfo']);
     }
 
     return $result;
@@ -122,7 +127,13 @@ function pn_bbcode_transform($message)
     $message = preg_replace("/\[i\](.*?)\[\/i\]/si", "<em>\\1</em>", $message);
 
     // [img]image_url_here[/img] code..
-    $message = preg_replace("#\[img\](.*?)\[/img\]#si", "<img src=\"\\1\" alt=\"\\1\" />", $message);
+    if(pnModGetVar('pn_bbcode', 'lightbox_enabled')==false) {
+        // no lightbox :-(
+        $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<img src="\\1" alt="\\1" />', $message);
+    } else {
+        // use lightbox :-)
+        $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<a href="\\1" rel="lightbox"><img src="\\1" alt="\\1" width="' . DataUtil::formatForDisplay(pnModGetVar('pn_bbcode', 'lightbox_previewwidth')) . '"/></a>', $message);
+    }
     //$message = preg_replace("/\[img\](.*?)\[\/img\]/si", "<IMG SRC=\"\\1\" BORDER=\"0\">", $message);
 
     // three new bbcodes, thanks to Chris Miller (r3ap3r)

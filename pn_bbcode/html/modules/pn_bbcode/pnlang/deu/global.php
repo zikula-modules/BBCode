@@ -38,6 +38,12 @@ define('_PNBBCODE_ADDHOOK', 'pn_bbcode für weitere Module aktivieren');
 define('_PNBBCODE_ILLEGALVALUE', 'ungültiger Wert, erlaubtes Format: bis zu vier Vorkomma- und 2 Nachkommastellen plus Einheit: cm,em,ex,in,mm,pc,pt,px oder %. Beispiel: 1.05em oder 95%');
 define('_PNBBCODE_CODE_ENABLE', 'code-Tag erlauben');
 define('_PNBBCODE_QUOTE_ENABLE', 'quote-Tag erlauben');
+define('_PNBBCODE_ADMINMISCCONFIG', 'sonstige Konfiguration');
+define('_PNBBCODE_IMGTAGCONFIG', 'Konfiguration des IMG-Tags');
+define('_PNBBCODE_LIGHTBOX_ENABLE', 'Lightbox in img-Tag einschalten'); 
+define('_PNBBCODE_LIGHTBOX_PREVIEWWIDTH', 'Breite des Vorschaubildes');
+define('_PNBBCODE_LIGHTBOX_PREVIEWWIDTHINFO', '(50-1000px)');
+define('_PNBBCODE_LIGHTBOX_PREVIEWHEIGHTINFO', 'Die Höhe wird automatisch vom Browser angepasst.');
 
 define('_PNBBCODE_HELPURL', 'http://de.wikipedia.org/wiki/BBCode');
 define('_PNBBCODE_HELPURL_HINT', 'what is BBCode?');

@@ -38,6 +38,7 @@ function pn_bbcode_adminapi_getlinks()
         $links[] = array('url' => pnModURL('pn_bbcode', 'admin', 'quoteconfig'), 'text' => _PNBBCODE_ADMINQUOTECONFIG, 'title' => _PNBBCODE_ADMINQUOTECONFIG);
         $links[] = array('url' => pnModURL('pn_bbcode', 'admin', 'sizeconfig'),  'text' => _PNBBCODE_ADMINSIZECONFIG,  'title' => _PNBBCODE_ADMINSIZECONFIG); 
         $links[] = array('url' => pnModURL('pn_bbcode', 'admin', 'colorconfig'), 'text' => _PNBBCODE_ADMINCOLORCONFIG, 'title' => _PNBBCODE_ADMINCOLORCONFIG);
+        $links[] = array('url' => pnModURL('pn_bbcode', 'admin', 'miscconfig'),  'text' => _PNBBCODE_ADMINMISCCONFIG,  'title' => _PNBBCODE_ADMINMISCCONFIG);
     }
     return $links;
 }

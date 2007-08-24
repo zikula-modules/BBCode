@@ -50,12 +50,14 @@ function pn_bbcode_init() {
     pnModSetVar('pn_bbcode', 'size_normal', '1.0em');
     pnModSetVar('pn_bbcode', 'size_large',  '1.5em');
     pnModSetVar('pn_bbcode', 'size_huge',   '2.0em');
-    pnModSetVar('pn_bbcode', 'allow_usersize', 'no');
-    pnModSetVar('pn_bbcode', 'allow_usercolor', 'no');
-    pnModSetVar('pn_bbcode', 'code_enabled', 'yes');
-    pnModSetVar('pn_bbcode', 'quote_enabled', 'yes');
-    pnModSetVar('pn_bbcode', 'color_enabled', 'yes');
-    pnModSetVar('pn_bbcode', 'size_enabled', 'yes');
+    pnModSetVar('pn_bbcode', 'allow_usersize', false);
+    pnModSetVar('pn_bbcode', 'allow_usercolor', false);
+    pnModSetVar('pn_bbcode', 'code_enabled', true);
+    pnModSetVar('pn_bbcode', 'quote_enabled', true);
+    pnModSetVar('pn_bbcode', 'color_enabled', true);
+    pnModSetVar('pn_bbcode', 'size_enabled', true);
+    pnModSetVar('pn_bbcode', 'lightbox_enabled', true);
+    pnModSetVar('pn_bbcode', 'lightbox_previewwidth', 200);
     pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_GOOGLE); // google code prettifier
 
     // Initialisation successful
@@ -155,8 +157,10 @@ function pn_bbcode_upgrade($oldversion)
             $code = str_replace(array('<pre>','</pre>'), '', $code);
             pnModSetVar('pn_bbcode', 'code', $code);
         case '1.30': // last version to support .764
-            pnModSetVar('pn_bbcode', 'code_enabled', 'yes');
-            pnModSetVar('pn_bbcode', 'quote_enabled', 'yes');
+            pnModSetVar('pn_bbcode', 'code_enabled', true);
+            pnModSetVar('pn_bbcode', 'quote_enabled', true);
+            pnModSetVar('pn_bbcode', 'lightbox_enabled', true);
+            pnModSetVar('pn_bbcode', 'lightbox_previewwidth', 200);
         default:
              break;
     }
