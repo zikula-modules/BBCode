@@ -19,36 +19,32 @@ $Id$
 
 <!--[ include file=pn_bbcode_admin_menu.html ]-->
 
-<fieldset>
-    <legend>
-        <!--[ pnml name='_PNBBCODE_ADMINQUOTECONFIG' ]-->
-    </legend>
-    
-    <!--[ pnform ]-->
-    <dl class="pn_bbcode_clearfix">
-        <dt>
-            <!--[ pnformlabel for="quote" text="_PNBBCODE_QUOTE" ]-->:
-        </dt>
-        <dd>
-            <!--[ pnformtextinput id="quote" textMode="multiline" rows="10" cols="50" text=$pncore.pn_bbcode.quote ]-->
-            <br /><!--[ pnml name='_PNBBCODE_QUOTEHINT' ]-->
-        </dd>
-        <dt>
-            <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:
-        </dt>
-        <dd>
-            <!--[ $quote_preview|pnvarprephtmldisplay ]-->
-        </dd>
-        <dt>
-            &nbsp;
-        </dt>
-        <dd>
-            <!--[pnformbutton id="submit" commandName="submit" text="_UPDATE"]-->
-        </dd>
-    
-    
-    </dl>
-    <!--[ /pnform ]-->
-</fieldset>
+<h2><!--[ pnml name='_PNBBCODE_ADMINQUOTECONFIG' ]--></h2>
+
+<!--[ pnform ]-->
+<dl class="pn_bbcode_clearfix">
+    <dt>
+        <!--[ pnformlabel for="quote" text="_PNBBCODE_QUOTE" ]-->:
+    </dt>
+    <dd>
+        <!--[ pnformtextinput id="quote" textMode="multiline" rows="10" cols="50" text=$pncore.pn_bbcode.quote ]-->
+        <br /><!--[ pnml name='_PNBBCODE_QUOTEHINT' ]-->
+    </dd>
+    <dt>
+        <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:
+    </dt>
+    <dd>
+        <!--[ $quote_preview|pnvarprephtmldisplay ]-->
+    </dd>
+    <dt>
+        &nbsp;
+    </dt>
+    <dd>
+        <!--[pnformbutton id="submit" commandName="submit" text="_UPDATE"]-->
+    </dd>
+
+
+</dl>
+<!--[ /pnform ]-->
 
 <!--[ include file="pn_bbcode_admin_footer.html" ]-->
