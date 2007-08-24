@@ -72,18 +72,8 @@ function pn_bbcode_user_bbcodes($args)
     $pnr->assign('counter', $counter);
     $pnr->assign('images', $images);
 
-    // find the correct javascript file depending on the users language
-    $userlang = pnVarPrepForOS(pnUserGetLang());
-    $file_1 = "modules/pn_bbcode/pnjavascript/$userlang/bbcode.js";
-    $file_2 = "modules/pn_bbcode/pnjavascript/eng/bbcode.js";
-    if(file_exists($file_1) && is_readable($file_1)) {
-        PageUtil::addVar('javascript', $file_1);
-    } elseif(file_exists($file_2) && is_readable($file_2)) {
-        PageUtil::addVar('javascript', $file_2);
-    }
-
-    PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/bbcode_common.js');
     PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
+    PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/pn_bbcode.js');
     PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/prettify.js');
     PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('pn_bbcode'));
 
