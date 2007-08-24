@@ -16,6 +16,19 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+// begin of no-change-area
+// do NOT change the following lines. Although theysa are not language
+// relevant they are important for this module
+// 0 = no highlighting
+define('HILITE_NONE', 0);
+// 1 = geshi with linenumbers
+define('HILITE_GESHI_WITH_LN', 1);
+// 2 = geshi without linenumbers
+define('HILITE_GESHI_WITHOUT_LN', 2);
+// 3 = google code prettifier
+define('HILITE_GOOGLE', 3);
+// end of no-change-area
+
 define('_PNBBCODE_HELPURL', 'http://fr.wikipedia.org/wiki/BBCode');
 define('_PNBBCODE_HELPURL_HINT', 'what is BBCode?');
 define('_PNBBCODE_ADMINCODECONFIG', 'Configuration de [code][/code]');

@@ -199,7 +199,7 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
     display: block;
     float: left;
     text-align: right;
-    width: 40%;
+    width: 25%;
     padding: 0;
     margin: 0.5em;
     line-height: 2em;
@@ -209,7 +209,7 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
     display: block;
     float: left;
     text-align: left;
-    width: 40%;
+    width: 60%;
     margin: 0.5em;
     padding: 0;
     line-height: 2em;

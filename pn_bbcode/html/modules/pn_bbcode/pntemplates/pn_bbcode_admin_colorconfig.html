@@ -24,29 +24,31 @@ $Id$
         <!--[ pnml name='_PNBBCODE_ADMINCOLORCONFIG' ]-->
     </legend>
     
-    <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=colorconfig ]-->" method="post">
-    <div>
-        <dl class="pn_bbcode_clearfix">
-            <dt>
-                <label for="color_enabled"><!--[ pnml name='_PNBBCODE_COLOR_ENABLE' ]-->:</label>
-            </dt>
-            <dd>
-                <input type="checkbox" name="color_enabled" id="color_enabled" value="yes" <!--[ $colorenabled ]--> />
-            </dd>
-
-            <dt>
-                <label for="allow_usercolor"><!--[ pnml name='_PNBBCODE_COLOR_ALLOWUSERCOLOR' ]-->:</label>
-            </dt>
-            <dd id="allow_usercolor">
-                <input type="radio" name="allow_usercolor" value="yes" <!--[ $usercoloronchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
-                <input type="radio" name="allow_usercolor" value="no" <!--[ $usercoloroffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
-            </dd>
-        </dl>
-        <p class="spacer">
-            <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
-        </p>
-    </div>
-    </form>
+    <!--[ pnform ]-->
+    <dl class="pn_bbcode_clearfix">
+        <dt>
+            <!--[ pnformlabel for="color_enabled" text="_PNBBCODE_COLOR_ENABLE" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformcheckbox id="color_enabled" checked=$pncore.pn_bbcode.color_enabled ]-->
+        </dd>
+        
+        <dt>
+            <!--[ pnformlabel for="allow_usercolor" text="_PNBBCODE_COLOR_ALLOWUSERCOLOR" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformcheckbox id="allow_usercolor" checked=$pncore.pn_bbcode.allow_usercolor ]-->
+        </dd>
+    
+        <dt>
+            &nbsp;
+        </dt>
+        <dd>
+            <!--[pnformbutton id="submit" commandName="submit" text="_UPDATE"]-->
+        </dd>
+    </dl>    
+    
+    <!--[ /pnform ]-->
 </fieldset>
 
 <!--[ include file="pn_bbcode_admin_footer.html" ]-->

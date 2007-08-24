@@ -127,8 +127,7 @@ function pn_bbcode_upgrade($oldversion)
                                      'pn_bbcode',
                                      'user',
                                      'codes')) {
-                pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTUNREGISTER . ' (display hook)');
-                return false;
+                return LogUtil::registerError(_PNBBCODE_COULDNOTUNREGISTER . ' (display hook)');
             }
             pnModDelVar('pn_bbcode', 'displayhook');
         case '1.22':
@@ -172,8 +171,7 @@ function pn_bbcode_delete() {
                              'pn_bbcode',
                              'user',
                              'transform')) {
-        pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTUNREGISTER . ' (transform hook)');
-        return false;
+        return LogUtil::registerError(_PNBBCODE_COULDNOTUNREGISTER . ' (transform hook)');
     }
 
     // remove all module vars

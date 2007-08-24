@@ -24,36 +24,34 @@ $Id$
         <!--[ pnml name='_PNBBCODE_ADMINCODECONFIG' ]-->
     </legend>
 
-    <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=codeconfig ]-->" method="post">
-
-    <div>
-        <label for="code"><!--[ pnml name='_PNBBCODE_CODE' ]--></label><br />
-        <textarea id="code" name="code" rows="10" cols="60"><!--[ $pncore.pn_bbcode.code|pnvarprepfordisplay ]--></textarea>
-        <p class="spacer">
-            <!--[ pnml name='_PNBBCODE_CODEHINT' ]-->
-        </p>
-        <dl class="pn_bbcode_clearfix">
-            <dt>
-                <label for="syntaxhilite"><!--[ pnml name='_PNBBCODE_CODE_SYNTAXHIGHLIGHTING' ]-->:</label>
-            </dt>
-            <dd id="syntaxhilite">
-                <input type="radio" name="syntaxhilite" value="0" <!--[ if $pncore.pn_bbcode.syntaxhilite eq 0 ]-->checked="checked"<!--[ /if ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_CODE_NOSYNTAXHIGHLIGHTING' ]--><br />
-                <input type="radio" name="syntaxhilite" value="1" <!--[ if $pncore.pn_bbcode.syntaxhilite eq 1 ]-->checked="checked"<!--[ /if ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_CODE_GESHIWITHLINENUMBERS' ]--><br />
-                <input type="radio" name="syntaxhilite" value="2" <!--[ if $pncore.pn_bbcode.syntaxhilite eq 2 ]-->checked="checked"<!--[ /if ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_CODE_GESHIWITHOUTLINENUMBERS' ]--><br />
-                <input type="radio" name="syntaxhilite" value="3" <!--[ if $pncore.pn_bbcode.syntaxhilite eq 3 ]-->checked="checked"<!--[ /if ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_CODE_GOOGLEPRETTIFIER' ]--><br />
-            </dd>
-        </dl>
-        <p class="spacer">
+    <!--[ pnform ]-->
+    <dl class="pn_bbcode_clearfix">
+        <dt>
+            <!--[ pnformlabel for="code" text="_PNBBCODE_CODE" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformtextinput id="code" textMode="multiline" rows="10" cols="50" text=$pncore.pn_bbcode.code ]-->
+            <br /><!--[ pnml name='_PNBBCODE_CODEHINT' ]-->
+        </dd>
+        <dt>
+            <!--[ pnformlabel for="syntaxhilite" text="_PNBBCODE_CODE_SYNTAXHIGHLIGHTING" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformdropdownlist id="syntaxhilite" items=$hiliteoptions selectedValue=$pncore.pn_bbcode.syntaxhilite ]-->
+        </dd>
+        <dt>
             <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:
-        </p>
-        <p class="spacer">
+        </dt>
+        <dd>
             <!--[ $code_preview|pnvarprephtmldisplay ]-->
-        </p>
-        <p class="spacer">
-            <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" /> 
-        </p>
-    </div>
-    </form>
-</fieldset>
+        </dd>
+        <dt>
+            &nbsp;
+        </dt>
+        <dd>
+            <!--[pnformbutton id="submit" commandName="submit" text="_UPDATE"]-->
+        </dd>
+    </dl>
+    <!--[ /pnform ]-->
 
 <!--[ include file="pn_bbcode_admin_footer.html" ]-->

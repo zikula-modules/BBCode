@@ -16,12 +16,26 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+// begin of no-change-area
+// do NOT change the following lines. Although theysa are not language
+// relevant they are important for this module
+// 0 = no highlighting
+define('HILITE_NONE', 0);
+// 1 = geshi with linenumbers
+define('HILITE_GESHI_WITH_LN', 1);
+// 2 = geshi without linenumbers
+define('HILITE_GESHI_WITHOUT_LN', 2);
+// 3 = google code prettifier
+define('HILITE_GOOGLE', 3);
+// end of no-change-area
+
 // new in 2.0
 define('_PNBBCODE_GOTOHOMEPAGE', 'visit the pn_bbcode project site on NOC');
 define('_PNBBCODE_ADMIN_START', 'Start');
 define('_PNBBCODE_ISHOOKEDWITH', 'Actually pn_bbcode is used with the following modules');
 define('_PNBBCODE_NOTHOOKED', '** pn_bbcode is not used with any module **');
 define('_PNBBCODE_ADDHOOK', 'Activate pn_bbcode for more modules');
+define('_PNBBCODE_ILLEGALVALUE', 'illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%');
 
 define('_PNBBCODE_HELPURL', 'http://en.wikipedia.org/wiki/BBCode');
 define('_PNBBCODE_HELPURL_HINT', 'Was ist BBCode?');
@@ -36,7 +50,7 @@ define('_PNBBCODE_BOLD_HINT', 'bold text');
 define('_PNBBCODE_CODE', 'Code');
 define('_PNBBCODE_CODEHINT', '%h = Header (_PNBBCODE_CODE), %c=lines of code, %j=lines of code, escaped for javascript');
 define('_PNBBCODE_CODE_HINT', 'insert code');
-define('_PNBBCODE_CODE_SYNTAXHIGHLIGHTING', 'Highlight code');
+define('_PNBBCODE_CODE_SYNTAXHIGHLIGHTING', 'Select code highlight mode');
 define('_PNBBCODE_CODE_NOSYNTAXHIGHLIGHTING', 'no highlighting');
 define('_PNBBCODE_CODE_GESHIWITHLINENUMBERS', 'GeSHi with line numbers');
 define('_PNBBCODE_CODE_GESHIWITHOUTLINENUMBERS', 'GeSHi without line numbers');

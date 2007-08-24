@@ -24,65 +24,72 @@ $Id$
         <!--[ pnml name='_PNBBCODE_ADMINSIZECONFIG' ]-->
     </legend>
     
-    <form action="<!--[ pnmodurl modname=pn_bbcode type=admin func=sizeconfig ]-->" method="post">
-    <div>
-        <dl class="pn_bbcode_clearfix">
-            <dt>
-                <label for="size_enabled"><!--[ pnml name='_PNBBCODE_SIZE_ENABLE' ]-->:</label>
-            </dt>
-            <dd>
-                <input type="checkbox" name="size_enabled" id="size_enabled" value="yes" <!--[ $sizeenabled ]--> />
-            </dd>
-            
-            <dt>
-                <label for="size_tiny"><!--[ pnml name='_PNBBCODE_SIZE_TINY' ]-->:</label>
-            </dt>
-            <dd>
-                <input name="size_tiny" id="size_tiny" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_tiny|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_tiny ]-->;">TestTESTtest</span>
-            </dd>
-            
-            <dt>
-                <label for="size_small"><!--[ pnml name='_PNBBCODE_SIZE_SMALL' ]-->:</label>
-            </dt>
-            <dd>
-                <input name="size_small" id="size_small" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_small|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_small ]-->;">TestTESTtest</span>
-            </dd>
-            
-            <dt>
-                <label for="size_normal"><!--[ pnml name='_PNBBCODE_SIZE_NORMAL' ]-->:</label>
-            </dt>
-            <dd>
-                <input name="size_normal" id="size_normal" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_normal|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_normal ]-->;">TestTESTtest</span>
-            </dd>
-            
-            <dt>
-                <label for="size_large"><!--[ pnml name='_PNBBCODE_SIZE_LARGE' ]-->:</label>
-            </dt>
-            <dd>
-                <input name="size_large" id="size_large" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_large|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_large ]-->;">TestTESTtest</span>
-            </dd>
-            
-            <dt>
-                <label for="size_huge"><!--[ pnml name='_PNBBCODE_SIZE_HUGE' ]-->:</label>
-            </dt>
-            <dd>
-                <input name="size_huge" id="size_huge" size="10" maxlength="10" value="<!--[ $pncore.pn_bbcode.size_huge|pnvarprepfordisplay ]-->" />&nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_huge ]-->;">TestTESTtest</span>
-            </dd>
-            
-            <dt>
-                <label for="allow_usersize"><!--[ pnml name='_PNBBCODE_SIZE_ALLOWUSERSIZE' ]-->:</label>
-            </dt>
-            <dd id="allow_usersize">
-                <input type="radio" name="allow_usersize" value="yes" <!--[ $usersizeonchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_YES' ]-->
-                <input type="radio" name="allow_usersize" value="no" <!--[ $usersizeoffchecked ]--> />&nbsp;<!--[ pnml name='_PNBBCODE_NO' ]-->
-            </dd>
-        </dl>
-        <p class="spacer">
-            <input type="submit" name="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
-        </p>
-    
-    </div>
-    </form>
-</fieldset>
+    <!--[ pnform ]-->
+    <!--[ pnformvalidationsummary ]-->
+    <dl class="pn_bbcode_clearfix">
+        <dt>
+            <!--[ pnformlabel for="size_enabled" text="_PNBBCODE_SIZE_ENABLE" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformcheckbox id="size_enabled" checked=$pncore.pn_bbcode.size_enabled ]-->
+        </dd>    
+
+        <dt>
+            <!--[ pnformlabel for="size_tiny" text="_PNBBCODE_SIZE_TINY" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformtextinput id="size_tiny" text=$pncore.pn_bbcode.size_tiny|pnvarprepfordisplay size="20" maxLength="30" ]-->
+            &nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_tiny ]-->;">TestTESTtest</span>
+        </dd>    
+
+        <dt>
+            <!--[ pnformlabel for="size_small" text="_PNBBCODE_SIZE_SMALL" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformtextinput id="size_small" text=$pncore.pn_bbcode.size_small|pnvarprepfordisplay size="20" maxLength="30" ]-->
+            &nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_small ]-->;">TestTESTtest</span>
+        </dd>    
+
+        <dt>
+            <!--[ pnformlabel for="size_normal" text="_PNBBCODE_SIZE_NORMAL" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformtextinput id="size_normal" text=$pncore.pn_bbcode.size_normal|pnvarprepfordisplay size="20" maxLength="30" ]-->
+            &nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_normal ]-->;">TestTESTtest</span>
+        </dd>    
+
+        <dt>
+            <!--[ pnformlabel for="size_large" text="_PNBBCODE_SIZE_LARGE" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformtextinput id="size_large" text=$pncore.pn_bbcode.size_large|pnvarprepfordisplay size="20" maxLength="30" ]-->
+            &nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_large ]-->;">TestTESTtest</span>
+        </dd>    
+
+        <dt>
+            <!--[ pnformlabel for="size_huge" text="_PNBBCODE_SIZE_HUGE" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformtextinput id="size_huge" text=$pncore.pn_bbcode.size_huge|pnvarprepfordisplay size="20" maxLength="30" ]-->
+            &nbsp;:&nbsp;<span style="font-size: <!--[ $pncore.pn_bbcode.size_huge ]-->;">TestTESTtest</span>
+        </dd>    
+
+        <dt>
+            <!--[ pnformlabel for="allow_usersize" text="_PNBBCODE_SIZE_ALLOWUSERSIZE" ]-->:
+        </dt>
+        <dd>
+            <!--[ pnformcheckbox id="allow_usersize" checked=$pncore.pn_bbcode.allow_usersize ]-->
+        </dd>    
+        
+        <dt>
+            &nbsp;
+        </dt>
+        <dd>
+            <!--[pnformbutton id="submit" commandName="submit" text="_UPDATE"]-->
+        </dd>
+
+    </dl>
+    <!--[ /pnform ]-->
+/fieldset>
 
 <!--[ include file="pn_bbcode_admin_footer.html" ]-->

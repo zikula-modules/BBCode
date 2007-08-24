@@ -16,12 +16,26 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+// begin of no-change-area
+// do NOT change the following lines. Although theysa are not language
+// relevant they are important for this module
+// 0 = no highlighting
+define('HILITE_NONE', 0);
+// 1 = geshi with linenumbers
+define('HILITE_GESHI_WITH_LN', 1);
+// 2 = geshi without linenumbers
+define('HILITE_GESHI_WITHOUT_LN', 2);
+// 3 = google code prettifier
+define('HILITE_GOOGLE', 3);
+// end of no-change-area
+
 // new in 2.0
 define('_PNBBCODE_GOTOHOMEPAGE', 'gehe zur pn_bbcode-Projektseite im NOC');
 define('_PNBBCODE_ADMIN_START', 'Start');
 define('_PNBBCODE_ISHOOKEDWITH', 'pn_bbcode wird mit folgenden Modulen verwendet');
 define('_PNBBCODE_NOTHOOKED', '** pn_bbcode wird zur Zeit von keinem Modul verwendet **');
 define('_PNBBCODE_ADDHOOK', 'pn_bbcode für weitere Module aktivieren');
+define('_PNBBCODE_ILLEGALVALUE', 'ungültiger Wert, erlaubtes Format: bis zu vier Vorkomma- und 2 Nachkommastellen plus Einheit: cm,em,ex,in,mm,pc,pt,px oder %. Beispiel: 1.05em oder 95%');
 
 define('_PNBBCODE_HELPURL', 'http://de.wikipedia.org/wiki/BBCode');
 define('_PNBBCODE_HELPURL_HINT', 'what is BBCode?');
@@ -34,9 +48,9 @@ define('_PNBBCODE_ARGSERROR',                 '[pn_bbcode] Interner Fehler! Argu
 define('_PNBBCODE_BOLD', 'b');
 define('_PNBBCODE_BOLD_HINT', 'Fettschrift');
 define('_PNBBCODE_CODE', 'Code');
-define('_PNBBCODE_CODEHINT', '%h = Überschrift (_PNBBCODE_CODE), %c=Codezeilen, %j=Codezeilen, vorbereitet für Javascript');
+define('_PNBBCODE_CODEHINT', '%h = Überschrift (_PNBBCODE_CODE), %c = Codezeilen, %j = Codezeilen, vorbereitet für Javascript');
 define('_PNBBCODE_CODE_HINT', 'Codezeilen einfügen');
-define('_PNBBCODE_CODE_SYNTAXHIGHLIGHTING', 'Codehervorhebung einschalten');
+define('_PNBBCODE_CODE_SYNTAXHIGHLIGHTING', 'Codehervorhebung auswählen');
 define('_PNBBCODE_CODE_NOSYNTAXHIGHLIGHTING', 'keine Codehervorhebung');
 define('_PNBBCODE_CODE_GESHIWITHLINENUMBERS', 'GeSHi mit Zeilennummern');
 define('_PNBBCODE_CODE_GESHIWITHOUTLINENUMBERS', 'GeSHi ohne Zeilennummern');
@@ -96,7 +110,7 @@ define('_PNBBCODE_ORIGINALSENDER', 'Absender');
 define('_PNBBCODE_PNADMINISTRATION', 'Administration');
 define('_PNBBCODE_PREVIEW','Vorschau');
 define('_PNBBCODE_QUOTE', 'Zitat');
-define('_PNBBCODE_QUOTEHINT', '%u = Username, %t=zitierter Text');
+define('_PNBBCODE_QUOTEHINT', '%u = Username, %t = zitierter Text');
 define('_PNBBCODE_QUOTE_HINT', 'Zitat einfügen');
 define('_PNBBCODE_SELECTCODE', 'Codetyp auswählen');
 define('_PNBBCODE_SIZE_ALLOWUSERSIZE', 'Erlaube userdefinierte Textgröße');
