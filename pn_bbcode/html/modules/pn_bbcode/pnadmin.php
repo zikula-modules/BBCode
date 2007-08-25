@@ -22,7 +22,16 @@ function pn_bbcode_admin_main()
         return LogUtil::registerPermissionError('index.php');
     }
 
+    $hmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'pn_bbcode'));
+    foreach($hmods as $hmod => $dummy) {
+        $modid = pnModGetIDFromName($hmod);
+        $moddata = pnModGetInfo($modid);
+        $moddata['id'] = $modid;
+        $hookedmodules[] = $moddata;
+    }
+
     $pnr = pnRender::getInstance('pn_bbcode', false, null, true);
+    $pnr->assign('hookedmodules', $hookedmodules);
     return $pnr->fetch('pn_bbcode_admin_main.html');
 }
 
