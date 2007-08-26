@@ -225,3 +225,7 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
 p.spacer {
     padding: 2px 0;
 }
+
+.hidden {
+    display: none;
+}

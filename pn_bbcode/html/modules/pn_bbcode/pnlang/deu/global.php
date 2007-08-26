@@ -44,6 +44,7 @@ define('_PNBBCODE_LIGHTBOX_ENABLE', 'Lightbox in img-Tag einschalten');
 define('_PNBBCODE_LIGHTBOX_PREVIEWWIDTH', 'Breite des Vorschaubildes');
 define('_PNBBCODE_LIGHTBOX_PREVIEWWIDTHINFO', '(50-1000px)');
 define('_PNBBCODE_LIGHTBOX_PREVIEWHEIGHTINFO', 'Die Höhe wird automatisch vom Browser angepasst.');
+define('_PNBBCODE_ADMINCONFIG', 'Konfiguration');
 
 define('_PNBBCODE_HELPURL', 'http://de.wikipedia.org/wiki/BBCode');
 define('_PNBBCODE_HELPURL_HINT', 'what is BBCode?');

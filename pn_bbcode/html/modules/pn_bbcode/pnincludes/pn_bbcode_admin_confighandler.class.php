@@ -16,13 +16,28 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-class pn_bbcode_admin_sizeconfighandler
+class pn_bbcode_admin_confighandler
 {
 
     function initialize(&$pnRender)
     {
         $pnRender->caching = false;
         $pnRender->add_core_data();
+        $pnRender->assign('quote_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform',
+                                                              array('objectid' => 1,
+                                                                    'extrainfo' => "[quote=username]test\ntest test\n[/quote]"))));
+        $hiliteoptions = array(array('text' => _PNBBCODE_CODE_NOSYNTAXHIGHLIGHTING, 'value' => 0),
+                               array('text' => _PNBBCODE_CODE_GESHIWITHLINENUMBERS, 'value' => 1),
+                               array('text' => _PNBBCODE_CODE_GESHIWITHOUTLINENUMBERS, 'value' => 2),
+                               array('text' => _PNBBCODE_CODE_GOOGLEPRETTIFIER, 'value' => 3));
+        $pnRender->assign('hiliteoptions', $hiliteoptions);
+        $pnRender->assign('code_preview', pnModAPIFunc('pn_bbcode', 'user', 'transform',
+                                                        array('objectid' => 1,
+                                                              'extrainfo' => "[code=php, start=100]<?php\necho 'test';\n?>[/code]")));
+
+        PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
+        PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/pn_bbcode.js');
+
         return true;
     }
 
@@ -62,11 +77,24 @@ class pn_bbcode_admin_sizeconfighandler
                 $ifield->setError(DataUtil::formatForDisplay(_PNBBCODE_ILLEGALVALUE));
                 $ok = false;
             }
-
             if(!$ok) {
                 return false;
             }
 
+            // code 
+            pnModSetVar('pn_bbcode', 'code_enabled',  $data['code_enabled']);
+            pnModSetVar('pn_bbcode', 'code',  $data['code']);
+            pnModSetVar('pn_bbcode', 'syntaxhilite',  $data['syntaxhilite']);
+
+            // color
+            pnModSetVar('pn_bbcode', 'color_enabled',  $data['color_enabled']);
+            pnModSetVar('pn_bbcode', 'allow_usercolor',  $data['allow_usercolor']);
+
+            // quote
+            pnModSetVar('pn_bbcode', 'quote_enabled',  $data['quote_enabled']);
+            pnModSetVar('pn_bbcode', 'quote',  $data['quote']);
+
+            // size
             pnModSetVar('pn_bbcode', 'size_tiny',  $data['size_tiny']);
             pnModSetVar('pn_bbcode', 'size_small',  $data['size_small']);
             pnModSetVar('pn_bbcode', 'size_normal',  $data['size_normal']);
@@ -74,9 +102,13 @@ class pn_bbcode_admin_sizeconfighandler
             pnModSetVar('pn_bbcode', 'size_huge',  $data['size_huge']);
             pnModSetVar('pn_bbcode', 'size_enabled',  $data['size_enabled']);
             pnModSetVar('pn_bbcode', 'allow_usersize',  $data['allow_usersize']);
+            
+            // misc
+            pnModSetVar('pn_bbcode', 'lightbox_enabled',  $data['lightbox_enabled']);
+            pnModSetVar('pn_bbcode', 'lightbox_previewwidth',  $data['lightbox_previewwidth']);
             LogUtil::registerStatus(_PNBBCODE_CONFIGCHANGED);
         }
-        return pnRedirect(pnModURL('pn_bbcode', 'admin', 'sizeconfig'));
+        return pnRedirect(pnModURL('pn_bbcode', 'admin', 'config'));
     }
 
 }
@@ -84,5 +116,5 @@ class pn_bbcode_admin_sizeconfighandler
 function _validate_size_input(&$input='')
 {
     $input = strtolower(trim($input));
-    return (bool)preg_match('/(^\d{1,4}|(^\d{1,4}\.{0,1}\d{1,2}))(cm|em|ex|in|mm|pc|pt|px|\%)/', $input);
+    return (bool)preg_match('/(^\d{1,4}|(^\d{1,4}\.{0,1}\d{1,2}))(cm|em|ex|in|mm|pc|pt|px|\%)$/', $input);
 }
