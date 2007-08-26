@@ -178,10 +178,3 @@ function check_optdata(optdata, prepend, append)
     }
     return optdata;
 }
-
-function toggleconfig(config)
-{
-    if($(config)) {
-        $(config).toggleClassName('hidden');
-    }
-}

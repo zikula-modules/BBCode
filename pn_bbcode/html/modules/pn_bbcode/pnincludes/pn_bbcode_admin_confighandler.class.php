@@ -36,7 +36,16 @@ class pn_bbcode_admin_confighandler
                                                               'extrainfo' => "[code=php, start=100]<?php\necho 'test';\n?>[/code]")));
 
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-        PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/pn_bbcode.js');
+        $modvars = pnModGetVar('pn_bbcode');
+        $script = '<script type="text/javascript">';
+        $script .= ($modvars['code_enabled'] == true) ? 'var codeenabled = true;' : 'var codeenabled = false;';
+        $script .= ($modvars['color_enabled'] == true) ? 'var colorenabled = true;' : 'var colorenabled = false;';
+        $script .= ($modvars['quote_enabled'] == true) ? 'var quoteenabled = true;' : 'var quoteenabled = false;';
+        $script .= ($modvars['size_enabled'] == true) ? 'var sizeenabled = true;' : 'var sizeenabled = false;';
+        $script .= ($modvars['lightbox_enabled'] == true) ? 'var lightboxenabled = true;' : 'var lightboxenabled = false;';
+        $script .= '</script>';
+        PageUtil::addVar('rawtext', $script);
+        PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/pn_bbcode_admin.js');
 
         return true;
     }

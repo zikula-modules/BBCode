@@ -33,12 +33,12 @@ $Id: pn_bbcode_admin_sizeconfig.html 140 2007-08-24 16:55:49Z landseer $
         <!--[ pnformcheckbox id="code_enabled" checked=$pncore.pn_bbcode.code_enabled onchange="toggleconfig('codeconfig');"]-->
     </dd>
 </dl>
-<dl id="codeconfig" class="pn_bbcode_clearfix<!--[ if $pncore.pn_bbcode.code_enabled neq true ]--> hidden<!--[ /if ]-->">
+<dl id="codeconfig" class="pn_bbcode_clearfix">
     <dt>
         <!--[ pnformlabel for="code" text="_PNBBCODE_CODE" ]-->:
     </dt>
     <dd>
-        <!--[ pnformtextinput id="code" textMode="multiline" rows="10" cols="50" text=$pncore.pn_bbcode.code ]-->
+        <!--[ pnformtextinput id="code" textMode="multiline" rows="3" cols="50" text=$pncore.pn_bbcode.code ]-->
         <br /><!--[ pnml name='_PNBBCODE_CODEHINT' ]-->
     </dd>
     <dt>
@@ -64,12 +64,12 @@ $Id: pn_bbcode_admin_sizeconfig.html 140 2007-08-24 16:55:49Z landseer $
         <!--[ pnformcheckbox id="quote_enabled" checked=$pncore.pn_bbcode.quote_enabled onchange="toggleconfig('quoteconfig');"]-->
     </dd>
 </dl>
-<dl id="quoteconfig" class="pn_bbcode_clearfix<!--[ if $pncore.pn_bbcode.quote_enabled neq true ]--> hidden<!--[ /if ]-->">
+<dl id="quoteconfig" class="pn_bbcode_clearfix">
     <dt>
         <!--[ pnformlabel for="quote" text="_PNBBCODE_QUOTE" ]-->:
     </dt>
     <dd>
-        <!--[ pnformtextinput id="quote" textMode="multiline" rows="10" cols="50" text=$pncore.pn_bbcode.quote ]-->
+        <!--[ pnformtextinput id="quote" textMode="multiline" rows="3" cols="50" text=$pncore.pn_bbcode.quote ]-->
         <br /><!--[ pnml name='_PNBBCODE_QUOTEHINT' ]-->
     </dd>
     <dt>
@@ -89,7 +89,7 @@ $Id: pn_bbcode_admin_sizeconfig.html 140 2007-08-24 16:55:49Z landseer $
         <!--[ pnformcheckbox id="color_enabled" checked=$pncore.pn_bbcode.color_enabled onchange="toggleconfig('colorconfig');"]-->
     </dd>
 </dl>
-<dl id="colorconfig" class="pn_bbcode_clearfix<!--[ if $pncore.pn_bbcode.color_enabled neq true ]--> hidden<!--[ /if ]-->">
+<dl id="colorconfig" class="pn_bbcode_clearfix">
     <dt>
         <!--[ pnformlabel for="allow_usercolor" text="_PNBBCODE_COLOR_ALLOWUSERCOLOR" ]-->:
     </dt>
@@ -107,7 +107,7 @@ $Id: pn_bbcode_admin_sizeconfig.html 140 2007-08-24 16:55:49Z landseer $
         <!--[ pnformcheckbox id="size_enabled" checked=$pncore.pn_bbcode.size_enabled onchange="toggleconfig('sizeconfig');"]-->
     </dd>    
 </dl>
-<dl id="sizeconfig" class="pn_bbcode_clearfix<!--[ if $pncore.pn_bbcode.size_enabled neq true ]--> hidden<!--[ /if ]-->">
+<dl id="sizeconfig" class="pn_bbcode_clearfix">
     <dt>
         <!--[ pnformlabel for="size_tiny" text="_PNBBCODE_SIZE_TINY" ]-->:
     </dt>
@@ -161,15 +161,15 @@ $Id: pn_bbcode_admin_sizeconfig.html 140 2007-08-24 16:55:49Z landseer $
         <!--[ pnformlabel for="lightbox_enabled" text="_PNBBCODE_LIGHTBOX_ENABLE" ]-->:
     </dt>
     <dd>
-        <!--[ pnformcheckbox id="lightbox_enabled" checked=$pncore.pn_bbcode.lightbox_enabled onChange="toggleconfig('miscconfig');"]-->
+        <!--[ pnformcheckbox id="lightbox_enabled" checked=$pncore.pn_bbcode.lightbox_enabled onChange="toggleconfig('lightboxconfig');"]-->
     </dd>    
 </dl>
-<dl id="miscconfig" class="pn_bbcode_clearfix<!--[ if $pncore.pn_bbcode.lightbox_enabled neq true ]--> hidden<!--[ /if ]-->">
+<dl id="lightboxconfig" class="pn_bbcode_clearfix">
     <dt>
         <!--[ pnformlabel for="lightbox_previewwidth" text="_PNBBCODE_LIGHTBOX_PREVIEWWIDTH" ]-->:
     </dt>
     <dd>
-        <!--[ pnformintinput id="lightbox_previewwidth" minValue="50" maxValue="1000" size="4" maxlength="4" text=$pncore.pn_bbcode.lightbox_previewwidth ]-->px&nbsp;<!--[ pnml name="_PNBBCODE_LIGHTBOX_PREVIEWWIDTHINFO" ]-->
+        <!--[ pnformintinput id="lightbox_previewwidth" minValue="50" maxValue="1000" size="4" text=$pncore.pn_bbcode.lightbox_previewwidth ]-->px&nbsp;<!--[ pnml name="_PNBBCODE_LIGHTBOX_PREVIEWWIDTHINFO" ]-->
         <br /><!--[ pnml name="_PNBBCODE_LIGHTBOX_PREVIEWHEIGHTINFO" ]-->
     </dd>    
 </dl>
