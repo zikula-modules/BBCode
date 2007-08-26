@@ -4,10 +4,8 @@
  * ----------
  * Author: Tux (tux@inmail.cz)
  * Copyright: (c) 2004 Tux (http://tux.a4.cz/), Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.7.16
- * CVS Revision Version: $Revision$
+ * Release Version: 1.0.7.20
  * Date Started: 2004/29/07
- * Last Modified: $Date$
  *
  * Apache language file for GeSHi.
  * Words are from SciTe configuration file

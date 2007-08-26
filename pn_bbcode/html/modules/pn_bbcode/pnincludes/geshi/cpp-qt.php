@@ -4,10 +4,8 @@
  * -------
  * Author: Iulian M
  * Copyright: (c) 2006 Iulian M
- * Release Version: 1.0.7.16
- * CVS Revision Version: $Revision: 1.1.2.1 $
+ * Release Version: 1.0.7.20
  * Date Started: 2004/09/27
- * Last Modified: $Date: 2006/11/26 06:01:46 $
  *
  * C++ language file for GeSHi, with QT extensions.
  *
@@ -262,7 +260,8 @@ $language_data = array (
 	'SCRIPT_DELIMITERS' => array(
 		),
 	'HIGHLIGHT_STRICT_BLOCK' => array(
-		)
+        ),
+    'TAB_WIDTH' => 4
 );
 
 ?>

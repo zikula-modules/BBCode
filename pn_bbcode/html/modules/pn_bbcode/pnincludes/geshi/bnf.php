@@ -4,10 +4,8 @@
  * --------
  * Author: Rowan Rodrik van der Molen (rowan@bigsmoke.us)
  * Copyright: (c) 2006 Rowan Rodrik van der Molen (http://www.bigsmoke.us/)
- * Release Version: 1.0.7.16
- * CVS Revision Version: $Revision: 1.1.2.2 $
+ * Release Version: 1.0.7.20
  * Date Started: 2006/09/28
- * Last Modified: $Date: 2006/10/24 11:07:01 $
  *
  * BNF (Backus-Naur form) language file for GeSHi.
  *
@@ -94,7 +92,7 @@ $language_data = array (
     'OBJECT_SPLITTERS' => array(),
     'REGEXPS' => array(
         0 => array(
-            GESHI_SEARCH => '(&lt;)(.+?)(&gt;)',
+            GESHI_SEARCH => '(&lt;)([^&]+?)(&gt;)',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',

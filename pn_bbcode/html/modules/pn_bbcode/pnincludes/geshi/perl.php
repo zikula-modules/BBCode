@@ -4,10 +4,8 @@
  * --------
  * Author: Andreas Gohr (andi@splitbrain.org), Ben Keen (ben.keen@gmail.com)
  * Copyright: (c) 2004 Andreas Gohr, Ben Keen (http://www.benjaminkeen.org/), Nigel McNie (http://qbnz.com/highlighter/)
- * Release Version: 1.0.7.16
- * CVS Revision Version: $Revision$
+ * Release Version: 1.0.7.20
  * Date Started: 2004/08/20
- * Last Modified: $Date$
  *
  * Perl language file for GeSHi.
  *
@@ -148,7 +146,7 @@ $language_data = array (
 			)
 		),
 	'URLS' => array(
-		3 => 'http://www.perldoc.com/perl5.6/pod/func/{FNAME}.html'
+		3 => 'http://perldoc.perl.org/functions/{FNAME}.html'
 		),
 	'OOLANG' => true,
 	'OBJECT_SPLITTERS' => array(

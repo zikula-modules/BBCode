@@ -4,10 +4,8 @@
  * ----------
  * Author: Roberto Rossi (rsoftware@altervista.org)
  * Copyright: (c) 2004 Roberto Rossi (http://rsoftware.altervista.org), Nigel McNie (http://qbnz.com/highlighter)
- * Release Version: 1.0.7.16
- * CVS Revision Version: $Revision$
+ * Release Version: 1.0.7.20
  * Date Started: 2004/08/30
- * Last Modified: $Date$
  *
  * Python language file for GeSHi.
  *
@@ -138,7 +136,7 @@ $language_data = array (
 			'__iter__', 'next',
 			// String types: http://python.org/doc/current/lib/string-methods.html
 			'capitalize', 'center', 'count', 'decode', 'encode', 'endswith', 'expandtabs',
-			'find', 'index', 'isalnum', 'isaplpha', 'isdigit', 'islower', 'isspace', 'istitle',
+			'find', 'index', 'isalnum', 'isalpha', 'isdigit', 'islower', 'isspace', 'istitle',
 			'isupper', 'join', 'ljust', 'lower', 'lstrip', 'replace', 'rfind', 'rindex', 'rjust',
 			'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title',
 			'translate', 'upper', 'zfill',

@@ -4,10 +4,8 @@
  * --------
  * Author: Nigel McNie (nigel@geshi.org)
  * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter/)
- * Release Version: 1.0.7.16
- * CVS Revision Version: $Revision$
+ * Release Version: 1.0.7.20
  * Date Started: 2004/07/10
- * Last Modified: $Date$
  *
  * Java language file for GeSHi.
  *
@@ -1371,7 +1369,7 @@ $language_data = array (
 	'URLS' => array(
 		1 => '',
 		2 => '',
-		3 => 'http://www.google.com/search?hl=en&amp;q=allinurl%3A{FNAME}+java.sun.com&amp;bntI=I%27m%20Feeling%20Lucky',
+		3 => 'http://www.google.com/search?hl=en&amp;q=allinurl%3A{FNAME}+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky',
 		4 => ''
 		),
 	'OOLANG' => true,

@@ -4,10 +4,8 @@
  * ----------
  * Author: Nigel McNie (nigel@geshi.org)
  * Copyright: (c) 2004 Nigel McNie (http://qbnz.com/highlighter/)
- * Release Version: 1.0.7.16
- * CVS Revision Version: $Revision$
+ * Release Version: 1.0.7.20
  * Date Started: 2004/06/20
- * Last Modified: $Date$
  *
  * QBasic/QuickBASIC language file for GeSHi.
  *
@@ -141,7 +139,8 @@ $language_data = array (
 	'SCRIPT_DELIMITERS' => array(
 		),
 	'HIGHLIGHT_STRICT_BLOCK' => array(
-		)
+        ),
+    'TAB_WIDTH' => 8
 );
 
 ?>
