@@ -16,8 +16,6 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-include_once 'modules/pn_bbcode/common.php';
-
 /**
  * @package PostNuke_Utility_Modules
  * @subpackage pn_bbcode
@@ -27,13 +25,9 @@ include_once 'modules/pn_bbcode/common.php';
 /**
  * init module
 */
-function pn_bbcode_init() {
-
-    // Set up module variables
-    //
-
-    // Set up module hooks
-    // transform hook
+function pn_bbcode_init() 
+{
+    // create hook
     if (!pnModRegisterHook('item',
                            'transform',
                            'API',
@@ -43,6 +37,7 @@ function pn_bbcode_init() {
         return LogUtil::registerError(_PNBBCODE_COULDNOTREGISTER . ' (transform hook)');
     }
 
+    // setup module vars
     pnModSetVar('pn_bbcode', 'quote', '<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>');
     pnModSetVar('pn_bbcode', 'code',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbcodetext">%c</div></div>');
     pnModSetVar('pn_bbcode', 'size_tiny',   '0.75em');
@@ -170,9 +165,9 @@ function pn_bbcode_upgrade($oldversion)
 /**
  * delete module
 */
-function pn_bbcode_delete() {
-
-    // Remove module hooks
+function pn_bbcode_delete()
+{
+    // remove hook
     if (!pnModUnregisterHook('item',
                              'transform',
                              'API',

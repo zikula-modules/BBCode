@@ -101,7 +101,9 @@ function pn_bbcode_transform($message)
     }
 
     // [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
-    $message = pn_bbcode_encode_code($message);
+    if(pnModGetVar('pn_bbcode', 'code_enabled')==true) {
+        $message = pn_bbcode_encode_code($message);
+    }
 
     // move all links out of the text and replace them with placeholders
     $linkscount = preg_match_all('/<a(.*)>(.*)<\/a>/siU', $message, $links);
@@ -115,8 +117,10 @@ function pn_bbcode_transform($message)
         $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $message, 1);
     }
     // [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
-    $message = pn_bbcode_encode_quote($message);
-
+    if(pnModGetVar('pn_bbcode', 'quote_enabled')==true) {
+        $message = pn_bbcode_encode_quote($message);
+    }
+ 
     // [list] and [list=x] for (un)ordered lists.
     $message = pn_bbcode_encode_list($message);
 

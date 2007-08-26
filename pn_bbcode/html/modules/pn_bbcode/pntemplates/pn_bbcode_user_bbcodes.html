@@ -40,20 +40,24 @@ $Id$
     <input title="<!--[ pnml name='_PNBBCODE_URL_HINT' ]-->" type="button" accesskey="w" name="url_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_URL' ]--> "       class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'url')" />
     <input title="<!--[ pnml name='_PNBBCODE_MAIL_HINT' ]-->" type="button" accesskey="m" name="mail_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_MAIL' ]--> "    class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'email')" />
     <input title="<!--[ pnml name='_PNBBCODE_IMAGE_HINT' ]-->" type="button" accesskey="p" name="image_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_IMAGE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'image')" />
+    <!--[ if $pncore.pn_bbcode.quote_enabled eq true ]-->
     <input title="<!--[ pnml name='_PNBBCODE_QUOTE_HINT' ]-->" type="button" accesskey="q" name="quote_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_QUOTE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'quote')" />
+    <!--[ /if ]-->
+    <!--[ if $pncore.pn_bbcode.code_enabled eq true ]-->
     <!--[ if count($geshi_languages) eq 0 ]-->
         <input title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" type="button" accesskey="c" name="code_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_CODE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'code')" />
     <!--[ else ]-->
         </p>
         <p> 
         <label for="code_<!--[ $counter ]-->"><!--[ pnml name='_PNBBCODE_CODE' ]-->:</label>
-        <select title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" id="code_<!--[ $counter ]-->" name="code_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'code', document.getElementById('code_<!--[ $counter ]-->').options[document.getElementById('code_<!--[ $counter ]-->').selectedIndex].value)">
+        <select title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" id="code_<!--[ $counter ]-->" name="code_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'code', $F('code_<!--[ $counter ]-->'))">
             <option value="" selected="selected"><!--[ pnml name='_PNBBCODE_SELECTCODE' ]--></option>
             <option value=""><!--[ pnml name='_PNBBCODE_NOSPECIALCODE' ]--></option>
             <!--[ foreach item=code from=$geshi_languages ]-->
             <option value="<!--[ $code|pnvarprepfordisplay ]-->"><!--[$code|pnvarprepfordisplay ]--></option>
             <!--[ /foreach ]-->
         </select>
+    <!--[ /if ]-->
     <!--[ /if ]-->
     </p>
     <p>
@@ -66,10 +70,10 @@ $Id$
     </p>
 <!--[ /if ]-->
 
-<!--[ if $pncore.pn_bbcode.color_enabled eq "yes" ]-->
+<!--[ if $pncore.pn_bbcode.color_enabled eq true ]-->
 <p>
     <label for="fontcolor_<!--[ $counter ]-->"><!--[ pnml name='_PNBBCODE_FONTCOLOR' ]-->:</label>
-    <select title="<!--[ pnml name='_PNBBCODE_COLOR_HINT' ]-->" id="fontcolor_<!--[ $counter ]-->" name="fontcolor_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'color', document.getElementById('fontcolor_<!--[ $counter ]-->').options[document.getElementById('fontcolor_<!--[ $counter ]-->').selectedIndex].value)">
+    <select title="<!--[ pnml name='_PNBBCODE_COLOR_HINT' ]-->" id="fontcolor_<!--[ $counter ]-->" name="fontcolor_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'color', $F('fontcolor_<!--[ $counter ]-->'))">
         <option style="color:black;"   value="black"><!--[ pnml name='_PNBBCODE_COLOR_BLACK' ]--></option>
         <option style="color:darkred;"  value="darkred"><!--[ pnml name='_PNBBCODE_COLOR_DARKRED' ]--></option>
         <option style="color:red;"      value="red"><!--[ pnml name='_PNBBCODE_COLOR_RED' ]--></option>
@@ -93,7 +97,7 @@ $Id$
 <!--[ if $pncore.pn_bbcode.size_enabled eq "yes" ]-->
 <p>
     <label for="fontsize_<!--[ $counter ]-->"><!--[ pnml name='_PNBBCODE_FONTSIZE' ]-->:</label>
-    <select title="<!--[ pnml name='_PNBBCODE_SIZE_HINT' ]-->" id="fontsize_<!--[ $counter ]-->" name="fontsize_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'size', document.getElementById('fontsize_<!--[ $counter ]-->').options[document.getElementById('fontsize_<!--[ $counter ]-->').selectedIndex].value)">
+    <select title="<!--[ pnml name='_PNBBCODE_SIZE_HINT' ]-->" id="fontsize_<!--[ $counter ]-->" name="fontsize_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'size', $F('fontsize_<!--[ $counter ]-->'))">
         <option value="tiny"><!--[ pnml name='_PNBBCODE_SIZE_TINY' ]--></option>
         <option value="small"><!--[ pnml name='_PNBBCODE_SIZE_SMALL' ]--></option>
         <option value="normal" selected="selected"><!--[ pnml name='_PNBBCODE_SIZE_NORMAL' ]--></option>
