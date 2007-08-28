@@ -16,10 +16,6 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-if(!class_exists('GeSHi')) {
-    Loader::includeOnce('modules/pn_bbcode/pnincludes/geshi.php');
-}
-
 /**
  * @package PostNuke_Utility_Modules
  * @subpackage pn_bbcode
@@ -420,6 +416,9 @@ function pn_bbcode_encode_code($message)
                     break;
                 case HILITE_GESHI_WITH_LN:
                 case HILITE_GESHI_WITHOUT_LN:
+                    if(!class_exists('GeSHi')) {
+                        Loader::includeOnce('modules/pn_bbcode/pnincludes/geshi.php');
+                    }
                     $geshi =& new GeSHi($after_replace, $language, 'modules/pn_bbcode/pnincludes/geshi/');
                     $geshi->set_tab_width(4);
                     $geshi->set_case_keywords(GESHI_CAPS_LOWER);
@@ -787,13 +786,11 @@ function linktest_callback_4($matches)
 function pn_bbcode_minimize_displayurl($displayurl)
 {
     // get the maximum size of the urls to show
-    // todo: make this configurable
-    $maxsize = 30;
-    $before = round($maxsize / 2);
-    $after  = $maxsize - 3 - $before;
-
-    if(strlen($displayurl) > $maxsize) {
-        $displayurl = substr($displayurl, 0, $before) . "..." . substr($displayurl, strlen($displayurl) - $after, $after);
+    $maxsize = pnModGetVar('pn_bbcode', 'link_shrinksize');
+    if($maxsize<>0 && strlen($displayurl) > $maxsize) {
+        $before = round($maxsize / 2);
+        $after  = $maxsize - 1 - $before;
+        $displayurl = substr($displayurl, 0, $before) . "&hellip;" . substr($displayurl, strlen($displayurl) - $after, $after);
     }
     return $displayurl;
 }

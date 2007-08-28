@@ -45,6 +45,9 @@ define('_PNBBCODE_LIGHTBOX_PREVIEWWIDTH', 'Width of preview image');
 define('_PNBBCODE_LIGHTBOX_PREVIEWWIDTHINFO', '(50-1000px)');
 define('_PNBBCODE_LIGHTBOX_PREVIEWHEIGHTINFO', 'Height will be calculated by the browser automatically.');
 define('_PNBBCODE_ADMINCONFIG', 'Configuration');
+define('_PNBBCODE_LINK_SHRINKSIZE', 'Shrink links to');
+define('_PNBBCODE_LINK_SHRINKSIZEINFO', 'Shrinks the urls shown to the specified length, 0=no action');
+define('_PNBBCODE_CHARS', 'chars');
 
 define('_PNBBCODE_HELPURL', 'http://en.wikipedia.org/wiki/BBCode');
 define('_PNBBCODE_HELPURL_HINT', 'Was ist BBCode?');

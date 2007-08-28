@@ -115,6 +115,7 @@ class pn_bbcode_admin_confighandler
             // misc
             pnModSetVar('pn_bbcode', 'lightbox_enabled',  $data['lightbox_enabled']);
             pnModSetVar('pn_bbcode', 'lightbox_previewwidth',  $data['lightbox_previewwidth']);
+            pnModSetVar('pn_bbcode', 'link_shrinksize',  $data['link_shrinksize']);
             LogUtil::registerStatus(_PNBBCODE_CONFIGCHANGED);
         }
         return pnRedirect(pnModURL('pn_bbcode', 'admin', 'config'));
