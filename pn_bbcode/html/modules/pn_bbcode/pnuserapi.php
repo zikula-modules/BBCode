@@ -97,7 +97,7 @@ function pn_bbcode_transform($message)
     }
 
     // [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
-    if(pnModGetVar('pn_bbcode', 'code_enabled')==true) {
+    if(pnModGetVar('pn_bbcode', 'code_enabled')) {
         $message = pn_bbcode_encode_code($message);
     }
 
@@ -113,7 +113,7 @@ function pn_bbcode_transform($message)
         $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $message, 1);
     }
     // [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
-    if(pnModGetVar('pn_bbcode', 'quote_enabled')==true) {
+    if(pnModGetVar('pn_bbcode', 'quote_enabled')) {
         $message = pn_bbcode_encode_quote($message);
     }
  
@@ -141,7 +141,7 @@ function pn_bbcode_transform($message)
     $message = preg_replace("/\[u\](.*?)\[\/u\]/si", "<span style=\"text-decoration:underline;\">\\1</span>", $message);
 
     // [color] and [/color] for coloring text.
-    if(pnModGetVar('pn_bbcode', 'color_enabled')=="yes") {
+    if(pnModGetVar('pn_bbcode', 'color_enabled')) {
         $message = preg_replace("#\[color=black\](.*?)\[/color\]#si", "<span style=\"color:black;\">\\1</span>", $message);
         $message = preg_replace("#\[color=darkred\](.*?)\[/color\]#si", "<span style=\"color:darkred;\">\\1</span>", $message);
         $message = preg_replace("#\[color=red\](.*?)\[/color\]#si", "<span style=\"color:red;\">\\1</span>", $message);
@@ -167,7 +167,7 @@ function pn_bbcode_transform($message)
     }
 
     // [size] and [/size] for setting the size of text.
-    if(pnModGetVar('pn_bbcode', 'size_enabled')=="yes") {
+    if(pnModGetVar('pn_bbcode', 'size_enabled')) {
         $message = preg_replace("/\[size=tiny\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('pn_bbcode', 'size_tiny').";\">\\1</span>", $message);
         $message = preg_replace("/\[size=small\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('pn_bbcode', 'size_small').";\">\\1</span>", $message);
         $message = preg_replace("/\[size=normal\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('pn_bbcode', 'size_normal').";\">\\1</span>", $message);
@@ -183,6 +183,13 @@ function pn_bbcode_transform($message)
         $message = preg_replace("/\[size=(.*?)\](.*?)\[\/size\]/si", "\\2", $message);
     }
 
+    // spoiler tag
+    if(pnModGetVar('pn_bbcode', 'spoiler_enabled')) {
+        $spoiler = str_replace('%s', '\\1', pnModGetVar('pn_bbcode', 'spoiler'));
+        $spoiler = str_replace('%h', _PNBBCODE_SPOILERWARNING, $spoiler);
+        $message = preg_replace("/\[spoiler\](.*?)\[\/spoiler\]/si", $spoiler, $message);
+    }
+    
     // [url]xxxx://www.phpbb.com[/url] code..
     $message = preg_replace_callback(
                 "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si",

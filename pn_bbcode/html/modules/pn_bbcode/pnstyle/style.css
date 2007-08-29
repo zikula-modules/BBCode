@@ -17,13 +17,27 @@ $Id$
 // ----------------------------------------------------------------------
 */
 
+/*
+// 
+// class definition for spoiler - use the same color for text and background to
+// hide information
+//
+*/
+.bbcodespoiler {
+    color: #eee;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    padding: 0.3em;
+    margin: 0;
+    font-size: 0.9em;
+}
+
 h3.bbquoteheader {
     display: inline;
     font-size: .9em;
     position: relative;
     top: +2px;
-    left: +6px;
-    padding: 0 .4em;
+    padding: 0 .3em;
     border: 1px solid #aaa;
     background-color: #efefef;
     font-weight: bold;
@@ -34,8 +48,7 @@ h3.bbcodeheader {
     font-size: .9em;
     position: relative;
     top: +2px;
-    left: +6px;
-    padding: 0 .4em;
+    padding: 0 .3em;
     border: 1px solid #aaa;
     background-color: #efefef;
     font-weight: bold;

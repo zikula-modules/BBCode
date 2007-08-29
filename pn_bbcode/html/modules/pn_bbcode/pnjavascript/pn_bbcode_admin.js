@@ -9,6 +9,7 @@ Event.observe(window, 'load', function() {
                                             if(quoteenabled==false) { toggleconfig('quoteconfig'); }
                                             if(sizeenabled==false) { toggleconfig('sizeconfig'); }
                                             if(lightboxenabled==false) { toggleconfig('lightboxconfig'); }
+                                            if(spoilerenabled==false) { toggleconfig('spoilerconfig'); }
                                          }, false);
 
 function toggleconfig(config)

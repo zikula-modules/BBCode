@@ -43,6 +43,9 @@ $Id$
     <!--[ if $pncore.pn_bbcode.quote_enabled eq true ]-->
     <input title="<!--[ pnml name='_PNBBCODE_QUOTE_HINT' ]-->" type="button" accesskey="q" name="quote_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_QUOTE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'quote')" />
     <!--[ /if ]-->
+    <!--[ if $pncore.pn_bbcode.spoiler_enabled eq true ]-->
+    <input title="<!--[ pnml name='_PNBBCODE_SPOILER_HINT' ]-->" type="button" accesskey="s" name="quote_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_SPOILER' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'spoiler')" />
+    <!--[ /if ]-->
     <!--[ if $pncore.pn_bbcode.code_enabled eq true ]-->
     <!--[ if count($geshi_languages) eq 0 ]-->
         <input title="<!--[ pnml name='_PNBBCODE_CODE_HINT' ]-->" type="button" accesskey="c" name="code_<!--[ $counter ]-->" value=" <!--[ pnml name='_PNBBCODE_CODE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'code')" />

@@ -35,6 +35,11 @@ class pn_bbcode_admin_confighandler
                                                         array('objectid' => 1,
                                                               'extrainfo' => "[code=php, start=100]<?php\necho 'test';\n?>[/code]")));
 
+        $pnRender->assign('spoiler_preview', pnModAPIFunc('pn_bbcode', 'user', 'transform',
+                                                          array('objectid' => 1,
+                                                                'extrainfo' => "[spoiler]PostNuke + pn_bbcode[/spoiler]")));
+
+
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
         $modvars = pnModGetVar('pn_bbcode');
         $script = '<script type="text/javascript">';
@@ -43,6 +48,7 @@ class pn_bbcode_admin_confighandler
         $script .= ($modvars['quote_enabled'] == true) ? 'var quoteenabled = true;' : 'var quoteenabled = false;';
         $script .= ($modvars['size_enabled'] == true) ? 'var sizeenabled = true;' : 'var sizeenabled = false;';
         $script .= ($modvars['lightbox_enabled'] == true) ? 'var lightboxenabled = true;' : 'var lightboxenabled = false;';
+        $script .= ($modvars['spoiler_enabled'] == true) ? 'var spoilerenabled = true;' : 'var spoilerenabled = false;';
         $script .= '</script>';
         PageUtil::addVar('rawtext', $script);
         PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/pn_bbcode_admin.js');
@@ -116,6 +122,9 @@ class pn_bbcode_admin_confighandler
             pnModSetVar('pn_bbcode', 'lightbox_enabled',  $data['lightbox_enabled']);
             pnModSetVar('pn_bbcode', 'lightbox_previewwidth',  $data['lightbox_previewwidth']);
             pnModSetVar('pn_bbcode', 'link_shrinksize',  $data['link_shrinksize']);
+            pnModSetVar('pn_bbcode', 'spoiler_enabled',  $data['spoiler_enabled']);
+            pnModSetVar('pn_bbcode', 'spoiler',  $data['spoiler']);
+
             LogUtil::registerStatus(_PNBBCODE_CONFIGCHANGED);
         }
         return pnRedirect(pnModURL('pn_bbcode', 'admin', 'config'));

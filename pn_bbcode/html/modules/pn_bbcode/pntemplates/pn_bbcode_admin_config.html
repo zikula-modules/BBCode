@@ -181,7 +181,29 @@ $Id: pn_bbcode_admin_sizeconfig.html 140 2007-08-24 16:55:49Z landseer $
         <!--[ pnformintinput id="link_shrinksize" minValue="0" maxValue="50" size="2" text=$pncore.pn_bbcode.link_shrinksize ]-->&nbsp;<!--[ pnml name="_PNBBCODE_CHARS" ]-->
         <br /><!--[ pnml name="_PNBBCODE_LINK_SHRINKSIZEINFO" ]-->
     </dd>    
+    <dt>
+        <!--[ pnformlabel for="spoiler_enabled" text="_PNBBCODE_SPOILER_ENABLE" ]-->:
+    </dt>
+    <dd>
+        <!--[ pnformcheckbox id="spoiler_enabled" checked=$pncore.pn_bbcode.spoiler_enabled onChange="toggleconfig('spoilerconfig');"]-->
+    </dd>    
 </dl>
+<dl id="spoilerconfig" class="pn_bbcode_clearfix">
+    <dt>
+        <!--[ pnformlabel for="spoiler" text="_PNBBCODE_SPOILERCODE" ]-->:
+    </dt>
+    <dd>
+        <!--[ pnformtextinput id="spoiler" textMode="multiline" rows="3" cols="50" text=$pncore.pn_bbcode.spoiler ]-->
+        <br /><!--[ pnml name='_PNBBCODE_SPOILERHINT' ]-->
+    </dd>
+    <dt>
+        <!--[ pnml name='_PNBBCODE_PREVIEW' ]-->:
+    </dt>
+    <dd>
+        <!--[ $spoiler_preview|pnvarprephtmldisplay ]-->
+    </dd>
+</dl>
+<dl class="pn_bbcode_clearfix">
     <dt>
         &nbsp;
     </dt>

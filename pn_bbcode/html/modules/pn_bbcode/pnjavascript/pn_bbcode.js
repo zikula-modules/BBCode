@@ -70,6 +70,10 @@ function AddBBCode(textfieldname, action, optdata)
             aTag = "[quote]";
             eTag = "[/quote]";
             break;
+        case "spoiler":
+            aTag = "[spoiler]";
+            eTag = "[/spoiler]";
+            break;
         case "listopen":
             aTag = "[list]";
             eTag = "";

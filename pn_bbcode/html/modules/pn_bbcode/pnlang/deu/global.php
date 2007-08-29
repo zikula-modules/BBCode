@@ -48,6 +48,12 @@ define('_PNBBCODE_ADMINCONFIG', 'Konfiguration');
 define('_PNBBCODE_LINK_SHRINKSIZE', 'Links verkürzen auf');
 define('_PNBBCODE_LINK_SHRINKSIZEINFO', 'Verkürzt die angezeigten Links im URL-Tag auf die angegebene Anzahl Zeichen, 0=keine Kürzung');
 define('_PNBBCODE_CHARS', 'Zeichen');
+define('_PNBBCODE_SPOILER_ENABLE', 'Spoilertag einschalten');
+define('_PNBBCODE_SPOILERCODE', 'HTML für Spoilertag');
+define('_PNBBCODE_SPOILERHINT', '%h = Überschrift (_PNBBCODE_SPOILERWARNING), %s = Text.');
+define('_PNBBCODE_SPOILERWARNING', 'Achtung, Spoiler:');
+define('_PNBBCODE_SPOILER', 'Spoiler');
+define('_PNBBCODE_SPOILER_HINT', 'Text verstecken');
 
 define('_PNBBCODE_HELPURL', 'http://de.wikipedia.org/wiki/BBCode');
 define('_PNBBCODE_HELPURL_HINT', 'what is BBCode?');
