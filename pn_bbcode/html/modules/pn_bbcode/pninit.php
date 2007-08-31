@@ -56,7 +56,7 @@ function pn_bbcode_init()
     pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_GOOGLE); // google code prettifier
     pnModSetVar('pn_bbcode', 'link_shrinksize',  30);
     pnModSetVar('pn_bbcode', 'spoiler_enabled',  true);
-    pnModSetVar('pn_bbcode', 'spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbcodespoiler">%s</div></div>');
+    pnModSetVar('pn_bbcode', 'spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbspoiler">%s</div></div>');
 
     // Initialisation successful
     return true;
@@ -161,7 +161,7 @@ function pn_bbcode_upgrade($oldversion)
             pnModSetVar('pn_bbcode', 'lightbox_previewwidth', 200);
             pnModSetVar('pn_bbcode', 'link_shrinksize',  30);
             pnModSetVar('pn_bbcode', 'spoiler_enabled',  true);
-            pnModSetVar('pn_bbcode', 'spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbcodespoiler">%s</div></div>');
+            pnModSetVar('pn_bbcode', 'spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbspoiler">%s</div></div>');
         default:
              break;
     }
