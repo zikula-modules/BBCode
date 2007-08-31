@@ -112,6 +112,13 @@ function pn_bbcode_transform($message)
     for ($i=0; $i < $htmlcount; $i++) {
         $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $message, 1);
     }
+    
+    // replace NOPARSE
+    $noparsecount = preg_match_all('/\[noparse\](.*)\[\/noparse\]/siU', $message, $noparse);
+    for ($i = 0; $i < $noparsecount; $i++) {
+        $message = preg_replace('/(' . preg_quote($noparse[0][$i], '/') . ')/', " PNBBCODENOPARSEREPLACEMENT{$i} ", $message, 1);
+    }
+    
     // [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
     if(pnModGetVar('pn_bbcode', 'quote_enabled')) {
         $message = pn_bbcode_encode_quote($message);
@@ -220,6 +227,12 @@ function pn_bbcode_transform($message)
                 'linktest_callback_4',
                 $message);
 
+    // restore NOPARSE
+    for ($i = 0; $i < $noparsecount; $i++) {
+        $message = preg_replace("/ PNBBCODENOPARSEREPLACEMENT{$i} /", $noparse[0][$i], $message, 1);
+    }
+    $message = str_replace('[noparse]', '', str_replace('[/noparse]' ,'', $message));
+    
     // replace the tags and links that we removed before
     for ($i = 0; $i < $htmlcount; $i++) {
         $message = preg_replace("/ PNBBCODEHTMLREPLACEMENT{$i} /", $html[0][$i], $message, 1);
