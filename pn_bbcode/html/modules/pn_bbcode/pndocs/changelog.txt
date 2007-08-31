@@ -7,6 +7,7 @@ Version 2.0
   - added [#2205] spoiler tag! Uses the same color for text and background, to be defined
     in the bbspoiler css class. To read the text, highlight it using the mouse.
   - added [noparse][/noparse] to avoid parsing bbcode
+  - updated GeSHi to 1.0.7.20
     
 Version 1.30 - last version for .764!
    - This version needs the AjaxSupportPackage from http://noc.postnuke.com/frs/?group_id=8!!!

@@ -229,9 +229,10 @@ function pn_bbcode_transform($message)
 
     // restore NOPARSE
     for ($i = 0; $i < $noparsecount; $i++) {
-        $message = preg_replace("/ PNBBCODENOPARSEREPLACEMENT{$i} /", $noparse[0][$i], $message, 1);
+        // trick: [1] contains the text without the real noparse tag, so we do not
+        // need to remove them manually
+        $message = preg_replace("/ PNBBCODENOPARSEREPLACEMENT{$i} /", $noparse[1][$i], $message, 1);
     }
-    $message = str_replace('[noparse]', '', str_replace('[/noparse]' ,'', $message));
     
     // replace the tags and links that we removed before
     for ($i = 0; $i < $htmlcount; $i++) {
