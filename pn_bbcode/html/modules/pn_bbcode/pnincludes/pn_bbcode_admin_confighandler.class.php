@@ -132,7 +132,7 @@ class pn_bbcode_admin_confighandler
 
 }
 
-function _validate_size_input(&$input='')
+function _validate_size_input(&$input)
 {
     $input = strtolower(trim($input));
     return (bool)preg_match('/(^\d{1,4}|(^\d{1,4}\.{0,1}\d{1,2}))(cm|em|ex|in|mm|pc|pt|px|\%)$/', $input);
