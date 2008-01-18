@@ -72,7 +72,6 @@ function pn_bbcode_user_bbcodes($args)
 
     PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
     PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/pn_bbcode.js');
-    PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/prettify.js');
     PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('pn_bbcode'));
 
     // get the languages for highlighting
