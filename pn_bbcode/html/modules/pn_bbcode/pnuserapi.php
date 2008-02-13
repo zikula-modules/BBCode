@@ -564,13 +564,13 @@ function pn_bbcode_encode_list($message)
                     // to-do: think about definition lists...
                     if($is_ordered) {
                         // ordered list
-                        $listitemclass    = 'bbcode_orderedlist_item';
+                        // $listitemclass    = 'bbcode_orderedlist_item';
                         $start_tag_length = $start_length['ordered'];
-                        $start_tag        = '<ol type="' . $start_char . '" class="bbcode_orderedlist">';
+                        $start_tag        = '<ol type="' . $start_char . '" class="bbcode_list">';
                         $end_tag          = '</ol>';
                     } else {
                         // list
-                        $listitemclass    = 'bbcode_list_item';
+                        // $listitemclass    = 'bbcode_list_item';
                         $start_tag_length = $start_length['unordered'];
                         $start_tag        = '<ul class="bbcode_list">';
                         $end_tag          = '</ul>';
@@ -586,13 +586,14 @@ function pn_bbcode_encode_list($message)
                     $after_end_tag = substr($message, $curr_pos + 7);
 
                     // replace [*]... with <li>...</li>
-                    // new: adding css classes for better styling of bbcode lists
+                    // even newer: adding of css classes for better styling of bbcode lists not needed with intelligent css, 
+                    //             see modules/pn_bbcode/pnstyle/style.css
                     $listitems = explode('[*]', $between_tags);
                     // listitems may be false, empty or containing [*] if between_tags was empty
                     if(is_array($listitems) && count($listitems)>0 && $listitems[0]<>'[*]') {
                         for($cnt=1; $cnt<count($listitems); $cnt++) {
                             if(!empty($listitems[$cnt])) {
-                                $new_between_tags .= '<li class="' . $listitemclass . '">' . $listitems[$cnt] . '</li>';
+                                $new_between_tags .= '<li>' . $listitems[$cnt] . '</li>';
                             }
                         }
                     }

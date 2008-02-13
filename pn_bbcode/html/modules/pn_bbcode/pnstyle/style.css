@@ -68,6 +68,24 @@ h3.bbcodeheader {
     margin: 0;
 }
 
+/* styleing for unordered lists */
+ul.bbcode_list {
+    list-style-type: square !important;
+}
+
+ul.bbcode_list li {
+   /* add styling for list items here
+}
+
+/* styleing for ordered lists */
+ol.bbcode_list {
+    list-style-type: decimal !important;
+}
+
+ol.bbcode_list li {
+   /* add styling for list items here
+}
+
 .overallClass a:link {
     padding-left: 0px;
     font-size: 25px;

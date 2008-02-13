@@ -6,6 +6,11 @@
 /* adopted by frank.schummertz@landseer-stuttgart.de     */
 /* ----------------------------------------------------- */
 
+// add onload event handler
+Event.observe(window, 'load', function() {
+                                        $$('.bbcode').each(function(el) { el.removeClassName('hidden'); });
+                                        }, false);
+                                        
 function AddBBCode(textfieldname, action, optdata)
 {
     var textfieldname, action, optdata;
