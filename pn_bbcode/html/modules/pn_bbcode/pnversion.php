@@ -37,5 +37,3 @@ $modversion['contact']          = 'http://www.pnforum.de';
 $modversion['admin']            = 1;
 $modversion['securityschema']   = array('pn_bbcode:Modulename:Links'  => '::',
                                         'pn_bbcode:Modulename:Emails' => '::');
-
-?>

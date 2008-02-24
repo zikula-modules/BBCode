@@ -123,5 +123,3 @@ define('_PNBBCODE_SIZE_NORMAL', 'Normal');
 define('_PNBBCODE_SIZE_SMALL', 'Petit');
 define('_PNBBCODE_SIZE_TINY', 'Minuscule');
 define('_PNBBCODE_YES', 'Oui');
-
-?>
