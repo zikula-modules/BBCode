@@ -1,7 +1,7 @@
-/* ----------------------------------------------------- */
+/* ----------------------------------------------------------- */
 /* $Id$ */
-/* Javascript for admin functions                        */
-/* ----------------------------------------------------- */
+/* Javascript for admin functions                              */
+/* ----------------------------------------------------------- */
 
 Event.observe(window, 'load', function() {
                                             if(codeenabled==false) { toggleconfig('codeconfig'); }
@@ -15,6 +15,6 @@ Event.observe(window, 'load', function() {
 function toggleconfig(config)
 {
     if($(config)) {
-        $(config).toggleClassName('hidden');
+        $(config).toggle();
     }
 }
