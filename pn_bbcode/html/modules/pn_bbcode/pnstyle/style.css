@@ -68,44 +68,44 @@ h3.bbcodeheader {
     margin: 0;
 }
 
-/* styleing for unordered lists */
+/* styling for unordered lists */
 ul.bbcode_list {
     list-style-type: square !important;
 }
 
 ul.bbcode_list li {
-   /* add styling for list items here
+   /* add styling for list items here */
 }
 
-/* styleing for ordered lists */
+/* styling for ordered lists */
 ol.bbcode_list {
     list-style-type: decimal !important;
 }
 
 ol.bbcode_list li {
-   /* add styling for list items here
+   /* add styling for list items here */
 }
 
 .overallClass a:link {
-    padding-left: 0px;
+    padding-left: 0;
     font-size: 25px;
     background-image: none;
 }
 
 .overallClass a:visited {
-    padding-left: 0px;
+    padding-left: 0;
     font-size: 25px;
     background-image: none;
 }
 
 .overallClass a:hover {
-    padding-left: 0px;
+    padding-left: 0;
     font-size: 25px;
     background-image: none;
 }
 
 .overallClass a:active {
-    padding-left: 0px;
+    padding-left: 0;
     font-size: 25px;
     background-image: none;
 }
@@ -213,6 +213,10 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
     padding-top: 1em;
 }
 
+#pn_bbcode h3 {
+    margin-top: 1.2em;
+}
+
 #pn_bbcode fieldset {
     padding: 1em;
 }
@@ -227,7 +231,7 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
     padding: 3px 0;
 }
 
-#pn_bbcode dl dt {
+#pn_bbcode form div dl dt {
     display: block;
     float: left;
     text-align: right;
@@ -237,7 +241,7 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
     line-height: 2em;
 }
 
-#pn_bbcode dl dd {
+#pn_bbcode form div dl dd {
     display: block;
     float: left;
     text-align: left;
@@ -255,8 +259,4 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
 
 p.spacer {
     padding: 2px 0;
-}
-
-.hidden {
-    display: none;
 }
