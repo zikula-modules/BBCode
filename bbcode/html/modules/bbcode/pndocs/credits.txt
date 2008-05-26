@@ -1,3 +1,7 @@
+Credits for version since 1.10:
+-------------------------------
+(c) Frank Schummertz 2005ff
+
 This work is based on bb_anywhere from Hinrich Donner <hd@tiro.de>.
 The idea was initially taken from BB coding.
 
