@@ -1,6 +1,13 @@
 Version 2.0 
+===============================================================================
+IMPORTANT NOTICE:
+===============================================================================
+The permission component changed in v2.0 from pn_bbode to bbcode, please update
+your permission rules!!!
+===============================================================================
   - This version needs min. PostNuke .8 or later to run, do not even try it 
     with .764 or older - it won't work
+  - renamed to bbcode to get rid of the pn_ prefix.
   - added some config options
   - added [#4596] Lightbox, credits for the code go to soultrain, see
     http://support.pn-cms.de/module-CMS_Support_Forum-viewtopic-topic-26109.htm

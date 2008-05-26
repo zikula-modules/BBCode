@@ -1,5 +1,12 @@
 It's ust a simple Hook for integration of BBCode.
-Written for the pnforum but might be used everywhere ;)
+Written for the pnForum but might be used everywhere ;)
+
+===============================================================================
+IMPORTANT NOTICE:
+===============================================================================
+The permission component changed in v2.0 from pn_bbode to bbcode, please update
+your permission rules!!!
+===============================================================================
 
 You can secure eternal links and email addresses with the permission system.
 

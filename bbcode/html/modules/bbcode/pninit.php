@@ -169,6 +169,35 @@ function bbcode_upgrade($oldversion)
             }
             pnModDelVar('pn_bbcode');
 
+            // get list of hooked modules
+            $hookedmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'pn_bbcode'));
+            
+            // remove hook
+            if (!pnModUnregisterHook('item',
+                                     'transform',
+                                     'API',
+                                     'bbcode',
+                                     'user',
+                                     'transform')) {
+                return LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (transform hook)');
+            } 
+            // add hook
+            if (!pnModRegisterHook('item',
+                                   'transform',
+                                   'API',
+                                   'bbcode',
+                                   'user',
+                                   'transform')) {
+                return LogUtil::registerError(_BBCODE_COULDNOTREGISTER . ' (transform hook)');
+            }
+            
+            // attach bbcode to previous hooked modules
+            foreach ($hookedmods as $hookedmod => $dummy) {
+                pnModAPIFunc('modules' ,'admin', 'enablehooks', 
+                             array('callermodname' => $hookedmod,
+                                   'hookmodname'   => 'bbcode'));
+            }
+
         default:
              break;
     }
