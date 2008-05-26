@@ -52,15 +52,15 @@ Version 1.17: May 20, 2005
     - fixed problem with empty code blocks
     - special support for mail2forum feature of pnForum
     - admin can allow access to links (url and mail) with permissions:
-      unreg. users (group) | pn_bbcode:modname:Links | .* | ACCESS_NONE
-      unreg. users (group) | pn_bbcode:modname:Emails | .* | ACCESS_NONE
+      unreg. users (group) | bbcode:modname:Links | .* | ACCESS_NONE
+      unreg. users (group) | bbcode:modname:Emails | .* | ACCESS_NONE
       e.g.
-      unreg. users (group) | pn_bbcode:pnForum:Links | .* | ACCESS_NONE
-      unreg. users (group) | pn_bbcode:pagesetter:Emails | .* | ACCESS_NONE
+      unreg. users (group) | bbcode:pnForum:Links | .* | ACCESS_NONE
+      unreg. users (group) | bbcode:pagesetter:Emails | .* | ACCESS_NONE
 	  code tags will be added at the cursor position now, marked textportions will be empbraced
 	  with tags
-	  IMPORTANT: the textarea needs an id now which has to be passed to the pn_bbcode module:
-	  <!--[ pnmodfunc modname=pn_bbcode type=user func=bbcodes textfieldid='mytextfieldid' ]-->
+	  IMPORTANT: the textarea needs an id now which has to be passed to the bbcode module:
+	  <!--[ pnmodfunc modname=bbcode type=user func=bbcodes textfieldid='mytextfieldid' ]-->
 	  shows the bbcode selection
 
 
@@ -71,7 +71,7 @@ Version 1.16: March 6th, 2005
 Version 1.15:
     - changed quote and code configuration to use one textarea now,
       you can use %u for placing  the username and %t now for the quoted text in quote or
-      %h for the value of _PNBBCODE_CODE, %c for the code and %e for the urlencoded text in code.
+      %h for the value of _BBCODE_CODE, %c for the code and %e for the urlencoded text in code.
     - using external stylesheet now if existing.
     - fixed a bug that only treated the first code tag block correctly
     - fix in code settings template

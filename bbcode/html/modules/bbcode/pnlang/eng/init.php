@@ -16,5 +16,5 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_PNBBCODE_COULDNOTREGISTER',          'pn_bbcode was NOT installed!');
-define('_PNBBCODE_COULDNOTUNREGISTER',        'pn_bbcode was NOT removed!');
+define('_BBCODE_COULDNOTREGISTER',          'bbcode hook was NOT installed!');
+define('_BBCODE_COULDNOTUNREGISTER',        'bbcode hook was NOT removed!');

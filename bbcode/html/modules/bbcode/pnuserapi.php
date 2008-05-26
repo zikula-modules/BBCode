@@ -18,7 +18,7 @@
 
 /**
  * @package PostNuke_Utility_Modules
- * @subpackage pn_bbcode
+ * @subpackage bbcode
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
@@ -26,16 +26,16 @@
  * the hook function
  *@params $args['extrainfo'] text or array of texts to transform
 */
-function pn_bbcode_userapi_transform($args)
+function bbcode_userapi_transform($args)
 {
     // Argument check. We do not care about the objectid in a transform hook,
     // only extrainfo is important
     if (!isset($args['extrainfo'])) {
-        return LogUtil::registerError(_PNBBCODE_ARGSERROR);
+        return LogUtil::registerError(_BBCODE_ARGSERROR);
     }
 
-    PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('pn_bbcode'));
-    if(pnModGetVar('pn_bbcode', 'lightbox_enabled')==true) {
+    PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('bbcode'));
+    if(pnModGetVar('bbcode', 'lightbox_enabled')==true) {
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
         PageUtil::addVar('javascript', 'javascript/ajax/scriptaculous.js');
         PageUtil::addVar('javascript', 'javascript/ajax/lightbox.js');
@@ -44,10 +44,10 @@ function pn_bbcode_userapi_transform($args)
 
     if (is_array($args['extrainfo'])) {
         foreach ($args['extrainfo'] as $text) {
-            $result[] = pn_bbcode_transform($text);
+            $result[] = bbcode_transform($text);
         }
     } else {
-        $result = pn_bbcode_transform($args['extrainfo']);
+        $result = bbcode_transform($args['extrainfo']);
     }
 
     return $result;
@@ -68,7 +68,7 @@ function pn_bbcode_userapi_transform($args)
  * some changes for PostNuke: larsneo - Jan, 12, 2003
  * different [img] tag conversion against XSS
 */
-function pn_bbcode_transform($message)
+function bbcode_transform($message)
 {
     // check the user agent - if it is a bot, return immediately
     $robotslist = array ( "ia_archiver",
@@ -97,8 +97,8 @@ function pn_bbcode_transform($message)
     }
 
     // [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
-    if(pnModGetVar('pn_bbcode', 'code_enabled')) {
-        $message = pn_bbcode_encode_code($message);
+    if(pnModGetVar('bbcode', 'code_enabled')) {
+        $message = bbcode_encode_code($message);
     }
 
     // move all links out of the text and replace them with placeholders
@@ -120,12 +120,12 @@ function pn_bbcode_transform($message)
     }
     
     // [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
-    if(pnModGetVar('pn_bbcode', 'quote_enabled')) {
-        $message = pn_bbcode_encode_quote($message);
+    if(pnModGetVar('bbcode', 'quote_enabled')) {
+        $message = bbcode_encode_quote($message);
     }
  
     // [list] and [list=x] for (un)ordered lists.
-    $message = pn_bbcode_encode_list($message);
+    $message = bbcode_encode_list($message);
 
     // [b] and [/b] for bolding text.
     $message = preg_replace("/\[b\](.*?)\[\/b\]/si", "<strong>\\1</strong>", $message);
@@ -134,12 +134,12 @@ function pn_bbcode_transform($message)
     $message = preg_replace("/\[i\](.*?)\[\/i\]/si", "<em>\\1</em>", $message);
 
     // [img]image_url_here[/img] code..
-    if(pnModGetVar('pn_bbcode', 'lightbox_enabled')==false) {
+    if(pnModGetVar('bbcode', 'lightbox_enabled')==false) {
         // no lightbox :-(
         $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<img src="\\1" alt="\\1" />', $message);
     } else {
         // use lightbox :-)
-        $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<a href="\\1" rel="lightbox"><img src="\\1" alt="\\1" width="' . DataUtil::formatForDisplay(pnModGetVar('pn_bbcode', 'lightbox_previewwidth')) . '"/></a>', $message);
+        $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<a href="\\1" rel="lightbox"><img src="\\1" alt="\\1" width="' . DataUtil::formatForDisplay(pnModGetVar('bbcode', 'lightbox_previewwidth')) . '"/></a>', $message);
     }
     //$message = preg_replace("/\[img\](.*?)\[\/img\]/si", "<IMG SRC=\"\\1\" BORDER=\"0\">", $message);
 
@@ -148,7 +148,7 @@ function pn_bbcode_transform($message)
     $message = preg_replace("/\[u\](.*?)\[\/u\]/si", "<span style=\"text-decoration:underline;\">\\1</span>", $message);
 
     // [color] and [/color] for coloring text.
-    if(pnModGetVar('pn_bbcode', 'color_enabled')) {
+    if(pnModGetVar('bbcode', 'color_enabled')) {
         $message = preg_replace("#\[color=black\](.*?)\[/color\]#si", "<span style=\"color:black;\">\\1</span>", $message);
         $message = preg_replace("#\[color=darkred\](.*?)\[/color\]#si", "<span style=\"color:darkred;\">\\1</span>", $message);
         $message = preg_replace("#\[color=red\](.*?)\[/color\]#si", "<span style=\"color:red;\">\\1</span>", $message);
@@ -164,7 +164,7 @@ function pn_bbcode_transform($message)
         $message = preg_replace("#\[color=violet\](.*?)\[/color\]#si", "<span style=\"color:violet;\">\\1</span>", $message);
         $message = preg_replace("#\[color=white\](.*?)\[/color\]#si", "<span style=\"color:white;\">\\1</span>", $message);
         // freestyle color
-        if(pnModGetVar('pn_bbcode', 'allow_usercolor')=="yes") {
+        if(pnModGetVar('bbcode', 'allow_usercolor')=="yes") {
             $message = preg_replace("#\[color=(\#[0-9A-F]{6}|[a-z\-]+)\](.*?)\[/color\]#si", "<span style=\"color:\\1;\">\\2</span>", $message);
         } else {
             $message = preg_replace("#\[color=(\#[0-9A-F]{6}|[a-z\-]+)\](.*?)\[/color\]#si", "\\2", $message);
@@ -174,14 +174,14 @@ function pn_bbcode_transform($message)
     }
 
     // [size] and [/size] for setting the size of text.
-    if(pnModGetVar('pn_bbcode', 'size_enabled')) {
-        $message = preg_replace("/\[size=tiny\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('pn_bbcode', 'size_tiny').";\">\\1</span>", $message);
-        $message = preg_replace("/\[size=small\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('pn_bbcode', 'size_small').";\">\\1</span>", $message);
-        $message = preg_replace("/\[size=normal\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('pn_bbcode', 'size_normal').";\">\\1</span>", $message);
-        $message = preg_replace("/\[size=large\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('pn_bbcode', 'size_large').";\">\\1</span>", $message);
-        $message = preg_replace("/\[size=huge\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('pn_bbcode', 'size_huge').";\">\\1</span>", $message);
+    if(pnModGetVar('bbcode', 'size_enabled')) {
+        $message = preg_replace("/\[size=tiny\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('bbcode', 'size_tiny').";\">\\1</span>", $message);
+        $message = preg_replace("/\[size=small\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('bbcode', 'size_small').";\">\\1</span>", $message);
+        $message = preg_replace("/\[size=normal\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('bbcode', 'size_normal').";\">\\1</span>", $message);
+        $message = preg_replace("/\[size=large\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('bbcode', 'size_large').";\">\\1</span>", $message);
+        $message = preg_replace("/\[size=huge\](.*?)\[\/size\]/si", "<span style=\"font-size:".pnModGetVar('bbcode', 'size_huge').";\">\\1</span>", $message);
         // freestyle size
-        if(pnModGetVar('pn_bbcode', 'allow_usersize')=="yes") {
+        if(pnModGetVar('bbcode', 'allow_usersize')=="yes") {
             $message = preg_replace("/\[size=([0-9]+)\](.*?)\[\/size\]/si", "<span style=\"font-size:\\1px;\">\\2</span>", $message);
         } else {
             $message = preg_replace("/\[size=([0-9]+)\](.*?)\[\/size\]/si", "\\2", $message);
@@ -191,9 +191,9 @@ function pn_bbcode_transform($message)
     }
 
     // spoiler tag
-    if(pnModGetVar('pn_bbcode', 'spoiler_enabled')) {
-        $spoiler = str_replace('%s', '\\1', pnModGetVar('pn_bbcode', 'spoiler'));
-        $spoiler = str_replace('%h', _PNBBCODE_SPOILERWARNING, $spoiler);
+    if(pnModGetVar('bbcode', 'spoiler_enabled')) {
+        $spoiler = str_replace('%s', '\\1', pnModGetVar('bbcode', 'spoiler'));
+        $spoiler = str_replace('%h', _BBCODE_SPOILERWARNING, $spoiler);
         $message = preg_replace("/\[spoiler\](.*?)\[\/spoiler\]/si", $spoiler, $message);
     }
     
@@ -246,7 +246,7 @@ function pn_bbcode_transform($message)
     $message = substr($message, 1);
     return $message;
 
-} // pn_bbcode_encode()
+} // bbcode_encode()
 
 /**
  * Nathan Codding - Jan. 12, 2001.
@@ -258,7 +258,7 @@ function pn_bbcode_transform($message)
  * Note: This function assumes the first character of $message is a space, which is added by
  * bbencode().
  */
-function pn_bbcode_encode_quote($message)
+function bbcode_encode_quote($message)
 {
     // First things first: If there aren't any "[quote=" or "[quote] strings in the message, we don't
     // need to process it at all.
@@ -267,7 +267,7 @@ function pn_bbcode_encode_quote($message)
     }
 
 
-    $quotebody = str_replace(array("\r","\n"), '', pnModGetVar('pn_bbcode', 'quote'));
+    $quotebody = str_replace(array("\r","\n"), '', pnModGetVar('bbcode', 'quote'));
 
     $stack = array();
     $curr_pos = 1;
@@ -304,7 +304,7 @@ function pn_bbcode_encode_quote($message)
                     if($start_tag_len > 7) {
                         $username = DataUtil::formatForDisplay(substr($message, $start_index + 7, $start_tag_len - 8));
                     } else {
-                        $username = DataUtil::formatForDisplay(_PNBBCODE_QUOTE);;
+                        $username = DataUtil::formatForDisplay(_BBCODE_QUOTE);;
                     }
 
                     // everything after the [quote=xxx] tag, but before the [/quote] tag.
@@ -354,7 +354,7 @@ function pn_bbcode_encode_quote($message)
 
     return $message;
 
-} // pn_bbcode_encode_quote()
+} // bbcode_encode_quote()
 
 /**
  * Nathan Codding - Jan. 12, 2001.
@@ -367,7 +367,7 @@ function pn_bbcode_encode_quote($message)
  * Note: This function assumes the first character of $message is a space, which is added by
  * bbencode().
  */
-function pn_bbcode_encode_code($message)
+function bbcode_encode_code($message)
 {
     $count = preg_match_all("#(\[code=*(.*?)\])(.*?)(\[\/code\])#si", $message, $bbcode);
     // with $message="[code=php,start=25]php code();[/code]" the array $bbode now contains
@@ -382,15 +382,15 @@ function pn_bbcode_encode_code($message)
         // 1 = geshi with linenumbers
         // 2 = geshi without linenumbers
         // 3 = google code prettifier
-        $hilite  = pnModGetVar('pn_bbcode', 'syntaxhilite');
-        $codebody = str_replace("\n", '', "<!--code-->" . pnModGetVar('pn_bbcode', 'code') . "<!--/code-->");
+        $hilite  = pnModGetVar('bbcode', 'syntaxhilite');
+        $codebody = str_replace("\n", '', "<!--code-->" . pnModGetVar('bbcode', 'code') . "<!--/code-->");
         
         for($i=0; $i < $count; $i++) {
             // the code in between incl. code tags
             $str_to_match = "/" . preg_quote($bbcode[0][$i], "/") . "/";
 
             // no parameters, set some defaults
-            //$numbers = (pnModGetVar('pn_bbcode', 'linenumbers')=='yes') ? true : false;
+            //$numbers = (pnModGetVar('bbcode', 'linenumbers')=='yes') ? true : false;
             $language = 'php';
             $startline = 1;
             // analyze parameters in [2]
@@ -415,7 +415,7 @@ function pn_bbcode_encode_code($message)
                                 break;
                             case 'user':
                                 // special for htmlmail, we show the user name instead
-                                // of _PNBBCODE_CODE
+                                // of _BBCODE_CODE
                                 $username = $singleparam[1];
                                 break;
                             default:
@@ -438,9 +438,9 @@ function pn_bbcode_encode_code($message)
                 case HILITE_GESHI_WITH_LN:
                 case HILITE_GESHI_WITHOUT_LN:
                     if(!class_exists('GeSHi')) {
-                        Loader::includeOnce('modules/pn_bbcode/pnincludes/geshi.php');
+                        Loader::includeOnce('modules/bbcode/pnincludes/geshi.php');
                     }
-                    $geshi =& new GeSHi($after_replace, $language, 'modules/pn_bbcode/pnincludes/geshi/');
+                    $geshi =& new GeSHi($after_replace, $language, 'modules/bbcode/pnincludes/geshi/');
                     $geshi->set_tab_width(4);
                     $geshi->set_case_keywords(GESHI_CAPS_LOWER);
                     $geshi->set_header_type(GESHI_HEADER_DIV);
@@ -462,16 +462,16 @@ function pn_bbcode_encode_code($message)
                 case HILITE_GOOGLE:
                 default:
                     PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-                    PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/prettify.js');
+                    PageUtil::addVar('javascript', 'modules/bbcode/pnjavascript/prettify.js');
                     $after_replace = '<code class="prettyprint">' . DataUtil::formatForDisplay($after_replace) . '</code>';
                     break;
             }
 
-            // replace %h with _PNBBCODE_CODE
+            // replace %h with _BBCODE_CODE
             if($language=='htmlmail') {
-                $codetext = str_replace("%h", DataUtil::formatForDisplay(_PNBBCODE_ORIGINALSENDER) . ': ' . DataUtil::formatForDisplay($username), $codebody);
+                $codetext = str_replace("%h", DataUtil::formatForDisplay(_BBCODE_ORIGINALSENDER) . ': ' . DataUtil::formatForDisplay($username), $codebody);
             } else {
-                $codetext = str_replace("%h", DataUtil::formatForDisplay(_PNBBCODE_CODE), $codebody);
+                $codetext = str_replace("%h", DataUtil::formatForDisplay(_BBCODE_CODE), $codebody);
             }
             // replace %c with code
             $codetext = str_replace("%c",  $after_replace, $codetext);
@@ -500,7 +500,7 @@ function pn_bbcode_encode_code($message)
     }
     return $message;
 
-} // pn_bbcode_encode_code()
+} // bbcode_encode_code()
 
 
 /**
@@ -514,7 +514,7 @@ function pn_bbcode_encode_code($message)
  * Note: This function assumes the first character of $message is a space, which is added by
  * bbencode().
  */
-function pn_bbcode_encode_list($message)
+function bbcode_encode_list($message)
 {
     $start_length = array('ordered' => 8,
                           'unordered' => 6);
@@ -587,7 +587,7 @@ function pn_bbcode_encode_list($message)
 
                     // replace [*]... with <li>...</li>
                     // even newer: adding of css classes for better styling of bbcode lists not needed with intelligent css, 
-                    //             see modules/pn_bbcode/pnstyle/style.css
+                    //             see modules/bbcode/pnstyle/style.css
                     $listitems = explode('[*]', $between_tags);
                     // listitems may be false, empty or containing [*] if between_tags was empty
                     if(is_array($listitems) && count($listitems)>0 && $listitems[0]<>'[*]') {
@@ -628,18 +628,18 @@ function pn_bbcode_encode_list($message)
 
     return $message;
 
-} // pn_bbcode_encode_list()
+} // bbcode_encode_list()
 
 /**
  * get_geshi_languages
  * read the languages supported by GeSHi for display in a dropdown list
  *
  */
-function pn_bbcode_userapi_get_geshi_languages()
+function bbcode_userapi_get_geshi_languages()
 {
     $langs = array();
-    if((pnModGetVar('pn_bbcode', 'syntaxhilite')== HILITE_GESHI_WITH_LN) || (pnModGetVar('pn_bbcode', 'syntaxhilite')== HILITE_GESHI_WITHOUT_LN)){
-        $dir = opendir('modules/pn_bbcode/pnincludes/geshi');
+    if((pnModGetVar('bbcode', 'syntaxhilite')== HILITE_GESHI_WITH_LN) || (pnModGetVar('bbcode', 'syntaxhilite')== HILITE_GESHI_WITHOUT_LN)){
+        $dir = opendir('modules/bbcode/pnincludes/geshi');
         while($lang = readdir($dir)) {
             if(preg_match("/\.php$/si", $lang)) {
                 // remove trailing .php
@@ -664,17 +664,17 @@ function linktest_callback_0($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+            return  DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
         }
     } else {
-        $displayurl = pn_bbcode_minimize_displayurl($matches[1] . $matches[2]);
+        $displayurl = bbcode_minimize_displayurl($matches[1] . $matches[2]);
         return '<a href="' . $matches[1] . $matches[2] . '">' . $displayurl . '</a>';
     }
 }
@@ -692,17 +692,17 @@ function linktest_callback_1($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
     if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+            return  DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
         }
     } else {
-        $displayurl = pn_bbcode_minimize_displayurl($matches[1]);
+        $displayurl = bbcode_minimize_displayurl($matches[1]);
         return '<a href="http://' . $matches[1] . '">' . $displayurl . '</a>';
     }
 }
@@ -720,11 +720,11 @@ function linktest_callback_2($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
 
     if( (pnVarValidate($matches[3], 'url')==true) && ($is_allowed==false) && (strpos($matches[3], $our_url)===false) ) {
-        $displayurl = DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        $displayurl = DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
     } else {
         $displayurl = $matches[3];
         $title = strip_tags($displayurl);
@@ -732,9 +732,9 @@ function linktest_callback_2($matches)
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  '<span title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</span>';
+            return  '<span title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</span>';
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
         return '<a href="' . $matches[1] . $matches[2] . '" title="' . $title . '">' . $displayurl . '</a>';
@@ -754,11 +754,11 @@ function linktest_callback_3($matches)
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
         $our_url = pnGetBaseURL();
-        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
 
     if(pnVarValidate($matches[2], 'url')==true) {
-        $displayurl = DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        $displayurl = DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
     } else {
         $displayurl = $matches[2];
         $title = strip_tags($displayurl);
@@ -766,9 +766,9 @@ function linktest_callback_3($matches)
     if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return '<span title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '"><strong>' . $displayurl . '</strong></span>';
+            return '<span title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '"><strong>' . $displayurl . '</strong></span>';
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
         return '<a href="http://' . $matches[1] . '" title="' . $title . '">' . $displayurl . '</a>';
@@ -786,29 +786,29 @@ function linktest_callback_4($matches)
 
     if(!isset($is_allowed)) {
         $modname = pnModGetName();
-        $is_allowed = SecurityUtil::checkPermission('pn_bbcode:' . $modname . ':Emails' , '::', ACCESS_READ);
+        $is_allowed = SecurityUtil::checkPermission('bbcode:' . $modname . ':Emails' , '::', ACCESS_READ);
     }
     if($is_allowed==false) {
         // not allowed to see emails
         if(pnUserLoggedIn()) {
-            return  DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS);
+            return  DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEMAILS);
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '">' . DataUtil::formatForDisplay(_PNBBCODE_NOTALLOWEDTOSEEEMAILS) . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEMAILS) . '">' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEMAILS) . '</a>';
         }
     } else {
         return '<a href="mailto:' . $matches[1] . '" title="' . $matches[1] . '">' . $matches[1] . '</a>';
     }
 }
 
-/** pn_bbcode_minimize_displayurl
+/** bbcode_minimize_displayurl
  *  helper function to cut down the displayed url to a maximum length
  *
  *
  */
-function pn_bbcode_minimize_displayurl($displayurl)
+function bbcode_minimize_displayurl($displayurl)
 {
     // get the maximum size of the urls to show
-    $maxsize = pnModGetVar('pn_bbcode', 'link_shrinksize');
+    $maxsize = pnModGetVar('bbcode', 'link_shrinksize');
     if($maxsize<>0 && strlen($displayurl) > $maxsize) {
         $before = round($maxsize / 2);
         $after  = $maxsize - 1 - $before;

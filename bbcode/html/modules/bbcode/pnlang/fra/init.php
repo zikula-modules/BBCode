@@ -16,5 +16,5 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_PNBBCODE_COULDNOTREGISTER',          'pn_bbcode n\'a pas été installé !');
-define('_PNBBCODE_COULDNOTUNREGISTER',        'pn_bbcode n\'a pas été désinstallé !');
+define('_BBCODE_COULDNOTREGISTER',          'bbcode n\'a pas été installé !');
+define('_BBCODE_COULDNOTUNREGISTER',        'bbcode n\'a pas été désinstallé !');

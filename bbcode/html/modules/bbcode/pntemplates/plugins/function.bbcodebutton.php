@@ -43,8 +43,8 @@ function smarty_function_bbcodebutton($params, &$smarty)
 	unset($params);
 
     // load language file
-    if(!pnModAPILoad('pn_bbcode', 'user')) {
-        $smarty->trigger_error("loading pn_bbcode api failed", e_error);
+    if(!pnModAPILoad('bbcode', 'user')) {
+        $smarty->trigger_error("loading bbcode api failed", e_error);
         return;
     }
 
@@ -52,10 +52,10 @@ function smarty_function_bbcodebutton($params, &$smarty)
 
     $lang = pnUserGetLang();
 
-    if(file_exists("modules/pn_bbcode/pnimages/$lang/$image")) {
-        $imgfile = "modules/pn_bbcode/pnimages/$lang/$image";
-    } else if(file_exists("modules/pn_bbcode/pnimages/$image")) {
-        $imgfile = "modules/pn_bbcode/pnimages/$image";
+    if(file_exists("modules/bbcode/pnimages/$lang/$image")) {
+        $imgfile = "modules/bbcode/pnimages/$lang/$image";
+    } else if(file_exists("modules/bbcode/pnimages/$image")) {
+        $imgfile = "modules/bbcode/pnimages/$image";
     }
     $attr = getimagesize($imgfile);
 

@@ -16,32 +16,32 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-class pn_bbcode_admin_confighandler
+class bbcode_admin_confighandler
 {
 
     function initialize(&$pnRender)
     {
         $pnRender->caching = false;
         $pnRender->add_core_data();
-        $pnRender->assign('quote_preview', nl2br(pnModAPIFunc('pn_bbcode', 'user', 'transform',
+        $pnRender->assign('quote_preview', nl2br(pnModAPIFunc('bbcode', 'user', 'transform',
                                                               array('objectid' => 1,
                                                                     'extrainfo' => "[quote=username]test\ntest test\n[/quote]"))));
-        $hiliteoptions = array(array('text' => _PNBBCODE_CODE_NOSYNTAXHIGHLIGHTING, 'value' => 0),
-                               array('text' => _PNBBCODE_CODE_GESHIWITHLINENUMBERS, 'value' => 1),
-                               array('text' => _PNBBCODE_CODE_GESHIWITHOUTLINENUMBERS, 'value' => 2),
-                               array('text' => _PNBBCODE_CODE_GOOGLEPRETTIFIER, 'value' => 3));
+        $hiliteoptions = array(array('text' => _BBCODE_CODE_NOSYNTAXHIGHLIGHTING, 'value' => 0),
+                               array('text' => _BBCODE_CODE_GESHIWITHLINENUMBERS, 'value' => 1),
+                               array('text' => _BBCODE_CODE_GESHIWITHOUTLINENUMBERS, 'value' => 2),
+                               array('text' => _BBCODE_CODE_GOOGLEPRETTIFIER, 'value' => 3));
         $pnRender->assign('hiliteoptions', $hiliteoptions);
-        $pnRender->assign('code_preview', pnModAPIFunc('pn_bbcode', 'user', 'transform',
+        $pnRender->assign('code_preview', pnModAPIFunc('bbcode', 'user', 'transform',
                                                         array('objectid' => 1,
                                                               'extrainfo' => "[code=php, start=100]<?php\necho 'test';\n?>[/code]")));
 
-        $pnRender->assign('spoiler_preview', pnModAPIFunc('pn_bbcode', 'user', 'transform',
+        $pnRender->assign('spoiler_preview', pnModAPIFunc('bbcode', 'user', 'transform',
                                                           array('objectid' => 1,
-                                                                'extrainfo' => "[spoiler]PostNuke + pn_bbcode[/spoiler]")));
+                                                                'extrainfo' => "[spoiler]PostNuke + bbcode[/spoiler]")));
 
 
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-        $modvars = pnModGetVar('pn_bbcode');
+        $modvars = pnModGetVar('bbcode');
         $script = '<script type="text/javascript">';
         $script .= ($modvars['code_enabled'] == true) ? 'var codeenabled = true;' : 'var codeenabled = false;';
         $script .= ($modvars['color_enabled'] == true) ? 'var colorenabled = true;' : 'var colorenabled = false;';
@@ -51,7 +51,7 @@ class pn_bbcode_admin_confighandler
         $script .= ($modvars['spoiler_enabled'] == true) ? 'var spoilerenabled = true;' : 'var spoilerenabled = false;';
         $script .= '</script>';
         PageUtil::addVar('rawtext', $script);
-        PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/pn_bbcode_admin.js');
+        PageUtil::addVar('javascript', 'modules/bbcode/pnjavascript/bbcode_admin.js');
 
         return true;
     }
@@ -60,7 +60,7 @@ class pn_bbcode_admin_confighandler
     function handleCommand(&$pnRender, &$args)
     {
         // Security check
-        if (!SecurityUtil::checkPermission('pn_bbcode::', '::', ACCESS_ADMIN)) {
+        if (!SecurityUtil::checkPermission('bbcode::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError('index.php');
         }  
         if ($args['commandName'] == 'submit') {
@@ -69,27 +69,27 @@ class pn_bbcode_admin_confighandler
 
             if(!_validate_size_input($data['size_tiny'])) {
                 $ifield = & $pnRender->pnFormGetPluginById('size_tiny');
-                $ifield->setError(DataUtil::formatForDisplay(_PNBBCODE_ILLEGALVALUE));
+                $ifield->setError(DataUtil::formatForDisplay(_BBCODE_ILLEGALVALUE));
                 $ok = false;
             }
             if(!_validate_size_input($data['size_small'])) {
                 $ifield = & $pnRender->pnFormGetPluginById('size_small');
-                $ifield->setError(DataUtil::formatForDisplay(_PNBBCODE_ILLEGALVALUE));
+                $ifield->setError(DataUtil::formatForDisplay(_BBCODE_ILLEGALVALUE));
                 $ok = false;
             }
             if(!_validate_size_input($data['size_normal'])) {
                 $ifield = & $pnRender->pnFormGetPluginById('size_normal');
-                $ifield->setError(DataUtil::formatForDisplay(_PNBBCODE_ILLEGALVALUE));
+                $ifield->setError(DataUtil::formatForDisplay(_BBCODE_ILLEGALVALUE));
                 $ok = false;
             }
             if(!_validate_size_input($data['size_large'])) {
                 $ifield = & $pnRender->pnFormGetPluginById('size_large');
-                $ifield->setError(DataUtil::formatForDisplay(_PNBBCODE_ILLEGALVALUE));
+                $ifield->setError(DataUtil::formatForDisplay(_BBCODE_ILLEGALVALUE));
                 $ok = false;
             }
             if(!_validate_size_input($data['size_huge'])) {
                 $ifield = & $pnRender->pnFormGetPluginById('size_huge');
-                $ifield->setError(DataUtil::formatForDisplay(_PNBBCODE_ILLEGALVALUE));
+                $ifield->setError(DataUtil::formatForDisplay(_BBCODE_ILLEGALVALUE));
                 $ok = false;
             }
             if(!$ok) {
@@ -97,37 +97,37 @@ class pn_bbcode_admin_confighandler
             }
 
             // code 
-            pnModSetVar('pn_bbcode', 'code_enabled',  $data['code_enabled']);
-            pnModSetVar('pn_bbcode', 'code',  $data['code']);
-            pnModSetVar('pn_bbcode', 'syntaxhilite',  $data['syntaxhilite']);
+            pnModSetVar('bbcode', 'code_enabled',  $data['code_enabled']);
+            pnModSetVar('bbcode', 'code',  $data['code']);
+            pnModSetVar('bbcode', 'syntaxhilite',  $data['syntaxhilite']);
 
             // color
-            pnModSetVar('pn_bbcode', 'color_enabled',  $data['color_enabled']);
-            pnModSetVar('pn_bbcode', 'allow_usercolor',  $data['allow_usercolor']);
+            pnModSetVar('bbcode', 'color_enabled',  $data['color_enabled']);
+            pnModSetVar('bbcode', 'allow_usercolor',  $data['allow_usercolor']);
 
             // quote
-            pnModSetVar('pn_bbcode', 'quote_enabled',  $data['quote_enabled']);
-            pnModSetVar('pn_bbcode', 'quote',  $data['quote']);
+            pnModSetVar('bbcode', 'quote_enabled',  $data['quote_enabled']);
+            pnModSetVar('bbcode', 'quote',  $data['quote']);
 
             // size
-            pnModSetVar('pn_bbcode', 'size_tiny',  $data['size_tiny']);
-            pnModSetVar('pn_bbcode', 'size_small',  $data['size_small']);
-            pnModSetVar('pn_bbcode', 'size_normal',  $data['size_normal']);
-            pnModSetVar('pn_bbcode', 'size_large',  $data['size_large']);
-            pnModSetVar('pn_bbcode', 'size_huge',  $data['size_huge']);
-            pnModSetVar('pn_bbcode', 'size_enabled',  $data['size_enabled']);
-            pnModSetVar('pn_bbcode', 'allow_usersize',  $data['allow_usersize']);
+            pnModSetVar('bbcode', 'size_tiny',  $data['size_tiny']);
+            pnModSetVar('bbcode', 'size_small',  $data['size_small']);
+            pnModSetVar('bbcode', 'size_normal',  $data['size_normal']);
+            pnModSetVar('bbcode', 'size_large',  $data['size_large']);
+            pnModSetVar('bbcode', 'size_huge',  $data['size_huge']);
+            pnModSetVar('bbcode', 'size_enabled',  $data['size_enabled']);
+            pnModSetVar('bbcode', 'allow_usersize',  $data['allow_usersize']);
             
             // misc
-            pnModSetVar('pn_bbcode', 'lightbox_enabled',  $data['lightbox_enabled']);
-            pnModSetVar('pn_bbcode', 'lightbox_previewwidth',  $data['lightbox_previewwidth']);
-            pnModSetVar('pn_bbcode', 'link_shrinksize',  $data['link_shrinksize']);
-            pnModSetVar('pn_bbcode', 'spoiler_enabled',  $data['spoiler_enabled']);
-            pnModSetVar('pn_bbcode', 'spoiler',  $data['spoiler']);
+            pnModSetVar('bbcode', 'lightbox_enabled',  $data['lightbox_enabled']);
+            pnModSetVar('bbcode', 'lightbox_previewwidth',  $data['lightbox_previewwidth']);
+            pnModSetVar('bbcode', 'link_shrinksize',  $data['link_shrinksize']);
+            pnModSetVar('bbcode', 'spoiler_enabled',  $data['spoiler_enabled']);
+            pnModSetVar('bbcode', 'spoiler',  $data['spoiler']);
 
-            LogUtil::registerStatus(_PNBBCODE_CONFIGCHANGED);
+            LogUtil::registerStatus(_BBCODE_CONFIGCHANGED);
         }
-        return pnRedirect(pnModURL('pn_bbcode', 'admin', 'config'));
+        return pnRedirect(pnModURL('bbcode', 'admin', 'config'));
     }
 
 }

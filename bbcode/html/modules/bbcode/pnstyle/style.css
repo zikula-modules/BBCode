@@ -182,7 +182,7 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
  * clearfix solution
  */
 
-.pn_bbcode_clearfix:after {
+.bbcode_clearfix:after {
     content: "."; 
     display: block; 
     height: 0; 
@@ -190,15 +190,15 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
     visibility: hidden;
 }
 
-.pn_bbcode_clearfix {display: inline-table;}
+.bbcode_clearfix {display: inline-table;}
 
 /* Hides from IE-mac \*/
-* html .pn_bbcode_clearfix {height: 1%;}
-.pn_bbcode_clearfix {display: block;}
+* html .bbcode_clearfix {height: 1%;}
+.bbcode_clearfix {display: block;}
 /* End hide from IE-mac */
 
 /* Overflow-Methode zum Clearen der Float-Umgebungen */
-.pn_bbcode_floatbox { 
+.bbcode_floatbox { 
     overflow:hidden; 
 }
 
@@ -207,31 +207,31 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
  *
  */
  
-#pn_bbcode {
+#bbcode {
     /* wrapper for admin panel */
     margin: 1em 0;
     padding-top: 1em;
 }
 
-#pn_bbcode h3 {
+#bbcode h3 {
     margin-top: 1.2em;
 }
 
-#pn_bbcode fieldset {
+#bbcode fieldset {
     padding: 1em;
 }
 
-#pn_bbcode textarea {
+#bbcode textarea {
     width: 95%;
     border: 1px solid #ccc;
     background: #eee;
 }
 
-#pn_bbcode label {
+#bbcode label {
     padding: 3px 0;
 }
 
-#pn_bbcode form div dl dt {
+#bbcode form div dl dt {
     display: block;
     float: left;
     text-align: right;
@@ -241,7 +241,7 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
     line-height: 2em;
 }
 
-#pn_bbcode form div dl dd {
+#bbcode form div dl dd {
     display: block;
     float: left;
     text-align: left;
@@ -251,7 +251,7 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
     line-height: 2em;
 }
 
-#pn_bbcode p.footer {
+#bbcode p.footer {
     margin-top: 2em; 
     text-align:center;
     font-size: 90%;

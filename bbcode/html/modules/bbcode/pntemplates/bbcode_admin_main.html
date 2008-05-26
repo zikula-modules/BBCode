@@ -17,8 +17,17 @@ $Id$
 // ----------------------------------------------------------------------
 *]-->
 
-        <!--[ pnmodgetinfo info=all ]-->
-        <p class="footer"><a href="http://noc.postnuke.com/projects/pnbbcode/" title="<!--[ pnml name="_PNBBCODE_GOTOHOMEPAGE" ]-->"><!--[ $modinfo.displayname ]--> <!--[ $modinfo.version ]--></a></p>
-    </div>
+<!--[ include file=bbcode_admin_menu.html ]-->
 
-</div>
+<strong><!--[ pnml name="_BBCODE_ISHOOKEDWITH"]-->:</strong>
+<ul>
+    <!--[ foreach item=mod from=$hookedmodules ]-->
+    <li><a href="<!--[ pnmodurl modname=modules type=admin func=hooks id=$mod.id ]-->" title="<!--[ $mod.description ]-->"><!--[ $mod.displayname ]--></a></li>
+    <!--[ foreachelse ]-->
+    <li style="list-style-type: none;"><!--[ pnml name="_BBCODE_NOTHOOKED" ]--></li>
+    <!--[ /foreach ]-->
+</ul>
+<p><a href="<!--[ pnmodurl modname=modules type=admin func=main ]-->" title="<!--[ pnml name="_BBCODE_ADDHOOK" ]-->"><!--[ pnml name="_BBCODE_ADDHOOK" ]--></a></p>
+
+
+<!--[ include file="bbcode_admin_footer.html" ]-->

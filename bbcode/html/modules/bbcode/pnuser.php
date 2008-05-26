@@ -18,16 +18,16 @@
 
 /**
  * @package PostNuke_Utility_Modules
- * @subpackage pn_bbcode
+ * @subpackage bbcode
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
 /**
  * main funcion
- * The main function is not used in the pn_bbcode module, we just redirect to index.php
+ * The main function is not used in the bbcode module, we just redirect to index.php
  *
  */
-function pn_bbcode_user_main()
+function bbcode_user_main()
 {
     return pnRedirect('index.php');
 }
@@ -38,10 +38,10 @@ function pn_bbcode_user_main()
  * no parameters needed
  *
  */
-function pn_bbcode_user_whatisbbcode()
+function bbcode_user_whatisbbcode()
 {
-    $pnr = pnRender::getInstance('pn_bbcode');
-    return $pnr->fetch('pn_bbcode_user_whatisbbcode.html');
+    $pnr = pnRender::getInstance('bbcode');
+    return $pnr->fetch('bbcode_user_whatisbbcode.html');
 }
 
 /**
@@ -51,7 +51,7 @@ function pn_bbcode_user_whatisbbcode()
  *@params $args['images'] use image buttons if set
  *@params $args['textfieldid'] id of the textfield for inserting smilies
  */
-function pn_bbcode_user_bbcodes($args)
+function bbcode_user_bbcodes($args)
 {
     $images      = $args['images'];
     $textfieldid = $args['textfieldid'];
@@ -66,18 +66,18 @@ function pn_bbcode_user_bbcodes($args)
     $counter++;
     SessionUtil::setVar('bbcode_counter', $counter);
 
-    $pnr = pnRender::getInstance('pn_bbcode', false, null, true);
+    $pnr = pnRender::getInstance('bbcode', false, null, true);
     $pnr->assign('counter', $counter);
     $pnr->assign('images', $images);
 
     PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-    PageUtil::addVar('javascript', 'modules/pn_bbcode/pnjavascript/pn_bbcode.js');
-    PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('pn_bbcode'));
+    PageUtil::addVar('javascript', 'modules/bbcode/pnjavascript/bbcode.js');
+    PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('bbcode'));
 
     // get the languages for highlighting
-    $langs = pnModAPIFunc('pn_bbcode', 'user', 'get_geshi_languages');
+    $langs = pnModAPIFunc('bbcode', 'user', 'get_geshi_languages');
     $pnr->assign('geshi_languages', $langs);
     $pnr->assign('textfieldid', $textfieldid);
 
-    return $pnr->fetch('pn_bbcode_user_bbcodes.html');
+    return $pnr->fetch('bbcode_user_bbcodes.html');
 }

@@ -3,8 +3,8 @@ Written for the pnforum but might be used everywhere ;)
 
 You can secure eternal links and email addresses with the permission system.
 
-unreg. users (group) | pn_bbcode:pnForum:Links | .* | none
-unreg. users (group) | pn_bbcode:pnForum:Emails | .* | none
+unreg. users (group) | bbcode:pnForum:Links | .* | none
+unreg. users (group) | bbcode:pnForum:Emails | .* | none
 
 forbids unregistered users to see links that do not point to your own site
 and all email adresses.
@@ -14,5 +14,5 @@ changed to point to your user.php
 
 Example:
 
-dumbusersgroup | pn_bbcode:pnForum:Links| .* | none
-dumbusersgroup | pn_bbcode:pagesetter:Emails| .* | none
+dumbusersgroup | bbcode:pnForum:Links| .* | none
+dumbusersgroup | bbcode:pagesetter:Emails| .* | none

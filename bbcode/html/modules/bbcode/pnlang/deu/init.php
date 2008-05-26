@@ -16,5 +16,5 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_PNBBCODE_COULDNOTREGISTER',          'Die Registrierung des Moduls war nicht möglich!');
-define('_PNBBCODE_COULDNOTUNREGISTER',        'Die Entfernung des Moduls war nicht möglich!');
+define('_BBCODE_COULDNOTREGISTER',          'Die Registrierung des Moduls war nicht möglich!');
+define('_BBCODE_COULDNOTUNREGISTER',        'Die Entfernung des Moduls war nicht möglich!');

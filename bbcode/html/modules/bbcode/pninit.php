@@ -18,45 +18,45 @@
 
 /**
  * @package PostNuke_Utility_Modules
- * @subpackage pn_bbcode
+ * @subpackage bbcode
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
 /**
  * init module
 */
-function pn_bbcode_init() 
+function bbcode_init() 
 {
     // create hook
     if (!pnModRegisterHook('item',
                            'transform',
                            'API',
-                           'pn_bbcode',
+                           'bbcode',
                            'user',
                            'transform')) {
-        return LogUtil::registerError(_PNBBCODE_COULDNOTREGISTER . ' (transform hook)');
+        return LogUtil::registerError(_BBCODE_COULDNOTREGISTER . ' (transform hook)');
     }
 
     // setup module vars
-    pnModSetVar('pn_bbcode', 'quote', '<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>');
-    pnModSetVar('pn_bbcode', 'code',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbcodetext">%c</div></div>');
-    pnModSetVar('pn_bbcode', 'size_tiny',   '0.75em');
-    pnModSetVar('pn_bbcode', 'size_small',  '0.85em');
-    pnModSetVar('pn_bbcode', 'size_normal', '1.0em');
-    pnModSetVar('pn_bbcode', 'size_large',  '1.5em');
-    pnModSetVar('pn_bbcode', 'size_huge',   '2.0em');
-    pnModSetVar('pn_bbcode', 'allow_usersize', false);
-    pnModSetVar('pn_bbcode', 'allow_usercolor', false);
-    pnModSetVar('pn_bbcode', 'code_enabled', true);
-    pnModSetVar('pn_bbcode', 'quote_enabled', true);
-    pnModSetVar('pn_bbcode', 'color_enabled', true);
-    pnModSetVar('pn_bbcode', 'size_enabled', true);
-    pnModSetVar('pn_bbcode', 'lightbox_enabled', true);
-    pnModSetVar('pn_bbcode', 'lightbox_previewwidth', 200);
-    pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_GOOGLE); // google code prettifier
-    pnModSetVar('pn_bbcode', 'link_shrinksize',  30);
-    pnModSetVar('pn_bbcode', 'spoiler_enabled',  true);
-    pnModSetVar('pn_bbcode', 'spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbspoiler">%s</div></div>');
+    pnModSetVar('bbcode', 'quote', '<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>');
+    pnModSetVar('bbcode', 'code',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbcodetext">%c</div></div>');
+    pnModSetVar('bbcode', 'size_tiny',   '0.75em');
+    pnModSetVar('bbcode', 'size_small',  '0.85em');
+    pnModSetVar('bbcode', 'size_normal', '1.0em');
+    pnModSetVar('bbcode', 'size_large',  '1.5em');
+    pnModSetVar('bbcode', 'size_huge',   '2.0em');
+    pnModSetVar('bbcode', 'allow_usersize', false);
+    pnModSetVar('bbcode', 'allow_usercolor', false);
+    pnModSetVar('bbcode', 'code_enabled', true);
+    pnModSetVar('bbcode', 'quote_enabled', true);
+    pnModSetVar('bbcode', 'color_enabled', true);
+    pnModSetVar('bbcode', 'size_enabled', true);
+    pnModSetVar('bbcode', 'lightbox_enabled', true);
+    pnModSetVar('bbcode', 'lightbox_previewwidth', 200);
+    pnModSetVar('bbcode', 'syntaxhilite', HILITE_GOOGLE); // google code prettifier
+    pnModSetVar('bbcode', 'link_shrinksize',  30);
+    pnModSetVar('bbcode', 'spoiler_enabled',  true);
+    pnModSetVar('bbcode', 'spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbspoiler">%s</div></div>');
 
     // Initialisation successful
     return true;
@@ -65,7 +65,7 @@ function pn_bbcode_init()
 /**
  * upgrade module
 */
-function pn_bbcode_upgrade($oldversion)
+function bbcode_upgrade($oldversion)
 {
 	switch($oldversion) {
 	    case '1.10':
@@ -117,7 +117,7 @@ function pn_bbcode_upgrade($oldversion)
                                    'pn_bbcode',
                                    'user',
                                    'codes')) {
-                pnSessionSetVar('errormsg', _PNBBCODE_COULDNOTREGISTER . ' (display hook)');
+                pnSessionSetVar('errormsg', _BBCODE_COULDNOTREGISTER . ' (display hook)');
                 return false;
             }
             pnModSetVar('pn_bbcode', 'displayhook', 'yes');
@@ -129,7 +129,7 @@ function pn_bbcode_upgrade($oldversion)
                                      'pn_bbcode',
                                      'user',
                                      'codes')) {
-                return LogUtil::registerError(_PNBBCODE_COULDNOTUNREGISTER . ' (display hook)');
+                return LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (display hook)');
             }
             pnModDelVar('pn_bbcode', 'displayhook');
         case '1.22':
@@ -154,14 +154,21 @@ function pn_bbcode_upgrade($oldversion)
             $code = pnModGetVar('pn_bbcode', 'code');
             $code = str_replace(array('<pre>','</pre>'), '', $code);
             pnModSetVar('pn_bbcode', 'code', $code);
-        case '1.30': // last version to support .764
-            pnModSetVar('pn_bbcode', 'code_enabled', true);
-            pnModSetVar('pn_bbcode', 'quote_enabled', true);
-            pnModSetVar('pn_bbcode', 'lightbox_enabled', true);
-            pnModSetVar('pn_bbcode', 'lightbox_previewwidth', 200);
-            pnModSetVar('pn_bbcode', 'link_shrinksize',  30);
-            pnModSetVar('pn_bbcode', 'spoiler_enabled',  true);
-            pnModSetVar('pn_bbcode', 'spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbspoiler">%s</div></div>');
+        case '1.30': // last version to support .764            
+            pnModSetVar('bbcode', 'code_enabled', true);
+            pnModSetVar('bbcode', 'quote_enabled', true);
+            pnModSetVar('bbcode', 'lightbox_enabled', true);
+            pnModSetVar('bbcode', 'lightbox_previewwidth', 200);
+            pnModSetVar('bbcode', 'link_shrinksize',  30);
+            pnModSetVar('bbcode', 'spoiler_enabled',  true);
+            pnModSetVar('bbcode', 'spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbspoiler">%s</div></div>');
+
+            $oldvars = pnModGetVar('pn_bbcode');
+            foreach ($oldvars as $varname => $oldvar) {
+                pnModSetVar('bbcode', $varname, $oldvar);
+            }
+            pnModDelVar('pn_bbcode');
+
         default:
              break;
     }
@@ -171,20 +178,20 @@ function pn_bbcode_upgrade($oldversion)
 /**
  * delete module
 */
-function pn_bbcode_delete()
+function bbcode_delete()
 {
     // remove hook
     if (!pnModUnregisterHook('item',
                              'transform',
                              'API',
-                             'pn_bbcode',
+                             'bbcode',
                              'user',
                              'transform')) {
-        return LogUtil::registerError(_PNBBCODE_COULDNOTUNREGISTER . ' (transform hook)');
+        return LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (transform hook)');
     }
 
     // remove all module vars
-    pnModDelVar('pn_bbcode');
+    pnModDelVar('bbcode');
 
     // Deletion successful
     return true;

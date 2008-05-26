@@ -18,11 +18,12 @@
 
 /**
  * @package PostNuke_Utility_Modules
- * @subpackage pn_bbcode
+ * @subpackage bbcode
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
-$modversion['name']             = 'pn_bbcode';
+$modversion['name']             = 'bbcode';
+$modversion['oldnames']         = array('pn_bbcode');
 $modversion['version']          = '2.0';
 $modversion['id'] 				= '164';
 $modversion['description']      = 'BBCode Hook';
@@ -35,5 +36,5 @@ $modversion['official']         = 0;
 $modversion['author']           = 'pnForum team';
 $modversion['contact']          = 'http://www.pnforum.de';
 $modversion['admin']            = 1;
-$modversion['securityschema']   = array('pn_bbcode:Modulename:Links'  => '::',
-                                        'pn_bbcode:Modulename:Emails' => '::');
+$modversion['securityschema']   = array('bbcode:Modulename:Links'  => '::',
+                                        'bbcode:Modulename:Emails' => '::');

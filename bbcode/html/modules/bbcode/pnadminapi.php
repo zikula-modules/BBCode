@@ -18,7 +18,7 @@
 
 /**
  * @package PostNuke_Utility_Modules
- * @subpackage pn_bbcode
+ * @subpackage bbcode
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
@@ -29,12 +29,12 @@
  * @author Mark West
  * @return array array of admin links
  */
-function pn_bbcode_adminapi_getlinks()
+function bbcode_adminapi_getlinks()
 {
     $links = array();
-    if (SecurityUtil::checkPermission('pn_bbcode::', '::', ACCESS_ADMIN)) {
-        $links[] = array('url' => pnModURL('pn_bbcode', 'admin', 'main'),        'text' => _PNBBCODE_ADMIN_START,      'title' => _PNBBCODE_ADMIN_START);     
-        $links[] = array('url' => pnModURL('pn_bbcode', 'admin', 'config'),  'text' => _PNBBCODE_ADMINCONFIG,  'title' => _PNBBCODE_ADMINCONFIG); 
+    if (SecurityUtil::checkPermission('bbcode::', '::', ACCESS_ADMIN)) {
+        $links[] = array('url' => pnModURL('bbcode', 'admin', 'main'),        'text' => _BBCODE_ADMIN_START,      'title' => _BBCODE_ADMIN_START);     
+        $links[] = array('url' => pnModURL('bbcode', 'admin', 'config'),  'text' => _BBCODE_ADMINCONFIG,  'title' => _BBCODE_ADMINCONFIG); 
     }
     return $links;
 }
