@@ -176,7 +176,7 @@ function bbcode_upgrade($oldversion)
             if (!pnModUnregisterHook('item',
                                      'transform',
                                      'API',
-                                     'bbcode',
+                                     'pn_bbcode',
                                      'user',
                                      'transform')) {
                 return LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (transform hook)');
