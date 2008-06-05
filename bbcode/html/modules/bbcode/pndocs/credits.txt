@@ -7,4 +7,4 @@ The idea was initially taken from BB coding.
 
 Orignal authors:
     Hinrich Donner <hd@tiro.de>
-    larsneo <larsneo@postnuke.com>
+    larsneo <larsneo@zikula.org>

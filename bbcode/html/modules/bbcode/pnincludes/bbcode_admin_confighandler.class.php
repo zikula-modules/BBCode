@@ -37,7 +37,7 @@ class bbcode_admin_confighandler
 
         $pnRender->assign('spoiler_preview', pnModAPIFunc('bbcode', 'user', 'transform',
                                                           array('objectid' => 1,
-                                                                'extrainfo' => "[spoiler]PostNuke + bbcode[/spoiler]")));
+                                                                'extrainfo' => "[spoiler]Zikula + bbcode[/spoiler]")));
 
 
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');

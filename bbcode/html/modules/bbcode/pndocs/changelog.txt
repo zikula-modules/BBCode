@@ -5,8 +5,8 @@ IMPORTANT NOTICE:
 The permission component changed in v2.0 from pn_bbode to bbcode, please update
 your permission rules!!!
 ===============================================================================
-  - This version needs min. PostNuke .8 or later to run, do not even try it 
-    with .764 or older - it won't work
+  - This version needs min. Zikula 1.0 or later to run, do not even try it 
+    with PostNuke .764 or older - it won't work
   - renamed to bbcode to get rid of the pn_ prefix.
   - added some config options
   - added [#4596] Lightbox, credits for the code go to soultrain, see
