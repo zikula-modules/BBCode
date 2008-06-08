@@ -16,10 +16,14 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+/**
+ * main function
+ *
+ */
 function bbcode_admin_main()
 {
     if (!SecurityUtil::checkPermission('bbcode::', "::", ACCESS_ADMIN)) {
-        return LogUtil::registerPermissionError('index.php');
+        return LogUtil::registerPermissionError(pnConfigGetVar('entrypoint', 'index.php'));
     }
 
     $hmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'bbcode'));
@@ -42,7 +46,7 @@ function bbcode_admin_main()
 function bbcode_admin_config()
 {
     if (!SecurityUtil::checkPermission('bbcode::', "::", ACCESS_ADMIN)) {
-        return LogUtil::registerPermissionError('index.php');
+        return LogUtil::registerPermissionError(pnConfigGetVar('entrypoint', 'index.php'));
     }
 
     Loader::requireOnce('modules/bbcode/pnincludes/bbcode_admin_confighandler.class.php');

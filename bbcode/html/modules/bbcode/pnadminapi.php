@@ -22,7 +22,6 @@
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
-
 /**
  * get available admin panel links
  *
@@ -33,9 +32,8 @@ function bbcode_adminapi_getlinks()
 {
     $links = array();
     if (SecurityUtil::checkPermission('bbcode::', '::', ACCESS_ADMIN)) {
-        $links[] = array('url' => pnModURL('bbcode', 'admin', 'main'),        'text' => _BBCODE_ADMIN_START,      'title' => _BBCODE_ADMIN_START);     
+        $links[] = array('url' => pnModURL('bbcode', 'admin', 'main'),    'text' => _BBCODE_ADMIN_START,  'title' => _BBCODE_ADMIN_START);     
         $links[] = array('url' => pnModURL('bbcode', 'admin', 'config'),  'text' => _BBCODE_ADMINCONFIG,  'title' => _BBCODE_ADMINCONFIG); 
     }
     return $links;
 }
-

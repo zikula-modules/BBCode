@@ -17,7 +17,7 @@
 // ----------------------------------------------------------------------
 
 // begin of no-change-area
-// do NOT change the following lines. Although theysa are not language
+// do NOT change the following lines. Although they are not language
 // relevant they are important for this module
 // 0 = no highlighting
 define('HILITE_NONE', 0);
@@ -62,7 +62,6 @@ define('_BBCODE_ADMINCOLORCONFIG', 'Configuration [color][/color]');
 define('_BBCODE_ADMINISTRATION', 'bbcode Administration');
 define('_BBCODE_ADMINQUOTECONFIG', 'Configuration [quote][/quote]');
 define('_BBCODE_ADMINSIZECONFIG', 'Configuration [size][/size]');
-define('_BBCODE_ARGSERROR',                 '[bbcode] Internal error! Arguments missing!');
 define('_BBCODE_BOLD', 'b');
 define('_BBCODE_BOLD_HINT', 'bold text');
 define('_BBCODE_CODE', 'Code');

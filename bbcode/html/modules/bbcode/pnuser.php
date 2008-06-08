@@ -29,7 +29,7 @@
  */
 function bbcode_user_main()
 {
-    return pnRedirect('index.php');
+    return pnRedirect(pnConfigGetVar('entrypoint', 'index.php'));
 }
 
 /**

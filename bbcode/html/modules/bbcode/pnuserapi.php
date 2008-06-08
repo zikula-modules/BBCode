@@ -31,7 +31,7 @@ function bbcode_userapi_transform($args)
     // Argument check. We do not care about the objectid in a transform hook,
     // only extrainfo is important
     if (!isset($args['extrainfo'])) {
-        return LogUtil::registerError(_BBCODE_ARGSERROR);
+        return LogUtil::registerError(_MODARGSERROR);
     }
 
     PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('bbcode'));
