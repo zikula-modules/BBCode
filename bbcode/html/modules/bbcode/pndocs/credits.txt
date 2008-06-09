@@ -8,3 +8,5 @@ The idea was initially taken from BB coding.
 Orignal authors:
     Hinrich Donner <hd@tiro.de>
     larsneo <larsneo@zikula.org>
+
+French language pack created by Gilles Pilloud
