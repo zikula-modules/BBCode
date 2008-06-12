@@ -5,6 +5,12 @@ IMPORTANT NOTICE:
 The permission component changed in v2.0 from pn_bbode to bbcode, please update
 your permission rules!!!
 ===============================================================================
+Upgrade from pn_bbcode:
+* remove old pn_bbcode module in the filesystem, do not remove the module in
+  Zikula!
+* copy new bbcode files to your modules folder
+* regenerate modules list and continue upgrading as usual
+===============================================================================
   - This version needs min. Zikula 1.0 or later to run, do not even try it 
     with PostNuke .764 or older - it won't work
   - renamed to bbcode to get rid of the pn_ prefix.
