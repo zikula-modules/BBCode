@@ -48,6 +48,8 @@ function bbcode_init()
     pnModSetVar('bbcode', 'allow_usersize', false);
     pnModSetVar('bbcode', 'allow_usercolor', false);
     pnModSetVar('bbcode', 'code_enabled', true);
+    pnModSetVar('bbcode', 'mimetex_enabled', false);
+    pnModSetVar('bbcode', 'mimetex_url', 'http://www.forkosh.dreamhost.com/cgi-bin/mimetex.cgi');
     pnModSetVar('bbcode', 'quote_enabled', true);
     pnModSetVar('bbcode', 'color_enabled', true);
     pnModSetVar('bbcode', 'size_enabled', true);
@@ -168,6 +170,10 @@ function bbcode_upgrade($oldversion)
                 pnModSetVar('bbcode', $varname, $oldvar);
             }
             pnModDelVar('pn_bbcode');
+            
+            // introduce mimetex module var
+            pnModSetVar('bbcode', 'mimetex_enabled', false);
+		    pnModSetVar('bbcode', 'mimetex_url', 'http://www.forkosh.dreamhost.com/cgi-bin/mimetex.cgi');
 
             // get list of hooked modules
             $hookedmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'pn_bbcode'));

@@ -21,6 +21,7 @@ Upgrade from pn_bbcode:
     in the bbspoiler css class. To read the text, highlight it using the mouse.
   - added [noparse][/noparse] to avoid parsing bbcode
   - updated GeSHi to 1.0.7.20
+  - added feature: mimetex-support.
     
 Version 1.30 - last version for .764!
    - This version needs the AjaxSupportPackage from http://noc.postnuke.com/frs/?group_id=8!!!

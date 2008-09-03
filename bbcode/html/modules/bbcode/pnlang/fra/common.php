@@ -29,6 +29,14 @@ define('HILITE_GESHI_WITHOUT_LN', 2);
 define('HILITE_GOOGLE', 3);
 // end of no-change-area
 
+// new for mimetex-integration. Please translate it yourself.. My french is awful and the last lesson at school is far away ;-)
+define('_BBCODE_ADMINMIMETEXCONFIG',	'Configuration of mimeTeX integration [math][/math]');
+define('_BBCODE_MIMETEX_ENABLE',		'Enable mimeTeX support');
+define('_BBCODE_MIMETEX_FULL_URL',		'Full URL to the mimeTeX cgi script');
+define('_BBCODE_MIMETEX_URL_DESC',		'Please use an own mimeTeX installation for your website!');
+define('_BBCODE_MIMETEX_TESTIMAGE',		'Test image for mimeTeX:');
+define('_BBCODE_MIMETEX_ENTERURLFORTESTIMAGE',	'Enter URl to your mimeTeX installation and you will see a test image here');
+
 define('_BBCODE_HELPURL', 'http://fr.wikipedia.org/wiki/BBCode');
 define('_BBCODE_HELPURL_HINT', 'what is BBCode?');
 define('_BBCODE_ADMINCODECONFIG', 'Configuration de [code][/code]');

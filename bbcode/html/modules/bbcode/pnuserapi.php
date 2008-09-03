@@ -190,6 +190,14 @@ function bbcode_transform($message)
         $message = preg_replace("/\[size=(.*?)\](.*?)\[\/size\]/si", "\\2", $message);
     }
 
+    // [math] and [/math] for posting math code converted via mimetex cgi script
+    if(pnModGetVar('bbcode', 'mimetex_enabled')) {
+      	$mimetex_url = pnModGetVar('bbcode','mimetex_url');
+      	if (isset($mimetex_url) && ($mimetex_url != "")) {
+	        $message = preg_replace("/\[math\](.*?)\[\/math\]/si", "<img src=\"".$mimetex_url."?\\1\" />", $message);
+		}
+    }
+
     // spoiler tag
     if(pnModGetVar('bbcode', 'spoiler_enabled')) {
         $spoiler = str_replace('%s', '\\1', pnModGetVar('bbcode', 'spoiler'));

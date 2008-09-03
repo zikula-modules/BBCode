@@ -23,6 +23,7 @@ class bbcode_admin_confighandler
     {
         $pnRender->caching = false;
         $pnRender->add_core_data();
+        $pnRender->assign('mimetex_url', pnModGetVar('bbcode','mimetex_url'));
         $pnRender->assign('quote_preview', nl2br(pnModAPIFunc('bbcode', 'user', 'transform',
                                                               array('objectid' => 1,
                                                                     'extrainfo' => "[quote=username]test\ntest test\n[/quote]"))));
@@ -49,6 +50,7 @@ class bbcode_admin_confighandler
         $script .= ($modvars['size_enabled'] == true) ? 'var sizeenabled = true;' : 'var sizeenabled = false;';
         $script .= ($modvars['lightbox_enabled'] == true) ? 'var lightboxenabled = true;' : 'var lightboxenabled = false;';
         $script .= ($modvars['spoiler_enabled'] == true) ? 'var spoilerenabled = true;' : 'var spoilerenabled = false;';
+        $script .= ($modvars['mimetex_enabled'] == true) ? 'var mimetexenabled = true;' : 'var mimetexenabled = false;';
         $script .= '</script>';
         PageUtil::addVar('rawtext', $script);
         PageUtil::addVar('javascript', 'modules/bbcode/pnjavascript/bbcode_admin.js');
@@ -117,6 +119,10 @@ class bbcode_admin_confighandler
             pnModSetVar('bbcode', 'size_huge',  $data['size_huge']);
             pnModSetVar('bbcode', 'size_enabled',  $data['size_enabled']);
             pnModSetVar('bbcode', 'allow_usersize',  $data['allow_usersize']);
+
+			// mimetex
+			pnModSetVar('bbcode', 'mimetex_enabled',	$data['mimetex_enabled']);
+			pnModSetVar('bbcode', 'mimetex_url',	$data['mimetex_url']);
             
             // misc
             pnModSetVar('bbcode', 'lightbox_enabled',  $data['lightbox_enabled']);

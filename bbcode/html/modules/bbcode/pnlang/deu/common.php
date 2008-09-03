@@ -29,6 +29,14 @@ define('HILITE_GESHI_WITHOUT_LN', 2);
 define('HILITE_GOOGLE', 3);
 // end of no-change-area
 
+// new for mimetex-integration
+define('_BBCODE_ADMINMIMETEXCONFIG',	'Konfiguration mimeTeX-Schnittstelle [math][/math]');
+define('_BBCODE_MIMETEX_ENABLE',		'Schnittstelle für mimeTeX aktivieren');
+define('_BBCODE_MIMETEX_FULL_URL',		'URL zur mimeTeX CGI-Schnittstelle');
+define('_BBCODE_MIMETEX_URL_DESC',		'Bitte eine eigene Installation von mimeTeX anlegen und nicht fremde Serverlast benutzen!');
+define('_BBCODE_MIMETEX_TESTIMAGE',		'Testbild für mimeTeX:');
+define('_BBCODE_MIMETEX_ENTERURLFORTESTIMAGE',	'Wenn sie eine Adresse zur mimeTeX-Installation angegeben haben, wird hier ein Testbild angezeigt, welches anzeigt, dass mimeTeX hoffentlich richtig funktioniert.');
+
 // new in 2.0
 define('_BBCODE_GOTOHOMEPAGE', 'gehe zur bbcode-Projektseite');
 define('_BBCODE_ADMIN_START', 'Start');

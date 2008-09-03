@@ -156,6 +156,31 @@ $Id$
         <!--[ pnformcheckbox id="allow_usersize" checked=$pncore.bbcode.allow_usersize ]-->
     </dd>    
 </dl>
+<h3><!--[ pnml name='_BBCODE_ADMINMIMETEXCONFIG' ]--></h3>
+<dl class="bbcode_clearfix">
+    <dt>
+        <!--[ pnformlabel for="mimetex_enabled" text="_BBCODE_MIMETEX_ENABLE" ]-->:
+    </dt>
+    <dd>
+        <!--[ pnformcheckbox id="mimetex_enabled" checked=$pncore.bbcode.mimetex_enabled onchange="toggleconfig('mimetexconfig');"]-->
+    </dd>    
+</dl>
+<dl id="mimetexconfig" class="bbcode_clearfix">
+    <dt>
+        <!--[ pnformlabel for="mimetex_url" text="_BBCODE_MIMETEX_FULL_URL" ]-->:
+    </dt>
+    <dd>
+        <!--[ pnformtextinput id="mimetex_url" text=$pncore.bbcode.mimetex_url|pnvarprepfordisplay size="20" maxLength="99" ]-->
+        <!--[ pnml name="_BBCODE_MIMETEX_URL_DESC" ]-->.<br />
+        <!--[if $mimetex_url ne ""]-->
+	        <!--[ pnml name="_BBCODE_MIMETEX_TESTIMAGE" ]-->: [math]a^2+b^2=c^2[/math]<br />
+	        <img src="<!--[$mimetex_url]-->?a^2+b^2=c^2" />
+	    <!--[else]-->
+	    	<!--[ pnml name="_BBCODE_MIMETEX_ENTERURLFORTESTIMAGE" ]-->
+	    <!--[/if]-->
+
+    </dd>    
+</dl>
 <h3><!--[ pnml name="_BBCODE_ADMINMISCCONFIG" ]--></h3>
 <dl class="bbcode_clearfix">
     <dt>
