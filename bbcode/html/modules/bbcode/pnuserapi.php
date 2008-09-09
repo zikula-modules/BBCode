@@ -194,7 +194,12 @@ function bbcode_transform($message)
     if(pnModGetVar('bbcode', 'mimetex_enabled')) {
       	$mimetex_url = pnModGetVar('bbcode','mimetex_url');
       	if (isset($mimetex_url) && ($mimetex_url != "")) {
-	        $message = preg_replace("/\[math\](.*?)\[\/math\]/si", "<img src=\"".$mimetex_url."?\\1\" />", $message);
+			switch (pnModGetName()) {
+				case 'pnWikka':	// for this module we have to use a special syntax
+					$message = preg_replace("/\[math\](.*?)\[\/math\]/si", '{{image url="'.$mimetex_url.'?'."\\1".'"}}', $message);
+				default:
+					$message = preg_replace("/\[math\](.*?)\[\/math\]/si", "<img src=\"".$mimetex_url."?\\1\" />", $message);
+			}
 		}
     }
 
