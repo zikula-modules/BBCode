@@ -47,7 +47,7 @@ function bbcode_userapi_transform($args)
             $result[] = bbcode_transform($text);
         }
     } else {
-        $result = bbcode_transform($args['extrainfo']);
+        $result = bbcode_transform($args['text']);
     }
 
     return $result;
@@ -104,19 +104,20 @@ function bbcode_transform($message)
     // move all links out of the text and replace them with placeholders
     $linkscount = preg_match_all('/<a(.*)>(.*)<\/a>/siU', $message, $links);
     for ($i = 0; $i < $linkscount; $i++) {
-        $message = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " PNBBCODELINKREPLACEMENT{$i} ", $message, 1);
+        $message = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " BBCODELINKREPLACEMENT{$i} ", $message, 1);
     }
 
     // Step 1 - remove all html tags, we do not want to change them!!
-    $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $message, $html);
+    /* $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $message, $html); */
+    $htmlcount = preg_match_all("/</?\w+((\s+\w+(\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)/?>/i", $message, $html);
     for ($i=0; $i < $htmlcount; $i++) {
-        $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " PNBBCODEHTMLREPLACEMENT{$i} ", $message, 1);
+        $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " BBCODEHTMLREPLACEMENT{$i} ", $message, 1);
     }
     
     // replace NOPARSE
     $noparsecount = preg_match_all('/\[noparse\](.*)\[\/noparse\]/siU', $message, $noparse);
     for ($i = 0; $i < $noparsecount; $i++) {
-        $message = preg_replace('/(' . preg_quote($noparse[0][$i], '/') . ')/', " PNBBCODENOPARSEREPLACEMENT{$i} ", $message, 1);
+        $message = preg_replace('/(' . preg_quote($noparse[0][$i], '/') . ')/', " BBCODENOPARSEREPLACEMENT{$i} ", $message, 1);
     }
     
     // [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
@@ -244,15 +245,15 @@ function bbcode_transform($message)
     for ($i = 0; $i < $noparsecount; $i++) {
         // trick: [1] contains the text without the real noparse tag, so we do not
         // need to remove them manually
-        $message = preg_replace("/ PNBBCODENOPARSEREPLACEMENT{$i} /", $noparse[1][$i], $message, 1);
+        $message = preg_replace("/ BBCODENOPARSEREPLACEMENT{$i} /", $noparse[1][$i], $message, 1);
     }
     
     // replace the tags and links that we removed before
     for ($i = 0; $i < $htmlcount; $i++) {
-        $message = preg_replace("/ PNBBCODEHTMLREPLACEMENT{$i} /", $html[0][$i], $message, 1);
+        $message = preg_replace("/ BBCODEHTMLREPLACEMENT{$i} /", $html[0][$i], $message, 1);
     }
     for ($i = 0; $i < $linkscount; $i++) {
-        $message = preg_replace("/ PNBBCODELINKREPLACEMENT{$i} /", $links[0][$i], $message, 1);
+        $message = preg_replace("/ BBCODELINKREPLACEMENT{$i} /", $links[0][$i], $message, 1);
     }
 
     // Remove our padding from the string..
@@ -666,6 +667,11 @@ function bbcode_userapi_get_geshi_languages()
 
 /**
  * linktest_callback_0
+ * [url]xxxx://www.phpbb.com[/url]
+ *      +++++++
+ *      matches[1]
+ *             +++++++++++++
+ *             matches[2]
  *
  */
 function linktest_callback_0($matches)
@@ -687,6 +693,9 @@ function linktest_callback_0($matches)
             return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
         }
     } else {
+        $matches[1] = trim(strip_Tags($matches[1]));
+        $matches[2] = trim(strip_tags($matches[2]));
+        
         $displayurl = bbcode_minimize_displayurl($matches[1] . $matches[2]);
         return '<a href="' . $matches[1] . $matches[2] . '">' . $displayurl . '</a>';
     }
@@ -694,7 +703,10 @@ function linktest_callback_0($matches)
 
 /**
  * linktest_callback_1
- *
+ * [url]www.phpbb.com[/url] (no xxxx:// prefix).
+ *      +++++++++++++
+ *      matches[1]
+ *        
  */
 function linktest_callback_1($matches)
 {
@@ -722,7 +734,13 @@ function linktest_callback_1($matches)
 
 /**
  * linktest_callback_2
- *
+ * [url=xxxx://www.phpbb.com]phpBB[/url]
+ *      +++++++
+ *      matches[1]
+ *             +++++++++++++
+ *             matches[2]
+ *                           +++++
+ *                           matches[3]
  */
 function linktest_callback_2($matches)
 {
@@ -741,6 +759,7 @@ function linktest_callback_2($matches)
     } else {
         $displayurl = $matches[3];
         $title = strip_tags($displayurl);
+        $displayurl = trim(bbcode_minimize_displayurl($displayurl));
     }
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
@@ -756,8 +775,13 @@ function linktest_callback_2($matches)
 
 /**
  * linktest_callback_3
+ * [url=www.phpbb.com]phpBB[/url] (no xxxx:// prefix).
+ *      +++++++++++++ 
+ *      maches[1]     
+ *                    +++++
+ *                    matches[2]
  *
- */
+ */  
 function linktest_callback_3($matches)
 {
     static $is_allowed;
@@ -775,6 +799,7 @@ function linktest_callback_3($matches)
     } else {
         $displayurl = $matches[2];
         $title = strip_tags($displayurl);
+        $displayurl = trim(bbcode_minimize_displayurl($displayurl));
     }
     if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
@@ -790,6 +815,7 @@ function linktest_callback_3($matches)
 
 /**
  * linktest_callback_4
+ * [email]user@domain.tld[/email]
  *
  */
 function linktest_callback_4($matches)
