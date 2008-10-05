@@ -719,7 +719,18 @@ function linktest_callback_1($matches)
         $our_url = pnGetBaseURL();
         $is_allowed = SecurityUtil::checkPermission('bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
-    if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
+
+    // try to find out if we have encountered an internal url    
+    if(!pnVarValidate($matches[1], 'url')) {
+        $entrypoint = pnConfigGetVar('entrypoint', 'index.php');
+        if((strpos($matches[1], $entrypoint) === 0) || (strpos($matches[1], 'module-') === 0)){
+            $matches[1] = pnGetBaseURL() . $matches[1];
+        } else {
+            $matches[1] = 'http://' . $matches[1];
+        }
+    }
+    
+    if( ($is_allowed==false) && (strpos($matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
             return  DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
@@ -728,7 +739,7 @@ function linktest_callback_1($matches)
         }
     } else {
         $displayurl = bbcode_minimize_displayurl($matches[1]);
-        return '<a href="http://' . $matches[1] . '">' . $displayurl . '</a>';
+        return '<a href="' . $matches[1] . '">' . $displayurl . '</a>';
     }
 }
 
@@ -794,6 +805,16 @@ function linktest_callback_3($matches)
         $is_allowed = SecurityUtil::checkPermission('bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
 
+    // try to find out if we have encountered an internal url    
+    if(!pnVarValidate($matches[1], 'url')) {
+        $entrypoint = pnConfigGetVar('entrypoint', 'index.php');
+        if((strpos($matches[1], $entrypoint) === 0) || (strpos($matches[1], 'module-') === 0)){
+            $matches[1] = pnGetBaseURL() . $matches[1];
+        } else {
+            $matches[1] = 'http://' . $matches[1];
+        }
+    }
+
     if(pnVarValidate($matches[2], 'url')==true) {
         $displayurl = DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
     } else {
@@ -801,7 +822,7 @@ function linktest_callback_3($matches)
         $title = strip_tags($displayurl);
         $displayurl = trim(bbcode_minimize_displayurl($displayurl));
     }
-    if( ($is_allowed==false) && (strpos('http://' . $matches[1], $our_url)===false) ) {
+    if( ($is_allowed==false) && (strpos($matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
             return '<span title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '"><strong>' . $displayurl . '</strong></span>';
@@ -809,7 +830,7 @@ function linktest_callback_3($matches)
             return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
         }
     } else {
-        return '<a href="http://' . $matches[1] . '" title="' . $title . '">' . $displayurl . '</a>';
+        return '<a href="' . $matches[1] . '" title="' . $title . '">' . $displayurl . '</a>';
     }
 }
 
