@@ -38,6 +38,7 @@ define('_BBCODE_MIMETEX_TESTIMAGE',		'Testbild für mimeTeX:');
 define('_BBCODE_MIMETEX_ENTERURLFORTESTIMAGE',	'Wenn sie eine Adresse zur mimeTeX-Installation angegeben haben, wird hier ein Testbild angezeigt, welches anzeigt, dass mimeTeX hoffentlich richtig funktioniert.');
 
 // new in 2.0
+define('_BBCODE_FAILEDTOUPGRADEHOOK', 'Fehler beim Aktualiseren der Hooks');
 define('_BBCODE_GOTOHOMEPAGE', 'gehe zur bbcode-Projektseite');
 define('_BBCODE_ADMIN_START', 'Start');
 define('_BBCODE_ISHOOKEDWITH', 'bbcode wird mit folgenden Modulen verwendet');

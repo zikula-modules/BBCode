@@ -38,6 +38,7 @@ define('_BBCODE_MIMETEX_TESTIMAGE',		'Test image for mimeTeX:');
 define('_BBCODE_MIMETEX_ENTERURLFORTESTIMAGE',	'Enter URl to your mimeTeX installation and you will see a test image here');
 
 // new in 2.0
+define('_BBCODE_FAILEDTOUPGRADEHOOK', 'failed to upgrade hook');
 define('_BBCODE_GOTOHOMEPAGE', 'visit the bbcode project site');
 define('_BBCODE_ADMIN_START', 'Start');
 define('_BBCODE_ISHOOKEDWITH', 'Actually bbcode is used with the following modules');

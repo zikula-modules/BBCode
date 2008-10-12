@@ -178,32 +178,22 @@ function bbcode_upgrade($oldversion)
             // get list of hooked modules
             $hookedmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'pn_bbcode'));
             
-            // remove hook
-            if (!pnModUnregisterHook('item',
-                                     'transform',
-                                     'API',
-                                     'pn_bbcode',
-                                     'user',
-                                     'transform')) {
-                return LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (transform hook)');
-            } 
-            // add hook
-            if (!pnModRegisterHook('item',
-                                   'transform',
-                                   'API',
-                                   'bbcode',
-                                   'user',
-                                   'transform')) {
-                return LogUtil::registerError(_BBCODE_COULDNOTREGISTER . ' (transform hook)');
-            }
+    		// update hooks
+    		$pntables = pnDBGetTables();
+    		$hookstable  = $pntables['hooks'];
+    		$hookscolumn = $pntables['hooks_column'];
+    		$sql = 'UPDATE ' . $hookstable . ' SET ' . $hookscolumn['smodule'] . '=\'bbcode\' WHERE ' . $hookscolumn['smodule'] . '=\'pn_bbcode\'';
+    		$res = DBUtil::executeSQL ($sql);
+    		if ($res === false) {
+        		return LogUtil::registerError(_BBCODE_FAILEDTOUPGRADEHOOK . ' (smodule)');
+    		}
+    
+    		$sql = 'UPDATE ' . $hookstable . ' SET ' . $hookscolumn['tmodule'] . '=\'bbcode\' WHERE ' . $hookscolumn['tmodule'] . '=\'pn_bbcode\'';
+    		$res   = DBUtil::executeSQL ($sql);
+    		if ($res === false) {
+        		return LogUtil::registerError(_BBCODE_FAILEDTOUPGRADEHOOK . ' (tmodule)');
+    		}
             
-            // attach bbcode to previous hooked modules
-            foreach ($hookedmods as $hookedmod => $dummy) {
-                pnModAPIFunc('modules' ,'admin', 'enablehooks', 
-                             array('callermodname' => $hookedmod,
-                                   'hookmodname'   => 'bbcode'));
-            }
-
         default:
              break;
     }
