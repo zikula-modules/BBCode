@@ -134,7 +134,8 @@ function bbcode_upgrade($oldversion)
                 return LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (display hook)');
             }
             pnModDelVar('pn_bbcode', 'displayhook');
-        case '1.22':
+            case '1.21':
+            case '1.22':
             // syntax highlight: yes/no and linenumber yes/no gets replaced with 
             // 0 = no highlighting
             // 1 = geshi with linenumbers
