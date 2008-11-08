@@ -198,7 +198,7 @@ function bbcode_transform($message)
 			switch (pnModGetName()) {
 				case 'pnWikka':	// for this module we have to use a special syntax
 					$message = preg_replace("/\[math\](.*?)\[\/math\]/si", '{{image url="'.$mimetex_url.'?'."\\1".'"}}', $message);
-					$break;
+					break;
 				default:
 					$message = preg_replace("/\[math\](.*?)\[\/math\]/si", "<img src=\"".$mimetex_url."?\\1\" />", $message);
 			}
