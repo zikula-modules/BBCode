@@ -38,8 +38,6 @@ function bbcode_userapi_transform($args)
     if(pnModGetVar('bbcode', 'lightbox_enabled')==true) {
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
         PageUtil::addVar('javascript', 'javascript/ajax/scriptaculous.js');
-        PageUtil::addVar('javascript', 'javascript/ajax/lightbox.js');
-        PageUtil::addVar('stylesheet', 'javascript/ajax/lightbox/lightbox.css');
     }
 
     if (is_array($args['extrainfo'])) {
@@ -140,9 +138,13 @@ function bbcode_transform($message)
         $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<img src="\\1" alt="\\1" />', $message);
     } else {
         // use lightbox :-)
-        $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<a href="\\1" rel="lightbox"><img src="\\1" alt="\\1" width="' . DataUtil::formatForDisplay(pnModGetVar('bbcode', 'lightbox_previewwidth')) . '"/></a>', $message);
+        $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<a href="\\1" rel="lightbox"><img src="\\1" alt="\\1" width="' . DataUtil::formatForDisplay(pnModGetVar('bbcode', 'lightbox_previewwidth')) . '"/></a>', $message, -1, $img_replacement_count);
+        if ($img_replacement_count > 0) {
+            // load lightbox stuff only if at least one img tag has been found
+            PageUtil::addVar('javascript', 'javascript/ajax/lightbox.js');
+            PageUtil::addVar('stylesheet', 'javascript/ajax/lightbox/lightbox.css');
+        }
     }
-    //$message = preg_replace("/\[img\](.*?)\[\/img\]/si", "<IMG SRC=\"\\1\" BORDER=\"0\">", $message);
 
     // three new bbcodes, thanks to Chris Miller (r3ap3r)
     // [u] and [/u] for underlining text.
@@ -652,17 +654,15 @@ function bbcode_encode_list($message)
  */
 function bbcode_userapi_get_geshi_languages()
 {
+    Loader::loadClass('FileUtil');
     $langs = array();
     if((pnModGetVar('bbcode', 'syntaxhilite')== HILITE_GESHI_WITH_LN) || (pnModGetVar('bbcode', 'syntaxhilite')== HILITE_GESHI_WITHOUT_LN)){
-        $dir = opendir('modules/bbcode/pnincludes/geshi');
-        while($lang = readdir($dir)) {
-            if(preg_match("/\.php$/si", $lang)) {
-                // remove trailing .php
-                $langs[] = preg_replace("/\.php$/si", "", $lang);
-            }
+        $langsfound = FileUtil::getFiles('modules/bbcode/pnincludes/geshi', false, false, '.php', false);
+        foreach($langsfound as $langfound) {
+            $langs[] = str_replace(array('modules/bbcode/pnincludes/geshi/', '.php'), '', $langfound);
         }
+        asort($langs);
     }
-    asort($langs);
     return $langs;
 }
 
