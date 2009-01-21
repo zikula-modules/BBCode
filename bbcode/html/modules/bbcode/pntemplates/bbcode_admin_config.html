@@ -1,34 +1,19 @@
-<!--[*
-$Id$
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-*]-->
+<!--[* $Id *]-->
 
 <!--[ include file=bbcode_admin_menu.html ]-->
 <h3><!--[ pnml name='_BBCODE_ADMINCONFIG' ]--></h3>
+<br class="pn-clearer" />
+
 <!--[ pnform ]-->
 <!--[ pnformvalidationsummary ]-->
 
 <fieldset>
   <legend><!--[ pnml name='_BBCODE_ADMINCODECONFIG' ]--></legend>
-  <dl class="pn-clearfix">
+  <dl class="configrow">
     <dt><!--[ pnformlabel for="code_enabled" text="_BBCODE_CODE_ENABLE" ]--></dt>
     <dd><!--[ pnformcheckbox id="code_enabled" checked=$pncore.bbcode.code_enabled onchange="toggleconfig('codeconfig');"]--></dd>
   </dl>
-  <dl id="codeconfig" class="pn-clearfix">
+  <dl id="codeconfig" class="configrow">
     <dt><!--[ pnformlabel for="code" text="_BBCODE_CODE" ]--></dt>
     <dd>
       <!--[ pnformtextinput id="code" textMode="multiline" rows="3" cols="50" text=$pncore.bbcode.code ]-->
@@ -43,11 +28,11 @@ $Id$
 
 <fieldset>
   <legend><!--[ pnml name='_BBCODE_ADMINQUOTECONFIG' ]--></legend>
-  <dl class="pn-clearfix">
+  <dl class="configrow">
     <dt><!--[ pnformlabel for="quote_enabled" text="_BBCODE_QUOTE_ENABLE" ]--></dt>
     <dd><!--[ pnformcheckbox id="quote_enabled" checked=$pncore.bbcode.quote_enabled onchange="toggleconfig('quoteconfig');"]--></dd>
   </dl>
-  <dl id="quoteconfig" class="pn-clearfix">
+  <dl id="quoteconfig" class="configrow">
     <dt><!--[ pnformlabel for="quote" text="_BBCODE_QUOTE" ]--></dt>
     <dd>
       <!--[ pnformtextinput id="quote" textMode="multiline" rows="3" cols="50" text=$pncore.bbcode.quote ]-->
@@ -60,11 +45,11 @@ $Id$
 
 <fieldset>
   <legend><!--[ pnml name='_BBCODE_ADMINCOLORCONFIG' ]--></legend>
-  <dl class="pn-clearfix">
+  <dl class="configrow">
     <dt><!--[ pnformlabel for="color_enabled" text="_BBCODE_COLOR_ENABLE" ]--></dt>
     <dd><!--[ pnformcheckbox id="color_enabled" checked=$pncore.bbcode.color_enabled onchange="toggleconfig('colorconfig');"]--></dd>
   </dl>
-  <dl id="colorconfig" class="pn-clearfix">
+  <dl id="colorconfig" class="configrow">
     <dt><!--[ pnformlabel for="allow_usercolor" text="_BBCODE_COLOR_ALLOWUSERCOLOR" ]--></dt>
     <dd><!--[ pnformcheckbox id="allow_usercolor" checked=$pncore.bbcode.allow_usercolor ]--></dd>
   </dl>
@@ -72,11 +57,11 @@ $Id$
 
 <fieldset>
   <legend><!--[ pnml name='_BBCODE_ADMINSIZECONFIG' ]--></legend>
-  <dl class="pn-clearfix">
+  <dl class="configrow">
     <dt><!--[ pnformlabel for="size_enabled" text="_BBCODE_SIZE_ENABLE" ]--></dt>
     <dd><!--[ pnformcheckbox id="size_enabled" checked=$pncore.bbcode.size_enabled onchange="toggleconfig('sizeconfig');"]--></dd>
   </dl>
-  <dl id="sizeconfig" class="pn-clearfix">
+  <dl id="sizeconfig" class="configrow">
     <dt><!--[ pnformlabel for="size_tiny" text="_BBCODE_SIZE_TINY" ]--></dt>
     <dd>
       <!--[ pnformtextinput id="size_tiny" text=$pncore.bbcode.size_tiny|pnvarprepfordisplay size="20" maxLength="30" ]-->
@@ -116,11 +101,11 @@ $Id$
 
 <fieldset>
   <legend><!--[ pnml name='_BBCODE_ADMINMIMETEXCONFIG' ]--></legend>
-  <dl class="pn-clearfix">
+  <dl class="configrow">
     <dt><!--[ pnformlabel for="mimetex_enabled" text="_BBCODE_MIMETEX_ENABLE" ]--></dt>
     <dd><!--[ pnformcheckbox id="mimetex_enabled" checked=$pncore.bbcode.mimetex_enabled onchange="toggleconfig('mimetexconfig');"]--></dd>
   </dl>
-  <dl id="mimetexconfig" class="pn-clearfix">
+  <dl id="mimetexconfig" class="configrow">
     <dt><!--[ pnformlabel for="mimetex_url" text="_BBCODE_MIMETEX_FULL_URL" ]--></dt>
     <dd>
       <!--[ pnformtextinput id="mimetex_url" text=$pncore.bbcode.mimetex_url|pnvarprepfordisplay size="20" maxLength="99" ]-->
@@ -137,18 +122,18 @@ $Id$
 
 <fieldset>
   <legend><!--[ pnml name='_BBCODE_ADMINMISCCONFIG' ]--></legend>
-  <dl class="pn-clearfix">
+  <dl class="configrow">
     <dt><!--[ pnformlabel for="lightbox_enabled" text="_BBCODE_LIGHTBOX_ENABLE" ]--></dt>
     <dd><!--[ pnformcheckbox id="lightbox_enabled" checked=$pncore.bbcode.lightbox_enabled onChange="toggleconfig('lightboxconfig');"]--></dd>
   </dl>
-  <dl id="lightboxconfig" class="pn-clearfix">
+  <dl id="lightboxconfig" class="configrow">
     <dt><!--[ pnformlabel for="lightbox_previewwidth" text="_BBCODE_LIGHTBOX_PREVIEWWIDTH" ]--></dt>
     <dd>
       <!--[ pnformintinput id="lightbox_previewwidth" minValue="50" maxValue="1000" size="4" text=$pncore.bbcode.lightbox_previewwidth ]-->px&nbsp;<!--[ pnml name="_BBCODE_LIGHTBOX_PREVIEWWIDTHINFO" ]-->
       <div class="pn-informationmsg"><!--[ pnml name="_BBCODE_LIGHTBOX_PREVIEWHEIGHTINFO" ]--></div>
     </dd>
   </dl>
-  <dl class="pn-clearfix">
+  <dl class="configrow">
     <dt><!--[ pnformlabel for="link_shrinksize" text="_BBCODE_LINK_SHRINKSIZE" ]--></dt>
     <dd><!--[ pnformintinput id="link_shrinksize" minValue="0" maxValue="50" size="2" text=$pncore.bbcode.link_shrinksize ]-->&nbsp;<!--[ pnml name="_BBCODE_CHARS" ]-->
       <div class="pn-informationmsg"><!--[ pnml name="_BBCODE_LINK_SHRINKSIZEINFO" ]--></div>
@@ -156,7 +141,7 @@ $Id$
     <dt><!--[ pnformlabel for="spoiler_enabled" text="_BBCODE_SPOILER_ENABLE" ]--></dt>
     <dd><!--[ pnformcheckbox id="spoiler_enabled" checked=$pncore.bbcode.spoiler_enabled onChange="toggleconfig('spoilerconfig');"]--></dd>
   </dl>
-  <dl id="spoilerconfig" class="pn-clearfix">
+  <dl id="spoilerconfig" class="configrow">
     <dt><!--[ pnformlabel for="spoiler" text="_BBCODE_SPOILERCODE" ]--></dt>
     <dd><!--[ pnformtextinput id="spoiler" textMode="multiline" rows="3" cols="50" text=$pncore.bbcode.spoiler ]-->
       <div class="pn-informationmsg"><!--[ pnml name='_BBCODE_SPOILERHINT' ]--></div>
