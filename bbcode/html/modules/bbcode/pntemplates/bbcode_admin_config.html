@@ -17,7 +17,7 @@
         <div class="<!--[ $configclass ]-->row">
             <!--[ pnformlabel for="code" text="_BBCODE_CODE" ]-->
             <!--[ pnformtextinput id="code" textMode="multiline" rows="3" cols="50" text=$pncore.bbcode.code ]-->
-            <div class="zk-formnote pn-informationmsg"><!--[ pnml name='_BBCODE_CODEHINT' ]--></div>
+            <div class="z-formnote pn-informationmsg"><!--[ pnml name='_BBCODE_CODEHINT' ]--></div>
         </div>
         <div class="<!--[ $configclass ]-->row">
             <!--[ pnformlabel for="syntaxhilite" text="_BBCODE_CODE_SYNTAXHIGHLIGHTING" ]-->
@@ -26,7 +26,7 @@
         <div class="<!--[ $configclass ]-->row">
             <label><!--[ pnml name='_BBCODE_PREVIEW' ]--></label>
             <br />
-            <div class="zk-formnote"><!--[ $code_preview|pnvarprephtmldisplay ]--></div>
+            <div class="z-formnote"><!--[ $code_preview|pnvarprephtmldisplay ]--></div>
         </div>
     </div>
 </fieldset>
@@ -41,12 +41,12 @@
         <div class="<!--[ $configclass ]-->row">
             <!--[ pnformlabel for="quote" text="_BBCODE_QUOTE" ]-->
             <!--[ pnformtextinput id="quote" textMode="multiline" rows="3" cols="50" text=$pncore.bbcode.quote ]-->
-            <div class="zk-formnote pn-informationmsg"><!--[ pnml name='_BBCODE_QUOTEHINT' ]--></div>
+            <div class="z-formnote pn-informationmsg"><!--[ pnml name='_BBCODE_QUOTEHINT' ]--></div>
         </div>
         <div class="<!--[ $configclass ]-->row">
             <label><!--[ pnml name='_BBCODE_PREVIEW' ]--></label>
             <br />
-            <div class="zk-formnote"><!--[ $quote_preview|pnvarprephtmldisplay ]--></div>
+            <div class="z-formnote"><!--[ $quote_preview|pnvarprephtmldisplay ]--></div>
         </div>
     </div>
 </fieldset>
@@ -122,9 +122,9 @@
         <div class="<!--[ $configclass ]-->row">
             <!--[ pnformlabel for="mimetex_url" text="_BBCODE_MIMETEX_FULL_URL" ]-->
             <!--[ pnformtextinput id="mimetex_url" text=$pncore.bbcode.mimetex_url|pnvarprepfordisplay size="20" maxLength="99" ]-->
-            <p class="zk-formnote pn-sub"><!--[ pnml name="_BBCODE_MIMETEX_URL_DESC" ]--></p>
+            <p class="z-formnote pn-sub"><!--[ pnml name="_BBCODE_MIMETEX_URL_DESC" ]--></p>
         </div>
-        <div class="<!--[ $configclass ]-->row zk-formnote">
+        <div class="<!--[ $configclass ]-->row z-formnote">
             <!--[if $mimetex_url ne ""]-->
             <!--[ pnml name="_BBCODE_MIMETEX_TESTIMAGE" ]-->: [math]a^2+b^2=c^2[/math]<br />
             <img src="<!--[$mimetex_url]-->?a^2+b^2=c^2" />
@@ -144,12 +144,12 @@
     <div id="lightboxconfig" class="<!--[ $configclass ]-->row">
         <!--[ pnformlabel for="lightbox_previewwidth" text="_BBCODE_LIGHTBOX_PREVIEWWIDTH" ]-->
         <div><!--[ pnformintinput id="lightbox_previewwidth" minValue="50" maxValue="1000" size="4" text=$pncore.bbcode.lightbox_previewwidth ]--> px&nbsp;<!--[ pnml name="_BBCODE_LIGHTBOX_PREVIEWWIDTHINFO" ]--></div>
-        <div class="zk-formnote pn-informationmsg"><!--[ pnml name="_BBCODE_LIGHTBOX_PREVIEWHEIGHTINFO" ]--></div>
+        <div class="z-formnote pn-informationmsg"><!--[ pnml name="_BBCODE_LIGHTBOX_PREVIEWHEIGHTINFO" ]--></div>
     </div>
     <div class="<!--[ $configclass ]-->row">
         <!--[ pnformlabel for="link_shrinksize" text="_BBCODE_LINK_SHRINKSIZE" ]-->
         <div><!--[ pnformintinput id="link_shrinksize" minValue="0" maxValue="50" size="2" text=$pncore.bbcode.link_shrinksize ]-->&nbsp;<!--[ pnml name="_BBCODE_CHARS" ]--></div>
-        <div class="zk-formnote pn-informationmsg"><!--[ pnml name="_BBCODE_LINK_SHRINKSIZEINFO" ]--></div>
+        <div class="z-formnote pn-informationmsg"><!--[ pnml name="_BBCODE_LINK_SHRINKSIZEINFO" ]--></div>
     </div>
     <div class="<!--[ $configclass ]-->row">
         <!--[ pnformlabel for="spoiler_enabled" text="_BBCODE_SPOILER_ENABLE" ]-->
@@ -159,11 +159,11 @@
         <div class="<!--[ $configclass ]-->row">
             <!--[ pnformlabel for="spoiler" text="_BBCODE_SPOILERCODE" ]-->
             <!--[ pnformtextinput id="spoiler" textMode="multiline" rows="3" cols="50" text=$pncore.bbcode.spoiler ]-->
-            <div class="zk-formnote pn-informationmsg"><!--[ pnml name='_BBCODE_SPOILERHINT' ]--></div>
+            <div class="z-formnote pn-informationmsg"><!--[ pnml name='_BBCODE_SPOILERHINT' ]--></div>
         </div>
         <div class="<!--[ $configclass ]-->row">
             <label><!--[ pnml name='_BBCODE_PREVIEW' ]--></label>
-            <div class="zk-formnote"><!--[ $spoiler_preview|pnvarprephtmldisplay ]--></div>
+            <div class="z-formnote"><!--[ $spoiler_preview|pnvarprephtmldisplay ]--></div>
         </div>
     </div>
 </fieldset>
