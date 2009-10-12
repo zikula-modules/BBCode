@@ -1,29 +1,27 @@
 <!--[* $Id *]-->
-<!--[ cssversion assign='configclass' ]-->
-
 <!--[ include file=bbcode_admin_menu.html ]-->
 <h2><!--[ pnml name='_BBCODE_ADMINCONFIG' ]--></h2>
 
-<!--[ pnform cssClass=$configclass]-->
+<!--[ pnform cssClass="z-form"]-->
 <!--[ pnformvalidationsummary ]-->
 
 <fieldset>
     <legend><!--[ pnml name='_BBCODE_ADMINCODECONFIG' ]--></legend>
-    <div class="<!--[ $configclass ]-->row">
+    <div class="z-formrow">
         <!--[ pnformlabel for="code_enabled" text="_BBCODE_CODE_ENABLE" ]-->
         <!--[ pnformcheckbox id="code_enabled" checked=$pncore.bbcode.code_enabled onchange="toggleconfig('codeconfig');"]-->
     </div>
     <div id="codeconfig">
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="code" text="_BBCODE_CODE" ]-->
             <!--[ pnformtextinput id="code" textMode="multiline" rows="3" cols="50" text=$pncore.bbcode.code ]-->
-            <div class="z-formnote pn-informationmsg"><!--[ pnml name='_BBCODE_CODEHINT' ]--></div>
+            <div class="z-formnote z-informationmsg"><!--[ pnml name='_BBCODE_CODEHINT' ]--></div>
         </div>
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="syntaxhilite" text="_BBCODE_CODE_SYNTAXHIGHLIGHTING" ]-->
             <!--[ pnformdropdownlist id="syntaxhilite" items=$hiliteoptions selectedValue=$pncore.bbcode.syntaxhilite ]-->
         </div>
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <label><!--[ pnml name='_BBCODE_PREVIEW' ]--></label>
             <br />
             <div class="z-formnote"><!--[ $code_preview|pnvarprephtmldisplay ]--></div>
@@ -33,17 +31,17 @@
 
 <fieldset>
     <legend><!--[ pnml name='_BBCODE_ADMINQUOTECONFIG' ]--></legend>
-    <div class="<!--[ $configclass ]-->row">
+    <div class="z-formrow">
         <!--[ pnformlabel for="quote_enabled" text="_BBCODE_QUOTE_ENABLE" ]-->
         <!--[ pnformcheckbox id="quote_enabled" checked=$pncore.bbcode.quote_enabled onchange="toggleconfig('quoteconfig');"]-->
     </div>
     <div id="quoteconfig">
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="quote" text="_BBCODE_QUOTE" ]-->
             <!--[ pnformtextinput id="quote" textMode="multiline" rows="3" cols="50" text=$pncore.bbcode.quote ]-->
-            <div class="z-formnote pn-informationmsg"><!--[ pnml name='_BBCODE_QUOTEHINT' ]--></div>
+            <div class="z-formnote z-informationmsg"><!--[ pnml name='_BBCODE_QUOTEHINT' ]--></div>
         </div>
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <label><!--[ pnml name='_BBCODE_PREVIEW' ]--></label>
             <br />
             <div class="z-formnote"><!--[ $quote_preview|pnvarprephtmldisplay ]--></div>
@@ -53,11 +51,11 @@
 
 <fieldset>
     <legend><!--[ pnml name='_BBCODE_ADMINCOLORCONFIG' ]--></legend>
-    <div class="<!--[ $configclass ]-->row">
+    <div class="z-formrow">
         <!--[ pnformlabel for="color_enabled" text="_BBCODE_COLOR_ENABLE" ]-->
         <!--[ pnformcheckbox id="color_enabled" checked=$pncore.bbcode.color_enabled onchange="toggleconfig('colorconfig');"]-->
     </div>
-    <div class="<!--[ $configclass ]-->row">
+    <div class="z-formrow">
         <!--[ pnformlabel for="allow_usercolor" text="_BBCODE_COLOR_ALLOWUSERCOLOR" ]-->
         <!--[ pnformcheckbox id="allow_usercolor" checked=$pncore.bbcode.allow_usercolor ]-->
     </div>
@@ -65,47 +63,47 @@
 
 <fieldset>
     <legend><!--[ pnml name='_BBCODE_ADMINSIZECONFIG' ]--></legend>
-    <div class="<!--[ $configclass ]-->row">
+    <div class="z-formrow">
         <!--[ pnformlabel for="size_enabled" text="_BBCODE_SIZE_ENABLE" ]-->
         <!--[ pnformcheckbox id="size_enabled" checked=$pncore.bbcode.size_enabled onchange="toggleconfig('sizeconfig');"]-->
     </div>
     <div id="sizeconfig">
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="size_tiny" text="_BBCODE_SIZE_TINY" ]-->
             <div>
                 <!--[ pnformtextinput id="size_tiny" text=$pncore.bbcode.size_tiny|pnvarprepfordisplay size="20" maxLength="30" ]-->
                 <span style="font-size: <!--[ $pncore.bbcode.size_tiny ]-->;">TestTESTtest</span>
             </div>
         </div>
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="size_small" text="_BBCODE_SIZE_SMALL" ]-->
             <div>
                 <!--[ pnformtextinput id="size_small" text=$pncore.bbcode.size_small|pnvarprepfordisplay size="20" maxLength="30" ]-->
                 <span style="font-size: <!--[ $pncore.bbcode.size_small ]-->;">TestTESTtest</span>
             </div>
         </div>
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="size_normal" text="_BBCODE_SIZE_NORMAL" ]-->
             <div>
                 <!--[ pnformtextinput id="size_normal" text=$pncore.bbcode.size_normal|pnvarprepfordisplay size="20" maxLength="30" ]-->
                 <span style="font-size: <!--[ $pncore.bbcode.size_normal ]-->;">TestTESTtest</span>
             </div>
         </div>
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="size_large" text="_BBCODE_SIZE_LARGE" ]-->
             <div>
                 <!--[ pnformtextinput id="size_large" text=$pncore.bbcode.size_large|pnvarprepfordisplay size="20" maxLength="30" ]-->
                 <span style="font-size: <!--[ $pncore.bbcode.size_large ]-->;">TestTESTtest</span>
             </div>
         </div>
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="size_huge" text="_BBCODE_SIZE_HUGE" ]-->
             <div>
                 <!--[ pnformtextinput id="size_huge" text=$pncore.bbcode.size_huge|pnvarprepfordisplay size="20" maxLength="30" ]-->
                 <span style="font-size: <!--[ $pncore.bbcode.size_huge ]-->;">TestTESTtest</span>
             </div>
         </div>
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="allow_usersize" text="_BBCODE_SIZE_ALLOWUSERSIZE" ]-->
             <!--[ pnformcheckbox id="allow_usersize" checked=$pncore.bbcode.allow_usersize ]-->
         </div>
@@ -114,17 +112,17 @@
 
 <fieldset>
     <legend><!--[ pnml name='_BBCODE_ADMINMIMETEXCONFIG' ]--></legend>
-    <div class="<!--[ $configclass ]-->row">
+    <div class="z-formrow">
         <!--[ pnformlabel for="mimetex_enabled" text="_BBCODE_MIMETEX_ENABLE" ]-->
         <!--[ pnformcheckbox id="mimetex_enabled" checked=$pncore.bbcode.mimetex_enabled onchange="toggleconfig('mimetexconfig');"]-->
     </div>
     <div id="mimetexconfig">
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="mimetex_url" text="_BBCODE_MIMETEX_FULL_URL" ]-->
             <!--[ pnformtextinput id="mimetex_url" text=$pncore.bbcode.mimetex_url|pnvarprepfordisplay size="20" maxLength="99" ]-->
-            <p class="z-formnote pn-sub"><!--[ pnml name="_BBCODE_MIMETEX_URL_DESC" ]--></p>
+            <p class="z-formnote z-sub"><!--[ pnml name="_BBCODE_MIMETEX_URL_DESC" ]--></p>
         </div>
-        <div class="<!--[ $configclass ]-->row z-formnote">
+        <div class="z-formrow z-formnote">
             <!--[if $mimetex_url ne ""]-->
             <!--[ pnml name="_BBCODE_MIMETEX_TESTIMAGE" ]-->: [math]a^2+b^2=c^2[/math]<br />
             <img src="<!--[$mimetex_url]-->?a^2+b^2=c^2" />
@@ -137,38 +135,38 @@
 
 <fieldset>
     <legend><!--[ pnml name='_BBCODE_ADMINMISCCONFIG' ]--></legend>
-    <div class="<!--[ $configclass ]-->row">
+    <div class="z-formrow">
         <!--[ pnformlabel for="lightbox_enabled" text="_BBCODE_LIGHTBOX_ENABLE" ]-->
         <!--[ pnformcheckbox id="lightbox_enabled" checked=$pncore.bbcode.lightbox_enabled onChange="toggleconfig('lightboxconfig');"]-->
     </div>
-    <div id="lightboxconfig" class="<!--[ $configclass ]-->row">
+    <div id="lightboxconfig" class="z-formrow">
         <!--[ pnformlabel for="lightbox_previewwidth" text="_BBCODE_LIGHTBOX_PREVIEWWIDTH" ]-->
         <div><!--[ pnformintinput id="lightbox_previewwidth" minValue="50" maxValue="1000" size="4" text=$pncore.bbcode.lightbox_previewwidth ]--> px&nbsp;<!--[ pnml name="_BBCODE_LIGHTBOX_PREVIEWWIDTHINFO" ]--></div>
-        <div class="z-formnote pn-informationmsg"><!--[ pnml name="_BBCODE_LIGHTBOX_PREVIEWHEIGHTINFO" ]--></div>
+        <div class="z-formnote z-informationmsg"><!--[ pnml name="_BBCODE_LIGHTBOX_PREVIEWHEIGHTINFO" ]--></div>
     </div>
-    <div class="<!--[ $configclass ]-->row">
+    <div class="z-formrow">
         <!--[ pnformlabel for="link_shrinksize" text="_BBCODE_LINK_SHRINKSIZE" ]-->
         <div><!--[ pnformintinput id="link_shrinksize" minValue="0" maxValue="50" size="2" text=$pncore.bbcode.link_shrinksize ]-->&nbsp;<!--[ pnml name="_BBCODE_CHARS" ]--></div>
-        <div class="z-formnote pn-informationmsg"><!--[ pnml name="_BBCODE_LINK_SHRINKSIZEINFO" ]--></div>
+        <div class="z-formnote z-informationmsg"><!--[ pnml name="_BBCODE_LINK_SHRINKSIZEINFO" ]--></div>
     </div>
-    <div class="<!--[ $configclass ]-->row">
+    <div class="z-formrow">
         <!--[ pnformlabel for="spoiler_enabled" text="_BBCODE_SPOILER_ENABLE" ]-->
         <!--[ pnformcheckbox id="spoiler_enabled" checked=$pncore.bbcode.spoiler_enabled onChange="toggleconfig('spoilerconfig');"]-->
     </div>
     <div id="spoilerconfig">
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <!--[ pnformlabel for="spoiler" text="_BBCODE_SPOILERCODE" ]-->
             <!--[ pnformtextinput id="spoiler" textMode="multiline" rows="3" cols="50" text=$pncore.bbcode.spoiler ]-->
-            <div class="z-formnote pn-informationmsg"><!--[ pnml name='_BBCODE_SPOILERHINT' ]--></div>
+            <div class="z-formnote z-informationmsg"><!--[ pnml name='_BBCODE_SPOILERHINT' ]--></div>
         </div>
-        <div class="<!--[ $configclass ]-->row">
+        <div class="z-formrow">
             <label><!--[ pnml name='_BBCODE_PREVIEW' ]--></label>
             <div class="z-formnote"><!--[ $spoiler_preview|pnvarprephtmldisplay ]--></div>
         </div>
     </div>
 </fieldset>
 
-<div class="<!--[ $configclass ]-->buttons">
+<div class="z-formbuttons">
     <!--[pnformbutton id="submit" commandName="submit" text="_UPDATE"]-->
 </div>
 

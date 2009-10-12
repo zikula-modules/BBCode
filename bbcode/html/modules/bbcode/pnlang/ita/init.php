@@ -21,5 +21,5 @@
  * @translated by Arthens
  */
 
-define('_BBCODE_COULDNOTREGISTER',          'non è stato possibile registrare l\'hook bbcode!');
-define('_BBCODE_COULDNOTUNREGISTER',        'non è stato possibile rimuovere l\'hook bbcode!');
+define('_BBCODE_COULDNOTREGISTER',          'non Ã¨ stato possibile registrare l\'hook bbcode!');
+define('_BBCODE_COULDNOTUNREGISTER',        'non Ã¨ stato possibile rimuovere l\'hook bbcode!');
