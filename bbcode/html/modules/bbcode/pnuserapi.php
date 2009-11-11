@@ -29,10 +29,11 @@
 function bbcode_userapi_transform($args)
 {
     $dom = ZLanguage::getModuleDomain('bbcode');
+
     // Argument check. We do not care about the objectid in a transform hook,
     // only extrainfo is important
     if (!isset($args['extrainfo'])) {
-        return LogUtil::registerError(__('Error! Could not do what you wanted. Please check your input.', $dom));
+        return LogUtil::registerArgsError();
     }
 
     PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('bbcode'));

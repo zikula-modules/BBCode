@@ -57,7 +57,7 @@ function bbcode_user_bbcodes($args)
     $textfieldid = $args['textfieldid'];
 
     if(empty($textfieldid)) {
-        return LogUtil::registerError(_MODARGSERROR . ' (missing mandatory parameter textfieldid)');
+        return LogUtil::registerArgsError();
     }
 
     // if we have more than one textarea we need to distinguish them, so we simply use
