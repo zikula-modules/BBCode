@@ -22,11 +22,17 @@
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
+$dom = ZLanguage::getModuleDomain('bbcode');
+
 $modversion['name']             = 'bbcode';
 $modversion['oldnames']         = array('pn_bbcode');
-$modversion['version']          = '2.0';
+$modversion['version']          = '2.1';
 $modversion['id'] 				= '164';
-$modversion['description']      = 'BBCode Hook';
+$modversion['description']      = __('BBCode Hook', $dom);
+$modversion['displayname']      = __('BBCode Hook', $dom);
+//! module url (lower case without spaces and different to displayname)
+$modversion['url']      = __('bbcode', $dom);
+
 $modversion['credits']          = 'pndocs/credits.txt';
 $modversion['help']             = 'pndocs/help.txt';
 $modversion['changelog']        = 'pndocs/changelog.txt';

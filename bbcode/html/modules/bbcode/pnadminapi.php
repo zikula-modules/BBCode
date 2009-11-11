@@ -30,10 +30,11 @@
  */
 function bbcode_adminapi_getlinks()
 {
+    $dom = ZLanguage::getModuleDomain('bbcode');
     $links = array();
     if (SecurityUtil::checkPermission('bbcode::', '::', ACCESS_ADMIN)) {
-        $links[] = array('url' => pnModURL('bbcode', 'admin', 'main'),    'text' => _BBCODE_ADMIN_START,  'title' => _BBCODE_ADMIN_START);     
-        $links[] = array('url' => pnModURL('bbcode', 'admin', 'config'),  'text' => _BBCODE_ADMINCONFIG,  'title' => _BBCODE_ADMINCONFIG); 
+        $links[] = array('url' => pnModURL('bbcode', 'admin', 'main'),    'text' => __('Start', $dom),  'title' => __('Start', $dom));
+        $links[] = array('url' => pnModURL('bbcode', 'admin', 'config'),  'text' => __('Configuration', $dom),  'title' => __('Configuration', $dom));
     }
     return $links;
 }

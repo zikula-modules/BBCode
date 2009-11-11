@@ -28,10 +28,11 @@
 */
 function bbcode_userapi_transform($args)
 {
+    $dom = ZLanguage::getModuleDomain('bbcode');
     // Argument check. We do not care about the objectid in a transform hook,
     // only extrainfo is important
     if (!isset($args['extrainfo'])) {
-        return LogUtil::registerError(_MODARGSERROR);
+        return LogUtil::registerError(__('Error! Could not do what you wanted. Please check your input.', $dom));
     }
 
     PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('bbcode'));
@@ -68,6 +69,7 @@ function bbcode_userapi_transform($args)
 */
 function bbcode_transform($message)
 {
+    $dom = ZLanguage::getModuleDomain('bbcode');
     // check the user agent - if it is a bot, return immediately
     $robotslist = array ( "ia_archiver",
                           "googlebot",
@@ -111,18 +113,18 @@ function bbcode_transform($message)
     for ($i=0; $i < $htmlcount; $i++) {
         $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " BBCODEHTMLREPLACEMENT{$i} ", $message, 1);
     }
-    
+
     // replace NOPARSE
     $noparsecount = preg_match_all('/\[noparse\](.*)\[\/noparse\]/siU', $message, $noparse);
     for ($i = 0; $i < $noparsecount; $i++) {
         $message = preg_replace('/(' . preg_quote($noparse[0][$i], '/') . ')/', " BBCODENOPARSEREPLACEMENT{$i} ", $message, 1);
     }
-    
+
     // [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
     if(pnModGetVar('bbcode', 'quote_enabled')) {
         $message = bbcode_encode_quote($message);
     }
- 
+
     // [list] and [list=x] for (un)ordered lists.
     $message = bbcode_encode_list($message);
 
@@ -210,10 +212,10 @@ function bbcode_transform($message)
     // spoiler tag
     if(pnModGetVar('bbcode', 'spoiler_enabled')) {
         $spoiler = str_replace('%s', '\\1', pnModGetVar('bbcode', 'spoiler'));
-        $spoiler = str_replace('%h', _BBCODE_SPOILERWARNING, $spoiler);
+        $spoiler = str_replace('%h', __('Spoiler follows:', $dom), $spoiler);
         $message = preg_replace("/\[spoiler\](.*?)\[\/spoiler\]/si", $spoiler, $message);
     }
-    
+
     // [url]xxxx://www.phpbb.com[/url] code..
     $message = preg_replace_callback(
                 "#\[url\]([a-z]+?://){1}(.*?)\[/url\]#si",
@@ -250,7 +252,7 @@ function bbcode_transform($message)
         // need to remove them manually
         $message = preg_replace("/ BBCODENOPARSEREPLACEMENT{$i} /", $noparse[1][$i], $message, 1);
     }
-    
+
     // replace the tags and links that we removed before
     for ($i = 0; $i < $htmlcount; $i++) {
         $message = preg_replace("/ BBCODEHTMLREPLACEMENT{$i} /", $html[0][$i], $message, 1);
@@ -321,7 +323,7 @@ function bbcode_encode_quote($message)
                     if($start_tag_len > 7) {
                         $username = DataUtil::formatForDisplay(substr($message, $start_index + 7, $start_tag_len - 8));
                     } else {
-                        $username = DataUtil::formatForDisplay(_BBCODE_QUOTE);;
+                        $username = DataUtil::formatForDisplay(__('Quote', $dom));;
                     }
 
                     // everything after the [quote=xxx] tag, but before the [/quote] tag.
@@ -401,7 +403,7 @@ function bbcode_encode_code($message)
         // 3 = google code prettifier
         $hilite  = pnModGetVar('bbcode', 'syntaxhilite');
         $codebody = str_replace("\n", '', "<!--code-->" . pnModGetVar('bbcode', 'code') . "<!--/code-->");
-        
+
         for($i=0; $i < $count; $i++) {
             // the code in between incl. code tags
             $str_to_match = "/" . preg_quote($bbcode[0][$i], "/") . "/";
@@ -419,7 +421,7 @@ function bbcode_encode_code($message)
                     $language = $parameters[0];
                     // remove it, its no longer used
                     array_shift($parameters);
-                    foreach($parameters as $parameter) {           
+                    foreach($parameters as $parameter) {
                         $singleparam = explode('=', trim($parameter));
                         switch(trim(strtolower($singleparam[0]))) {
                             case 'start':
@@ -463,7 +465,7 @@ function bbcode_encode_code($message)
                     $geshi->set_header_type(GESHI_HEADER_DIV);
                     $geshi->set_link_styles(GESHI_LINK,    'padding-left: 0px; background-image: none;');
                     $geshi->set_link_styles(GESHI_HOVER,   'padding-left: 0px; background-image: none;');
-                    $geshi->set_link_styles(GESHI_ACTIVE,  'padding-left: 0px; background-image: none;');
+                    $geshi->set_link_styles(GESHI__('Active', $dom),  'padding-left: 0px; background-image: none;');
                     $geshi->set_link_styles(GESHI_VISITED, 'padding-left: 0px; background-image: none;');
                     if($hilite == HILITE_GESHI_WITH_LN) {
                         $geshi->set_line_style('color: blue; font-weight: bold;', 'color: green;');
@@ -486,9 +488,9 @@ function bbcode_encode_code($message)
 
             // replace %h with _BBCODE_CODE
             if($language=='htmlmail') {
-                $codetext = str_replace("%h", DataUtil::formatForDisplay(_BBCODE_ORIGINALSENDER) . ': ' . DataUtil::formatForDisplay($username), $codebody);
+                $codetext = str_replace("%h", DataUtil::formatForDisplay(__('From', $dom)) . ': ' . DataUtil::formatForDisplay($username), $codebody);
             } else {
-                $codetext = str_replace("%h", DataUtil::formatForDisplay(_BBCODE_CODE), $codebody);
+                $codetext = str_replace("%h", DataUtil::formatForDisplay(__('Code', $dom)), $codebody);
             }
             // replace %c with code
             $codetext = str_replace("%c",  $after_replace, $codetext);
@@ -603,7 +605,7 @@ function bbcode_encode_list($message)
                     $after_end_tag = substr($message, $curr_pos + 7);
 
                     // replace [*]... with <li>...</li>
-                    // even newer: adding of css classes for better styling of bbcode lists not needed with intelligent css, 
+                    // even newer: adding of css classes for better styling of bbcode lists not needed with intelligent css,
                     //             see modules/bbcode/pnstyle/style.css
                     $listitems = explode('[*]', $between_tags);
                     // listitems may be false, empty or containing [*] if between_tags was empty
@@ -677,6 +679,7 @@ function bbcode_userapi_get_geshi_languages()
  */
 function linktest_callback_0($matches)
 {
+    $dom = ZLanguage::getModuleDomain('bbcode');
     static $is_allowed;
     static $modname;
     static $our_url;
@@ -689,14 +692,14 @@ function linktest_callback_0($matches)
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+            return  DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom));
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom)) . '">' . DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom)) . '</a>';
         }
     } else {
         $matches[1] = trim(strip_Tags($matches[1]));
         $matches[2] = trim(strip_tags($matches[2]));
-        
+
         $displayurl = bbcode_minimize_displayurl($matches[1] . $matches[2]);
         return '<a href="' . $matches[1] . $matches[2] . '">' . $displayurl . '</a>';
     }
@@ -707,10 +710,11 @@ function linktest_callback_0($matches)
  * [url]www.phpbb.com[/url] (no xxxx:// prefix).
  *      +++++++++++++
  *      matches[1]
- *        
+ *
  */
 function linktest_callback_1($matches)
 {
+    $dom = ZLanguage::getModuleDomain('bbcode');
     static $is_allowed;
     static $modname;
     static $our_url;
@@ -721,7 +725,7 @@ function linktest_callback_1($matches)
         $is_allowed = SecurityUtil::checkPermission('bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
 
-    // try to find out if we have encountered an internal url    
+    // try to find out if we have encountered an internal url
     if(!pnVarValidate($matches[1], 'url')) {
         $entrypoint = pnConfigGetVar('entrypoint', 'index.php');
         if((strpos($matches[1], $entrypoint) === 0) || (strpos($matches[1], 'module-') === 0)){
@@ -730,13 +734,13 @@ function linktest_callback_1($matches)
             $matches[1] = 'http://' . $matches[1];
         }
     }
-    
+
     if( ($is_allowed==false) && (strpos($matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+            return  DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom));
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom)) . '">' . DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom)) . '</a>';
         }
     } else {
         $displayurl = bbcode_minimize_displayurl($matches[1]);
@@ -756,6 +760,7 @@ function linktest_callback_1($matches)
  */
 function linktest_callback_2($matches)
 {
+    $dom = ZLanguage::getModuleDomain('bbcode');
     static $is_allowed;
     static $modname;
     static $our_url;
@@ -767,7 +772,7 @@ function linktest_callback_2($matches)
     }
 
     if( (pnVarValidate($matches[3], 'url')==true) && ($is_allowed==false) && (strpos($matches[3], $our_url)===false) ) {
-        $displayurl = DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        $displayurl = DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom));
     } else {
         $displayurl = $matches[3];
         $title = strip_tags($displayurl);
@@ -776,9 +781,9 @@ function linktest_callback_2($matches)
     if( ($is_allowed==false) && (strpos($matches[1] . $matches[2], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return  '<span title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</span>';
+            return  '<span title="' . DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom)) . '">' . $displayurl . '</span>';
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom)) . '">' . $displayurl . '</a>';
         }
     } else {
         return '<a href="' . $matches[1] . $matches[2] . '" title="' . $title . '">' . $displayurl . '</a>';
@@ -788,14 +793,15 @@ function linktest_callback_2($matches)
 /**
  * linktest_callback_3
  * [url=www.phpbb.com]phpBB[/url] (no xxxx:// prefix).
- *      +++++++++++++ 
- *      maches[1]     
+ *      +++++++++++++
+ *      maches[1]
  *                    +++++
  *                    matches[2]
  *
- */  
+ */
 function linktest_callback_3($matches)
 {
+    $dom = ZLanguage::getModuleDomain('bbcode');
     static $is_allowed;
     static $modname;
     static $our_url;
@@ -806,7 +812,7 @@ function linktest_callback_3($matches)
         $is_allowed = SecurityUtil::checkPermission('bbcode:' . $modname . ':Links' , '::', ACCESS_READ);
     }
 
-    // try to find out if we have encountered an internal url    
+    // try to find out if we have encountered an internal url
     if(!pnVarValidate($matches[1], 'url')) {
         $entrypoint = pnConfigGetVar('entrypoint', 'index.php');
         if((strpos($matches[1], $entrypoint) === 0) || (strpos($matches[1], 'module-') === 0)){
@@ -817,7 +823,7 @@ function linktest_callback_3($matches)
     }
 
     if(pnVarValidate($matches[2], 'url')==true) {
-        $displayurl = DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS);
+        $displayurl = DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom));
     } else {
         $displayurl = $matches[2];
         $title = strip_tags($displayurl);
@@ -826,9 +832,9 @@ function linktest_callback_3($matches)
     if( ($is_allowed==false) && (strpos($matches[1], $our_url)===false) ) {
         // not allowed to see links and link is not on our site
         if(pnUserLoggedIn()) {
-            return '<span title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '"><strong>' . $displayurl . '</strong></span>';
+            return '<span title="' . DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom)) . '"><strong>' . $displayurl . '</strong></span>';
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEXTERNALLINKS) . '">' . $displayurl . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(__('*Not allowed to see the external links*', $dom)) . '">' . $displayurl . '</a>';
         }
     } else {
         return '<a href="' . $matches[1] . '" title="' . $title . '">' . $displayurl . '</a>';
@@ -842,6 +848,7 @@ function linktest_callback_3($matches)
  */
 function linktest_callback_4($matches)
 {
+    $dom = ZLanguage::getModuleDomain('bbcode');
     static $is_allowed;
     static $modname;
 
@@ -852,9 +859,9 @@ function linktest_callback_4($matches)
     if($is_allowed==false) {
         // not allowed to see emails
         if(pnUserLoggedIn()) {
-            return  DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEMAILS);
+            return  DataUtil::formatForDisplay(__('*Not allowed to see emails*', $dom));
         } else {
-            return '<a href="user.php" title="' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEMAILS) . '">' . DataUtil::formatForDisplay(_BBCODE_NOTALLOWEDTOSEEEMAILS) . '</a>';
+            return '<a href="user.php" title="' . DataUtil::formatForDisplay(__('*Not allowed to see emails*', $dom)) . '">' . DataUtil::formatForDisplay(__('*Not allowed to see emails*', $dom)) . '</a>';
         }
     } else {
         return '<a href="mailto:' . $matches[1] . '" title="' . $matches[1] . '">' . $matches[1] . '</a>';

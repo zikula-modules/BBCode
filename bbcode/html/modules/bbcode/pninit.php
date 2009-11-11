@@ -25,7 +25,7 @@
 /**
  * init module
 */
-function bbcode_init() 
+function bbcode_init()
 {
     // create hook
     if (!pnModRegisterHook('item',
@@ -120,7 +120,7 @@ function bbcode_upgrade($oldversion)
                                    'user',
                                    'codes')) {
                 pnSessionSetVar('errormsg', _BBCODE_COULDNOTREGISTER . ' (display hook)');
-                return false;
+                return '1.17';
             }
             pnModSetVar('pn_bbcode', 'displayhook', 'yes');
         case '1.18':
@@ -131,12 +131,13 @@ function bbcode_upgrade($oldversion)
                                      'pn_bbcode',
                                      'user',
                                      'codes')) {
-                return LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (display hook)');
+                LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (display hook)');
+                return '1.18';
             }
             pnModDelVar('pn_bbcode', 'displayhook');
             case '1.21':
             case '1.22':
-            // syntax highlight: yes/no and linenumber yes/no gets replaced with 
+            // syntax highlight: yes/no and linenumber yes/no gets replaced with
             // 0 = no highlighting
             // 1 = geshi with linenumbers
             // 2 = geshi without linenumbers
@@ -145,7 +146,7 @@ function bbcode_upgrade($oldversion)
             $linenumbers = pnModGetVar('pn_bbcode', 'linenumbers');
             if($hilite=='no') {
                 pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_NONE);
-            } elseif ($hilite='yes') {                
+            } elseif ($hilite='yes') {
                 if($linenumbers=='yes') {
                     pnModSetVar('pn_bbcode', 'syntaxhilite', HILITE_GESHI_WITH_LN);
                 } else {
@@ -157,7 +158,7 @@ function bbcode_upgrade($oldversion)
             $code = pnModGetVar('pn_bbcode', 'code');
             $code = str_replace(array('<pre>','</pre>'), '', $code);
             pnModSetVar('pn_bbcode', 'code', $code);
-        case '1.30': // last version to support .764            
+        case '1.30': // last version to support .764
             pnModSetVar('bbcode', 'code_enabled', true);
             pnModSetVar('bbcode', 'quote_enabled', true);
             pnModSetVar('bbcode', 'lightbox_enabled', true);
@@ -171,14 +172,14 @@ function bbcode_upgrade($oldversion)
                 pnModSetVar('bbcode', $varname, $oldvar);
             }
             pnModDelVar('pn_bbcode');
-            
+
             // introduce mimetex module var
             pnModSetVar('bbcode', 'mimetex_enabled', false);
 		    pnModSetVar('bbcode', 'mimetex_url', 'http://www.forkosh.dreamhost.com/cgi-bin/mimetex.cgi');
 
             // get list of hooked modules
             $hookedmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'pn_bbcode'));
-            
+
     		// update hooks
     		$pntables = pnDBGetTables();
     		$hookstable  = $pntables['hooks'];
@@ -186,15 +187,17 @@ function bbcode_upgrade($oldversion)
     		$sql = 'UPDATE ' . $hookstable . ' SET ' . $hookscolumn['smodule'] . '=\'bbcode\' WHERE ' . $hookscolumn['smodule'] . '=\'pn_bbcode\'';
     		$res = DBUtil::executeSQL ($sql);
     		if ($res === false) {
-        		return LogUtil::registerError(_BBCODE_FAILEDTOUPGRADEHOOK . ' (smodule)');
+        		LogUtil::registerError(_BBCODE_FAILEDTOUPGRADEHOOK . ' (smodule)');
+        		return '1.30';
     		}
-    
+
     		$sql = 'UPDATE ' . $hookstable . ' SET ' . $hookscolumn['tmodule'] . '=\'bbcode\' WHERE ' . $hookscolumn['tmodule'] . '=\'pn_bbcode\'';
     		$res   = DBUtil::executeSQL ($sql);
     		if ($res === false) {
-        		return LogUtil::registerError(_BBCODE_FAILEDTOUPGRADEHOOK . ' (tmodule)');
+        		LogUtil::registerError(_BBCODE_FAILEDTOUPGRADEHOOK . ' (tmodule)');
+        		return '1.30';
     		}
-            
+
         default:
              break;
     }
