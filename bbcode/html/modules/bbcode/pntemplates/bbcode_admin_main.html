@@ -1,15 +1,15 @@
 <!--[* $Id *]-->
 
-<!--[ include file=bbcode_admin_menu.html ]-->
+<!--[include file=bbcode_admin_menu.html]-->
 
-<strong><!--[ pnml name="_BBCODE_ISHOOKEDWITH"]-->:</strong>
+<strong><!--[gt text="Actually bbcode is used with the following modules"]-->:</strong>
 <ul>
-    <!--[ foreach item=mod from=$hookedmodules ]-->
-    <li><a href="<!--[ pnmodurl modname=modules type=admin func=hooks id=$mod.id ]-->" title="<!--[ $mod.description ]-->"><!--[ $mod.displayname ]--></a></li>
-    <!--[ foreachelse ]-->
-    <li style="list-style-type: none;"><!--[ pnml name="_BBCODE_NOTHOOKED" ]--></li>
-    <!--[ /foreach ]-->
+    <!--[foreach item=mod from=$hookedmodules]-->
+    <li><a href="<!--[pnmodurl modname=modules type=admin func=hooks id=$mod.id]-->" title="<!--[$mod.description]-->"><!--[$mod.displayname]--></a></li>
+    <!--[foreachelse]-->
+    <li style="list-style-type: none;"><!--[gt text="** bbcode is not used with any module **"]--></li>
+    <!--[/foreach]-->
 </ul>
-<p><a href="<!--[ pnmodurl modname=modules type=admin func=main ]-->" title="<!--[ pnml name="_BBCODE_ADDHOOK" ]-->"><!--[ pnml name="_BBCODE_ADDHOOK" ]--></a></p>
+<p><a href="<!--[pnmodurl modname=modules type=admin func=main]-->" title="<!--[gt text="Activate bbcode for more modules"]-->"><!--[gt text="Activate bbcode for more modules"]--></a></p>
 
-<!--[ include file="bbcode_admin_footer.html" ]-->
+<!--[include file="bbcode_admin_footer.html"]-->

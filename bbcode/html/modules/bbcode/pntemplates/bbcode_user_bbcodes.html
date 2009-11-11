@@ -1,104 +1,104 @@
 <!--[* $Id *]-->
 
-<div id="bbcode_<!--[ $textfieldid ]-->" class="bbcode hidden">
+<div id="bbcode_<!--[$textfieldid]-->" class="bbcode hidden">
     
-<!--[ if $images ]-->
+<!--[if $images]-->
     <p>
-    <!--[bbcodebutton textfieldid=$textfieldid name="url" titleml=1 title="_BBCODE_URL_HINT" key="w" image="bb_url.gif" ]-->
-    <!--[bbcodebutton textfieldid=$textfieldid name="email" titleml=1 title="_BBCODE_MAIL_HINT" key="m" image="bb_email.gif" ]-->
-    <!--[bbcodebutton textfieldid=$textfieldid name="image" titleml=1 title="_BBCODE_IMAGE_HINT" key="p" image="bb_image.gif" ]-->
-    <!--[bbcodebutton textfieldid=$textfieldid name="quote" titleml=1 title="_BBCODE_QUOTE_HINT" key="q" image="bb_quote.gif" ]-->
-    <!--[bbcodebutton textfieldid=$textfieldid name="code" titleml=1 title="_BBCODE_CODE_HINT" key="c" image="bb_code.gif" ]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="url" titleml=1 __title="insert a link" key="w" image="bb_url.gif"]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="email" titleml=1 __title="insert an email address" key="m" image="bb_email.gif"]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="image" titleml=1 __title="insert an image" key="p" image="bb_image.gif"]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="quote" titleml=1 __title="insert quote" key="q" image="bb_quote.gif"]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="code" titleml=1 __title="insert code" key="c" image="bb_code.gif"]-->
     </p>
     <p>
-    <!--[bbcodebutton textfieldid=$textfieldid name="listopen" titleml=1 title="_BBCODE_LISTOPEN_HINT" key="l" image="bb_openlist.gif" ]-->
-    <!--[bbcodebutton textfieldid=$textfieldid name="listitem" titleml=1 title="_BBCODE_LISTITEM_HINT" key="o" image="bb_listitem.gif" ]-->
-    <!--[bbcodebutton textfieldid=$textfieldid name="listclose" titleml=1 title="_BBCODE_LISTCLOSE_HINT" key="x" image="bb_closelist.gif" ]-->
-    <!--[bbcodebutton textfieldid=$textfieldid name="bold" titleml=1 title="_BBCODE_BOLD_HINT" key="b" image="bb_bold.gif" ]-->
-    <!--[bbcodebutton textfieldid=$textfieldid name="italic" titleml=1 title="_BBCODE_ITALIC_HINT" key="i" image="bb_italic.gif" ]-->
-    <!--[bbcodebutton textfieldid=$textfieldid name="underline" titleml=1 title="_BBCODE_UNDERLINE_HINT" key="u" image="bb_underline.gif" ]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="listopen" titleml=1 __title="open list" key="l" image="bb_openlist.gif"]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="listitem" titleml=1 __title="add list entry" key="o" image="bb_listitem.gif"]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="listclose" titleml=1 __title="close list" key="x" image="bb_closelist.gif"]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="bold" titleml=1 __title="bold text" key="b" image="bb_bold.gif"]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="italic" titleml=1 __title="italic text" key="i" image="bb_italic.gif"]-->
+    <!--[bbcodebutton textfieldid=$textfieldid name="underline" titleml=1 __title="underlined text" key="u" image="bb_underline.gif"]-->
     </p>
-<!--[ else ]-->
+<!--[else]-->
     <p>
-    <input title="<!--[ pnml name='_BBCODE_URL_HINT' ]-->" type="button" accesskey="w" name="url_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_URL' ]--> "       class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'url')" />
-    <input title="<!--[ pnml name='_BBCODE_MAIL_HINT' ]-->" type="button" accesskey="m" name="mail_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_MAIL' ]--> "    class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'email')" />
-    <input title="<!--[ pnml name='_BBCODE_IMAGE_HINT' ]-->" type="button" accesskey="p" name="image_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_IMAGE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'image')" />
-    <!--[ if $pncore.bbcode.quote_enabled eq true ]-->
-    <input title="<!--[ pnml name='_BBCODE_QUOTE_HINT' ]-->" type="button" accesskey="q" name="quote_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_QUOTE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'quote')" />
-    <!--[ /if ]-->
-    <!--[ if $pncore.bbcode.spoiler_enabled eq true ]-->
-    <input title="<!--[ pnml name='_BBCODE_SPOILER_HINT' ]-->" type="button" accesskey="s" name="quote_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_SPOILER' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'spoiler')" />
-    <!--[ /if ]-->
-    <!--[ if $pncore.bbcode.code_enabled eq true ]-->
-    <!--[ if count($geshi_languages) eq 0 ]-->
-        <input title="<!--[ pnml name='_BBCODE_CODE_HINT' ]-->" type="button" accesskey="c" name="code_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_CODE' ]--> " class="bbcode_button" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'code')" />
-    <!--[ else ]-->
+    <input title="<!--[gt text='insert a link']-->" type="button" accesskey="w" name="url_<!--[$counter]-->" value=" <!--[gt text='URL']--> "       class="bbcode_button" onclick="AddBBCode('<!--[$textfieldid]-->', 'url')" />
+    <input title="<!--[gt text='insert an email address']-->" type="button" accesskey="m" name="mail_<!--[$counter]-->" value=" <!--[gt text='Email']--> "    class="bbcode_button" onclick="AddBBCode('<!--[$textfieldid]-->', 'email')" />
+    <input title="<!--[gt text='insert an image']-->" type="button" accesskey="p" name="image_<!--[$counter]-->" value=" <!--[gt text='Image']--> " class="bbcode_button" onclick="AddBBCode('<!--[$textfieldid]-->', 'image')" />
+    <!--[if $pncore.bbcode.quote_enabled eq true]-->
+    <input title="<!--[gt text='insert quote']-->" type="button" accesskey="q" name="quote_<!--[$counter]-->" value=" <!--[gt text='Quote']--> " class="bbcode_button" onclick="AddBBCode('<!--[$textfieldid]-->', 'quote')" />
+    <!--[/if]-->
+    <!--[if $pncore.bbcode.spoiler_enabled eq true]-->
+    <input title="<!--[gt text='hide text']-->" type="button" accesskey="s" name="quote_<!--[$counter]-->" value=" <!--[gt text='spoiler']--> " class="bbcode_button" onclick="AddBBCode('<!--[$textfieldid]-->', 'spoiler')" />
+    <!--[/if]-->
+    <!--[if $pncore.bbcode.code_enabled eq true]-->
+    <!--[if count($geshi_languages) eq 0]-->
+        <input title="<!--[gt text='insert code']-->" type="button" accesskey="c" name="code_<!--[$counter]-->" value=" <!--[gt text='Code']--> " class="bbcode_button" onclick="AddBBCode('<!--[$textfieldid]-->', 'code')" />
+    <!--[else]-->
         </p>
         <p> 
-        <label for="code_<!--[ $counter ]-->"><!--[ pnml name='_BBCODE_CODE' ]-->:</label>
-        <select title="<!--[ pnml name='_BBCODE_CODE_HINT' ]-->" id="code_<!--[ $counter ]-->" name="code_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'code', $F('code_<!--[ $counter ]-->'))">
-            <option value="" selected="selected"><!--[ pnml name='_BBCODE_SELECTCODE' ]--></option>
-            <option value=""><!--[ pnml name='_BBCODE_NOSPECIALCODE' ]--></option>
-            <!--[ foreach item=code from=$geshi_languages ]-->
-            <option value="<!--[ $code|pnvarprepfordisplay ]-->"><!--[$code|pnvarprepfordisplay ]--></option>
-            <!--[ /foreach ]-->
+        <label for="code_<!--[$counter]-->"><!--[gt text='Code']-->:</label>
+        <select title="<!--[gt text='insert code']-->" id="code_<!--[$counter]-->" name="code_<!--[$counter]-->" onchange="AddBBCode('<!--[$textfieldid]-->', 'code', $F('code_<!--[$counter]-->'))">
+            <option value="" selected="selected"><!--[gt text='select code type']--></option>
+            <option value=""><!--[gt text='no special code']--></option>
+            <!--[foreach item=code from=$geshi_languages]-->
+            <option value="<!--[$code|pnvarprepfordisplay]-->"><!--[$code|pnvarprepfordisplay]--></option>
+            <!--[/foreach]-->
         </select>
-    <!--[ /if ]-->
-    <!--[ /if ]-->
+    <!--[/if]-->
+    <!--[/if]-->
     </p>
     <p>
-    <input title="<!--[ pnml name='_BBCODE_LISTOPEN_HINT' ]-->" type="button" accesskey="l" name="listopen_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_LISTOPEN' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'listopen')" />
-    <input title="<!--[ pnml name='_BBCODE_LISTITEM_HINT' ]-->" type="button" accesskey="o" name="listitem_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_LISTITEM' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'listitem')" />
-    <input title="<!--[ pnml name='_BBCODE_LISTCLOSE_HINT' ]-->" type="button" accesskey="x" name="listclose_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_LISTCLOSE' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'listclose')" />
-    <input title="<!--[ pnml name='_BBCODE_BOLD_HINT' ]-->" type="button" accesskey="b" name="bold_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_BOLD' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'bold')" />
-    <input title="<!--[ pnml name='_BBCODE_ITALIC_HINT' ]-->" type="button" accesskey="i" name="italic_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_ITALIC' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'italic')" />
-    <input title="<!--[ pnml name='_BBCODE_UNDERLINE_HINT' ]-->" type="button" accesskey="u" name="underline_<!--[ $counter ]-->" value=" <!--[ pnml name='_BBCODE_UNDERLINE' ]--> " class="bbcode_button2" onclick="AddBBCode('<!--[ $textfieldid ]-->', 'underline')" />
+    <input title="<!--[gt text='open list']-->" type="button" accesskey="l" name="listopen_<!--[$counter]-->" value=" <!--[gt text='ul']--> " class="bbcode_button2" onclick="AddBBCode('<!--[$textfieldid]-->', 'listopen')" />
+    <input title="<!--[gt text='add list entry']-->" type="button" accesskey="o" name="listitem_<!--[$counter]-->" value=" <!--[gt text='li']--> " class="bbcode_button2" onclick="AddBBCode('<!--[$textfieldid]-->', 'listitem')" />
+    <input title="<!--[gt text='close list']-->" type="button" accesskey="x" name="listclose_<!--[$counter]-->" value=" <!--[gt text='/ul']--> " class="bbcode_button2" onclick="AddBBCode('<!--[$textfieldid]-->', 'listclose')" />
+    <input title="<!--[gt text='bold text']-->" type="button" accesskey="b" name="bold_<!--[$counter]-->" value=" <!--[gt text='b']--> " class="bbcode_button2" onclick="AddBBCode('<!--[$textfieldid]-->', 'bold')" />
+    <input title="<!--[gt text='italic text']-->" type="button" accesskey="i" name="italic_<!--[$counter]-->" value=" <!--[gt text='i']--> " class="bbcode_button2" onclick="AddBBCode('<!--[$textfieldid]-->', 'italic')" />
+    <input title="<!--[gt text='underlined text']-->" type="button" accesskey="u" name="underline_<!--[$counter]-->" value=" <!--[gt text='u']--> " class="bbcode_button2" onclick="AddBBCode('<!--[$textfieldid]-->', 'underline')" />
     </p>
-<!--[ /if ]-->
+<!--[/if]-->
 
-<!--[ if $pncore.bbcode.color_enabled eq true ]-->
+<!--[if $pncore.bbcode.color_enabled eq true]-->
 <p>
-    <label for="fontcolor_<!--[ $counter ]-->"><!--[ pnml name='_BBCODE_FONTCOLOR' ]-->:</label>
-    <select title="<!--[ pnml name='_BBCODE_COLOR_HINT' ]-->" id="fontcolor_<!--[ $counter ]-->" name="fontcolor_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'color', $F('fontcolor_<!--[ $counter ]-->'))">
-        <option style="color:black;"   value="black"><!--[ pnml name='_BBCODE_COLOR_BLACK' ]--></option>
-        <option style="color:darkred;"  value="darkred"><!--[ pnml name='_BBCODE_COLOR_DARKRED' ]--></option>
-        <option style="color:red;"      value="red"><!--[ pnml name='_BBCODE_COLOR_RED' ]--></option>
-        <option style="color:orange;"   value="orange"><!--[ pnml name='_BBCODE_COLOR_ORANGE' ]--></option>
-        <option style="color:brown;"    value="brown"><!--[ pnml name='_BBCODE_COLOR_BROWN' ]--></option>
-        <option style="color:yellow;"   value="yellow"><!--[ pnml name='_BBCODE_COLOR_YELLOW' ]--></option>
-        <option style="color:green;"    value="green"><!--[ pnml name='_BBCODE_COLOR_GREEN' ]--></option>
-        <option style="color:olive;"    value="olive"><!--[ pnml name='_BBCODE_COLOR_OLIVE' ]--></option>
-        <option style="color:cyan;"     value="cyan"><!--[ pnml name='_BBCODE_COLOR_CYAN' ]--></option>
-        <option style="color:blue;"     value="blue"><!--[ pnml name='_BBCODE_COLOR_BLUE' ]--></option>
-        <option style="color:darkblue;" value="darkblue"><!--[ pnml name='_BBCODE_COLOR_DARKBLUE' ]--></option>
-        <option style="color:indigo;"   value="indigo"><!--[ pnml name='_BBCODE_COLOR_INDIGO' ]--></option>
-        <option style="color:violet;"   value="violet"><!--[ pnml name='_BBCODE_COLOR_VIOLET' ]--></option>
-        <option style="color:white;"    value="white"><!--[ pnml name='_BBCODE_COLOR_WHITE' ]--></option>
-        <!--[ if $pncore.bbcode.allow_usercolor eq "yes" ]-->
-        <option style="color:black;" value="#<!--[ pnml name='_BBCODE_COLOR_TEXTCOLORCODE' ]-->"><!--[ pnml name='_BBCODE_COLOR_DEFINE' ]--></option>
-        <!--[ /if ]-->
+    <label for="fontcolor_<!--[$counter]-->"><!--[gt text='Font color']-->:</label>
+    <select title="<!--[gt text='select font color']-->" id="fontcolor_<!--[$counter]-->" name="fontcolor_<!--[$counter]-->" onchange="AddBBCode('<!--[$textfieldid]-->', 'color', $F('fontcolor_<!--[$counter]-->'))">
+        <option style="color:black;"   value="black"><!--[gt text='Black']--></option>
+        <option style="color:darkred;"  value="darkred"><!--[gt text='Dark Red']--></option>
+        <option style="color:red;"      value="red"><!--[gt text='Red']--></option>
+        <option style="color:orange;"   value="orange"><!--[gt text='Orange']--></option>
+        <option style="color:brown;"    value="brown"><!--[gt text='Brown']--></option>
+        <option style="color:yellow;"   value="yellow"><!--[gt text='Yellow']--></option>
+        <option style="color:green;"    value="green"><!--[gt text='Green']--></option>
+        <option style="color:olive;"    value="olive"><!--[gt text='Olive']--></option>
+        <option style="color:cyan;"     value="cyan"><!--[gt text='Cyan']--></option>
+        <option style="color:blue;"     value="blue"><!--[gt text='Blue']--></option>
+        <option style="color:darkblue;" value="darkblue"><!--[gt text='Dark Blue']--></option>
+        <option style="color:indigo;"   value="indigo"><!--[gt text='Indigo']--></option>
+        <option style="color:violet;"   value="violet"><!--[gt text='Violet']--></option>
+        <option style="color:white;"    value="white"><!--[gt text='White']--></option>
+        <!--[if $pncore.bbcode.allow_usercolor eq "yes"]-->
+        <option style="color:black;" value="#<!--[gt text='enter color code']-->"><!--[gt text='self defined color']--></option>
+        <!--[/if]-->
     </select>&nbsp;
 </p>
-<!--[ /if ]-->
-<!--[ if $pncore.bbcode.size_enabled eq "yes" ]-->
+<!--[/if]-->
+<!--[if $pncore.bbcode.size_enabled eq "yes"]-->
 <p>
-    <label for="fontsize_<!--[ $counter ]-->"><!--[ pnml name='_BBCODE_FONTSIZE' ]-->:</label>
-    <select title="<!--[ pnml name='_BBCODE_SIZE_HINT' ]-->" id="fontsize_<!--[ $counter ]-->" name="fontsize_<!--[ $counter ]-->" onchange="AddBBCode('<!--[ $textfieldid ]-->', 'size', $F('fontsize_<!--[ $counter ]-->'))">
-        <option value="tiny"><!--[ pnml name='_BBCODE_SIZE_TINY' ]--></option>
-        <option value="small"><!--[ pnml name='_BBCODE_SIZE_SMALL' ]--></option>
-        <option value="normal" selected="selected"><!--[ pnml name='_BBCODE_SIZE_NORMAL' ]--></option>
-        <option value="large"><!--[ pnml name='_BBCODE_SIZE_LARGE' ]--></option>
-        <option value="huge"><!--[ pnml name='_BBCODE_SIZE_HUGE' ]--></option>
-        <!--[ if $pncore.bbcode.allow_usersize eq "yes" ]-->
-        <option value="<!--[ pnml name='_BBCODE_SIZE_TEXTSIZE' ]-->"><!--[ pnml name='_BBCODE_SIZE_DEFINE' ]--></option>
-        <!--[ /if ]-->
+    <label for="fontsize_<!--[$counter]-->"><!--[gt text='Font size']-->:</label>
+    <select title="<!--[gt text='select font size']-->" id="fontsize_<!--[$counter]-->" name="fontsize_<!--[$counter]-->" onchange="AddBBCode('<!--[$textfieldid]-->', 'size', $F('fontsize_<!--[$counter]-->'))">
+        <option value="tiny"><!--[gt text='Tiny']--></option>
+        <option value="small"><!--[gt text='Small']--></option>
+        <option value="normal" selected="selected"><!--[gt text='Normal']--></option>
+        <option value="large"><!--[gt text='Large']--></option>
+        <option value="huge"><!--[gt text='Huge']--></option>
+        <!--[if $pncore.bbcode.allow_usersize eq "yes"]-->
+        <option value="<!--[gt text='enter text size']-->"><!--[gt text='self defined size']--></option>
+        <!--[/if]-->
     </select>
 </p>
-<!--[ /if ]-->
+<!--[/if]-->
 
 </div>
 
 <noscript>
-    <p class="noscript"><!--[ pnml name='_BBCODE_NOSCRIPTWARNING' ]--></p>
+    <p class="noscript"><!--[gt text='Your browser does not support javascript or you turned it off. The bbcode interface has been disabled.']--></p>
 </noscript>
 
