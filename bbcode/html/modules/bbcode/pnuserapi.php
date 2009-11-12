@@ -22,6 +22,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
+Loader::requireOnce('modules/bbcode/common.php');
+
 /**
  * the hook function
  *@params $args['extrainfo'] text or array of texts to transform
@@ -71,6 +73,7 @@ function bbcode_userapi_transform($args)
 function bbcode_transform($message)
 {
     $dom = ZLanguage::getModuleDomain('bbcode');
+
     // check the user agent - if it is a bot, return immediately
     $robotslist = array ( "ia_archiver",
                           "googlebot",
@@ -213,7 +216,7 @@ function bbcode_transform($message)
     // spoiler tag
     if(pnModGetVar('bbcode', 'spoiler_enabled')) {
         $spoiler = str_replace('%s', '\\1', pnModGetVar('bbcode', 'spoiler'));
-        $spoiler = str_replace('%h', __('Spoiler follows:', $dom), $spoiler);
+        $spoiler = str_replace('%h', __('Spoiler follows', $dom), $spoiler);
         $message = preg_replace("/\[spoiler\](.*?)\[\/spoiler\]/si", $spoiler, $message);
     }
 
@@ -285,7 +288,6 @@ function bbcode_encode_quote($message)
     if (!strpos(strtolower($message), "[quote=") && !strpos(strtolower($message), "[quote]")) {
         return $message;
     }
-
 
     $quotebody = str_replace(array("\r","\n"), '', pnModGetVar('bbcode', 'quote'));
 
@@ -466,7 +468,7 @@ function bbcode_encode_code($message)
                     $geshi->set_header_type(GESHI_HEADER_DIV);
                     $geshi->set_link_styles(GESHI_LINK,    'padding-left: 0px; background-image: none;');
                     $geshi->set_link_styles(GESHI_HOVER,   'padding-left: 0px; background-image: none;');
-                    $geshi->set_link_styles(GESHI__('Active', $dom),  'padding-left: 0px; background-image: none;');
+                    $geshi->set_link_styles(GESHI_ACTIVE,  'padding-left: 0px; background-image: none;');
                     $geshi->set_link_styles(GESHI_VISITED, 'padding-left: 0px; background-image: none;');
                     if($hilite == HILITE_GESHI_WITH_LN) {
                         $geshi->set_line_style('color: blue; font-weight: bold;', 'color: green;');

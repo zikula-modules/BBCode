@@ -22,6 +22,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
+Loader::requireOnce('modules/bbcode/common.php');
+
 /**
  * init module
 */
@@ -34,7 +36,7 @@ function bbcode_init()
                            'bbcode',
                            'user',
                            'transform')) {
-        return LogUtil::registerError(_BBCODE_COULDNOTREGISTER . ' (transform hook)');
+        return LogUtil::registerError(__('Error! Could not register BBCode transform hook', $dom));
     }
 
     // setup module vars
@@ -69,8 +71,10 @@ function bbcode_init()
 */
 function bbcode_upgrade($oldversion)
 {
-	switch($oldversion) {
-	    case '1.10':
+    $dom = ZLanguage::getModuleDomain('bbcode');
+
+    switch($oldversion) {
+        case '1.10':
             pnModSetVar('pn_bbcode', 'quoteheader_start', '<fieldset style="background-color: '.pnThemeGetVar('bgcolor2').'; text-align: left; border: 1px solid black;"><legend style="font-weight: bold;">');
             pnModSetVar('pn_bbcode', 'quoteheader_end',   '</legend>');
             pnModSetVar('pn_bbcode', 'quotebody_start',   '');
@@ -119,7 +123,7 @@ function bbcode_upgrade($oldversion)
                                    'pn_bbcode',
                                    'user',
                                    'codes')) {
-                pnSessionSetVar('errormsg', _BBCODE_COULDNOTREGISTER . ' (display hook)');
+                pnSessionSetVar('errormsg', __('Error! Could not register BBCode display hook', $dom));
                 return '1.17';
             }
             pnModSetVar('pn_bbcode', 'displayhook', 'yes');
@@ -131,7 +135,7 @@ function bbcode_upgrade($oldversion)
                                      'pn_bbcode',
                                      'user',
                                      'codes')) {
-                LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (display hook)');
+                LogUtil::registerError(__('Error! Could not register BBCode display hook', $dom));
                 return '1.18';
             }
             pnModDelVar('pn_bbcode', 'displayhook');
@@ -163,9 +167,9 @@ function bbcode_upgrade($oldversion)
             pnModSetVar('bbcode', 'quote_enabled', true);
             pnModSetVar('bbcode', 'lightbox_enabled', true);
             pnModSetVar('bbcode', 'lightbox_previewwidth', 200);
-            pnModSetVar('bbcode', 'link_shrinksize',  30);
-            pnModSetVar('bbcode', 'spoiler_enabled',  true);
-            pnModSetVar('bbcode', 'spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbspoiler">%s</div></div>');
+            pnModSetVar('bbcode', 'link_shrinksize', 30);
+            pnModSetVar('bbcode', 'spoiler_enabled', true);
+            pnModSetVar('bbcode', 'spoiler', '<div><h3 class="bbcodeheader">%h</h3><div class="bbspoiler">%s</div></div>');
 
             $oldvars = pnModGetVar('pn_bbcode');
             foreach ($oldvars as $varname => $oldvar) {
@@ -175,28 +179,28 @@ function bbcode_upgrade($oldversion)
 
             // introduce mimetex module var
             pnModSetVar('bbcode', 'mimetex_enabled', false);
-		    pnModSetVar('bbcode', 'mimetex_url', 'http://www.forkosh.dreamhost.com/cgi-bin/mimetex.cgi');
+            pnModSetVar('bbcode', 'mimetex_url', 'http://www.forkosh.dreamhost.com/cgi-bin/mimetex.cgi');
 
             // get list of hooked modules
             $hookedmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'pn_bbcode'));
 
-    		// update hooks
-    		$pntables = pnDBGetTables();
-    		$hookstable  = $pntables['hooks'];
-    		$hookscolumn = $pntables['hooks_column'];
-    		$sql = 'UPDATE ' . $hookstable . ' SET ' . $hookscolumn['smodule'] . '=\'bbcode\' WHERE ' . $hookscolumn['smodule'] . '=\'pn_bbcode\'';
-    		$res = DBUtil::executeSQL ($sql);
-    		if ($res === false) {
-        		LogUtil::registerError(_BBCODE_FAILEDTOUPGRADEHOOK . ' (smodule)');
-        		return '1.30';
-    		}
+            // update hooks
+            $pntables = pnDBGetTables();
+            $hookstable  = $pntables['hooks'];
+            $hookscolumn = $pntables['hooks_column'];
+            $sql = 'UPDATE ' . $hookstable . ' SET ' . $hookscolumn['smodule'] . '=\'bbcode\' WHERE ' . $hookscolumn['smodule'] . '=\'pn_bbcode\'';
+            $res = DBUtil::executeSQL ($sql);
+            if ($res === false) {
+                LogUtil::registerError(__('Error! Failed to upgrade hook (smodule)', $dom));
+                return '1.30';
+            }
 
-    		$sql = 'UPDATE ' . $hookstable . ' SET ' . $hookscolumn['tmodule'] . '=\'bbcode\' WHERE ' . $hookscolumn['tmodule'] . '=\'pn_bbcode\'';
-    		$res   = DBUtil::executeSQL ($sql);
-    		if ($res === false) {
-        		LogUtil::registerError(_BBCODE_FAILEDTOUPGRADEHOOK . ' (tmodule)');
-        		return '1.30';
-    		}
+            $sql = 'UPDATE ' . $hookstable . ' SET ' . $hookscolumn['tmodule'] . '=\'bbcode\' WHERE ' . $hookscolumn['tmodule'] . '=\'pn_bbcode\'';
+            $res   = DBUtil::executeSQL ($sql);
+            if ($res === false) {
+                LogUtil::registerError(__('Error! Failed to upgrade hook (tmodule)', $dom));
+                return '1.30';
+            }
 
         default:
              break;
@@ -216,7 +220,7 @@ function bbcode_delete()
                              'bbcode',
                              'user',
                              'transform')) {
-        return LogUtil::registerError(_BBCODE_COULDNOTUNREGISTER . ' (transform hook)');
+        return LogUtil::registerError(__('Error! Could not unregister BBCode transform hook', $dom));
     }
 
     // remove all module vars

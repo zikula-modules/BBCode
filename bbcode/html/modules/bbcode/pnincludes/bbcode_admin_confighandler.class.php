@@ -124,9 +124,9 @@ class bbcode_admin_confighandler
             pnModSetVar('bbcode', 'size_enabled',  $data['size_enabled']);
             pnModSetVar('bbcode', 'allow_usersize',  $data['allow_usersize']);
 
-			// mimetex
-			pnModSetVar('bbcode', 'mimetex_enabled',	$data['mimetex_enabled']);
-			pnModSetVar('bbcode', 'mimetex_url',	$data['mimetex_url']);
+            // mimetex
+            pnModSetVar('bbcode', 'mimetex_enabled',	$data['mimetex_enabled']);
+            pnModSetVar('bbcode', 'mimetex_url',	$data['mimetex_url']);
             
             // misc
             pnModSetVar('bbcode', 'lightbox_enabled',  $data['lightbox_enabled']);
@@ -135,7 +135,7 @@ class bbcode_admin_confighandler
             pnModSetVar('bbcode', 'spoiler_enabled',  $data['spoiler_enabled']);
             pnModSetVar('bbcode', 'spoiler',  $data['spoiler']);
 
-            LogUtil::registerStatus(__('Configuration has been updated', $dom));
+            LogUtil::registerStatus(__('Done! Configuration has been updated', $dom));
         }
         return pnRedirect(pnModURL('bbcode', 'admin', 'config'));
     }

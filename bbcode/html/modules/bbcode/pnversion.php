@@ -28,7 +28,7 @@ $modversion['name']             = 'bbcode';
 $modversion['oldnames']         = array('pn_bbcode');
 $modversion['version']          = '2.1';
 $modversion['id'] 				= '164';
-$modversion['description']      = __('BBCode Hook', $dom);
+$modversion['description']      = __('BBCode is a transform hook that converts usual bbcode tags into html.', $dom);
 $modversion['displayname']      = __('BBCode Hook', $dom);
 //! module url (lower case without spaces and different to displayname)
 $modversion['url']      = __('bbcode', $dom);
@@ -39,8 +39,8 @@ $modversion['changelog']        = 'pndocs/changelog.txt';
 $modversion['license']          = 'pndocs/license.txt';
 $modversion['coding']           = 'pndocs/coding.txt';
 $modversion['official']         = 0;
-$modversion['author']           = 'pnForum team';
-$modversion['contact']          = 'http://www.pnforum.de';
+$modversion['author']           = 'BBCode Team';
+$modversion['contact']          = 'http://code.zikula.org/bbcode';
 $modversion['admin']            = 1;
 $modversion['securityschema']   = array('bbcode:Modulename:Links'  => '::',
                                         'bbcode:Modulename:Emails' => '::');
