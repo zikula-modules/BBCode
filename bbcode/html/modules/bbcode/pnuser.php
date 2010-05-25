@@ -53,7 +53,7 @@ function bbcode_user_whatisbbcode()
  */
 function bbcode_user_bbcodes($args)
 {
-    $images      = $args['images'];
+    $images      = isset($args['images']) ? $args['images'] : null;
     $textfieldid = $args['textfieldid'];
 
     if(empty($textfieldid)) {

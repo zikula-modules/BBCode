@@ -113,7 +113,7 @@ function bbcode_transform($message)
 
     // Step 1 - remove all html tags, we do not want to change them!!
     /* $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $message, $html); */
-    $htmlcount = preg_match_all("/</?\w+((\s+\w+(\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)/?>/i", $message, $html);
+    $htmlcount = preg_match_all("#</?\w+((\s+\w+(\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)/?>#i", $message, $html);
     for ($i=0; $i < $htmlcount; $i++) {
         $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " BBCODEHTMLREPLACEMENT{$i} ", $message, 1);
     }
@@ -462,7 +462,7 @@ function bbcode_encode_code($message)
                     if(!class_exists('GeSHi')) {
                         Loader::includeOnce('modules/bbcode/pnincludes/geshi.php');
                     }
-                    $geshi =& new GeSHi($after_replace, $language, 'modules/bbcode/pnincludes/geshi/');
+                    $geshi = new GeSHi($after_replace, $language, 'modules/bbcode/pnincludes/geshi/');
                     $geshi->set_tab_width(4);
                     $geshi->set_case_keywords(GESHI_CAPS_LOWER);
                     $geshi->set_header_type(GESHI_HEADER_DIV);
