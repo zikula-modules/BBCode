@@ -363,7 +363,7 @@ function PR_tabExpander(tabWidth) {
 // (3) /<\/?[a-zA-Z][^>]*>/ : A probably tag that should not be highlighted
 // (4) /</ : A '<' that does not begin a larger chunk.  Treated as 1
 var pr_chunkPattern =
-  /(?:[^<]+|<!--[\s\S]*?-->|<!\[CDATA\[([\s\S]*?)\]\]>|<\/?[a-zA-Z][^>]*>|<)/g;
+  /(?:[^<]+|{\s\S]*?-->|<!\[CDATA\[([\s\S]*?)\]\]>|<\/?[a-zA-Z][^>]*>|<)/g;
 var pr_commentPrefix = /^<!--/;
 var pr_cdataPrefix = /^<\[CDATA\[/;
 var pr_brPrefix = /^<br\b/i;
@@ -579,7 +579,7 @@ function PR_splitNonStringNonCommentTokens(source, decorations) {
 var PR_MARKUP_LEXER = PR_createSimpleLexer([], [
     [PR_PLAIN,       /^[^<]+/, null],
     [PR_DECLARATION, /^<!\w[^>]*(?:>|$)/, null],
-    [PR_COMMENT,     /^<!--[\s\S]*?(?:-->|$)/, null],
+    [PR_COMMENT,     /^{\s\S]*?(?:-->|$)/, null],
     [PR_SOURCE,      /^<\?[\s\S]*?(?:\?>|$)/, null],
     [PR_SOURCE,      /^<%[\s\S]*?(?:%>|$)/, null],
     [PR_SOURCE,

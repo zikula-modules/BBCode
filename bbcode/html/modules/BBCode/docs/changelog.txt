@@ -74,7 +74,7 @@ Version 1.17: May 20, 2005
 	  code tags will be added at the cursor position now, marked textportions will be empbraced
 	  with tags
 	  IMPORTANT: the textarea needs an id now which has to be passed to the bbcode module:
-	  <!--[ pnmodfunc modname=bbcode type=user func=bbcodes textfieldid='mytextfieldid' ]-->
+	  { pnmodfunc modname=bbcode type=user func=bbcodes textfieldid='mytextfieldid' }
 	  shows the bbcode selection
 
 

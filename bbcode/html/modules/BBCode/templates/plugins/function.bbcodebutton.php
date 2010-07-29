@@ -52,10 +52,10 @@ function smarty_function_bbcodebutton($params, &$smarty)
 
     $lang = pnUserGetLang();
 
-    if(file_exists("modules/bbcode/pnimages/$lang/$image")) {
-        $imgfile = "modules/bbcode/pnimages/$lang/$image";
-    } else if(file_exists("modules/bbcode/pnimages/$image")) {
-        $imgfile = "modules/bbcode/pnimages/$image";
+    if(file_exists("modules/Bbcode/images/$lang/$image")) {
+        $imgfile = "modules/Bbcode/images/$lang/$image";
+    } else if(file_exists("modules/Bbcode/images/$image")) {
+        $imgfile = "modules/Bbcode/images/$image";
     }
     $attr = getimagesize($imgfile);
 

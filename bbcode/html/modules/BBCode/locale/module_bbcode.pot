@@ -58,34 +58,34 @@ msgstr ""
 msgid "*Not allowed to see emails*"
 msgstr ""
 
-#: pnincludes/bbcode_admin_confighandler.class.php:32
+#: includes/bbcode_admin_confighandler.class.php:32
 msgid "No highlighting"
 msgstr ""
 
-#: pnincludes/bbcode_admin_confighandler.class.php:33
+#: includes/bbcode_admin_confighandler.class.php:33
 msgid "GeSHi with line numbers"
 msgstr ""
 
-#: pnincludes/bbcode_admin_confighandler.class.php:34
+#: includes/bbcode_admin_confighandler.class.php:34
 msgid "GeSHi without line numbers"
 msgstr ""
 
-#: pnincludes/bbcode_admin_confighandler.class.php:35
+#: includes/bbcode_admin_confighandler.class.php:35
 msgid "Google Code Prettifier"
 msgstr ""
 
-#: pnincludes/bbcode_admin_confighandler.class.php:78
-#: pnincludes/bbcode_admin_confighandler.class.php:83
-#: pnincludes/bbcode_admin_confighandler.class.php:88
-#: pnincludes/bbcode_admin_confighandler.class.php:93
-#: pnincludes/bbcode_admin_confighandler.class.php:98
+#: includes/bbcode_admin_confighandler.class.php:78
+#: includes/bbcode_admin_confighandler.class.php:83
+#: includes/bbcode_admin_confighandler.class.php:88
+#: includes/bbcode_admin_confighandler.class.php:93
+#: includes/bbcode_admin_confighandler.class.php:98
 msgid ""
 "Illegal value, allowed format: up to four decimal places + dot + two decimal "
 "places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: "
 "1.05em or 95%."
 msgstr ""
 
-#: pnincludes/bbcode_admin_confighandler.class.php:138
+#: includes/bbcode_admin_confighandler.class.php:138
 msgid "Done! Configuration has been updated"
 msgstr ""
 
