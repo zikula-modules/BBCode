@@ -21,7 +21,7 @@ class BBCode_Installer extends Zikula_Installer
 	*/
 	public function install()
 	{
-		Loader::includeOnce('modules/Bbcode/includes/common.php');
+		Loader::includeOnce('modules/BBCode/includes/common.php');
 
 
 	    // create hook
@@ -195,6 +195,8 @@ class BBCode_Installer extends Zikula_Installer
 			return '1.30';
 		    }
 
+		case '2.0':
+		case '2.1':
 		default:
 		    break;
 	    }
