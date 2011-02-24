@@ -1,40 +1,40 @@
 <?php
 
 /**
- * bbcode Module
+ * BBCode Module
  *
- * @subpackage   bbcode
+ * @subpackage   BBCode
  * @license      http://www.gnu.org/copyleft/gpl.html GNU General Public License
  */
 
 
-class BBCode_Form_Handler_Admin_ModifyConfig  extends Form_Handler
+class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
 {
 
-	function initialize(&$render)
+    function initialize(Zikula_Form_View $view)
 	{
-		$render->caching = false;
-		$render->add_core_data();
-		$render->assign('mimetex_url', ModUtil::getVar('bbcode','mimetex_url'));
-		$render->assign('quote_preview', nl2br(ModUtil::apiFunc('bbcode', 'user', 'transform',
+		$this->view->caching = false;
+		$this->view->add_core_data();
+		$this->view->assign('mimetex_url', ModUtil::getVar('BBCode','mimetex_url'));
+		$this->view->assign('quote_preview', nl2br(ModUtil::apiFunc('BBCode', 'user', 'transform',
 								      array('objectid' => 1,
 									    'extrainfo' => "[quote=username]test\ntest test\n[/quote]"))));
 		$hiliteoptions = array(array('text' => $this->__('No highlighting'), 'value' => 0),
 				      array('text' => $this->__('GeSHi with line numbers'), 'value' => 1),
 				      array('text' => $this->__('GeSHi without line numbers'), 'value' => 2),
 				      array('text' => $this->__('Google Code Prettifier'), 'value' => 3));
-		$render->assign('hiliteoptions', $hiliteoptions);
-		$render->assign('code_preview', ModUtil::apiFunc('bbcode', 'user', 'transform',
+		$this->view->assign('hiliteoptions', $hiliteoptions);
+		$this->view->assign('code_preview', ModUtil::apiFunc('BBCode', 'user', 'transform',
 								array('objectid' => 1,
 								      'extrainfo' => "[code=php, start=100]<?php\necho 'test';\n?>[/code]")));
 
-		$render->assign('spoiler_preview', ModUtil::apiFunc('bbcode', 'user', 'transform',
+		$this->view->assign('spoiler_preview', ModUtil::apiFunc('BBCode', 'user', 'transform',
 								  array('objectid' => 1,
-									'extrainfo' => "[spoiler]Zikula + bbcode[/spoiler]")));
+									'extrainfo' => "[spoiler]Zikula + BBCode[/spoiler]")));
 
 
 		PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-		$modvars = ModUtil::getVar('bbcode');
+		$modvars = $this->getVar('BBCode');
 		$script = '<script type="text/javascript">';
 		$script .= ($modvars['code_enabled'] == true) ? 'var codeenabled = true;' : 'var codeenabled = false;';
 		$script .= ($modvars['color_enabled'] == true) ? 'var colorenabled = true;' : 'var colorenabled = false;';
@@ -45,87 +45,87 @@ class BBCode_Form_Handler_Admin_ModifyConfig  extends Form_Handler
 		$script .= ($modvars['mimetex_enabled'] == true) ? 'var mimetexenabled = true;' : 'var mimetexenabled = false;';
 		$script .= '</script>';
 		PageUtil::addVar('rawtext', $script);
-		PageUtil::addVar('javascript', 'modules/Bbcode/javascript/bbcode_admin.js');
+		PageUtil::addVar('javascript', 'modules/BBCode/javascript/BBCode_admin.js');
 
 		return true;
 	}
 
 
-	function handleCommand(&$render, &$args)
+	function handleCommand(Zikula_Form_View $view)
 	{
 		// Security check
-		if (!SecurityUtil::checkPermission('bbcode::', '::', ACCESS_ADMIN)) {
-			return LogUtil::registerPermissionError('index.php');
-		}  
-		if ($args['commandName'] == 'submit') {
-			$ok = $render->isValid(); 
-			$data = $render->getValues();
+		if (!SecurityUtil::checkPermission('BBCode::', '::', ACCESS_ADMIN)) {
+			return LogUtil::registerPermissionError();
+		} 
 
-			if(!$this->_validate_size_input($data['size_tiny'])) {
-				$ifield = & $render->getPluginById('size_tiny');
-				$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
-				$ok = false;
-			}
-			if(!$this->_validate_size_input($data['size_small'])) {
-				$ifield = & $render->getPluginById('size_small');
-				$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
-				$ok = false;
-			}
-			if(!$this->_validate_size_input($data['size_normal'])) {
-				$ifield = & $render->getPluginById('size_normal');
-				$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
-				$ok = false;
-			}
-			if(!$this->_validate_size_input($data['size_large'])) {
-				$ifield = & $render->getPluginById('size_large');
-				$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
-				$ok = false;
-			}
-			if(!$this->_validate_size_input($data['size_huge'])) {
-				$ifield = & $render->getPluginById('size_huge');
-				$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
-				$ok = false;
-			}
-			if(!$ok) {
-				return false;
-			}
+		$ok = $this->view->isValid(); 
+		$data = $this->view->getValues();
 
-			// code 
-			ModUtil::setVar('bbcode', 'code_enabled',  $data['code_enabled']);
-			ModUtil::setVar('bbcode', 'code',  $data['code']);
-			ModUtil::setVar('bbcode', 'syntaxhilite',  $data['syntaxhilite']);
-
-			// color
-			ModUtil::setVar('bbcode', 'color_enabled',  $data['color_enabled']);
-			ModUtil::setVar('bbcode', 'allow_usercolor',  $data['allow_usercolor']);
-
-			// quote
-			ModUtil::setVar('bbcode', 'quote_enabled',  $data['quote_enabled']);
-			ModUtil::setVar('bbcode', 'quote',  $data['quote']);
-
-			// size
-			ModUtil::setVar('bbcode', 'size_tiny',  $data['size_tiny']);
-			ModUtil::setVar('bbcode', 'size_small',  $data['size_small']);
-			ModUtil::setVar('bbcode', 'size_normal',  $data['size_normal']);
-			ModUtil::setVar('bbcode', 'size_large',  $data['size_large']);
-			ModUtil::setVar('bbcode', 'size_huge',  $data['size_huge']);
-			ModUtil::setVar('bbcode', 'size_enabled',  $data['size_enabled']);
-			ModUtil::setVar('bbcode', 'allow_usersize',  $data['allow_usersize']);
-
-			// mimetex
-			ModUtil::setVar('bbcode', 'mimetex_enabled',	$data['mimetex_enabled']);
-			ModUtil::setVar('bbcode', 'mimetex_url',	$data['mimetex_url']);
-			
-			// misc
-			ModUtil::setVar('bbcode', 'lightbox_enabled',  $data['lightbox_enabled']);
-			ModUtil::setVar('bbcode', 'lightbox_previewwidth',  $data['lightbox_previewwidth']);
-			ModUtil::setVar('bbcode', 'link_shrinksize',  $data['link_shrinksize']);
-			ModUtil::setVar('bbcode', 'spoiler_enabled',  $data['spoiler_enabled']);
-			ModUtil::setVar('bbcode', 'spoiler',  $data['spoiler']);
-
-			LogUtil::registerStatus($this->__('Done! Configuration has been updated'));
+		/*if(!$this->_validate_size_input($data['size_tiny'])) {
+			$ifield = & $this->view->getPluginById('size_tiny');
+			$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
+			$ok = false;
 		}
-		return System::redirect(ModUtil::url('bbcode', 'admin', 'config'));
+		if(!$this->_validate_size_input($data['size_small'])) {
+			$ifield = & $this->view->getPluginById('size_small');
+			$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
+			$ok = false;
+		}
+		if(!$this->_validate_size_input($data['size_normal'])) {
+			$ifield = & $this->view->getPluginById('size_normal');
+			$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
+			$ok = false;
+		}
+		if(!$this->_validate_size_input($data['size_large'])) {
+			$ifield = & $this->view->getPluginById('size_large');
+			$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
+			$ok = false;
+		}
+		if(!$this->_validate_size_input($data['size_huge'])) {
+			$ifield = & $this->view->getPluginById('size_huge');
+			$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
+			$ok = false;
+		}
+		if(!$ok) {
+			return false;
+		}*/
+
+		// code 
+		$this->setVar('code_enabled',  $data['code_enabled']);
+		$this->setVar('code',  $data['code']);
+		$this->setVar('syntaxhilite',  $data['syntaxhilite']);
+
+		// color
+		$this->setVar('color_enabled',  $data['color_enabled']);
+		$this->setVar('allow_usercolor',  $data['allow_usercolor']);
+
+		// quote
+		$this->setVar('quote_enabled',  $data['quote_enabled']);
+		$this->setVar('quote',  $data['quote']);
+
+		// size
+		$this->setVar('size_tiny',  $data['size_tiny']);
+		$this->setVar('size_small',  $data['size_small']);
+		$this->setVar('size_normal',  $data['size_normal']);
+		$this->setVar('size_large',  $data['size_large']);
+		$this->setVar('size_huge',  $data['size_huge']);
+		$this->setVar('size_enabled',  $data['size_enabled']);
+		$this->setVar('allow_usersize',  $data['allow_usersize']);
+
+		// mimetex
+		$this->setVar('mimetex_enabled',	$data['mimetex_enabled']);
+		$this->setVar('mimetex_url',	$data['mimetex_url']);
+		
+		// misc
+		$this->setVar('lightbox_enabled',  $data['lightbox_enabled']);
+		$this->setVar('lightbox_previewwidth',  $data['lightbox_previewwidth']);
+		$this->setVar('link_shrinksize',  $data['link_shrinksize']);
+		$this->setVar('spoiler_enabled',  $data['spoiler_enabled']);
+		$this->setVar('spoiler',  $data['spoiler']);
+
+		LogUtil::registerStatus($this->__('Done! Configuration has been updated'));
+
+		return System::redirect(ModUtil::url('BBCode', 'admin', 'config'));
 	}
 
 	function _validate_size_input(&$input)

@@ -1,8 +1,10 @@
-{* $Id$ *}
+{* $Id: BBCode_admin_main.tpl 222 2010-07-29 12:42:23Z herr.vorragend $ *}
 
 {include file=bbcode_admin_menu.tpl}
 
-<h3>{gt text="Actually the bbcode hook is used with the following modules"}</h3>
+<h3>{gt text="Actually the BBCode hook is used with the following modules"}</h3>
+
+<br /><p class="z-informationmsg"><a href="{modurl modname=modules type=admin func=main}" title="{gt text="Activate BBCode for more modules"}">{gt text="Activate BBCode for more modules"}</a></p>
 
 <table class="z-admintable">
     <thead>
@@ -22,9 +24,8 @@
             </td>
         </tr>
         {foreachelse}
-        <tr class="z-admintableempty"><td colspan="3">{gt text="bbcode is not used with any module"}</td></tr>
-        {/foreach}
-        <tr class="z-admintableempty z-sub"><td colspan="3"><a href="{modurl modname=modules type=admin func=main}" title="{gt text="Activate bbcode for more modules"}">{gt text="Activate bbcode for more modules"}</a></td></tr>        
+        <tr class="z-admintableempty"><td colspan="3">{gt text="BBCode is not used with any module"}</td></tr>
+        {/foreach}    
     </tbody>
 </table>
 

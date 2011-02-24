@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: function.BBCodebutton.php 222 2010-07-29 12:42:23Z herr.vorragend $
 // ----------------------------------------------------------------------
 // Zikula Application Framework
 // Copyright (C) 2002 by the Zikula Development Team.
@@ -25,7 +25,7 @@
 // ----------------------------------------------------------------------
 
 /**
- * bbcodebutton
+ * BBCodebutton
  * creates buttons for bbcodes
  *
  *$params['name'] string name
@@ -43,8 +43,8 @@ function smarty_function_bbcodebutton($params, &$smarty)
 	unset($params);
 
     // load language file
-    if(!pnModAPILoad('bbcode', 'user')) {
-        $smarty->trigger_error("loading bbcode api failed", e_error);
+    if(!pnModAPILoad('BBCode', 'user')) {
+        $smarty->trigger_error("loading BBCode api failed", e_error);
         return;
     }
 
@@ -52,10 +52,10 @@ function smarty_function_bbcodebutton($params, &$smarty)
 
     $lang = pnUserGetLang();
 
-    if(file_exists("modules/Bbcode/images/$lang/$image")) {
-        $imgfile = "modules/Bbcode/images/$lang/$image";
-    } else if(file_exists("modules/Bbcode/images/$image")) {
-        $imgfile = "modules/Bbcode/images/$image";
+    if(file_exists("modules/BBCode/images/$lang/$image")) {
+        $imgfile = "modules/BBCode/images/$lang/$image";
+    } else if(file_exists("modules/BBCode/images/$image")) {
+        $imgfile = "modules/BBCode/images/$image";
     }
     $attr = getimagesize($imgfile);
 
