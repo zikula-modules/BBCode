@@ -71,7 +71,7 @@ class BBCode_Controller_User extends Zikula_Controller
 	    $this->view->assign('textfieldid', $textfieldid);
 
 	    $this->view->add_core_data();
-	    return $this->view->fetch('BBCode_user_bbcodes.tpl');
+	    return $this->view->fetch('bbcode_user_bbcodes.tpl');
 	}
 }
 
