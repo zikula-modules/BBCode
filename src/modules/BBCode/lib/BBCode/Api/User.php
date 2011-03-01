@@ -98,20 +98,20 @@ class BBCode_Api_User extends Zikula_Api
         // move all links out of the text and replace them with placeholders
         $linkscount = preg_match_all('/<a(.*)>(.*)<\/a>/siU', $message, $links);
         for ($i = 0; $i < $linkscount; $i++) {
-            $message = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " bbcodeLINKREPLACEMENT{$i} ", $message, 1);
+            $message = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " BBCODELINKREPLACEMENT{$i} ", $message, 1);
         }
       
         // Step 1 - remove all html tags, we do not want to change them!!
         /* $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $message, $html;*/
         $htmlcount = preg_match_all("#</?\w+((\s+\w+(\s*=\s*(?:\".*?\"|'.*?'|[^'\">\s]+))?)+\s*|\s*)/?>#i", $message, $html);
         for ($i=0; $i < $htmlcount; $i++) {
-            $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " bbcodeHTMLREPLACEMENT{$i} ", $message, 1);
+            $message = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " BBCODEHTMLREPLACEMENT{$i} ", $message, 1);
         }
 
         // replace NOPARSE
         $noparsecount = preg_match_all('/\[noparse\](.*)\[\/noparse\]/siU', $message, $noparse);
         for ($i = 0; $i < $noparsecount; $i++) {
-            $message = preg_replace('/(' . preg_quote($noparse[0][$i], '/') . ')/', " bbcodeNOPARSEREPLACEMENT{$i} ", $message, 1);
+            $message = preg_replace('/(' . preg_quote($noparse[0][$i], '/') . ')/', " BBCODENOPARSEREPLACEMENT{$i} ", $message, 1);
         }
 
         // [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
@@ -256,15 +256,15 @@ class BBCode_Api_User extends Zikula_Api
         for ($i = 0; $i < $noparsecount; $i++) {
             // trick: [1] contains the text without the real noparse tag, so we do not
             // need to remove them manually
-            $message = preg_replace("/ bbcodeNOPARSEREPLACEMENT{$i} /", $noparse[1][$i], $message, 1);
+            $message = preg_replace("/ BBCODENOPARSEREPLACEMENT{$i} /", $noparse[1][$i], $message, 1);
         }
 
         // replace the tags and links that we removed before
         for ($i = 0; $i < $htmlcount; $i++) {
-            $message = preg_replace("/ bbcodeHTMLREPLACEMENT{$i} /", $html[0][$i], $message, 1);
+            $message = preg_replace("/ BBCODEHTMLREPLACEMENT{$i} /", $html[0][$i], $message, 1);
         }
         for ($i = 0; $i < $linkscount; $i++) {
-            $message = preg_replace("/ bbcodeLINKREPLACEMENT{$i} /", $links[0][$i], $message, 1);
+            $message = preg_replace("/ BBCODELINKREPLACEMENT{$i} /", $links[0][$i], $message, 1);
         }
 
         // Remove our padding from the string..
