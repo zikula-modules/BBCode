@@ -11,7 +11,7 @@ class BBCode_Version extends Zikula_Version
 	public function getMetaData()
 	{
 		$meta = array();
-		$meta['oldnames']         = array('pn_BBCode','bbcode');
+		$meta['oldnames']         = array('pn_bbcode','bbcode');
 		$meta['version']          = '3.0.0';
 		$meta['id']               = '164';
 		$meta['description']      = __('BBCode is a transform hook that converts usual BBCode tags into html.');

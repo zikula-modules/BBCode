@@ -51,8 +51,13 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
 	}
 
 
-	function handleCommand(Zikula_Form_View $view)
+	function handleCommand(Zikula_Form_View $view, &$args)
 	{
+        if ($args['commandName'] == 'cancel') {
+            $url = ModUtil::url('BBCode', 'admin', 'config' );
+            return $view->redirect($url);
+        }
+        
 		// Security check
 		if (!SecurityUtil::checkPermission('BBCode::', '::', ACCESS_ADMIN)) {
 			return LogUtil::registerPermissionError();
@@ -61,7 +66,7 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
 		$ok = $this->view->isValid(); 
 		$data = $this->view->getValues();
 
-		/*if(!$this->_validate_size_input($data['size_tiny'])) {
+		if(!$this->_validate_size_input($data['size_tiny'])) {
 			$ifield = & $this->view->getPluginById('size_tiny');
 			$ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
 			$ok = false;
@@ -88,7 +93,7 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
 		}
 		if(!$ok) {
 			return false;
-		}*/
+		}
 
 		// code 
 		$this->setVar('code_enabled',  $data['code_enabled']);
