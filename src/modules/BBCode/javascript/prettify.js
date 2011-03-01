@@ -1,5 +1,3 @@
-// $Id$
-//
 // Loader for prototype
 Event.observe(window, 'load', function(){prettyPrint();}, false);
 

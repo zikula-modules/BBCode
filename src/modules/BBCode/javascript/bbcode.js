@@ -1,5 +1,4 @@
 /* ----------------------------------------------------- */
-/* $Id$ */
 /* Javascript for inserting text at the cursor position  */
 /* based on a script found on http://de.selfhtml.org     */
 /* original author: Torsten Anacker, torsten@anaboe.net  */

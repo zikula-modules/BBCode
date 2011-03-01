@@ -2,13 +2,13 @@ Version 2.0
 ===============================================================================
 IMPORTANT NOTICE:
 ===============================================================================
-The permission component changed in v2.0 from pn_bbode to bbcode, please update
+The permission component changed in v2.0 from pn_bbode to BBCode, please update
 your permission rules!!!
 ===============================================================================
 Upgrade from pn_bbcode:
 * remove old pn_bbcode module in the filesystem, do not remove the module in
   Zikula!
-* copy new bbcode files to your modules folder
+* copy new BBCode files to your modules folder
 * regenerate modules list and continue upgrading as usual
 ===============================================================================
   - This version needs min. Zikula 1.0 or later to run, do not even try it 

@@ -1,5 +1,3 @@
-{* $Id: BBCode_user_whatisBBCode.tpl 222 2010-07-29 12:42:23Z herr.vorragend $ *}
-
 <h2>What is BBCode?</h2>
 <p>BBCode is a variation on the HTML tags you may already be familiar with.  Basically, it allows you to add functionality or style
     to your message that would normally require HTML.  You can use BBCode even if HTML is not enabled for the forum you are using.

@@ -1,5 +1,3 @@
-{* $Id: BBCode_admin_main.tpl 222 2010-07-29 12:42:23Z herr.vorragend $ *}
-
 {include file=bbcode_admin_menu.tpl}
 
 <h3>{gt text="Actually the BBCode hook is used with the following modules"}</h3>

@@ -1,5 +1,4 @@
 <?php
-// $Id: function.BBCodebutton.php 222 2010-07-29 12:42:23Z herr.vorragend $
 // ----------------------------------------------------------------------
 // Zikula Application Framework
 // Copyright (C) 2002 by the Zikula Development Team.
@@ -25,8 +24,8 @@
 // ----------------------------------------------------------------------
 
 /**
- * BBCodebutton
- * creates buttons for bbcodes
+ * bbcodebutton
+ * creates buttons for BBCode
  *
  *$params['name'] string name
  *$params['nameml'] int if set then treat name as a define

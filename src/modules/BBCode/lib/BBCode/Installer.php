@@ -1,11 +1,11 @@
 <?php
 
 /**
- * bbcode module
+ * BBCode module
  *
  * @license http://www.gnu.org/copyleft/gpl.html
  * @package Zikula_Utility_Modules
- * @subpackage bbcode
+ * @subpackage BBCode
  *
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
@@ -28,7 +28,7 @@ class BBCode_Installer extends Zikula_Installer
         if (!ModUtil::registerHook('item',
                   'transform',
                   'API',
-                  'bbcode',
+                  'BBCode',
                   'user',
                   'transform')) {
         return LogUtil::registerError($this->__('Error! Could not register BBCode transform hook'));
@@ -197,11 +197,11 @@ class BBCode_Installer extends Zikula_Installer
 
         case '2.0':
         case '2.1':
-            $oldvars = ModUtil::getVar('bbcode');
+            $oldvars = ModUtil::getVar('BBCode');
             foreach ($oldvars as $varname => $oldvar) {
                 $this->setVar($varname, $oldvar);
             }
-            ModUtil::delVar('bbcode');
+            ModUtil::delVar('BBCode');
         default:
             break;
         }
@@ -217,7 +217,7 @@ class BBCode_Installer extends Zikula_Installer
         if (!ModUtil::unregisterHook('item',
                     'transform',
                     'API',
-                    'bbcode',
+                    'BBCode',
                     'user',
                     'transform')) {
         return LogUtil::registerError($this->__('Error! Could not unregister BBCode transform hook'));

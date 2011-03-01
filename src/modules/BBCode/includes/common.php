@@ -2,8 +2,7 @@
 
 /**
  * @package Zikula_Utility_Modules
- * @subpackage bbcode
- * @ $Id$
+ * @subpackage BBCode
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
