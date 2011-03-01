@@ -29,7 +29,7 @@ class BBCode_Api_User extends Zikula_Api
         }
 
         PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('BBCode'));
-        if($this->setVar('lightbox_enabled')==true) {
+        if($this->getVar('lightbox_enabled') == true) {
           //PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
           //PageUtil::addVar('javascript', 'javascript/ajax/scriptaculous.js');
         }
@@ -91,7 +91,7 @@ class BBCode_Api_User extends Zikula_Api
         }
 
         // [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
-        if($this->setVar('code_enabled')) {
+        if($this->getVar('code_enabled')) {
             $message = $this->encode_code($message);
         } 
 
@@ -115,7 +115,7 @@ class BBCode_Api_User extends Zikula_Api
         }
 
         // [QUOTE] and [/QUOTE] for posting replies with quote, or just for quoting stuff.
-        if($this->setVar('quote_enabled')) {
+        if($this->getVar('quote_enabled')) {
             $message = $this->encode_quote($message);
         }
 
@@ -138,12 +138,12 @@ class BBCode_Api_User extends Zikula_Api
         $message = preg_replace("/\[i\](.*?)\[\/i\]/si", "<em>\\1</em>", $message);
 
         // [img]image_url_here[/img] code..
-        if($this->setVar('lightbox_enabled')==false) {
+        if($this->getVar('lightbox_enabled') == false) {
             // no lightbox :-(
             $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<img src="\\1" alt="\\1" />', $message);
         } else {
             // use lightbox :-)
-            $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<a href="\\1" rel="lightbox"><img src="\\1" alt="\\1" width="' . DataUtil::formatForDisplay($this->setVar('lightbox_previewwidth')) . '"/></a>', $message, -1, $img_replacement_count);
+            $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<a href="\\1" rel="lightbox"><img src="\\1" alt="\\1" width="' . DataUtil::formatForDisplay($this->getVar('lightbox_previewwidth')) . '"/></a>', $message, -1, $img_replacement_count);
             if ($img_replacement_count > 0) {
               // load lightbox stuff only if at least one img tag has been found
               PageUtil::addVar('javascript', 'javascript/ajax/lightbox.js');
@@ -156,7 +156,7 @@ class BBCode_Api_User extends Zikula_Api
         $message = preg_replace("/\[u\](.*?)\[\/u\]/si", "<span style=\"text-decoration:underline;\">\\1</span>", $message);
 
         // [color] and [/color] for coloring text.
-        if($this->setVar('color_enabled')) {
+        if($this->getVar('color_enabled')) {
             $message = preg_replace("#\[color=black\](.*?)\[/color\]#si", "<span style=\"color:black;\">\\1</span>", $message);
             $message = preg_replace("#\[color=darkred\](.*?)\[/color\]#si", "<span style=\"color:darkred;\">\\1</span>", $message);
             $message = preg_replace("#\[color=red\](.*?)\[/color\]#si", "<span style=\"color:red;\">\\1</span>", $message);
@@ -172,7 +172,7 @@ class BBCode_Api_User extends Zikula_Api
             $message = preg_replace("#\[color=violet\](.*?)\[/color\]#si", "<span style=\"color:violet;\">\\1</span>", $message);
             $message = preg_replace("#\[color=white\](.*?)\[/color\]#si", "<span style=\"color:white;\">\\1</span>", $message);
             // freestyle color
-            if($this->setVar('allow_usercolor')=="yes") {
+            if($this->getVar('allow_usercolor') == "yes") {
               $message = preg_replace("#\[color=(\#[0-9A-F]{6}|[a-z\-]+)\](.*?)\[/color\]#si", "<span style=\"color:\\1;\">\\2</span>", $message);
             } else {
               $message = preg_replace("#\[color=(\#[0-9A-F]{6}|[a-z\-]+)\](.*?)\[/color\]#si", "\\2", $message);
@@ -182,14 +182,14 @@ class BBCode_Api_User extends Zikula_Api
         }
 
         // [size] and [/size] for setting the size of text.
-        if($this->setVar('size_enabled')) {
-            $message = preg_replace("/\[size=tiny\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->setVar('size_tiny').";\">\\1</span>", $message);
-            $message = preg_replace("/\[size=small\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->setVar('size_small').";\">\\1</span>", $message);
-            $message = preg_replace("/\[size=normal\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->setVar('size_normal').";\">\\1</span>", $message);
-            $message = preg_replace("/\[size=large\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->setVar('size_large').";\">\\1</span>", $message);
-            $message = preg_replace("/\[size=huge\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->setVar('size_huge').";\">\\1</span>", $message);
+        if($this->getVar('size_enabled')) {
+            $message = preg_replace("/\[size=tiny\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->getVar('size_tiny').";\">\\1</span>", $message);
+            $message = preg_replace("/\[size=small\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->getVar('size_small').";\">\\1</span>", $message);
+            $message = preg_replace("/\[size=normal\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->getVar('size_normal').";\">\\1</span>", $message);
+            $message = preg_replace("/\[size=large\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->getVar('size_large').";\">\\1</span>", $message);
+            $message = preg_replace("/\[size=huge\](.*?)\[\/size\]/si", "<span style=\"font-size:".$this->getVar('size_huge').";\">\\1</span>", $message);
             // freestyle size
-            if($this->setVar('allow_usersize')=="yes") {
+            if($this->getVar('allow_usersize')=="yes") {
               $message = preg_replace("/\[size=([0-9]+)\](.*?)\[\/size\]/si", "<span style=\"font-size:\\1px;\">\\2</span>", $message);
             } else {
               $message = preg_replace("/\[size=([0-9]+)\](.*?)\[\/size\]/si", "\\2", $message);
@@ -199,7 +199,7 @@ class BBCode_Api_User extends Zikula_Api
         }
 
         // [math] and [/math] for posting math code converted via mimetex cgi script
-        if($this->setVar('mimetex_enabled')) {
+        if($this->getVar('mimetex_enabled')) {
             $mimetex_url = ModUtil::getVar('BBCode','mimetex_url');
             if (isset($mimetex_url) && ($mimetex_url != "")) {
                     switch (ModUtil::getName()) {
@@ -213,8 +213,8 @@ class BBCode_Api_User extends Zikula_Api
         }
 
           // spoiler tag
-        if($this->setVar('spoiler_enabled')) {
-            $spoiler = str_replace('%s', '\\1', $this->setVar('spoiler'));
+        if($this->getVar('spoiler_enabled')) {
+            $spoiler = str_replace('%s', '\\1', $this->getVar('spoiler'));
             $spoiler = str_replace('%h', $this->__('Spoiler follows'), $spoiler);
             $message = preg_replace("/\[spoiler\](.*?)\[\/spoiler\]/si", $spoiler, $message);
         }
@@ -292,7 +292,7 @@ class BBCode_Api_User extends Zikula_Api
         return $message;
         }
 
-        $quotebody = str_replace(array("\r","\n"), '', $this->setVar('quote'));
+        $quotebody = str_replace(array("\r","\n"), '', $this->getVar('quote'));
 
         $stack = array();
         $curr_pos = 1;
@@ -412,15 +412,15 @@ class BBCode_Api_User extends Zikula_Api
         // 1 = geshi with linenumbers
         // 2 = geshi without linenumbers
         // 3 = google code prettifier
-        $hilite  = $this->setVar('syntaxhilite');
-        $codebody = str_replace("\n", '', "<!--code-->" . $this->setVar('code') . "<!--/code-->");
+        $hilite  = $this->getVar('syntaxhilite');
+        $codebody = str_replace("\n", '', "<!--code-->" . $this->getVar('code') . "<!--/code-->");
 
         for($i=0; $i < $count; $i++) {
           // the code in between incl. code tags
           $str_to_match = "/" . preg_quote($BBCode[0][$i], "/") . "/";
 
           // no parameters, set some defaults
-          //$numbers = ($this->setVar('linenumbers')=='yes') ? true : false;
+          //$numbers = ($this->getVar('linenumbers')=='yes') ? true : false;
           $language = 'php';
           $startline = 1;
           // analyze parameters in [2]
@@ -670,7 +670,7 @@ class BBCode_Api_User extends Zikula_Api
         include_once('modules/BBCode/includes/common.php');
 
         $langs = array();
-        if(($this->setVar('syntaxhilite') == HILITE_GESHI_WITH_LN) || ($this->setVar('syntaxhilite') == HILITE_GESHI_WITHOUT_LN)){
+        if(($this->getVar('syntaxhilite') == HILITE_GESHI_WITH_LN) || ($this->getVar('syntaxhilite') == HILITE_GESHI_WITHOUT_LN)){
           $langsfound = FileUtil::getFiles('modules/BBCode/includes/geshi', false, false, '.php', false);
           foreach($langsfound as $langfound) {
             $langs[] = str_replace(array('modules/BBCode/includes/geshi/', '.php'), '', $langfound);
@@ -894,7 +894,7 @@ class BBCode_Api_User extends Zikula_Api
     public function minimize_displayurl($displayurl)
     {
         // get the maximum size of the urls to show
-        $maxsize = $this->setVar('link_shrinksize');
+        $maxsize = $this->getVar('link_shrinksize');
         if($maxsize<>0 && strlen($displayurl) > $maxsize) {
         $before = round($maxsize / 2);
         $after  = $maxsize - 1 - $before;
