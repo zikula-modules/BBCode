@@ -40,7 +40,7 @@
 function smarty_function_bbcodebutton($params, &$smarty)
 {
     extract($params);
-	unset($params);
+    unset($params);
 
     // load language file
     if(!pnModAPILoad('BBCode', 'user')) {

@@ -13,29 +13,29 @@
 
 class BBCode_Api_Admin extends Zikula_Api
 {
-	/**
-	* get available admin panel links
-	*
-	* @author Mark West
-	* @return array array of admin links
-	*/
-	public function getlinks()
-	{
-		$links = array();
-		if (SecurityUtil::checkPermission('BBCode::', '::', ACCESS_ADMIN)) {
-			$links[] = array(
+    /**
+    * get available admin panel links
+    *
+    * @author Mark West
+    * @return array array of admin links
+    */
+    public function getlinks()
+    {
+        $links = array();
+        if (SecurityUtil::checkPermission('BBCode::', '::', ACCESS_ADMIN)) {
+            $links[] = array(
                 'url' => ModUtil::url('BBCode', 'admin', 'main'),
                 'text' => $this->__('Start'),
                 'class' => 'z-icon-es-view'
             );
-			$links[] = array(
+            $links[] = array(
                 'url' => ModUtil::url('BBCode', 'admin', 'config'),
                 'text' => $this->__('Settings'),
                 'class' => 'z-icon-es-config'
             );
-		 }
-		 return $links;
-	}
+         }
+         return $links;
+    }
 
 }
 
