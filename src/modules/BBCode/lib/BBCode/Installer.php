@@ -26,17 +26,7 @@ class BBCode_Installer extends Zikula_Installer
 
         // create hook
         HookUtil::registerHookProviderBundles($this->version);
-        
-            /*
-        if (!ModUtil::registerHook('item',
-                  'transform',
-                  'API',
-                  'BBCode',
-                  'user',
-                  'transform')) {
-        return LogUtil::registerError($this->__('Error! Could not register BBCode transform hook'));
-        }
-        */
+
         // setup module vars
         $this->setVar('quote', '<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>');
         $this->setVar('code',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbcodetext">%c</div></div>');
@@ -93,14 +83,14 @@ class BBCode_Installer extends Zikula_Installer
         case '1.14':
             ModUtil::setVar('pn_bbcode', 'linenumbers', 'yes');
             $quote = ModUtil::getVar('pn_bbcode', 'quoteheader_start') . '%u' .
-                ModUtil::getVar('pn_bbcode', 'quoteheader_end') .
-                ModUtil::getVar('pn_bbcode', 'quotebody_start') . '%t' .
-                ModUtil::getVar('pn_bbcode', 'quotebody_end');
+            ModUtil::getVar('pn_bbcode', 'quoteheader_end') .
+            ModUtil::getVar('pn_bbcode', 'quotebody_start') . '%t' .
+            ModUtil::getVar('pn_bbcode', 'quotebody_end');
             ModUtil::setVar('pn_bbcode', 'quote', stripslashes(DataUtil::formatForStore($quote)));
             $code = ModUtil::getVar('pn_bbcode', 'codeheader_start') . '%h' .
-                ModUtil::getVar('pn_bbcode', 'codeheader_end') .
-                ModUtil::getVar('pn_bbcode', 'codebody_start') . '%c' .
-                ModUtil::getVar('pn_bbcode', 'codebody_end');
+            ModUtil::getVar('pn_bbcode', 'codeheader_end') .
+            ModUtil::getVar('pn_bbcode', 'codebody_start') . '%c' .
+            ModUtil::getVar('pn_bbcode', 'codebody_end');
             ModUtil::setVar('pn_bbcode', 'code', stripslashes(DataUtil::formatForStore($code)));
             ModUtil::delVar('pn_bbcode', 'quoteheader_start');
             ModUtil::delVar('pn_bbcode', 'quoteheader_end');
@@ -220,17 +210,6 @@ class BBCode_Installer extends Zikula_Installer
         // remove hook
         HookUtil::unregisterHookProviderBundles($this->version);
         
-        /*
-        if (!ModUtil::unregisterHook('item',
-                    'transform',
-                    'API',
-                    'BBCode',
-                    'user',
-                    'transform')) {
-        return LogUtil::registerError($this->__('Error! Could not unregister BBCode transform hook'));
-        }
-        */
-
         // remove all module vars
         $this->delVars();
 
