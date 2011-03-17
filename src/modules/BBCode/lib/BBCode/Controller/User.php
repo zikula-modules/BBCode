@@ -49,7 +49,7 @@ class BBCode_Controller_User extends Zikula_Controller
         $textfieldid = $args['textfieldid'];
 
         if(empty($textfieldid)) {
-        return LogUtil::registerArgsError();
+            return LogUtil::registerArgsError();
         }
 
         // if we have more than one textarea we need to distinguish them, so we simply use
@@ -62,7 +62,7 @@ class BBCode_Controller_User extends Zikula_Controller
         $this->view->assign('images', $images);
 
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-        PageUtil::addVar('javascript', 'modules/BBCode/javascript/bbcode.js');
+        PageUtil::addVar('javascript', 'modules/BBCode/javascript/BBCode.js');
         //PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('BBCode'));
 
         // get the languages for highlighting

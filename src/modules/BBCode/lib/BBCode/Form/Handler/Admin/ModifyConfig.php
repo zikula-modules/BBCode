@@ -13,24 +13,21 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
 
     function initialize(Zikula_Form_View $view)
     {
-        $this->view->caching = false;
-        $this->view->add_core_data();
-        $this->view->assign('mimetex_url', ModUtil::getVar('BBCode','mimetex_url'));
-        $this->view->assign('quote_preview', nl2br(ModUtil::apiFunc('BBCode', 'user', 'transform',
-                                      array('objectid' => 1,
-                                        'extrainfo' => "[quote=username]test\ntest test\n[/quote]"))));
+        $view->caching = false;
+        $view->add_core_data();
+        $view->assign('mimetex_url', ModUtil::getVar('BBCode','mimetex_url'));
+        $view->assign('quote_preview', nl2br(ModUtil::apiFunc('BBCode', 'user', 'transform',
+                                                              array('message' => "[quote=username]test\ntest test\n[/quote]"))));
         $hiliteoptions = array(array('text' => $this->__('No highlighting'), 'value' => 0),
                       array('text' => $this->__('GeSHi with line numbers'), 'value' => 1),
                       array('text' => $this->__('GeSHi without line numbers'), 'value' => 2),
                       array('text' => $this->__('Google Code Prettifier'), 'value' => 3));
-        $this->view->assign('hiliteoptions', $hiliteoptions);
-        $this->view->assign('code_preview', ModUtil::apiFunc('BBCode', 'user', 'transform',
-                                array('objectid' => 1,
-                                      'extrainfo' => "[code=php, start=100]<?php\necho 'test';\n?>[/code]")));
+        $view->assign('hiliteoptions', $hiliteoptions);
+        $view->assign('code_preview', ModUtil::apiFunc('BBCode', 'user', 'transform',
+                                                        array('message' => "[code=php, start=100]<?php\necho 'test';\n?>[/code]")));
 
-        $this->view->assign('spoiler_preview', ModUtil::apiFunc('BBCode', 'user', 'transform',
-                                  array('objectid' => 1,
-                                    'extrainfo' => "[spoiler]Zikula + BBCode[/spoiler]")));
+        $view->assign('spoiler_preview', ModUtil::apiFunc('BBCode', 'user', 'transform',
+                                                          array('message' => "[spoiler]Zikula + BBCode[/spoiler]")));
 
 
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
@@ -63,31 +60,31 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
             return LogUtil::registerPermissionError();
         } 
 
-        $ok = $this->view->isValid(); 
-        $data = $this->view->getValues();
+        $ok = $view->isValid(); 
+        $data = $view->getValues();
 
         if(!$this->_validate_size_input($data['size_tiny'])) {
-            $ifield = & $this->view->getPluginById('size_tiny');
+            $ifield = $view->getPluginById('size_tiny');
             $ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
             $ok = false;
         }
         if(!$this->_validate_size_input($data['size_small'])) {
-            $ifield = & $this->view->getPluginById('size_small');
+            $ifield = $view->getPluginById('size_small');
             $ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
             $ok = false;
         }
         if(!$this->_validate_size_input($data['size_normal'])) {
-            $ifield = & $this->view->getPluginById('size_normal');
+            $ifield = $view->getPluginById('size_normal');
             $ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
             $ok = false;
         }
         if(!$this->_validate_size_input($data['size_large'])) {
-            $ifield = & $this->view->getPluginById('size_large');
+            $ifield = $view->getPluginById('size_large');
             $ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
             $ok = false;
         }
         if(!$this->_validate_size_input($data['size_huge'])) {
-            $ifield = & $this->view->getPluginById('size_huge');
+            $ifield = $view->getPluginById('size_huge');
             $ifield->setError(DataUtil::formatForDisplay($this->__('Illegal value, allowed format: up to four decimal places + dot + two decimal places followed by unit, one out of cm,em,ex,in,mm,pc,pt,px or %. Example: 1.05em or 95%.')));
             $ok = false;
         }
@@ -130,7 +127,7 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
 
         LogUtil::registerStatus($this->__('Done! Configuration has been updated'));
 
-        return System::redirect(ModUtil::url('BBCode', 'admin', 'config'));
+        return System::redirect(ModUtil::url('BBCode', 'admin', 'main'));
     }
 
     function _validate_size_input(&$input)

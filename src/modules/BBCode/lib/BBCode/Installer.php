@@ -21,15 +21,12 @@ class BBCode_Installer extends Zikula_Installer
     */
     public function install()
     {
-        Loader::includeOnce('modules/BBCode/includes/common.php');
-
-
         // create hook
         HookUtil::registerHookProviderBundles($this->version);
 
         // setup module vars
-        $this->setVar('quote', '<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>');
-        $this->setVar('code',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbcodetext">%c</div></div>');
+        $this->setVar('quote', '<div class="bbquoteheader">%u</div><blockquote class="bbquotetext">%t</blockquote>');
+        $this->setVar('code',  '<div class="bbcodeheader">%h</div><div class="bbcodetext">%c</div>');
         $this->setVar('size_tiny',   '0.75em');
         $this->setVar('size_small',  '0.85em');
         $this->setVar('size_normal', '1.0em');
@@ -48,7 +45,7 @@ class BBCode_Installer extends Zikula_Installer
         $this->setVar('syntaxhilite', HILITE_GOOGLE); // google code prettifier
         $this->setVar('link_shrinksize',  30);
         $this->setVar('spoiler_enabled',  true);
-        $this->setVar('spoiler',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbspoiler">%s</div></div>');
+        $this->setVar('spoiler',  '<div class="bbcodeheader">%h</div><div class="bbspoiler">%s</div>');
 
         // Initialisation successful
         return true;

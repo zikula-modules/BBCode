@@ -31,26 +31,21 @@
     font-size: 0.9em;
 }
 
-h3.bbquoteheader {
-    display: inline;
-    font-size: .9em;
-    position: relative;
-    top: +2px;
+div.bbquoteheader {
+    font-size: 1em;
+    top: +1px;
     padding: 0 .3em;
     border: 1px solid #aaa;
     background-color: #efefef;
-    font-weight: bold;
 }
 
-h3.bbcodeheader {
-    display: inline;
-    font-size: .9em;
-    position: relative;
-    top: +2px;
+div.bbcodeheader {
+    font-size: 1em;
+    top: +1px;
     padding: 0 .3em;
     border: 1px solid #aaa;
     background-color: #efefef;
-    font-weight: bold;
+
 }
 
 .bbquotetext {
