@@ -25,6 +25,9 @@ class BBCode_Installer extends Zikula_Installer
 
 
         // create hook
+        HookUtil::registerHookProviderBundles($this->version);
+        
+            /*
         if (!ModUtil::registerHook('item',
                   'transform',
                   'API',
@@ -33,6 +36,7 @@ class BBCode_Installer extends Zikula_Installer
                   'transform')) {
         return LogUtil::registerError($this->__('Error! Could not register BBCode transform hook'));
         }
+        */
         // setup module vars
         $this->setVar('quote', '<div><h3 class="bbquoteheader">%u</h3><blockquote class="bbquotetext">%t</blockquote></div>');
         $this->setVar('code',  '<div><h3 class="bbcodeheader">%h</h3><div class="bbcodetext">%c</div></div>');
@@ -214,6 +218,9 @@ class BBCode_Installer extends Zikula_Installer
     public function uninstall()
     {
         // remove hook
+        HookUtil::unregisterHookProviderBundles($this->version);
+        
+        /*
         if (!ModUtil::unregisterHook('item',
                     'transform',
                     'API',
@@ -222,6 +229,7 @@ class BBCode_Installer extends Zikula_Installer
                     'transform')) {
         return LogUtil::registerError($this->__('Error! Could not unregister BBCode transform hook'));
         }
+        */
 
         // remove all module vars
         $this->delVars();

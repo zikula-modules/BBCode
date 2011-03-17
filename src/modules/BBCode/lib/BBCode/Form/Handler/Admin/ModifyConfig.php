@@ -34,7 +34,7 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
 
 
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-        $modvars = $this->getVar('BBCode');
+        $modvars = $this->getVars('BBCode');
         $script = '<script type="text/javascript">';
         $script .= ($modvars['code_enabled'] == true) ? 'var codeenabled = true;' : 'var codeenabled = false;';
         $script .= ($modvars['color_enabled'] == true) ? 'var colorenabled = true;' : 'var colorenabled = false;';

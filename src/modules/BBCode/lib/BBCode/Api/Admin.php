@@ -25,11 +25,6 @@ class BBCode_Api_Admin extends Zikula_Api
         if (SecurityUtil::checkPermission('BBCode::', '::', ACCESS_ADMIN)) {
             $links[] = array(
                 'url' => ModUtil::url('BBCode', 'admin', 'main'),
-                'text' => $this->__('Start'),
-                'class' => 'z-icon-es-view'
-            );
-            $links[] = array(
-                'url' => ModUtil::url('BBCode', 'admin', 'config'),
                 'text' => $this->__('Settings'),
                 'class' => 'z-icon-es-config'
             );

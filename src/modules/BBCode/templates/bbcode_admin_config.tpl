@@ -1,5 +1,13 @@
 {ajaxheader modname=BBCode nobehaviour=true noscriptaculous=true effects=true}
-{include file=bbcode_admin_menu.tpl}
+
+{admincategorymenu}
+<div class="z-adminbox">
+    <h1>{$modinfo.displayname}</h1>
+    {modulelinks modname='BBCode' type='admin'}
+</div>
+
+<div id="BBCode" class="z-admincontainer">
+
 <div class="z-adminpageicon">{icon type="config" size="large"}</div>
 
 <h2>{gt text='Settings'}</h2>
@@ -177,4 +185,6 @@
 
 {/form}
 
-{include file="bbcode_admin_footer.tpl"}
+{modgetinfo info=all}
+<p class="z-center"><a href="http://code.zikula.org/BBCode/" title="{gt text="Visit the BBCode project site"}">{$modinfo.displayname} {$modinfo.version}</a></p>
+</div>
