@@ -11,7 +11,7 @@
  * information regarding copyright and licensing.
  */
 
-class BBCode_Installer extends Zikula_Installer
+class BBCode_Installer extends Zikula_AbstractInstaller
 {
 
     /**
@@ -206,7 +206,7 @@ class BBCode_Installer extends Zikula_Installer
     {
         // remove hook
         HookUtil::unregisterHookProviderBundles($this->version);
-        
+
         // remove all module vars
         $this->delVars();
 

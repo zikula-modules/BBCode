@@ -11,7 +11,7 @@
  * information regarding copyright and licensing.
  */
 
-class BBCode_Controller_User extends Zikula_Controller
+class BBCode_Controller_User extends Zikula_AbstractController
 {
 
     /**

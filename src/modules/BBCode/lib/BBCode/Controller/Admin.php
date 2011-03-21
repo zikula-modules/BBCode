@@ -10,7 +10,7 @@
  * information regarding copyright and licensing.
  */
 
-class BBCode_Controller_Admin extends Zikula_Controller
+class BBCode_Controller_Admin extends Zikula_AbstractController
 {
     /**
     * main function

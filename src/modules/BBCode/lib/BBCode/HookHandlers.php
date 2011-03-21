@@ -6,11 +6,11 @@
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
-class BBCode_HookHandlers extends Zikula_HookHandler
+class BBCode_HookHandlers extends Zikula_Hook_AbstractHandler
 {
     /*
      * filter hook
-     * 
+     *
      */
     public function uifilter(Zikula_Event $event)
     {
@@ -23,10 +23,10 @@ class BBCode_HookHandlers extends Zikula_HookHandler
             PageUtil::addVar('javascript', 'javascript/ajax/scriptaculous.js');
         }
 
-        $data = ModUtil::apiFunc('BBCode', 'user', 'transform', 
+        $data = ModUtil::apiFunc('BBCode', 'user', 'transform',
                                  array('message' => $event->getData()));
         $event->setData($data);
-        return;     
+        return;
     }
 
 }

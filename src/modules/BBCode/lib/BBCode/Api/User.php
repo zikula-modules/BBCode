@@ -11,7 +11,7 @@
  * information regarding copyright and licensing.
  */
 
-class BBCode_Api_User extends Zikula_Api
+class BBCode_Api_User extends Zikula_AbstractApi
 {
     /**
     * the wrapper for a string var (simple up to now)
@@ -61,7 +61,7 @@ class BBCode_Api_User extends Zikula_Api
         // [CODE] and [/CODE] for posting code (HTML, PHP, C etc etc) in your posts.
         if($this->getVar('code_enabled')) {
             $message = $this->encode_code($message);
-        } 
+        }
 
         // move all links out of the text and replace them with placeholders
         $linkscount = preg_match_all('/<a(.*)>(.*)<\/a>/siU', $message, $links);
@@ -256,7 +256,7 @@ class BBCode_Api_User extends Zikula_Api
         $curr_pos = 1;
         while ($curr_pos && ($curr_pos < strlen($message))) {
             $curr_pos = strpos($message, "[", $curr_pos);
-    
+
             // If not found, $curr_pos will be 0, and the loop will end.
             if ($curr_pos) {
                 // We found a [. It starts at $curr_pos.
@@ -277,10 +277,10 @@ class BBCode_Api_User extends Zikula_Api
                         // There exists a starting tag.
                         // We need to do 2 replacements now.
                         $start_index = array_pop($stack);
-        
+
                         // everything before the [quote=xxx] tag.
                         $before_start_tag = substr($message, 0, $start_index);
-        
+
                         // find the end of the start tag
                         $start_tag_end = strpos($message, "]", $start_index);
                         $start_tag_len = $start_tag_end - $start_index + 1;
@@ -289,15 +289,15 @@ class BBCode_Api_User extends Zikula_Api
                         } else {
                             $username = DataUtil::formatForDisplay($this->__('Quote'));;
                         }
-        
+
                         // everything after the [quote=xxx] tag, but before the [/quote] tag.
                         $between_tags = substr($message, $start_index + $start_tag_len, $curr_pos - ($start_index + $start_tag_len));
                         // everything after the [/quote] tag.
                         $after_end_tag = substr($message, $curr_pos + 8);
-        
+
                         $quotetext = str_replace('%u', $username, $quotebody);
                         $quotetext = str_replace('%t', $between_tags, $quotetext);
-        
+
                         // rfe [ 1243208 ] credits to msandersen
                         // color handling
                         $colors['bgcolor1']   = ThemeUtil::getVar('bgcolor1');
@@ -311,9 +311,9 @@ class BBCode_Api_User extends Zikula_Api
                         foreach($colors as $colorname => $colorvalue) {
                             $quotetext = str_replace('%' . $colorname, $colorvalue, $quotetext);
                         }
-        
+
                         $message = $before_start_tag . $quotetext . $after_end_tag;
-        
+
                         // Now.. we've screwed up the indices by changing the length of the string.
                         // So, if there's anything in the stack, we want to resume searching just after it.
                         // otherwise, we go back to the start.
@@ -367,11 +367,11 @@ class BBCode_Api_User extends Zikula_Api
             // 3 = google code prettifier
             $hilite  = $this->getVar('syntaxhilite');
             $codebody = str_replace("\n", '', "<!--code-->" . $this->getVar('code') . "<!--/code-->");
-    
+
             for($i=0; $i < $count; $i++) {
                 // the code in between incl. code tags
                 $str_to_match = "/" . preg_quote($bbcode[0][$i], "/") . "/";
-    
+
                 // no parameters, set some defaults
                 //$numbers = ($this->getVar('linenumbers')=='yes') ? true : false;
                 $language = 'php';
@@ -406,13 +406,13 @@ class BBCode_Api_User extends Zikula_Api
                         }
                     }
                 } // parameters analyzed
-    
+
                 // pagesetter workaround:
                 if(ModUtil::getName()=='pagesetter') {
                     $bbcode[3][$i] = html_entity_decode($bbcode[3][$i]);
                 }
                 $after_replace = trim($bbcode[3][$i]);
-    
+
                 // finally decide which language to use
                 switch($hilite) {
                 case HILITE_NONE:
@@ -449,7 +449,7 @@ class BBCode_Api_User extends Zikula_Api
                     $after_replace = '<code class="prettyprint">' . DataUtil::formatForDisplay($after_replace) . '</code>';
                     break;
                 }
-    
+
                 // replace %h with _BBCODE_CODE
                 if($language=='htmlmail') {
                     $codetext = str_replace("%h", DataUtil::formatForDisplay($this->__('From')) . ': ' . DataUtil::formatForDisplay($username), $codebody);
@@ -462,7 +462,7 @@ class BBCode_Api_User extends Zikula_Api
                 $codetext = str_replace("%e", urlencode(nl2br($after_replace)), $codetext);
                 // my fault, admin panel says %j, so we do both :-)
                 $codetext = str_replace("%j", urlencode(nl2br($after_replace)), $codetext);
-    
+
                 // rfe [ 1243208 ] credits to msandersen
                 // color handling
                 $colors['bgcolor1']   = ThemeUtil::getVar('bgcolor1');
@@ -476,7 +476,7 @@ class BBCode_Api_User extends Zikula_Api
                 foreach($colors as $colorname => $colorvalue) {
                     $codetext = str_replace("%{$colorname}", $colorvalue, $codetext);
                 }
-    
+
                 $message = preg_replace($str_to_match, $codetext, $message);
             }
             //$message = str_replace("\n\n","\n",$message);
@@ -512,7 +512,7 @@ class BBCode_Api_User extends Zikula_Api
         $curr_pos = 1;
         while ($curr_pos && ($curr_pos < strlen($message))) {
             $curr_pos = strpos($message, "[", $curr_pos);
-    
+
             // If not found, $curr_pos will be 0, and the loop will end.
             if ($curr_pos) {
                 // We found a [. It starts at $curr_pos.
@@ -542,7 +542,7 @@ class BBCode_Api_User extends Zikula_Api
                         $start_index = $start[0];
                         $start_char = $start[1];
                         $is_ordered = ($start_char != "");
-    
+
                         // configure list style
                         // to-do: think about definition lists...
                         if($is_ordered) {
@@ -558,16 +558,16 @@ class BBCode_Api_User extends Zikula_Api
                             $start_tag        = '<ul class="bbcode_list">';
                             $end_tag          = '</ul>';
                         }
-    
+
                         // everything before the [list] tag.
                         $before_start_tag = substr($message, 0, $start_index);
-        
+
                         // everything between [list] and [/list] tags.
                         $between_tags = substr($message, $start_index + $start_tag_length, $curr_pos - $start_index - $start_tag_length);
-        
+
                         // everything after the [/list] tag.
                         $after_end_tag = substr($message, $curr_pos + 7);
-        
+
                         // replace [*]... with <li>...</li>
                         // even newer: adding of css classes for better styling of bbcode lists not needed with intelligent css,
                         //             see modules/Bbcode/style/style.css
@@ -580,13 +580,13 @@ class BBCode_Api_User extends Zikula_Api
                                 }
                             }
                         }
-    
+
                         $message = $before_start_tag
                             . $start_tag
                             . $new_between_tags
                             . $end_tag
                             . $after_end_tag;
-    
+
                         // Now.. we've screwed up the indices by changing the length of the string.
                         // So, if there's anything in the stack, we want to resume searching just after it.
                         // otherwise, we go back to the start.
@@ -665,7 +665,7 @@ class BBCode_Api_User extends Zikula_Api
         } else {
             $matches[1] = trim(strip_Tags($matches[1]));
             $matches[2] = trim(strip_tags($matches[2]));
-    
+
             $displayurl = $this->minimize_displayurl($matches[1] . $matches[2]);
             return $matches[1].($matches[2]+1);
         }
@@ -708,7 +708,7 @@ class BBCode_Api_User extends Zikula_Api
             } else {
                 return '<a href="user.php" title="' . DataUtil::formatForDisplay($this->__('*Not allowed to see the external links*')) . '">' . DataUtil::formatForDisplay($this->__('*Not allowed to see the external links*')) . '</a>';
             }
-        } else { 
+        } else {
             $displayurl = $this->minimize_displayurl($matches[1]);
             return '<a href="' . $matches[1] . '">' . $displayurl . '</a>';
         }
@@ -850,5 +850,5 @@ class BBCode_Api_User extends Zikula_Api
         }
         return $displayurl;
     }
-    
+
 }

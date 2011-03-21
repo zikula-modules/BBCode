@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
-class BBCode_Version extends Zikula_Version
+class BBCode_Version extends Zikula_AbstractVersion
 {
     public function getMetaData()
     {
@@ -18,7 +18,7 @@ class BBCode_Version extends Zikula_Version
         $meta['displayname']      = __('BBCode Hook');
         //! module url (lower case without spaces and different to displayname)
         $meta['url']              = 'bbcode';
-        $meta['securityschema']   = array('BBCode:Modulename:Links'  => '::', 
+        $meta['securityschema']   = array('BBCode:Modulename:Links'  => '::',
                                           'BBCode:Modulename:Emails' => '::');
         $meta['capabilities']     = array(HookUtil::PROVIDER_CAPABLE => array('enabled' => true));
         return $meta;

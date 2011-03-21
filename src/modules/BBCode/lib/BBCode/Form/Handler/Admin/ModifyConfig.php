@@ -8,7 +8,7 @@
  */
 
 
-class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
+class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_AbstractHandler
 {
 
     function initialize(Zikula_Form_View $view)
@@ -54,13 +54,13 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
             $url = ModUtil::url('BBCode', 'admin', 'config' );
             return $view->redirect($url);
         }
-        
+
         // Security check
         if (!SecurityUtil::checkPermission('BBCode::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError();
-        } 
+        }
 
-        $ok = $view->isValid(); 
+        $ok = $view->isValid();
         $data = $view->getValues();
 
         if(!$this->_validate_size_input($data['size_tiny'])) {
@@ -92,7 +92,7 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
             return false;
         }
 
-        // code 
+        // code
         $this->setVar('code_enabled',  $data['code_enabled']);
         $this->setVar('code',  $data['code']);
         $this->setVar('syntaxhilite',  $data['syntaxhilite']);
@@ -117,7 +117,7 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
         // mimetex
         $this->setVar('mimetex_enabled',    $data['mimetex_enabled']);
         $this->setVar('mimetex_url',    $data['mimetex_url']);
-        
+
         // misc
         $this->setVar('lightbox_enabled',  $data['lightbox_enabled']);
         $this->setVar('lightbox_previewwidth',  $data['lightbox_previewwidth']);
@@ -138,4 +138,4 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_Handler
 
 }
 
-    
+
