@@ -35,43 +35,4 @@ class BBCode_Controller_User extends Zikula_AbstractController
 
         return $this->view->fetch('bbcode_user_whatisbbcode.tpl');
     }
-
-    /**
-    * BBCode
-    * returns a html snippet with buttons for inserting bbocdes into a text
-    *
-    *@params $args['images'] use image buttons if set
-    *@params $args['textfieldid'] id of the textfield for inserting smilies
-    */
-    public function bbcodes($args)
-    {
-        $images      = isset($args['images']) ? $args['images'] : null;
-        $textfieldid = $args['textfieldid'];
-
-        if(empty($textfieldid)) {
-            return LogUtil::registerArgsError();
-        }
-
-        // if we have more than one textarea we need to distinguish them, so we simply use
-        // a counter stored in a session var until we find a better solution
-        $counter = (int)SessionUtil::getVar('BBCode_counter');
-        $counter++;
-        SessionUtil::setVar('BBCode_counter', $counter);
-
-        $this->view->assign('counter', $counter);
-        $this->view->assign('images', $images);
-
-        PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-        PageUtil::addVar('javascript', 'modules/BBCode/javascript/BBCode.js');
-        //PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('BBCode'));
-
-        // get the languages for highlighting
-        $langs = ModUtil::apiFunc('BBCode', 'user', 'get_geshi_languages');
-        $this->view->assign('geshi_languages', $langs);
-        $this->view->assign('textfieldid', $textfieldid);
-
-        $this->view->add_core_data();
-        return $this->view->fetch('bbcode_user_bbcodes.tpl');
-    }
 }
-

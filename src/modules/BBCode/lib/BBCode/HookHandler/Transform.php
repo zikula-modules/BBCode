@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html
 */
 
-class BBCode_HookHandler_Code extends Zikula_Hook_AbstractHandler
+class BBCode_HookHandler_Transform extends Zikula_Hook_AbstractHandler
 {
     /*
      * filter hook

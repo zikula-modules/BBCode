@@ -421,9 +421,9 @@ class BBCode_Api_User extends Zikula_AbstractApi
                 case HILITE_GESHI_WITH_LN:
                 case HILITE_GESHI_WITHOUT_LN:
                     if(!class_exists('GeSHi')) {
-                        include_once 'modules/Bbcode/includes/geshi.php';
+                        include_once 'modules/BBCode/includes/geshi.php';
                     }
-                    $geshi = new GeSHi($after_replace, $language, 'modules/Bbcode/includes/geshi/');
+                    $geshi = new GeSHi($after_replace, $language, 'modules/BBCode/includes/geshi/');
                     $geshi->set_tab_width(4);
                     $geshi->set_case_keywords(GESHI_CAPS_LOWER);
                     $geshi->set_header_type(GESHI_HEADER_DIV);
@@ -445,7 +445,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
                 case HILITE_GOOGLE:
                 default:
                     PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-                    PageUtil::addVar('javascript', 'modules/Bbcode/javascript/prettify.js');
+                    PageUtil::addVar('javascript', 'modules/BBCode/javascript/prettify.js');
                     $after_replace = '<code class="prettyprint">' . DataUtil::formatForDisplay($after_replace) . '</code>';
                     break;
                 }
@@ -570,7 +570,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
 
                         // replace [*]... with <li>...</li>
                         // even newer: adding of css classes for better styling of bbcode lists not needed with intelligent css,
-                        //             see modules/Bbcode/style/style.css
+                        //             see modules/BBCode/style/style.css
                         $listitems = explode('[*]', $between_tags);
                         // listitems may be false, empty or containing [*] if between_tags was empty
                         if(is_array($listitems) && count($listitems)>0 && $listitems[0]<>'[*]') {
@@ -624,9 +624,9 @@ class BBCode_Api_User extends Zikula_AbstractApi
         Loader::loadClass('FileUtil');
         $langs = array();
         if(($this->getVar('syntaxhilite') == HILITE_GESHI_WITH_LN) || ($this->getVar('syntaxhilite') == HILITE_GESHI_WITHOUT_LN)){
-            $langsfound = FileUtil::getFiles('modules/Bbcode/includes/geshi', false, false, '.php', false);
+            $langsfound = FileUtil::getFiles('modules/BBCode/includes/geshi', false, false, '.php', false);
             foreach($langsfound as $langfound) {
-                $langs[] = str_replace(array('modules/Bbcode/includes/geshi/', '.php'), '', $langfound);
+                $langs[] = str_replace(array('modules/BBCode/includes/geshi/', '.php'), '', $langfound);
             }
             asort($langs);
         }

@@ -1,4 +1,4 @@
-<div id="bbcode_{$textfieldid}" class="bbcode">
+<div id="bbcode_{$textfieldid}" class="bbcode z-buttons">
 
     {if $images}
     <p>
@@ -18,19 +18,19 @@
     </p>
     {else}
     <p>
-        <input title="{gt text='Insert a link' domain="module_bbcode"}" type="button" accesskey="w" name="url_{$counter}" value=" {gt text='URL' domain="module_bbcode"} "       class="BBCode_button" onclick="AddBBCode('{$textfieldid}', 'url')" />
-        <input title="{gt text='Insert an email address' domain="module_bbcode"}" type="button" accesskey="m" name="mail_{$counter}" value=" {gt text='E-Mail' domain="module_bbcode"} "    class="BBCode_button" onclick="AddBBCode('{$textfieldid}', 'email')" />
-        <input title="{gt text='Insert an image' domain="module_bbcode"}" type="button" accesskey="p" name="image_{$counter}" value=" {gt text='Image' domain="module_bbcode"} " class="BBCode_button" onclick="AddBBCode('{$textfieldid}', 'image')" />
+        <input title="{gt text='Insert a link' domain="module_bbcode"}" type="button" accesskey="w" name="url_{$counter}" value=" {gt text='URL' domain="module_bbcode"} "       class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'url')" />
+        <input title="{gt text='Insert an email address' domain="module_bbcode"}" type="button" accesskey="m" name="mail_{$counter}" value=" {gt text='E-Mail' domain="module_bbcode"} "    class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'email')" />
+        <input title="{gt text='Insert an image' domain="module_bbcode"}" type="button" accesskey="p" name="image_{$counter}" value=" {gt text='Image' domain="module_bbcode"} " class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'image')" />
         {if $modvars.BBCode.quote_enabled eq true}
-        <input title="{gt text='Insert quote' domain="module_bbcode"}" type="button" accesskey="q" name="quote_{$counter}" value=" {gt text='Quote' domain="module_bbcode"} " class="BBCode_button" onclick="AddBBCode('{$textfieldid}', 'quote')" />
+        <input title="{gt text='Insert quote' domain="module_bbcode"}" type="button" accesskey="q" name="quote_{$counter}" value=" {gt text='Quote' domain="module_bbcode"} " class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'quote')" />
         {/if}
         {if $modvars.BBCode.spoiler_enabled eq true}
-        <input title="{gt text='Hide text' domain="module_bbcode"}" type="button" accesskey="s" name="quote_{$counter}" value=" {gt text='Spoiler' domain="module_bbcode"} " class="BBCode_button" onclick="AddBBCode('{$textfieldid}', 'spoiler')" />
+        <input title="{gt text='Hide text' domain="module_bbcode"}" type="button" accesskey="s" name="quote_{$counter}" value=" {gt text='Spoiler' domain="module_bbcode"} " class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'spoiler')" />
         {/if}
+        <input title="{gt text='Insert youtube video' domain="module_bbcode"}" type="button" accesskey="c" name="youtube_{$counter}" value=" {gt text='Youtube' domain="module_bbcode"} " class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'youtube')" />
         {if $modvars.BBCode.code_enabled eq true}
         {if count($geshi_languages) eq 0}
-        <input title="{gt text='Insert code' domain="module_bbcode"}" type="button" accesskey="c" name="code_{$counter}" value=" {gt text='Code' domain="module_bbcode"} " class="BBCode_button" onclick="AddBBCode('{$textfieldid}', 'code')" />
-        <input title="{gt text='Insert youtube video' domain="module_bbcode"}" type="button" accesskey="c" name="youtube_{$counter}" value=" {gt text='Youtube' domain="module_bbcode"} " class="BBCode_button" onclick="AddBBCode('{$textfieldid}', 'youtube')" />
+        <input title="{gt text='Insert code' domain="module_bbcode"}" type="button" accesskey="c" name="code_{$counter}" value=" {gt text='Code' domain="module_bbcode"} " class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'code')" />
 	{else}
     </p>
     <p>
@@ -46,14 +46,13 @@
         {/if}
     </p>
     <p>
-        <input title="{gt text='Open list' domain="module_bbcode"}" type="button" accesskey="l" name="listopen_{$counter}" value=" {gt text='ul' domain="module_bbcode"} " class="BBCode_button2" onclick="AddBBCode('{$textfieldid}', 'listopen')" />
-        <input title="{gt text='Add list entry' domain="module_bbcode"}" type="button" accesskey="o" name="listitem_{$counter}" value=" {gt text='li' domain="module_bbcode"} " class="BBCode_button2" onclick="AddBBCode('{$textfieldid}', 'listitem')" />
-        <input title="{gt text='Close list' domain="module_bbcode"}" type="button" accesskey="x" name="listclose_{$counter}" value=" {gt text='/ul' domain="module_bbcode"} " class="BBCode_button2" onclick="AddBBCode('{$textfieldid}', 'listclose')" />
-        <input title="{gt text='Bold text' domain="module_bbcode"}" type="button" accesskey="b" name="bold_{$counter}" value=" {gt text='b' domain="module_bbcode"} " class="BBCode_button2" onclick="AddBBCode('{$textfieldid}', 'bold')" />
-        <input title="{gt text='Italic text' domain="module_bbcode"}" type="button" accesskey="i" name="italic_{$counter}" value=" {gt text='i' domain="module_bbcode"} " class="BBCode_button2" onclick="AddBBCode('{$textfieldid}', 'italic')" />
-        <input title="{gt text='Underlined text' domain="module_bbcode"}" type="button" accesskey="u" name="underline_{$counter}" value=" {gt text='u' domain="module_bbcode"} " class="BBCode_button2" onclick="AddBBCode('{$textfieldid}', 'underline')" />
-        <input title="{gt text='Strike out text' domain="module_bbcode"}" type="button" accesskey="u" name="strike_{$counter}" value=" {gt text='s' domain="module_bbcode"} " class="BBCode_button2" onclick="AddBBCode('{$textfieldid}', 'strike')" />
-
+        <input title="{gt text='Open list' domain="module_bbcode"}" type="button" accesskey="l" name="listopen_{$counter}" value=" {gt text='ul' domain="module_bbcode"} " class="BBCode_button2 z-bt-small" onclick="AddBBCode('{$textfieldid}', 'listopen')" />
+        <input title="{gt text='Add list entry' domain="module_bbcode"}" type="button" accesskey="o" name="listitem_{$counter}" value=" {gt text='li' domain="module_bbcode"} " class="BBCode_button2 z-bt-small" onclick="AddBBCode('{$textfieldid}', 'listitem')" />
+        <input title="{gt text='Close list' domain="module_bbcode"}" type="button" accesskey="x" name="listclose_{$counter}" value=" {gt text='/ul' domain="module_bbcode"} " class="BBCode_button2 z-bt-small" onclick="AddBBCode('{$textfieldid}', 'listclose')" />
+        <input title="{gt text='Bold text' domain="module_bbcode"}" type="button" accesskey="b" name="bold_{$counter}" value=" {gt text='b' domain="module_bbcode"} " class="BBCode_button2 z-bt-small" onclick="AddBBCode('{$textfieldid}', 'bold')" />
+        <input title="{gt text='Italic text' domain="module_bbcode"}" type="button" accesskey="i" name="italic_{$counter}" value=" {gt text='i' domain="module_bbcode"} " class="BBCode_button2 z-bt-small" onclick="AddBBCode('{$textfieldid}', 'italic')" />
+        <input title="{gt text='Underlined text' domain="module_bbcode"}" type="button" accesskey="u" name="underline_{$counter}" value=" {gt text='u' domain="module_bbcode"} " class="BBCode_button2 z-bt-small" onclick="AddBBCode('{$textfieldid}', 'underline')" />
+        <input title="{gt text='Strike out text' domain="module_bbcode"}" type="button" accesskey="u" name="strike_{$counter}" value=" {gt text='s' domain="module_bbcode"} " class="BBCode_button2 z-bt-small" onclick="AddBBCode('{$textfieldid}', 'strike')" />
     </p>
     {/if}
 
@@ -96,10 +95,8 @@
         </select>
     </p>
     {/if}
-
 </div>
 
 <noscript>
     <p class="noscript">{gt text='Your browser does not support javascript or you turned it off. The BBCode interface has been disabled.' domain="module_bbcode"}</p>
 </noscript>
-
