@@ -22,7 +22,7 @@ class BBCode_Installer extends Zikula_AbstractInstaller
     public function install()
     {
         // create hook
-        HookUtil::registerHookProviderBundles($this->version);
+        HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
 
         // setup module vars
         $this->setVar('quote', '<div class="bbquoteheader">%u</div><blockquote class="bbquotetext">%t</blockquote>');
@@ -193,6 +193,10 @@ class BBCode_Installer extends Zikula_AbstractInstaller
                 $this->setVar($varname, $oldvar);
             }
             ModUtil::delVar('BBCode');
+
+            // create hook
+            HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
+
         default:
             break;
         }
@@ -205,7 +209,7 @@ class BBCode_Installer extends Zikula_AbstractInstaller
     public function uninstall()
     {
         // remove hook
-        HookUtil::unregisterHookProviderBundles($this->version);
+        HookUtil::unregisterProviderBundles($this->version->getHookProviderBundles());
 
         // remove all module vars
         $this->delVars();

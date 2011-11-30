@@ -26,12 +26,9 @@ class BBCode_Version extends Zikula_AbstractVersion
 
     protected function setupHookBundles()
     {
-        $bundle = new Zikula_Version_HookProviderBundle('modulehook_area.bbcode.bbcode', $this->__('BBCode filter hook'));
-        $bundle->addHook('hookhandler.bbcode.ui.filter', 'ui.filter', 'BBCode_HookHandlers', 'uifilter', 'bbcode.service1');
-        // add other hooks as needed
-        $this->registerHookProviderBundle($bundle);
-
-        //... repeat as many times as necessary
+        $bundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.bbcode.filter_hooks.bbcode', 'filter_hooks', __('BBCode filter hook'));
+        $bundle->addStaticHandler('filter', 'BBCode_HookHandler_Code', 'filter', 'bbcode.code');
+        $this->registerHookProviderBundle($bundle);   
     }
 
 }
