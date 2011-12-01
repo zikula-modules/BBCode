@@ -151,7 +151,7 @@
         <p class="z-formnote z-informationmsg">{gt text="Shrinks the urls shown to the specified length (0=no action)."}</p>
     </div>
     <div class="z-formrow">
-        {formlabel for="lightbox_enabled" __text="Use Lightbox in img-tag"}
+        {formlabel for="lightbox_enabled" __text="Use Lightbox or the Zikula Imageviewer in img-tag"}
         {formcheckbox id="lightbox_enabled" checked=$modvars.BBCode.lightbox_enabled onchange="switchdisplaystate('lightboxconfig');"}
     </div>
     <div id="lightboxconfig">

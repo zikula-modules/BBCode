@@ -15,11 +15,6 @@ class BBCode_HookHandler_Transform extends Zikula_Hook_AbstractHandler
     public static function filter(Zikula_FilterHook $hook)
     {
         PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('BBCode'));
-        if(ModUtil::getVar('BBCode', 'lightbox_enabled')==true) {
-            PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-            PageUtil::addVar('javascript', 'javascript/ajax/scriptaculous.js');
-        }
-
         $data = ModUtil::apiFunc('BBCode', 'user', 'transform', array('message' => $hook->getData()));
         $hook->setData($data);
     }

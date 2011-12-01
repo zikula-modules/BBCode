@@ -99,14 +99,13 @@ class BBCode_Api_User extends Zikula_AbstractApi
         // [img]image_url_here[/img] code..
         if($this->getVar('lightbox_enabled')==false) {
             // no lightbox :-(
-            $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<img src="\\1" alt="\\1" />', $message);
+            $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<img class="bbcode_thumbnail" src="\\1" alt="\\1" />', $message);
         } else {
             // use lightbox :-)
-            $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<a href="\\1" rel="lightbox"><img src="\\1" alt="\\1" width="' . DataUtil::formatForDisplay($this->getVar('lightbox_previewwidth')) . '"/></a>', $message, -1, $img_replacement_count);
+            $message = preg_replace("#\[img\](.*?)\[/img\]#si", '<a href="\\1" rel="lightbox" title="\\1"><img class="bbcode_thumbnail" src="\\1" alt="\\1" width="' . DataUtil::formatForDisplay($this->getVar('lightbox_previewwidth')) . '"/></a>', $message, -1, $img_replacement_count);
             if ($img_replacement_count > 0) {
                 // load lightbox stuff only if at least one img tag has been found
-                PageUtil::addVar('javascript', 'javascript/ajax/lightbox.js');
-                PageUtil::addVar('stylesheet', 'javascript/ajax/lightbox/lightbox.css');
+                PageUtil::addVar('javascript', 'zikula.imageviewer');
             }
         }
 
@@ -162,7 +161,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
         $mimetex_url = $this->getVar('mimetex_url');
         if (isset($mimetex_url) && ($mimetex_url != "")) {
                 switch (ModUtil::getName()) {
-                    case 'pnWikka': // for this module we have to use a special syntax
+                    case 'Wikula': // for this module we have to use a special syntax
                         $message = preg_replace("/\[math\](.*?)\[\/math\]/si", '{{image url="'.$mimetex_url.'?'."\\1".'"}}', $message);
                         break;
                     default:

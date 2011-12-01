@@ -184,3 +184,11 @@ pre.prettyprint { padding: 2px; border: 1px solid #888; }
 p.spacer {
     padding: 2px 0;
 }
+
+.bbcode_thumbnail { 
+    border: 1px solid #aaa;
+    padding:2px;
+    -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+}
