@@ -27,7 +27,6 @@
         {if $modvars.BBCode.spoiler_enabled eq true}
         <input title="{gt text='Hide text' domain="module_bbcode"}" type="button" accesskey="s" name="quote_{$counter}" value=" {gt text='Spoiler' domain="module_bbcode"} " class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'spoiler')" />
         {/if}
-        <input title="{gt text='Insert youtube video' domain="module_bbcode"}" type="button" accesskey="c" name="youtube_{$counter}" value=" {gt text='Youtube' domain="module_bbcode"} " class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'youtube')" />
         {if $modvars.BBCode.code_enabled eq true}
         {if count($geshi_languages) eq 0}
         <input title="{gt text='Insert code' domain="module_bbcode"}" type="button" accesskey="c" name="code_{$counter}" value=" {gt text='Code' domain="module_bbcode"} " class="BBCode_button z-bt-small" onclick="AddBBCode('{$textfieldid}', 'code')" />
