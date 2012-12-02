@@ -4,8 +4,7 @@
  * @package Zikula_Utility_Modules
  * @subpackage BBCode
  * @license http://www.gnu.org/copyleft/gpl.html
-*/
-
+ */
 // begin of no-change-area
 // do NOT change the following lines. Although they are not language
 // relevant they are important for this module

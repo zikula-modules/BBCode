@@ -4,8 +4,7 @@
  * @package Zikula_Utility_Modules
  * @subpackage BBCode
  * @license http://www.gnu.org/copyleft/gpl.html
-*/
-
+ */
 class BBCode_HookHandler_Interface extends Zikula_Hook_AbstractHandler
 {
 
@@ -38,14 +37,13 @@ class BBCode_HookHandler_Interface extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-
     public function ui_view(Zikula_DisplayHook $hook)
     {
         $textfieldid = $hook->getId();
-        $images      =  null;
+        $images = null;
         // TODO: How can we get $images?
 
-        if(empty($textfieldid)) {
+        if (empty($textfieldid)) {
             return LogUtil::registerArgsError();
         }
 
@@ -70,4 +68,5 @@ class BBCode_HookHandler_Interface extends Zikula_Hook_AbstractHandler
         $response = new Zikula_Response_DisplayHook('provider_area.ui.bbcode.code', $this->view, 'bbcode_user_bbcodes.tpl');
         $hook->setResponse($response);
     }
+
 }

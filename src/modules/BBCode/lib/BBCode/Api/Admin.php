@@ -10,15 +10,15 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-
 class BBCode_Api_Admin extends Zikula_AbstractApi
 {
+
     /**
-    * get available admin panel links
-    *
-    * @author Mark West
-    * @return array array of admin links
-    */
+     * get available admin panel links
+     *
+     * @author Mark West
+     * @return array array of admin links
+     */
     public function getlinks()
     {
         $links = array();
@@ -28,8 +28,8 @@ class BBCode_Api_Admin extends Zikula_AbstractApi
                 'text' => $this->__('Settings'),
                 'class' => 'z-icon-es-config'
             );
-         }
-         return $links;
+        }
+        return $links;
     }
 
 }

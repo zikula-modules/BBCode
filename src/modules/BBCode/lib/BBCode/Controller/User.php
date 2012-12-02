@@ -10,29 +10,29 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-
 class BBCode_Controller_User extends Zikula_AbstractController
 {
 
     /**
-    * main funcion
-    * The main function is not used in the BBCode module, we just redirect to index.php
-    *
-    */
+     * main funcion
+     * The main function is not used in the BBCode module, we just redirect to index.php
+     *
+     */
     public function main()
     {
         return System::redirect(System::getVar('entrypoint', 'index.php'));
     }
 
     /**
-    * whatisBBCode
-    * The only relevant funtion here displays some help for BBCode tags
-    * no parameters needed
-    *
-    */
+     * whatisBBCode
+     * The only relevant funtion here displays some help for BBCode tags
+     * no parameters needed
+     *
+     */
     public function whatisbbcode()
     {
 
         return $this->view->fetch('bbcode_user_whatisbbcode.tpl');
     }
+
 }

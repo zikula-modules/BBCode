@@ -1,4 +1,5 @@
 <?php
+
 /**
  * BBCode
  *
@@ -9,13 +10,13 @@
  * Please see the NOTICE file distributed with this source code for further
  * information regarding copyright and licensing.
  */
-
 class BBCode_Controller_Admin extends Zikula_AbstractController
 {
+
     /**
-    * main function
-    *
-    */
+     * main function
+     *
+     */
     public function main()
     {
         if (!SecurityUtil::checkPermission('BBCode::', "::", ACCESS_ADMIN)) {

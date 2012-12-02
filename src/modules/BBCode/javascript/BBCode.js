@@ -7,8 +7,10 @@
 
 // add onload event handler
 Event.observe(window, 'load', function() {
-                                        $$('.bbcode').each(function(el) { el.removeClassName('hidden'); });
-                                        }, false);
+    $$('.bbcode').each(function(el) {
+        el.removeClassName('hidden');
+    });
+}, false);
                                         
 function AddBBCode(textfieldname, action, optdata)
 {
