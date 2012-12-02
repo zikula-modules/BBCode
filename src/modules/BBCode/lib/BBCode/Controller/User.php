@@ -14,7 +14,7 @@ class BBCode_Controller_User extends Zikula_AbstractController
 {
 
     /**
-     * main funcion
+     * main function
      * The main function is not used in the BBCode module, we just redirect to index.php
      *
      */
@@ -31,8 +31,7 @@ class BBCode_Controller_User extends Zikula_AbstractController
      */
     public function whatisbbcode()
     {
-
-        return $this->view->fetch('bbcode_user_whatisbbcode.tpl');
+        return $this->view->fetch('user/whatisbbcode.tpl');
     }
 
 }

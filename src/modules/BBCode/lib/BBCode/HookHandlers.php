@@ -65,7 +65,7 @@ class BBCode_HookHandlers extends Zikula_Hook_AbstractHandler
         $this->view->assign('geshi_languages', $langs);
         $this->view->assign('textfieldid', $textfieldid);
 
-        $response = new Zikula_Response_DisplayHook('provider_area.ui.bbcode.code', $this->view, 'bbcode_user_bbcodes.tpl');
+        $response = new Zikula_Response_DisplayHook('provider_area.ui.bbcode.code', $this->view, 'hook/bbcodes.tpl');
         $hook->setResponse($response);
     }
     
