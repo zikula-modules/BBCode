@@ -5,7 +5,7 @@
  * @subpackage BBCode
  * @license http://www.gnu.org/copyleft/gpl.html
  */
-class BBCode_HookHandler_Interface extends Zikula_Hook_AbstractHandler
+class BBCode_HookHandlers extends Zikula_Hook_AbstractHandler
 {
 
     /**
@@ -27,7 +27,7 @@ class BBCode_HookHandler_Interface extends Zikula_Hook_AbstractHandler
     }
 
     /**
-     * Display a html snippet with buttons for inserting bbocdes into a text
+     * Display a html snippet with buttons for inserting bbcodes into a textarea
      *
      * Subject is the object being viewed that we're attaching to.
      * args[id] is the id of the object.
@@ -37,7 +37,7 @@ class BBCode_HookHandler_Interface extends Zikula_Hook_AbstractHandler
      *
      * @return void
      */
-    public function ui_view(Zikula_DisplayHook $hook)
+    public function uiEdit(Zikula_DisplayHook $hook)
     {
         $textfieldid = $hook->getId();
         $images = null;
@@ -68,5 +68,15 @@ class BBCode_HookHandler_Interface extends Zikula_Hook_AbstractHandler
         $response = new Zikula_Response_DisplayHook('provider_area.ui.bbcode.code', $this->view, 'bbcode_user_bbcodes.tpl');
         $hook->setResponse($response);
     }
-
+    
+    /*
+     * filter hook
+     *
+     */
+    public static function filter(Zikula_FilterHook $hook)
+    {
+        PageUtil::addVar('stylesheet', ThemeUtil::getModuleStylesheet('BBCode'));
+        $data = ModUtil::apiFunc('BBCode', 'user', 'transform', array('message' => $hook->getData()));
+        $hook->setData($data);
+    }
 }

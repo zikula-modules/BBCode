@@ -27,11 +27,11 @@ class BBCode_Version extends Zikula_AbstractVersion
     protected function setupHookBundles()
     {
         $bundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.bbcode.ui_hooks.bbcode', 'ui_hooks', __('BBCode Editor'));
-        $bundle->addServiceHandler('display_view', 'BBCode_HookHandler_Interface', 'ui_view', 'bbcode.interface');
+        $bundle->addServiceHandler('form_edit', 'BBCode_HookHandlers', 'uiEdit', 'bbcode.interface');
         $this->registerHookProviderBundle($bundle);
 
         $bundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.bbcode.filter_hooks.bbcode', 'filter_hooks', __('BBCode Filter Hook'));
-        $bundle->addStaticHandler('filter', 'BBCode_HookHandler_Transform', 'filter', 'bbcode.transform');
+        $bundle->addStaticHandler('filter', 'BBCode_HookHandlers', 'filter', 'bbcode.transform');
         $this->registerHookProviderBundle($bundle);
     }
 
