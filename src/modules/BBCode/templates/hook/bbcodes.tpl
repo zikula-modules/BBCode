@@ -1,7 +1,7 @@
 {ajaxheader modname='BBCode' filename='BBCode.js'}
 {pageaddvar name='stylesheet' value='modules/BBCode/style/style.css'}
 <fieldset>
-    <legend>{gt text="Smilies"}</legend>
+    <legend>{gt text="BBCode"}</legend>
 
     <div id="bbcode" class="z-formrow bbcode z-formbuttons z-buttons">
 
