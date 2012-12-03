@@ -30,7 +30,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
      */
     public function transform($args)
     {
-        $message = $args['message']; // $event->getData();
+        $message = $args['message'];
         // check the user agent - if it is a bot, return immediately
         $robotslist = array("ia_archiver",
             "googlebot",
@@ -215,7 +215,6 @@ class BBCode_Api_User extends Zikula_AbstractApi
 
         // Remove our padding from the string..
         $message = substr($message, 1);
-        //$event->setData($message);
         return $message;
     }
 
@@ -598,8 +597,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
             }
         } // while
 
-        $event['data'] = $message;
-        return $event;
+        return $message;
     }
 
 // bbcode_encode_list()
