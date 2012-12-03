@@ -1,16 +1,10 @@
-{ajaxheader modname=BBCode nobehaviour=true noscriptaculous=true effects=true}
+{ajaxheader modname='BBCode' filename='BBCode_admin.js'}
 
-{admincategorymenu}
-<div class="z-adminbox">
-    <h1>{$modinfo.displayname}</h1>
-    {modulelinks modname='BBCode' type='admin'}
+{adminheader}
+<div class="z-admin-content-pagetitle">
+    {icon type="config" size="small"}
+    <h3>{gt text='Settings'}</h3>
 </div>
-
-<div id="BBCode" class="z-admincontainer">
-
-<div class="z-adminpageicon">{icon type="config" size="large"}</div>
-
-<h2>{gt text='Settings'}</h2>
 
 <p class="z-warningmsg">{gt text="Notice! Please allow the used HTML tags in the SecurityCenter."}</p>
 
@@ -146,6 +140,10 @@
 <fieldset>
     <legend>{gt text='Miscellaneous settings'}</legend>
     <div class="z-formrow">
+        {formlabel for="imagebuttons_enabled" __text="Use images for buttons in interface"}
+        {formcheckbox id="imagebuttons_enabled" checked=$modvars.BBCode.imagebuttons_enabled}
+    </div>
+    <div class="z-formrow">
         {formlabel for="link_shrinksize" __text="Shrink links to"}
         <div>{formintinput id="link_shrinksize" minValue="0" maxValue="50" size="2" text=$modvars.BBCode.link_shrinksize}&nbsp;{gt text="chars"}</div>
         <p class="z-formnote z-informationmsg">{gt text="Shrinks the urls shown to the specified length (0=no action)."}</p>
@@ -185,6 +183,4 @@
 
 {/form}
 
-{modgetinfo info=all}
-<p class="z-center"><a href="http://code.zikula.org/BBCode/" title="{gt text="Visit the BBCode project site"}">{$modinfo.displayname} {$modinfo.version}</a></p>
-</div>
+{adminfooter}

@@ -24,8 +24,6 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_AbstractHandler
 
         $view->assign('spoiler_preview', ModUtil::apiFunc('BBCode', 'user', 'transform', array('message' => "[spoiler]Zikula + BBCode[/spoiler]")));
 
-
-        PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
         $modvars = $this->getVars('BBCode');
         $script = '<script type="text/javascript">';
         $script .= ($modvars['code_enabled'] == true) ? 'var codeenabled = true;' : 'var codeenabled = false;';
@@ -36,8 +34,7 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_AbstractHandler
         $script .= ($modvars['spoiler_enabled'] == true) ? 'var spoilerenabled = true;' : 'var spoilerenabled = false;';
         $script .= ($modvars['mimetex_enabled'] == true) ? 'var mimetexenabled = true;' : 'var mimetexenabled = false;';
         $script .= '</script>';
-        PageUtil::addVar('rawtext', $script);
-        PageUtil::addVar('javascript', 'modules/BBCode/javascript/BBCode_admin.js');
+        PageUtil::addVar('header', $script);
 
         return true;
     }
@@ -113,6 +110,7 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_AbstractHandler
         $this->setVar('mimetex_url', $data['mimetex_url']);
 
         // misc
+        $this->setVar('imagebuttons_enabled', $data['imagebuttons_enabled']);
         $this->setVar('lightbox_enabled', $data['lightbox_enabled']);
         $this->setVar('lightbox_previewwidth', $data['lightbox_previewwidth']);
         $this->setVar('link_shrinksize', $data['link_shrinksize']);
