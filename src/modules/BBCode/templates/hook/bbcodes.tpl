@@ -3,9 +3,10 @@
 <fieldset>
     <legend>{gt text="BBCode"}</legend>
 
-    <div id="bbcode" class="z-formrow bbcode z-formbuttons z-buttons">
+    <div id="bbcode" class="bbcode">
 
         {if $images}
+        <div class="z-formrow z-formnote">
         <p>
             {gt text='Insert a link' assign='title'}{bbcodebutton name="url" title=$title key="w" image="bb_url.gif"}
             {gt text='Insert an email address' assign='title'}{bbcodebutton name="email" title=$title key="m" image="bb_email.gif"}
@@ -21,7 +22,9 @@
             {gt text='Italic text' assign='title'}{bbcodebutton name="italic" title=$title key="i" image="bb_italic.gif"}
             {gt text='Underlined text' assign='title'}{bbcodebutton name="underline" title=$title key="u" image="bb_underline.gif"}
         </p>
+        </div>
         {else}
+        <div class="z-formlist z-formbuttons z-buttons">
         <p>
             <input title="{gt text='Insert a link' domain="module_bbcode"}" type="button" accesskey="w" name="url" value=" {gt text='URL' domain="module_bbcode"} " class="bbcode_button z-bt-small" onclick="AddBBCode('url')" />
             <input title="{gt text='Insert an email address' domain="module_bbcode"}" type="button" accesskey="m" name="mail" value=" {gt text='E-Mail' domain="module_bbcode"} "    class="bbcode_button z-bt-small" onclick="AddBBCode('email')" />
@@ -58,10 +61,11 @@
             <input title="{gt text='Underlined text' domain="module_bbcode"}" type="button" accesskey="u" name="underline" value=" {gt text='u' domain="module_bbcode"} " class="bbcode_button2 z-bt-small" onclick="AddBBCode('underline')" />
             <input title="{gt text='Strike out text' domain="module_bbcode"}" type="button" accesskey="u" name="strike" value=" {gt text='s' domain="module_bbcode"} " class="bbcode_button2 z-bt-small" onclick="AddBBCode('strike')" />
         </p>
+        </div>
         {/if}
 
         {if $modvars.BBCode.color_enabled eq true}
-        <p>
+        <p class="z-formnote">
             <label for="fontcolor">{gt text='Font color' domain="module_bbcode"}:</label>
             <select title="{gt text='Select font color' domain="module_bbcode"}" id="fontcolor" name="fontcolor" onchange="AddBBCode('color', $F('fontcolor'))">
                 <option style="color:black;" value="black">{gt text='Black' domain="module_bbcode"}</option>
@@ -85,7 +89,7 @@
         </p>
         {/if}
         {if $modvars.BBCode.size_enabled eq "yes"}
-        <p>
+        <p class="z-formnote">
             <label for="fontsize">{gt text='Font size' domain="module_bbcode"}:</label>
             <select title="{gt text='Select font size' domain="module_bbcode"}" id="fontsize" name="fontsize" onchange="AddBBCode('size', $F('fontsize'))">
                 <option value="tiny">{gt text='Tiny' domain="module_bbcode"}</option>
