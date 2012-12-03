@@ -2,23 +2,38 @@
 /* Javascript for inserting text at the cursor position  */
 /* based on a script found on http://de.selfhtml.org     */
 /* original author: Torsten Anacker, torsten@anaboe.net  */
-/* adopted by frank.schummertz@landseer-stuttgart.de     */
+/* adapted by frank.schummertz@landseer-stuttgart.de     */
 /* ----------------------------------------------------- */
+
+// var tracks element with last focus
+var bbcodeLastFocus = '';
 
 // add onload event handler
 Event.observe(window, 'load', function() {
     $$('.bbcode').each(function(el) {
         el.removeClassName('hidden');
     });
+    // setup onBlur() listener to track which element was last in focus
+    $$('textarea', 'input', 'select').invoke('observe', 'blur', function(event) {
+        bbcodeLastFocus = event.target;
+    });
 }, false);
                                         
-function AddBBCode(textfieldname, action, optdata)
+function AddBBCode(action, optdata)
 {
-    var textfieldname, action, optdata;
-    var textfield, aTag, eTag, textasparam;
+    var aTag, eTag, textasparam;
 
     if(action=="" || action==null) {
         alert('internal error: action not set');
+        return;
+    }
+    
+    // set textfield element to last focused element
+    var textfield = bbcodeLastFocus;
+    
+    // if element is not a textarea then do nothing
+    if (textfield.tagName != 'TEXTAREA') {
+        alert('select a textarea first!') // needs translation
         return;
     }
 
@@ -27,13 +42,6 @@ function AddBBCode(textfieldname, action, optdata)
     // default is false
     textasparam = false;
 
-    // get the textfield
-    textfield = $(textfieldname);
-    if(textfield==null) {
-        // error...
-        alert("internal error: unknown textfieldname '" + textfieldname + "' supplied");
-        return;
-    }
     switch(action) {
         case "code":
             aTag = "[code" + check_optdata(optdata, "=") + "]";
@@ -99,13 +107,14 @@ function AddBBCode(textfieldname, action, optdata)
             eTag = "";
     }
 
+    var insText = '';
     //
     // for Internet Explorer
     //
     if(typeof document.selection != 'undefined') {
         textfield.focus();
         var range = document.selection.createRange();
-        var insText = range.text;
+        insText = range.text;
 
         // special treatment for tags like url that use the selected txt as parameter for the
         // opening tag too
@@ -134,7 +143,7 @@ function AddBBCode(textfieldname, action, optdata)
     {
         var start = textfield.selectionStart;
         var end = textfield.selectionEnd;
-        var insText = textfield.value.substring(start, end);
+        insText = textfield.value.substring(start, end);
 
         // special treatment for tags like url that use the selected txt as parameter for the
         // opening tag too

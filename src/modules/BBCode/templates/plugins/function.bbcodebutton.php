@@ -28,28 +28,20 @@
  * creates buttons for BBCode
  *
  *$params['name'] string name
- *$params['nameml'] int if set then treat name as a define
  *$params['title'] string title
- *$params['titleml'] int if set then treat name as a define
  *$params['key'] char accesskey
  *$params['image'] string image
- *$params['textfieldid'] string id of the textfield, default = post
  *
  */
-function smarty_function_bbcodebutton($params, &$smarty)
+function smarty_function_bbcodebutton($params, Zikula_View $view)
 {
-    extract($params);
+    $name = $params['name'];
+    $title = $params['title'];
+    $key = $params['key'];
+    $image = $params['image'];
     unset($params);
 
-    // load language file
-    if(!pnModAPILoad('BBCode', 'user')) {
-        $smarty->trigger_error("loading BBCode api failed", e_error);
-        return;
-    }
-
-    $textfieldid = (empty($textfieldid)) ? 'post' : $textfieldid;
-
-    $lang = pnUserGetLang();
+    $lang = ZLanguage::getLanguageCode();
 
     if(file_exists("modules/BBCode/images/$lang/$image")) {
         $imgfile = "modules/BBCode/images/$lang/$image";
@@ -58,15 +50,11 @@ function smarty_function_bbcodebutton($params, &$smarty)
     }
     $attr = getimagesize($imgfile);
 
-    $name  = (isset($nameml)) ? constant($name) : $name;
-    $title = (isset($titleml)) ? constant($title) : $title;
-
-    $out = "<button name=\"".DataUtil::formatForDisplay($name)."\" type=\"button\" value=\"".DataUtil::formatForDisplay($name)."\"
-            style=\"border:none; background: transparent;\"
-            title=\"$title\"
-            accesskey=\"$key\" onclick=\"AddBBCode('" . DataUtil::formatForDisplay($textfieldid) . "', '".DataUtil::formatForDisplay($name)."')\">
-            <img src=\"" . DataUtil::formatForOS($imgfile) . "\" ".$attr[3]." alt=\"".DataUtil::formatForDisplay($title)."\" />
+    $out = "<button name='".DataUtil::formatForDisplay($name)."' type='button' value='".DataUtil::formatForDisplay($name)."'
+            style='border:none; background: transparent;'
+            title='$title'
+            accesskey='$key' onclick='AddBBCode(\"".DataUtil::formatForDisplay($name)."\")'>
+            <img src='" . DataUtil::formatForOS($imgfile) . "' ".$attr[3]." alt='".DataUtil::formatForDisplay($title)."' />
             </button>";
     return $out;
-
 }
