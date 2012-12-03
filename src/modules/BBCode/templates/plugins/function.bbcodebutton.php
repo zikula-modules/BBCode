@@ -50,11 +50,8 @@ function smarty_function_bbcodebutton($params, Zikula_View $view)
     }
     $attr = getimagesize($imgfile);
 
-    $out = "<button name='".DataUtil::formatForDisplay($name)."' type='button' value='".DataUtil::formatForDisplay($name)."'
-            style='border:none; background: transparent;'
-            title='$title'
-            accesskey='$key' onclick='AddBBCode(\"".DataUtil::formatForDisplay($name)."\")'>
-            <img src='" . DataUtil::formatForOS($imgfile) . "' ".$attr[3]." alt='".DataUtil::formatForDisplay($title)."' />
-            </button>";
+    $out = "<a href='javascript:void(0);' accesskey='$key' onclick='AddBBCode(\"".DataUtil::formatForDisplay($name)."\")' title='$title'>
+                <img src='" . DataUtil::formatForOS($imgfile) . "' ".$attr[3]." alt='".DataUtil::formatForDisplay($title)."' />
+            </a>";    
     return $out;
 }
