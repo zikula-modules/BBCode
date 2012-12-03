@@ -35,7 +35,7 @@ class BBCode_Installer extends Zikula_AbstractInstaller
         $this->setVar('allow_usercolor', false);
         $this->setVar('code_enabled', true);
         $this->setVar('mimetex_enabled', false);
-        $this->setVar('mimetex_url', 'http://www.forkosh.dreamhost.com/cgi-bin/mimetex.cgi');
+        $this->setVar('mimetex_url', 'http://www.forkosh.com/cgi-bin/weblist.cgi');
         $this->setVar('quote_enabled', true);
         $this->setVar('color_enabled', true);
         $this->setVar('size_enabled', true);
@@ -45,6 +45,7 @@ class BBCode_Installer extends Zikula_AbstractInstaller
         $this->setVar('link_shrinksize', 30);
         $this->setVar('spoiler_enabled', true);
         $this->setVar('spoiler', '<div class="bbcodeheader">%h</div><div class="bbspoiler">%s</div>');
+        $this->setVar('imagebuttons_enabled', false);
 
         // Initialisation successful
         return true;
@@ -177,17 +178,11 @@ class BBCode_Installer extends Zikula_AbstractInstaller
 
             case '2.0':
             case '2.1':
-                $oldvars = ModUtil::getVar('BBCode');
-                foreach ($oldvars as $varname => $oldvar) {
-                    $this->setVar($varname, $oldvar);
-                }
-                ModUtil::delVar('BBCode');
-
                 // create hook
                 HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
+                // set new modvar
+                $this->setVar('imagebuttons_enabled', false);
 
-            default:
-                break;
         }
         return true;
     }

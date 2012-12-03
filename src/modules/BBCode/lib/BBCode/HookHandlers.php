@@ -35,12 +35,6 @@ class BBCode_HookHandlers extends Zikula_Hook_AbstractHandler
      */
     public function uiEdit(Zikula_DisplayHook $hook)
     {
-        $images = false;
-        // TODO: How can we get $images?
-        // CAH: I believe that 'images' is boolean wether to display images or not
-
-        $this->view->assign('images', $images);
-
         // get the languages for highlighting
         $langs = ModUtil::apiFunc('BBCode', 'user', 'get_geshi_languages');
         $this->view->assign('geshi_languages', $langs);

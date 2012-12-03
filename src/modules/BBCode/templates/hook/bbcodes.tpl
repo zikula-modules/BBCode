@@ -5,7 +5,7 @@
 
     <div id="bbcode" class="bbcode">
 
-        {if $images}
+        {if $modvars.BBCode.imagebuttons_enabled}
         <div class="z-formrow z-formnote">
         <p>
             {gt text='Insert a link' assign='title'}{bbcodebutton name="url" title=$title key="w" image="bb_url.gif"}
