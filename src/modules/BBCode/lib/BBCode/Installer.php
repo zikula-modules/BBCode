@@ -41,7 +41,7 @@ class BBCode_Installer extends Zikula_AbstractInstaller
         $this->setVar('size_enabled', true);
         $this->setVar('lightbox_enabled', true);
         $this->setVar('lightbox_previewwidth', 200);
-        $this->setVar('syntaxhilite', HILITE_GOOGLE); // google code prettifier
+        $this->setVar('syntaxhilite', BBCode_Api_User::HILITE_GOOGLE); // google code prettifier
         $this->setVar('link_shrinksize', 30);
         $this->setVar('spoiler_enabled', true);
         $this->setVar('spoiler', '<div class="bbcodeheader">%h</div><div class="bbspoiler">%s</div>');
@@ -123,12 +123,12 @@ class BBCode_Installer extends Zikula_AbstractInstaller
                 $hilite = ModUtil::getVar('pn_bbcode', 'syntaxhilite');
                 $linenumbers = ModUtil::getVar('pn_bbcode', 'linenumbers');
                 if ($hilite == 'no') {
-                    ModUtil::setVar('pn_bbcode', 'syntaxhilite', HILITE_NONE);
+                    ModUtil::setVar('pn_bbcode', 'syntaxhilite', BBCode_Api_User::HILITE_NONE);
                 } elseif ($hilite = 'yes') {
                     if ($linenumbers == 'yes') {
-                        ModUtil::setVar('pn_bbcode', 'syntaxhilite', HILITE_GESHI_WITH_LN);
+                        ModUtil::setVar('pn_bbcode', 'syntaxhilite', BBCode_Api_User::HILITE_GESHI_WITH_LN);
                     } else {
-                        ModUtil::setVar('pn_bbcode', 'syntaxhilite', HILITE_GESHI_WITHOUT_LN);
+                        ModUtil::setVar('pn_bbcode', 'syntaxhilite', BBCode_Api_User::HILITE_GESHI_WITHOUT_LN);
                     }
                 }
                 ModUtil::delVar('pn_bbcode', 'linenumbers');

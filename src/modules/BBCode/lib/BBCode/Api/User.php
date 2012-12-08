@@ -12,7 +12,30 @@
  */
 class BBCode_Api_User extends Zikula_AbstractApi
 {
+    /**
+     * Code highliter values
+     * none 
+     */
+    const HILITE_NONE = 0;
 
+    /**
+     * Code highliter values
+     * geshi with linenumbers 
+     */
+    const HILITE_GESHI_WITH_LN = 1;
+
+    /**
+     * Code highliter values
+     * geshi without linenumbers
+     */
+    const HILITE_GESHI_WITHOUT_LN = 2;
+
+    /**
+     * Code highliter values
+     * google code prettifier
+     */
+    const HILITE_GOOGLE = 3;
+    
     /**
      * the wrapper for a string var (simple up to now)
      * bbdecode/bbencode functions:
@@ -381,8 +404,8 @@ class BBCode_Api_User extends Zikula_AbstractApi
                                     $startline = $singleparam[1];
                                     break;
                                 case 'nolines':
-                                    if ($hilite == HILITE_GESHI_WITH_LN) {
-                                        $hilite = HILITE_GESHI_WITHOUT_LN;
+                                    if ($hilite == self::HILITE_GESHI_WITH_LN) {
+                                        $hilite = self::HILITE_GESHI_WITHOUT_LN;
                                     }
                                     break;
                                 case 'user':
@@ -403,11 +426,11 @@ class BBCode_Api_User extends Zikula_AbstractApi
 
                 // finally decide which language to use
                 switch ($hilite) {
-                    case HILITE_NONE:
+                    case self::HILITE_NONE:
                         $after_replace = '<code>' . nl2br(DataUtil::formatForDisplay($after_replace)) . '</code>';
                         break;
-                    case HILITE_GESHI_WITH_LN:
-                    case HILITE_GESHI_WITHOUT_LN:
+                    case self::HILITE_GESHI_WITH_LN:
+                    case self::HILITE_GESHI_WITHOUT_LN:
                         if (!class_exists('GeSHi')) {
                             include_once 'modules/BBCode/includes/geshi.php';
                         }
@@ -419,7 +442,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
                         $geshi->set_link_styles(GESHI_HOVER, 'padding-left: 0px; background-image: none;');
                         $geshi->set_link_styles(GESHI_ACTIVE, 'padding-left: 0px; background-image: none;');
                         $geshi->set_link_styles(GESHI_VISITED, 'padding-left: 0px; background-image: none;');
-                        if ($hilite == HILITE_GESHI_WITH_LN) {
+                        if ($hilite == self::HILITE_GESHI_WITH_LN) {
                             $geshi->set_line_style('color: blue; font-weight: bold;', 'color: green;');
                             $geshi->enable_line_numbers(GESHI_NORMAL_LINE_NUMBERS);
                             $geshi->start_line_numbers_at($startline);
@@ -430,7 +453,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
                         // remove \n for single linespacing
                         $after_replace = str_replace("\n", '', $after_replace);
                         break;
-                    case HILITE_GOOGLE:
+                    case self::HILITE_GOOGLE:
                     default:
                         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
                         PageUtil::addVar('javascript', 'modules/BBCode/javascript/prettify.js');
@@ -611,7 +634,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
     {
         Loader::loadClass('FileUtil');
         $langs = array();
-        if (($this->getVar('syntaxhilite') == HILITE_GESHI_WITH_LN) || ($this->getVar('syntaxhilite') == HILITE_GESHI_WITHOUT_LN)) {
+        if (($this->getVar('syntaxhilite') == self::HILITE_GESHI_WITH_LN) || ($this->getVar('syntaxhilite') == self::HILITE_GESHI_WITHOUT_LN)) {
             $langsfound = FileUtil::getFiles('modules/BBCode/includes/geshi', false, false, '.php', false);
             foreach ($langsfound as $langfound) {
                 $langs[] = str_replace(array('modules/BBCode/includes/geshi/', '.php'), '', $langfound);
