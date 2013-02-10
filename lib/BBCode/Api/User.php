@@ -632,7 +632,6 @@ class BBCode_Api_User extends Zikula_AbstractApi
      */
     public function get_geshi_languages()
     {
-        Loader::loadClass('FileUtil');
         $langs = array();
         if (($this->getVar('syntaxhilite') == self::HILITE_GESHI_WITH_LN) || ($this->getVar('syntaxhilite') == self::HILITE_GESHI_WITHOUT_LN)) {
             $langsfound = FileUtil::getFiles('modules/BBCode/includes/geshi', false, false, '.php', false);
