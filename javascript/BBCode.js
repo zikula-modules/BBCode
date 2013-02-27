@@ -13,10 +13,15 @@ Event.observe(window, 'load', function() {
     $$('.bbcode').each(function(el) {
         el.removeClassName('hidden');
     });
-    // setup onBlur() listener to track which element was last in focus
-    $$('textarea', 'input', 'select').invoke('observe', 'blur', function(event) {
-        bbcodeLastFocus = event.target;
-    });
+    var textareaCount = $$('textarea').size();
+    if (textareaCount > 1) {
+        // setup onBlur() listener to track which element was last in focus
+        $$('textarea', 'input', 'select').invoke('observe', 'blur', function(event) {
+            bbcodeLastFocus = event.target;
+        });
+    } else {
+        bbcodeLastFocus = $$('textarea').first();
+    }
 }, false);
                                         
 function AddBBCode(action, optdata)
