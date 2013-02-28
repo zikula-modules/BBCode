@@ -13,15 +13,13 @@ Event.observe(window, 'load', function() {
     $$('.bbcode').each(function(el) {
         el.removeClassName('hidden');
     });
+    bbcodeLastFocus = $$('textarea').first();
     var textareaCount = $$('textarea').size();
     if (textareaCount > 1) {
-        bbcodeLastFocus = $$('textarea').first();
         // setup onBlur() listener to track which element was last in focus
         $$('textarea', 'input', 'select').invoke('observe', 'blur', function(event) {
             bbcodeLastFocus = event.target;
         });
-    } else {
-        bbcodeLastFocus = $$('textarea').first();
     }
 }, false);
                                         
