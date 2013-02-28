@@ -15,6 +15,7 @@ Event.observe(window, 'load', function() {
     });
     var textareaCount = $$('textarea').size();
     if (textareaCount > 1) {
+        bbcodeLastFocus = $$('textarea').first();
         // setup onBlur() listener to track which element was last in focus
         $$('textarea', 'input', 'select').invoke('observe', 'blur', function(event) {
             bbcodeLastFocus = event.target;
