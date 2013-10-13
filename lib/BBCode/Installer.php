@@ -45,7 +45,6 @@ class BBCode_Installer extends Zikula_AbstractInstaller
         $this->setVar('link_shrinksize', 30);
         $this->setVar('spoiler_enabled', true);
         $this->setVar('spoiler', '<div class="bbcodeheader">%h</div><div class="bbspoiler">%s</div>');
-        $this->setVar('imagebuttons_enabled', false);
 
         // Initialisation successful
         return true;
@@ -181,7 +180,7 @@ class BBCode_Installer extends Zikula_AbstractInstaller
                 // create hook
                 HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
                 // set new modvar
-                $this->setVar('imagebuttons_enabled', false);
+                $this->delVar('imagebuttons_enabled');
 
         }
         return true;

@@ -140,10 +140,6 @@
 <fieldset>
     <legend>{gt text='Miscellaneous settings'}</legend>
     <div class="z-formrow">
-        {formlabel for="imagebuttons_enabled" __text="Use images for buttons in interface"}
-        {formcheckbox id="imagebuttons_enabled" checked=$modvars.BBCode.imagebuttons_enabled}
-    </div>
-    <div class="z-formrow">
         {formlabel for="link_shrinksize" __text="Shrink links to"}
         <div>{formintinput id="link_shrinksize" minValue="0" maxValue="50" size="2" text=$modvars.BBCode.link_shrinksize}&nbsp;{gt text="chars"}</div>
         <p class="z-formnote z-informationmsg">{gt text="Shrinks the urls shown to the specified length (0=no action)."}</p>

@@ -110,7 +110,6 @@ class BBCode_Form_Handler_Admin_ModifyConfig extends Zikula_Form_AbstractHandler
         $this->setVar('mimetex_url', $data['mimetex_url']);
 
         // misc
-        $this->setVar('imagebuttons_enabled', $data['imagebuttons_enabled']);
         $this->setVar('lightbox_enabled', $data['lightbox_enabled']);
         $this->setVar('lightbox_previewwidth', $data['lightbox_previewwidth']);
         $this->setVar('link_shrinksize', $data['link_shrinksize']);

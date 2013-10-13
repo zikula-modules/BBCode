@@ -2,25 +2,6 @@
 {pageaddvar name='stylesheet' value='modules/BBCode/style/style.css'}
 <div id="bbcode" class="bbcode">
 
-    {if $modvars.BBCode.imagebuttons_enabled}
-    <div>
-    <p>
-        {gt text='Insert a link' assign='title'}{bbcodebutton name="url" title=$title key="w" image="bb_url.gif"}
-        {gt text='Insert an email address' assign='title'}{bbcodebutton name="email" title=$title key="m" image="bb_email.gif"}
-        {gt text='Insert an image' assign='title'}{bbcodebutton name="image" title=$title key="p" image="bb_image.gif"}
-        {gt text='Insert quote' assign='title'}{bbcodebutton name="quote" title=$title key="q" image="bb_quote.gif"}
-        {gt text='Insert code' assign='title'}{bbcodebutton name="code" title=$title key="c" image="bb_code.gif"}
-    </p>
-    <p>
-        {gt text='Open list' assign='title'}{bbcodebutton name="listopen" title=$title key="l" image="bb_openlist.gif"}
-        {gt text='Add list entry' assign='title'}{bbcodebutton name="listitem" title=$title key="o" image="bb_listitem.gif"}
-        {gt text='Close list' assign='title'}{bbcodebutton name="listclose" title=$title key="x" image="bb_closelist.gif"}
-        {gt text='Bold text' assign='title'}{bbcodebutton name="bold" title=$title key="b" image="bb_bold.gif"}
-        {gt text='Italic text' assign='title'}{bbcodebutton name="italic" title=$title key="i" image="bb_italic.gif"}
-        {gt text='Underlined text' assign='title'}{bbcodebutton name="underline" title=$title key="u" image="bb_underline.gif"}
-    </p>
-    </div>
-    {else}
     <div>
     <p>
         <input title="{gt text='Insert a link' domain="module_bbcode"}" type="button" accesskey="w" name="url" value=" {gt text='URL' domain="module_bbcode"} " class="btn btn-default btn-xs" onclick="AddBBCode('url')" />
@@ -59,7 +40,6 @@
         <input title="{gt text='Strike out text' domain="module_bbcode"}" type="button" accesskey="u" name="strike" value=" {gt text='s' domain="module_bbcode"} " class="btn btn-default btn-xs" onclick="AddBBCode('strike')" />
     </p>
     </div>
-    {/if}
 
     <div>
     {if $modvars.BBCode.color_enabled eq true}
