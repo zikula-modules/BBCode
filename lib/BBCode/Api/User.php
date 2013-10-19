@@ -455,9 +455,10 @@ class BBCode_Api_User extends Zikula_AbstractApi
                         break;
                     case self::HILITE_GOOGLE:
                     default:
-                        PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
-                        PageUtil::addVar('javascript', 'modules/BBCode/javascript/prettify.js');
-                        $after_replace = '<code class="prettyprint">' . DataUtil::formatForDisplay($after_replace) . '</code>';
+                        PageUtil::addVar('stylesheet', 'modules/BBCode/javascript/google-code-prettify/prettify.css');
+                        PageUtil::addVar('javascript', 'modules/BBCode/javascript/google-code-prettify/prettify.js');
+                        PageUtil::addVar('javascript', 'modules/BBCode/javascript/BBCode.User.Hook.PrettifyLoader.js');
+                        $after_replace = '<pre class="prettyprint">' . DataUtil::formatForDisplay($after_replace) . '</pre>';
                         break;
                 }
 
