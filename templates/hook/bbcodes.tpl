@@ -17,16 +17,14 @@
             {if count($geshi_languages) eq 0}
             <input title="{gt text='Insert code' domain="module_bbcode"}" type="button" accesskey="c" name="code" value=" {gt text='Code' domain="module_bbcode"} " class="btn btn-default btn-xs" onclick="AddBBCode('code')" />
             {else}
-            </p>
-            <p>
-                <label for="code">{gt text='Code' domain="module_bbcode"}:</label>
-                <select title="{gt text='Insert code' domain="module_bbcode"}" id="code" name="code" onchange="AddBBCode('code', jQuery(this).val())">
-                    <option value="" selected="selected">{gt text='Select code type' domain="module_bbcode"}</option>
-                    <option value="">{gt text='No special code' domain="module_bbcode"}</option>
-                    {foreach item=code from=$geshi_languages}
-                    <option value="{$code|safehtml}">{$code|safehtml}</option>
-                    {/foreach}
-                </select>
+            <label for="code">{gt text='Code' domain="module_bbcode"}:</label>
+            <select title="{gt text='Insert code' domain="module_bbcode"}" id="code" name="code" onchange="AddBBCode('code', jQuery(this).val())">
+                <option value="" selected="selected">{gt text='Select code type' domain="module_bbcode"}</option>
+                <option value="">{gt text='No special code' domain="module_bbcode"}</option>
+                {foreach item=code from=$geshi_languages}
+                <option value="{$code|safehtml}">{$code|safehtml}</option>
+                {/foreach}
+            </select>
             {/if}
         {/if}
     </p>
