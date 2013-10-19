@@ -1,4 +1,3 @@
-{*ajaxheader modname='BBCode' filename='BBCode.js'*}
 {pageaddvar name='javascript' value='modules/BBCode/javascript/BBCode.js'}
 {pageaddvar name='stylesheet' value='modules/BBCode/style/style.css'}
 <div id="bbcode" class="bbcode">
