@@ -26,7 +26,7 @@ class BBCode_Api_Admin extends Zikula_AbstractApi
             $links[] = array(
                 'url' => ModUtil::url('BBCode', 'admin', 'main'),
                 'text' => $this->__('Settings'),
-                'class' => 'z-icon-es-config'
+                'icon' => 'wrench'
             );
         }
         return $links;
