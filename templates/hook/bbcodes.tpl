@@ -1,4 +1,5 @@
-{ajaxheader modname='BBCode' filename='BBCode.js'}
+{*ajaxheader modname='BBCode' filename='BBCode.js'*}
+{pageaddvar name='javascript' value='modules/BBCode/javascript/BBCode.js'}
 {pageaddvar name='stylesheet' value='modules/BBCode/style/style.css'}
 <div id="bbcode" class="bbcode">
 
@@ -20,7 +21,7 @@
             </p>
             <p>
                 <label for="code">{gt text='Code' domain="module_bbcode"}:</label>
-                <select title="{gt text='Insert code' domain="module_bbcode"}" id="code" name="code" onchange="AddBBCode('code', $F('code'))">
+                <select title="{gt text='Insert code' domain="module_bbcode"}" id="code" name="code" onchange="AddBBCode('code', jQuery(this).val())">
                     <option value="" selected="selected">{gt text='Select code type' domain="module_bbcode"}</option>
                     <option value="">{gt text='No special code' domain="module_bbcode"}</option>
                     {foreach item=code from=$geshi_languages}
@@ -37,14 +38,14 @@
         <input title="{gt text='Bold text' domain="module_bbcode"}" type="button" accesskey="b" name="bold" value=" {gt text='b' domain="module_bbcode"} " class="btn btn-default btn-xs" onclick="AddBBCode('bold')" />
         <input title="{gt text='Italic text' domain="module_bbcode"}" type="button" accesskey="i" name="italic" value=" {gt text='i' domain="module_bbcode"} " class="btn btn-default btn-xs" onclick="AddBBCode('italic')" />
         <input title="{gt text='Underlined text' domain="module_bbcode"}" type="button" accesskey="u" name="underline" value=" {gt text='u' domain="module_bbcode"} " class="btn btn-default btn-xs" onclick="AddBBCode('underline')" />
-        <input title="{gt text='Strike out text' domain="module_bbcode"}" type="button" accesskey="u" name="strike" value=" {gt text='s' domain="module_bbcode"} " class="btn btn-default btn-xs" onclick="AddBBCode('strike')" />
+        <!--<input title="{gt text='Strike out text' domain="module_bbcode"}" type="button" accesskey="u" name="strike" value=" {gt text='s' domain="module_bbcode"} " class="btn btn-default btn-xs" onclick="AddBBCode('strike')" />-->
     </p>
     </div>
 
     <div>
     {if $modvars.BBCode.color_enabled eq true}
         <label for="fontcolor">{gt text='Font color' domain="module_bbcode"}:</label>
-        <select title="{gt text='Select font color' domain="module_bbcode"}" id="fontcolor" name="fontcolor" onchange="AddBBCode('color', $F('fontcolor'))">
+        <select title="{gt text='Select font color' domain="module_bbcode"}" id="fontcolor" name="fontcolor" onchange="AddBBCode('color', jQuery(this).val())">
             <option style="color:black;" value="black">{gt text='Black' domain="module_bbcode"}</option>
             <option style="color:darkred;" value="darkred">{gt text='Dark Red' domain="module_bbcode"}</option>
             <option style="color:red;" value="red">{gt text='Red' domain="module_bbcode"}</option>
@@ -66,7 +67,7 @@
     {/if}
     {if $modvars.BBCode.size_enabled eq "yes"}
         <label for="fontsize">{gt text='Font size' domain="module_bbcode"}:</label>
-        <select title="{gt text='Select font size' domain="module_bbcode"}" id="fontsize" name="fontsize" onchange="AddBBCode('size', $F('fontsize'))">
+        <select title="{gt text='Select font size' domain="module_bbcode"}" id="fontsize" name="fontsize" onchange="AddBBCode('size', jQuery(this).val())">
             <option value="tiny">{gt text='Tiny' domain="module_bbcode"}</option>
             <option value="small">{gt text='Small' domain="module_bbcode"}</option>
             <option value="normal" selected="selected">{gt text='Normal' domain="module_bbcode"}</option>

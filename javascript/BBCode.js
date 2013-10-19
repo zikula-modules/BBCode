@@ -8,20 +8,24 @@
 // var tracks element with last focus
 var bbcodeLastFocus = '';
 
-// add onload event handler
-Event.observe(window, 'load', function() {
-    $$('.bbcode').each(function(el) {
-        el.removeClassName('hidden');
-    });
-    bbcodeLastFocus = $$('textarea').first();
-    var textareaCount = $$('textarea').size();
+if (window.addEventListener) { // modern browsers
+    window.addEventListener('load' , initBBCode, false);
+} else if (window.attachEvent) { // ie8 and even older browsers
+    window.attachEvent('onload', initBBCode);
+} else { // fallback, not truly necessary
+    window.onload = initBBCode;
+}
+
+function initBBCode() {
+    bbcodeLastFocus = jQuery('textarea').first();
+    var textareaCount = jQuery('textarea').size();
     if (textareaCount > 1) {
         // setup onBlur() listener to track which element was last in focus
-        $$('textarea', 'input', 'select').invoke('observe', 'blur', function(event) {
+        jQuery('textarea', 'input', 'select').blur(function(event) {
             bbcodeLastFocus = event.target;
         });
     }
-}, false);
+}
                                         
 function AddBBCode(action, optdata)
 {
@@ -33,7 +37,7 @@ function AddBBCode(action, optdata)
     }
     
     // set textfield element to last focused element
-    var textfield = bbcodeLastFocus;
+    var textfield = bbcodeLastFocus[0]; // the array index of 0 fetches the DOM object instead of the jQuery object
     
     // if element is not a textarea then do nothing
     if (textfield.tagName != 'TEXTAREA') {
