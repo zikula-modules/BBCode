@@ -33,7 +33,7 @@ class BBCode_Version extends Zikula_AbstractVersion
         $this->registerHookProviderBundle($bundle);
 
         $bundle = new Zikula_HookManager_ProviderBundle($this->name, self::PROVIDER_FILTERAREANAME, 'filter_hooks', __('BBCode Filter Hook'));
-        $bundle->addStaticHandler('filter', 'BBCode_HookHandlers', 'filter', 'bbcode.transform');
+        $bundle->addServiceHandler('filter', 'BBCode_HookHandlers', 'filter', 'bbcode.transform');
         $this->registerHookProviderBundle($bundle);
     }
 
