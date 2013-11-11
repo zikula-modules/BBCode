@@ -2,7 +2,7 @@
 
 {adminheader}
 <h3>
-    <span class="icon-wrench"></span>&nbsp;{gt text="Settings"}
+    <span class="fa fa-wrench"></span>&nbsp;{gt text="Settings"}
 </h3>
 
 <p class="alert alert-danger">{gt text="Notice! Please allow the used HTML tags in the SecurityCenter."}</p>
