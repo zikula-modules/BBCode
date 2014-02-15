@@ -16,7 +16,7 @@ class BBCode_Version extends Zikula_AbstractVersion
         $meta['oldnames'] = array('pn_bbcode', 'bbcode');
         $meta['version'] = '3.0.0';
         $meta['core_min'] = '1.3.7';
-        $meta['core_max'] = '1.3.99'; // doesn't work with later branches
+        $meta['core_max'] = '1.4.99';
         $meta['description'] = __('BBCode is a filter hook that converts usual BBCode tags into html.');
         $meta['displayname'] = __('BBCode Hook');
         //! module url (lower case without spaces and different to displayname)
