@@ -677,7 +677,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
             $matches[2] = trim(strip_tags($matches[2]));
 
             $displayurl = $this->minimize_displayurl($matches[1] . $matches[2]);
-            return $matches[1] . ($matches[2] + 1);
+            return '<a href="' . $matches[1] . $matches[2] . '">' . $displayurl . '</a>';
         }
     }
 
@@ -852,7 +852,7 @@ class BBCode_Api_User extends Zikula_AbstractApi
     public function minimize_displayurl($displayurl)
     {
         // get the maximum size of the urls to show
-        $maxsize = ModUtil::getVar('BBCode', ' link_shrinksize');
+        $maxsize = ModUtil::getVar('BBCode', 'link_shrinksize');
         if ($maxsize <> 0 && strlen($displayurl) > $maxsize) {
             $before = round($maxsize / 2);
             $after = $maxsize - 1 - $before;
