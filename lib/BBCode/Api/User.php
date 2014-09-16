@@ -311,19 +311,17 @@ class BBCode_Api_User extends Zikula_AbstractApi
 
                         // rfe [ 1243208 ] credits to msandersen
                         // color handling
-//                        $colors['bgcolor1'] = ThemeUtil::getVar('bgcolor1');
-//                        $colors['bgcolor2'] = ThemeUtil::getVar('bgcolor2');
-//                        $colors['bgcolor3'] = ThemeUtil::getVar('bgcolor3');
-//                        $colors['bgcolor4'] = ThemeUtil::getVar('bgcolor4');
-//                        $colors['bgcolor5'] = ThemeUtil::getVar('bgcolor5');
-//                        $colors['sepcolor'] = ThemeUtil::getVar('sepcolor');
-//                        $colors['textcolor1'] = ThemeUtil::getVar('textcolor1');
-//                        $colors['textcolor2'] = ThemeUtil::getVar('textcolor2');
-//                        foreach ($colors as $colorname => $colorvalue) {
-//                            if (!empty($colorvalue)) {
-//                                $quotetext = str_replace('%' . $colorname, $colorvalue, $quotetext);
-//                            }
-//                        }
+                        $colors['bgcolor1'] = ThemeUtil::getVar('bgcolor1');
+                        $colors['bgcolor2'] = ThemeUtil::getVar('bgcolor2');
+                        $colors['bgcolor3'] = ThemeUtil::getVar('bgcolor3');
+                        $colors['bgcolor4'] = ThemeUtil::getVar('bgcolor4');
+                        $colors['bgcolor5'] = ThemeUtil::getVar('bgcolor5');
+                        $colors['sepcolor'] = ThemeUtil::getVar('sepcolor');
+                        $colors['textcolor1'] = ThemeUtil::getVar('textcolor1');
+                        $colors['textcolor2'] = ThemeUtil::getVar('textcolor2');
+                        foreach ($colors as $colorname => $colorvalue) {
+                            $quotetext = str_replace('%' . $colorname, $colorvalue, $quotetext);
+                        }
 
                         $message = $before_start_tag . $quotetext . $after_end_tag;
 
@@ -479,19 +477,17 @@ class BBCode_Api_User extends Zikula_AbstractApi
 
                 // rfe [ 1243208 ] credits to msandersen
                 // color handling
-//                $colors['bgcolor1'] = ThemeUtil::getVar('bgcolor1');
-//                $colors['bgcolor2'] = ThemeUtil::getVar('bgcolor2');
-//                $colors['bgcolor3'] = ThemeUtil::getVar('bgcolor3');
-//                $colors['bgcolor4'] = ThemeUtil::getVar('bgcolor4');
-//                $colors['bgcolor5'] = ThemeUtil::getVar('bgcolor5');
-//                $colors['sepcolor'] = ThemeUtil::getVar('sepcolor');
-//                $colors['textcolor1'] = ThemeUtil::getVar('textcolor1');
-//                $colors['textcolor2'] = ThemeUtil::getVar('textcolor2');
-//                foreach ($colors as $colorname => $colorvalue) {
-//                    if (!empty($colorvalue)) {
-//                        $codetext = str_replace("%{$colorname}", $colorvalue, $codetext);
-//                    }
-//                }
+                $colors['bgcolor1'] = ThemeUtil::getVar('bgcolor1');
+                $colors['bgcolor2'] = ThemeUtil::getVar('bgcolor2');
+                $colors['bgcolor3'] = ThemeUtil::getVar('bgcolor3');
+                $colors['bgcolor4'] = ThemeUtil::getVar('bgcolor4');
+                $colors['bgcolor5'] = ThemeUtil::getVar('bgcolor5');
+                $colors['sepcolor'] = ThemeUtil::getVar('sepcolor');
+                $colors['textcolor1'] = ThemeUtil::getVar('textcolor1');
+                $colors['textcolor2'] = ThemeUtil::getVar('textcolor2');
+                foreach ($colors as $colorname => $colorvalue) {
+                    $codetext = str_replace("%{$colorname}", $colorvalue, $codetext);
+                }
 
                 $message = preg_replace($str_to_match, $codetext, $message);
             }
