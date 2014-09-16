@@ -311,14 +311,14 @@ class BBCode_Api_User extends Zikula_AbstractApi
 
                         // rfe [ 1243208 ] credits to msandersen
                         // color handling
-                        $colors['bgcolor1'] = ThemeUtil::getVar('bgcolor1');
-                        $colors['bgcolor2'] = ThemeUtil::getVar('bgcolor2');
-                        $colors['bgcolor3'] = ThemeUtil::getVar('bgcolor3');
-                        $colors['bgcolor4'] = ThemeUtil::getVar('bgcolor4');
-                        $colors['bgcolor5'] = ThemeUtil::getVar('bgcolor5');
-                        $colors['sepcolor'] = ThemeUtil::getVar('sepcolor');
-                        $colors['textcolor1'] = ThemeUtil::getVar('textcolor1');
-                        $colors['textcolor2'] = ThemeUtil::getVar('textcolor2');
+                        $colors['bgcolor1'] = ThemeUtil::getVar('bgcolor1', '#FFFFFF');
+                        $colors['bgcolor2'] = ThemeUtil::getVar('bgcolor2', '#F5F5F5');
+                        $colors['bgcolor3'] = ThemeUtil::getVar('bgcolor3', '#E6E6E6');
+                        $colors['bgcolor4'] = ThemeUtil::getVar('bgcolor4', '#DDDDDD');
+                        $colors['bgcolor5'] = ThemeUtil::getVar('bgcolor5', '#CCCCCC');
+                        $colors['sepcolor'] = ThemeUtil::getVar('sepcolor', '#666666');
+                        $colors['textcolor1'] = ThemeUtil::getVar('textcolor1', '#000000');
+                        $colors['textcolor2'] = ThemeUtil::getVar('textcolor2', '#222222');
                         foreach ($colors as $colorname => $colorvalue) {
                             $quotetext = str_replace('%' . $colorname, $colorvalue, $quotetext);
                         }
@@ -477,14 +477,14 @@ class BBCode_Api_User extends Zikula_AbstractApi
 
                 // rfe [ 1243208 ] credits to msandersen
                 // color handling
-                $colors['bgcolor1'] = ThemeUtil::getVar('bgcolor1');
-                $colors['bgcolor2'] = ThemeUtil::getVar('bgcolor2');
-                $colors['bgcolor3'] = ThemeUtil::getVar('bgcolor3');
-                $colors['bgcolor4'] = ThemeUtil::getVar('bgcolor4');
-                $colors['bgcolor5'] = ThemeUtil::getVar('bgcolor5');
-                $colors['sepcolor'] = ThemeUtil::getVar('sepcolor');
-                $colors['textcolor1'] = ThemeUtil::getVar('textcolor1');
-                $colors['textcolor2'] = ThemeUtil::getVar('textcolor2');
+                $colors['bgcolor1'] = ThemeUtil::getVar('bgcolor1', '#FFFFFF');
+                $colors['bgcolor2'] = ThemeUtil::getVar('bgcolor2', '#F5F5F5');
+                $colors['bgcolor3'] = ThemeUtil::getVar('bgcolor3', '#E6E6E6');
+                $colors['bgcolor4'] = ThemeUtil::getVar('bgcolor4', '#DDDDDD');
+                $colors['bgcolor5'] = ThemeUtil::getVar('bgcolor5', '#CCCCCC');
+                $colors['sepcolor'] = ThemeUtil::getVar('sepcolor', '#666666');
+                $colors['textcolor1'] = ThemeUtil::getVar('textcolor1', '#000000');
+                $colors['textcolor2'] = ThemeUtil::getVar('textcolor2', '#222222');
                 foreach ($colors as $colorname => $colorvalue) {
                     $codetext = str_replace("%{$colorname}", $colorvalue, $codetext);
                 }
